@@ -120,7 +120,8 @@ class PHPUnit_Core
 			$end       = strpos($message, '"', $start);
 			$className = substr($message, $start, $end - $start);
 
-			require Kohana::find_file('vendor', 'PHPUnit/Util/Skeleton/Test');
+			require 'PHPUnit/Util/Skeleton/Test.php';
+			#require Kohana::find_file('vendor', 'PHPUnit/Util/Skeleton/Test');
 			$skeleton = new PHPUnit_Util_Skeleton_Test($className, $arguments['testFile']);
 
 			$result = $skeleton->generate(TRUE);
