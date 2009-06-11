@@ -1,0 +1,33 @@
+<?php
+$config['core.needs_installation'] = false;
+$config['model.database'] = 'local';
+
+$config['database.local'] = array(
+	'benchmark'     => FALSE,
+	'persistent'    => FALSE,
+	'connection'    => array
+	(
+		'type'     => 'mysql',
+		'user'     => 'byob2',
+		'pass'     => 'byob2',
+		'host'     => 'localhost',
+		'port'     => FALSE,
+		'socket'   => FALSE,
+		'database' => 'byob2'
+	),
+	'character_set' => 'utf8',
+	'table_prefix'  => '',
+	'object'        => TRUE,
+	'cache'         => FALSE,
+	'escape'        => TRUE
+);
+
+$config['email.driver'] = 'smtp';
+
+$config['email.options'] = array(
+    'hostname'   => 'smtp.example.com',
+    'username'   => 'USER NAME',
+    'password'   => 'PASSWORD',
+    'port'       => '465',
+    'encryption' => 'tls'
+);
