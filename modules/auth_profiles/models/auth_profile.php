@@ -51,13 +51,13 @@ class Auth_Profile_Model extends ORM
 
 
     /**
-	 * Returns the unique key for a specific value. This method is expected
-	 * to be overloaded in models if the model has other unique columns.
-	 *
+     * Returns the unique key for a specific value. This method is expected
+     * to be overloaded in models if the model has other unique columns.
+     *
      * If the key used in a find is a non-numeric string, search 'screen_name' column.
      *
-	 * @param   mixed   unique value
-	 * @return  string
+     * @param   mixed   unique value
+     * @return  string
      */
     public function unique_key($id)
     {
@@ -73,9 +73,9 @@ class Auth_Profile_Model extends ORM
      *
      * Note that ->save() must still be called after adding roles.
      *
-	 * @chainable
+     * @chainable
      * @param   string  Role name.
-	 * @return  ORM
+     * @return  ORM
      */
     public function add_role($role_name)
     {
@@ -87,9 +87,9 @@ class Auth_Profile_Model extends ORM
      *
      * Note that ->save() must still be called after removing roles.
      *
-	 * @chainable
+     * @chainable
      * @param   string  Role name.
-	 * @return  ORM
+     * @return  ORM
      */
     public function remove_role($role_name)
     {
@@ -100,7 +100,7 @@ class Auth_Profile_Model extends ORM
      * Check if a user has a given role.
      *
      * @param   string  Role name.
-	 * @return  boolean
+     * @return  boolean
      */
     public function has_role($role_name)
     {
@@ -111,7 +111,7 @@ class Auth_Profile_Model extends ORM
      * Check a permission by name, across all roles.
      *
      * @param   string  Permission name.
-	 * @return  boolean
+     * @return  boolean
      */
     public function has_permission($perm_name)
     {

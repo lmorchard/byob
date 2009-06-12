@@ -11,13 +11,13 @@ class Auth_Role_Model extends ORM
     protected $has_and_belongs_to_many = array('permissions');
 
     /**
-	 * Returns the unique key for a specific value. This method is expected
-	 * to be overloaded in models if the model has other unique columns.
-	 *
+     * Returns the unique key for a specific value. This method is expected
+     * to be overloaded in models if the model has other unique columns.
+     *
      * If the key used in a find is a non-numeric string, search 'name' column.
      *
-	 * @param   mixed   unique value
-	 * @return  string
+     * @param   mixed   unique value
+     * @return  string
      */
     public function unique_key($id)
     {
@@ -32,9 +32,9 @@ class Auth_Role_Model extends ORM
      *
      * Note that ->save() must still be called after granting permissions.
      *
-	 * @chainable
+     * @chainable
      * @param   string  Permission name.
-	 * @return  ORM
+     * @return  ORM
      */
     public function grant_permission($perm_name)
     {
@@ -46,9 +46,9 @@ class Auth_Role_Model extends ORM
      *
      * Note that ->save() must still be called after revoking permissions.
      *
-	 * @chainable
+     * @chainable
      * @param   string  Permission name.
-	 * @return  ORM
+     * @return  ORM
      */
     public function revoke_permission($perm_name)
     {
@@ -59,7 +59,7 @@ class Auth_Role_Model extends ORM
      * Check a permission by name.
      *
      * @param   string  Permission name.
-	 * @return  boolean
+     * @return  boolean
      */
     public function has_permission($perm_name)
     {

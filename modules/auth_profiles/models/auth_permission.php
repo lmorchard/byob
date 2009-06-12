@@ -27,13 +27,13 @@ class Auth_Permission_Model extends ORM
     }
 
     /**
-	 * Returns the unique key for a specific value. This method is expected
-	 * to be overloaded in models if the model has other unique columns.
-	 *
+     * Returns the unique key for a specific value. This method is expected
+     * to be overloaded in models if the model has other unique columns.
+     *
      * If the key used in a find is a non-numeric string, search 'name' column.
      *
-	 * @param   mixed   unique value
-	 * @return  string
+     * @param   mixed   unique value
+     * @return  string
      */
     public function unique_key($id)
     {
@@ -44,13 +44,13 @@ class Auth_Permission_Model extends ORM
     }
 
     /**
-	 * Finds and loads a single database row into the object.
+     * Finds and loads a single database row into the object.
      *
      * If a non-numeric string is passed, defer to find_by_name logic.
-	 *
-	 * @chainable
-	 * @param   mixed  primary key or an array of clauses
-	 * @return  ORM
+     *
+     * @chainable
+     * @param   mixed  primary key or an array of clauses
+     * @return  ORM
      */
     public function find($id=null) {
         if (!empty($id) && is_string($id) && !ctype_digit($id)) {
@@ -60,14 +60,14 @@ class Auth_Permission_Model extends ORM
     }
 
     /**
-	 * Finds and loads a single permission into the object.
+     * Finds and loads a single permission into the object.
      *
      * If a named permission is known, yet not found in database, an attempt 
      * to insert it will first be made.
      *
-	 * @chainable
-	 * @param   mixed  primary key or an array of clauses
-	 * @return  ORM
+     * @chainable
+     * @param   mixed  primary key or an array of clauses
+     * @return  ORM
      */
     public function find_by_name($name=null)
     {
@@ -84,16 +84,16 @@ class Auth_Permission_Model extends ORM
     }
 
     /**
-	 * Finds multiple database rows and returns an iterator of the rows found.
+     * Finds multiple database rows and returns an iterator of the rows found.
      *
      * Attempts to ensure table is up to date with known permissions 
-	 *
-	 * @chainable
-	 * @param   integer  SQL limit
-	 * @param   integer  SQL offset
-	 * @return  ORM_Iterator
+     *
+     * @chainable
+     * @param   integer  SQL limit
+     * @param   integer  SQL offset
+     * @return  ORM_Iterator
      */
-	public function find_all($limit = NULL, $offset = NULL)
+    public function find_all($limit = NULL, $offset = NULL)
     {
         $known_permissions = $this->find_known_permissions();
         $known_names = array_keys($known_permissions);

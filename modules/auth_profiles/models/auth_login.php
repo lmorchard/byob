@@ -33,13 +33,13 @@ class Auth_Login_Model extends ORM
     }
 
     /**
-	 * Returns the unique key for a specific value. This method is expected
-	 * to be overloaded in models if the model has other unique columns.
-	 *
+     * Returns the unique key for a specific value. This method is expected
+     * to be overloaded in models if the model has other unique columns.
+     *
      * If the key used in a find is a non-numeric string, search 'login_name' column.
      *
-	 * @param   mixed   unique value
-	 * @return  string
+     * @param   mixed   unique value
+     * @return  string
      */
     public function unique_key($id)
     {
@@ -53,8 +53,8 @@ class Auth_Login_Model extends ORM
      * Before saving, update created/modified timestamps and generate a UUID if 
      * necessary.
      *
-	 * @chainable
-	 * @return  ORM
+     * @chainable
+     * @return  ORM
      */
     public function save()
     {
