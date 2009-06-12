@@ -57,9 +57,9 @@ class Auth_Login_Model extends ORM
      */
     public function save()
     {
-        if (isset($this->table_columns['password']) && !empty($this->password)) {
-            $this->password = $this->encrypt_password($this->password);
-        }
+        // Never allow password changes without going through change_password()
+        unset($this->password);
+
         return parent::save();
     }
 
@@ -72,11 +72,12 @@ class Auth_Login_Model extends ORM
         $profile_data = array(
             'login_name' => $data['login_name'],
             'email'      => ($force_email_verified) ? $data['email'] : '',
-            'password'   => $data['password'],
             'created'    => gmdate('c', time())
         );
 
         $new_login = ORM::factory('login')->set($profile_data)->save();
+
+        $new_login->change_password($data['password']);
 
         $profile_data['id'] = $new_login->id;
 
