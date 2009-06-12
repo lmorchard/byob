@@ -17,16 +17,16 @@ class url extends url_Core
     public static function full($uri='', $qs=FALSE, $more=null) 
     {
         $data = $qs ? $_GET : array();
-        if (!empty($more))
+        if (!empty($more)) {
             $data = array_merge($data, $more);
+        }
 
-        if( ($qpos = strpos($uri,'?')) !== FALSE)
+        if( ($qpos = strpos($uri,'?')) !== FALSE) {
             $uri = substr($uri, 0, $qpos);
+        }
 
-        return ( empty($_SERVER['HTTPS']) ? 'http' : 'https' ) . '://' .
-            $_SERVER['HTTP_HOST'] . 
-            url::base() .
-            $uri . (!empty( $data ) ? '?'.http_build_query($data) : '');
+        return url::site($uri) . 
+            (!empty( $data ) ? '?'.http_build_query($data) : '');
     }
 
     /**

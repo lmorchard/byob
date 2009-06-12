@@ -160,7 +160,7 @@ class form extends form_Core
             $classes = array($type);
             if ('input' == $type)
                 $classes[] = isset($params['type']) ? $params['type'] : 'text';
-            if (array_key_exists($name, self::$errors))
+            if (!empty(self::$errors) && array_key_exists($name, self::$errors))
                 $classes[] = 'error';
             $li_attrs = html::attributes(array(
                 'class'=>join(' ', $classes)

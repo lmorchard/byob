@@ -10,7 +10,7 @@ class Auth_Profile_Model extends ORM
 {
     // {{{ Model attributes
     protected $has_and_belongs_to_many = array('roles', 'logins');
-    protected $has_many = array('profile_attributes');
+    // protected $has_many = array('profile_attributes');
     // }}}
 
     /**

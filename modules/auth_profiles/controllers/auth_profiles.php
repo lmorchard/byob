@@ -274,7 +274,7 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function settings()
     {
-        $params = $this->getParamsFromRoute(array());
+        $params = Router::get_params();
 
         if ($params['screen_name'] != AuthProfiles::get_profile('screen_name')) {
             header("HTTP/1.1 403 Forbidden"); 

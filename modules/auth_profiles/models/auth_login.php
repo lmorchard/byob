@@ -11,7 +11,6 @@ class Auth_Login_Model extends ORM
     // {{{ Model attributes
     
     protected $has_and_belongs_to_many = array('profiles');
-    protected $has_many = array('profile_attributes');
 
     protected $_table_name_password_reset_token =
         'login_password_reset_tokens';
@@ -395,10 +394,13 @@ class Auth_Login_Model extends ORM
      * Check to see whether a login name is available, for use in form 
      * validator.
      */
-    public function is_login_name_available($name)
+    public function is_login_name_available($login_name)
     {
+        if ($this->loaded && $login_name == $this->login_name) {
+            return true;
+        }
         $count = $this->db
-            ->where('login_name', $name)
+            ->where('login_name', $login_name)
             ->count_records($this->table_name);
         return (0==$count);
     }
@@ -417,6 +419,9 @@ class Auth_Login_Model extends ORM
      * login, for use in form validation.
      */
     public function is_email_available($email) {
+        if ($this->loaded && $email == $this->email) {
+            return true;
+        }
         $count = $this->db
             ->where('email', $email)
             ->count_records($this->table_name);
