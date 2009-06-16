@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<project name="kohana-2.4" default="build" basedir=".">
+	<property name="logs.dir" value="${basedir}/logs"/> <!-- ${logs.dir} -->
+	<property name="build.dir" value="${basedir}/build"/> <!-- ${build.dir} -->
+	<property name="source.dir" value="${basedir}/source"/> <!-- ${source.dir} -->
+
+	<target name="build" depends="checkout,prepare_test,test"/>
+
+	<target name="checkout">
+		<exec executable="svn" dir="${source.dir}">
+			<arg line="up" />
+		</exec>
+	</target>
+
+	<target name="prepare_test">
+		<exec executable="rm" dir="${source.dir}">
+			<arg line="-rf install.php application/config/database.php system/libraries/drivers/Image" />
+		</exec>
+		<exec executable="cp" dir="${basedir}">
+			<arg line="-r ${basedir}/config ${source.dir}/application/" />
+		</exec>
+		<replaceregexp file="${source.dir}/application/config/config.php"
+			match="// MODPATH\.\'unit_test\'"
+			replace="MODPATH\.\'phpunit\'"
+			byline="true"/>
+	</target>
+	<target name="test">
+		<exec executable="php" dir="${source.dir}" failonerror="on">
+			<arg line="index.php phpunit/core"/>
+		</exec>
+	</target>
+	<target name="phpcs" unless="buildforced">
+		<exec executable="phpcs" dir="${basedir}/source" output="${basedir}/build/logs/checkstyle.xml" error="/tmp/checkstyle.error.log">
+			<arg line="--report=checkstyle --standard=Kohana --extensions=php --ignore=*/vendor/*,*/tests/* ."/>
+		</exec>
+	</target>
+</project>

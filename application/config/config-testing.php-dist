@@ -1,0 +1,33 @@
+<?php
+$config['model.enable_delete_all'] = true;
+$config['model.database'] = 'testing';
+
+$config['database.testing'] = array(
+	'benchmark'     => TRUE,
+	'persistent'    => FALSE,
+	'connection'    => array
+	(
+		'type'     => 'mysql',
+		'user'     => 'byob2',
+		'pass'     => 'byob2',
+		'host'     => 'localhost',
+		'port'     => FALSE,
+		'socket'   => FALSE,
+		'database' => 'byob2_test'
+	),
+	'character_set' => 'utf8',
+	'table_prefix'  => '',
+	'object'        => TRUE,
+	'cache'         => FALSE,
+	'escape'        => TRUE
+);
+
+$config['email.driver'] = 'smtp';
+
+$config['email.options'] = array(
+    'hostname'   => 'smtp.example.com',
+    'username'   => 'USER NAME',
+    'password'   => 'PASSWORD',
+    'port'       => '465',
+    'encryption' => 'tls'
+);
