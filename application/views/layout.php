@@ -23,7 +23,7 @@
                 <div class="logo"><span></span></div>
 
                 <div class="crumbs">
-                    <span class="title"><a href="<?=url::base()?>">home</a></span>
+                    <span class="title"><a href="<?=url::base()?>">byob</a></span>
                     <?= slot::get('crumbs') ?>
                 </div>
 
@@ -64,6 +64,10 @@
                     <?php if (!empty($message)): ?>
                         <p class="message"><?= html::specialchars($message) ?></p>
                     <?php endif ?>
+                    <?php $flash_message = Session::instance()->get('message') ?>
+                    <?php if (!empty($flash_message)): ?>
+                        <p class="message"><?= html::specialchars($flash_message) ?></p>
+                    <?php endif ?>
                     <?= $content ?>
                 </div>
                 <?php if ( slot::exists('sidebar') ): ?>
@@ -73,7 +77,7 @@
 
             <div id="footer">
                 <ul class="nav">
-                <li class="first"><a href="<?=url::base()?>">home</a></li>
+                <li class="first"><a href="<?=url::base()?>">byob</a></li>
                     <?= slot::get('footer_nav') ?>
                 </ul>
             </div>

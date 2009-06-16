@@ -30,15 +30,6 @@ class Auth_Profiles_Controller extends Local_Controller
         $this->login_model = new Login_Model();
     }
 
-
-    /**
-     * Combination login / registration action.
-     */
-    public function index()
-    {
-        return url::redirect('home');
-    }
-
     /**
      * Convenience action to redirect to logged in user's default profile.
      */
@@ -54,6 +45,14 @@ class Auth_Profiles_Controller extends Local_Controller
                 AuthProfiles::get_profile('screen_name')
             ));
         }
+    }
+
+    /**
+     * Combination login / registration action.
+     */
+    public function index()
+    {
+        return url::redirect('home');
     }
 
 

@@ -24,7 +24,8 @@ class html extends html_Core
                 $out[] = "<li>$item</li>";
             }
         }
-        return '<ul' . ( !empty($attrs) ? html::attributes($attrs) : '' ) . '>'.join("\n", $out).'</ul>';
+        return '<ul' . ( !empty($attrs) ? html::attributes($attrs) : '' ) . 
+            '>'.join("\n", $out).'</ul>';
     }
 
     /**

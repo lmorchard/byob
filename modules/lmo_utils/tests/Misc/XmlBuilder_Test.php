@@ -45,8 +45,6 @@ class XmlBuilder_Test extends PHPUnit_Framework_TestCase
      */
     public function testWriter()
     {
-        //include_once( Kohana::find_file('libraries', 'Memex/XmlBuilder') );
-
         $x = new XmlBuilder(array(
             'parents' => array( 'feed', 'entry', 'author' )
         ));

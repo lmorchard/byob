@@ -2,7 +2,6 @@
 /**
  * Registration form error messages
  *
- * @package Memex
  * @author  l.m.orchard@pobox.com
  */
 $lang = array(
