@@ -108,7 +108,6 @@ class Login_Model extends Auth_Login_Model
             ))->save();
 
             // Perform password change if requested.
-            var_dump(!empty($form['change_password']));
             if (!empty($form['change_password'])) {
                 $this->change_password($form['new_password']);
             }
