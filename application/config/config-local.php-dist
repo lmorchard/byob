@@ -31,3 +31,7 @@ $config['email.options'] = array(
     'port'       => '465',
     'encryption' => 'tls'
 );
+
+$config['recaptcha.domain_name'] = 'localhost';
+$config['recaptcha.public_key']  = 'foo';
+$config['recaptcha.private_key'] = 'foo';
