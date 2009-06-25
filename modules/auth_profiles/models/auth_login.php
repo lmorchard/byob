@@ -22,7 +22,7 @@ class Auth_Login_Model extends ORM
         'created'        => 'Created',
     );
     
-    protected $has_and_belongs_to_many = array('profiles');
+    public $has_and_belongs_to_many = array('profiles');
 
     protected $_table_name_password_reset_token =
         'login_password_reset_tokens';

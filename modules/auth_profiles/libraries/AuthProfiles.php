@@ -11,6 +11,8 @@ class AuthProfiles
     public static $cookie_manager = null;
     public static $cookie_name = 'auth_profiles';
     public static $user_data = null;
+    public static $profile = null;
+    public static $login = null;
 
     /**
      * Iniitalize the helper.
@@ -71,7 +73,7 @@ class AuthProfiles
             self::$cookie_name,
             Kohana::config('auth_profiles.cookie_path')
         );
-        self::$user_data = null;
+        return self::$user_data = null;
     }
 
     /**
@@ -90,22 +92,6 @@ class AuthProfiles
                     empty(self::$user_data['profile_id'])) {
                 // Force cookie clear if data is invalid.
                 return self::logout();
-            }
-
-            $login = ORM::factory('login', self::$user_data['login_name']);
-            if (empty($login) || !$login->active) {
-                // Force cookie clear if no such login, or login disabled.
-                return self::logout();
-            } else {
-                self::$user_data['login'] = $login->as_array();
-            }
-
-            $profile = ORM::factory('profile', self::$user_data['profile_id']);
-            if (!$profile->loaded) {
-                // Force cookie clear if no such profile.
-                return self::logout();
-            } else {
-                self::$user_data['profile'] = $profile->as_array();
             }
 
         }
@@ -133,11 +119,25 @@ class AuthProfiles
     public static function get_login($key=null, $default=null)
     {
         $user_data = self::get_user_data();
+
+        if (empty($user_data)) {
+            return $default;
+        }
+
+        if (null === self::$login) {
+            self::$login = ORM::factory('login', self::$user_data['login_name']);
+            if (empty(self::$login) || !self::$login->active) {
+                // Force cookie clear if no such login, or login disabled.
+                self::logout();
+                return $default;
+            }
+        }
+
         if (null===$key) {
-            return $user_data['login'];
+            return self::$login;
         } else {
-            return isset($user_data['login'][$key]) ?
-                $user_data['login'][$key] : $default;
+            return isset(self::$login->{$key}) ?
+                self::$login->{$key} : $default;
         }
     }
 
@@ -151,12 +151,26 @@ class AuthProfiles
     public static function get_profile($key=null, $default=null)
     {
         $user_data = self::get_user_data();
-        if (null===$key) {
-            return $user_data['profile'];
-        } else {
-            return isset($user_data['profile'][$key]) ?
-                $user_data['profile'][$key] : $default;
+
+        if (empty($user_data)) {
+            return $default;
         }
+
+        if (null === self::$login) {
+            self::$profile = ORM::factory('profile', self::$user_data['profile_id']);
+            if (!self::$profile->loaded) {
+                self::logout();
+                return $default;
+            }
+        }
+
+        if (null===$key) {
+            return self::$profile;
+        } else {
+            return isset(self::$profile->{$key}) ?
+                self::$profile->{$key} : $default;
+        }
+
     }
 
 }

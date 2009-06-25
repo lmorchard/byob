@@ -101,7 +101,7 @@ class Roles_Permissions_Test extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        DecafbadUtils_EnvConfig::apply('testing');
+        LMO_Utils_EnvConfig::apply('testing');
 
         $this->role_model = 
             ORM::factory('role')->delete_all();

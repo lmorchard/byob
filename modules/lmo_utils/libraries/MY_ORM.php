@@ -27,8 +27,9 @@ class ORM extends ORM_Core {
 	 * @chainable
 	 * @return  ORM
      */
-    public function set($arr)
+    public function set($arr=null)
     {
+        if (empty($arr)) return;
         foreach ($arr as $name=>$value) {
             if (isset($this->table_columns[$name]))
                 $this->{$name} = $value;

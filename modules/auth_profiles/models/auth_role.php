@@ -8,8 +8,8 @@
  */
 class Auth_Role_Model extends ORM
 {
-    protected $belongs_to = array('parent_role'=>'role');
-    protected $has_and_belongs_to_many = array('permissions');
+    public $belongs_to = array('parent_role'=>'role');
+    public $has_and_belongs_to_many = array('permissions');
 
     /**
      * Returns the unique key for a specific value. This method is expected

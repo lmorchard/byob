@@ -46,15 +46,9 @@ class Repacks_Controller extends Local_Controller
             return Event::run('system.404');
         }
 
-        $repack_rows = ORM::factory('repack')
+        $this->view->repacks = ORM::factory('repack')
             ->where('created_by', $profile->id)
             ->find_all();
-
-        $repacks = array();
-        foreach ($repack_rows as $repack_row) {
-            $repacks[] = $repack_row->get();
-        }
-        $this->view->repacks = $repacks;
     }
 
     /**
@@ -108,28 +102,24 @@ class Repacks_Controller extends Local_Controller
             'uuid'   => null
         ));
 
-        $this->repack_model = new Repack_Model();
-
         if (false !== $params['create']) {
 
             // On creation, instantiate a new repack.
-            $rp = new Mozilla_BYOB_Repack(array(
-                'created_by' => AuthProfiles::get_profile('id'),
-                'created_on' => date('c')
-            ));
+            $rp = ORM::factory('repack');
+            $rp->created_by_id = AuthProfiles::get_profile('id');
             $this->view->create = true;
 
         } else {
 
             $rp = $this->_getRequestedRepack();
-            if ($rp->created_by != AuthProfiles::get_profile('id')) {
+            if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
                 // Bail out if the logged in user doesn't own it.
                 return Event::run('system.403');
             }
             $this->view->create = false;
 
             if ($this->input->post('cancel', false)) {
-                return url::redirect($rp->url());
+                return url::redirect($rp->url);
             }
 
         }
@@ -140,7 +130,9 @@ class Repacks_Controller extends Local_Controller
         $form_data['uuid'] = $rp->uuid;
 
         // Try to validate the form data and update the repack.
-        $is_valid = $rp->validate($form_data, true);
+        $is_valid = $rp->validate_repack(
+            $form_data, ('post' == request::method())
+        );
 
         $this->view->set(array(
             'repack'    => $rp,
@@ -161,7 +153,7 @@ class Repacks_Controller extends Local_Controller
         } else {
 
             // This was a valid POST, so save the modified repack.
-            $this->repack_model->save($rp);
+            $rp->save();
 
             // Notify the user that the repack was updated.
             Session::instance()->set_flash(
@@ -171,9 +163,9 @@ class Repacks_Controller extends Local_Controller
             );
 
             if ($this->input->post('done', false)) {
-                return url::redirect($rp->url());
+                return url::redirect($rp->url);
             } else {
-                return url::redirect($rp->url().';edit');
+                return url::redirect($rp->url.';edit');
             }
 
         }
@@ -185,19 +177,23 @@ class Repacks_Controller extends Local_Controller
     public function delete()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by != AuthProfiles::get_profile('id')) {
+        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
             // Bail out if the logged in user doesn't own it.
             return Event::run('system.403');
         }
 
         $this->view->repack = $rp;
 
-        if ('post' == request::method() && isset($_POST['confirm']) ) {
-            $this->repack_model->where(array('uuid' => $rp->uuid))->delete();
-            Session::instance()->set_flash(
-                'message', 'Repack deleted'
-            );
-            url::redirect('');
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm']) ) {
+                $this->repack_model->where(array('uuid' => $rp->uuid))->delete();
+                Session::instance()->set_flash(
+                    'message', 'Repack deleted'
+                );
+                return url::redirect('');
+            } else {
+                return url::redirect($rp->url);
+            }
         }
     }
 
@@ -238,16 +234,20 @@ class Repacks_Controller extends Local_Controller
     public function release()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by != AuthProfiles::get_profile('id')) {
+        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
             // Bail out if the logged in user doesn't own it.
             return Event::run('system.403');
         }
 
-        if ('post' == request::method() && isset($_POST['confirm']) ) {
-            // Schedule a repack via event and return to detail page.
-            $ev_data = $rp->asArray();
-            Event::run('BYOB.process_repack', $ev_data);
-            return url::redirect($rp->url());
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm']) ) {
+                // Schedule a repack via event and return to detail page.
+                $ev_data = $rp->as_array();
+                Event::run('BYOB.process_repack', $ev_data);
+                return url::redirect($rp->url);
+            } else {
+                return url::redirect($rp->url);
+            }
         }
 
         $this->view->repack = $rp;
@@ -259,7 +259,7 @@ class Repacks_Controller extends Local_Controller
     public function xpiconfigini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by != AuthProfiles::get_profile('id')) {
+        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;
@@ -273,7 +273,7 @@ class Repacks_Controller extends Local_Controller
     public function distributionini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by != AuthProfiles::get_profile('id')) {
+        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;
@@ -304,11 +304,10 @@ class Repacks_Controller extends Local_Controller
             }
 
             $rp = $this->repack_model
-                ->where(array( 
-                    'created_by' => $profile->id,
+                ->find(array( 
+                    'created_by_id' => $profile,
                     'short_name' => $params['short_name']
-                ))
-                ->find()->get();
+                ));
 
         } else {
             $rp = null;

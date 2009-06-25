@@ -10,6 +10,8 @@ class Profile_Model extends Auth_Profile_Model
 {
     // {{{ Model attributes
 
+    public $has_many = array('repacks');
+
     // Titles for named columns
     public $table_column_titles = array(
         'id'             => 'ID',

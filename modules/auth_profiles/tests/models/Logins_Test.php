@@ -19,7 +19,7 @@ class Logins_Test extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        DecafbadUtils_EnvConfig::apply('testing');
+        LMO_Utils_EnvConfig::apply('testing');
 
         $this->login_model = new Login_Model();
         $this->login_model->delete_all();

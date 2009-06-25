@@ -69,4 +69,40 @@ $u = html::urlencode_array(compact(
         </table>
 
     </form>
+
+    <div class="relations">
+
+        <?php foreach ($relations as $name=>$rel_rows): ?>
+            <?php
+                $sub_model = null;
+                $sub_rows  = array();
+
+                foreach ($rel_rows as $idx=>$row) {
+                    if (!is_object($row)) {
+                        var_dump($row); die;
+                    }
+                    if (empty($row) || !$row->loaded)
+                        break;
+                    if ($idx > 10) 
+                        break;
+                    if (!$sub_model)
+                        $sub_model = ORM::factory($row->object_name);
+                    $sub_rows[] = $row;
+                }
+            ?>
+            <?php if (!empty($sub_rows)): ?>
+
+                <div class="list_model">
+                    <h3><?=html::specialchars($name)?></h3>
+                    <?= View::factory("{$view_base}/list_model/list")->set(array(
+                        'rows'  => $sub_rows,
+                        'model' => $sub_model
+                    ))->render(TRUE) ?>
+                </div>
+            
+            <?php endif ?>
+        <?php endforeach ?>
+
+    </div>
+
 </div>

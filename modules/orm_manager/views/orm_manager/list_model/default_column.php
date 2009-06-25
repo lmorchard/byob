@@ -13,7 +13,7 @@ $h = html::escape_array(compact(
             'column_value', 'model_name'
         ));
         $view_url = "{$url_base}/model/{$u['model_name']}/edit/{$u['column_value']}" .
-            "?return_page={$pagination->current_page}";
+            (!empty($pagination) ? "?return_page={$pagination->current_page}" : '');
     ?>
     <td class="primary_key"><a href="<?=$view_url?>"><?=$h['column_value']?></a></td>
 <?php else: ?>

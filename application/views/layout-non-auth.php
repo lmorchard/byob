@@ -26,18 +26,6 @@
                         <?= slot::get('crumbs') ?>
                     </div>
                     <div class="sub">
-                        <div class="auth">
-                            <ul class="nav">
-                                <?php if (!AuthProfiles::is_logged_in()): ?>
-                                    <li class="first"><a href="<?= url::base() . 'register' ?>">register</a></li>
-                                    <li><a href="<?= url::base() . 'login' ?>">login</a></li>
-                                <?php else: ?>
-                                    <li class="first">logged in as <a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
-                                    <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">settings</a></li>
-                                    <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
-                                <?php endif; ?>
-                            </ul>
-                        </div>
                     </div>
                 </div>
 

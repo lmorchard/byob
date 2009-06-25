@@ -99,7 +99,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        DecafbadUtils_EnvConfig::apply('testing');
+        LMO_Utils_EnvConfig::apply('testing');
 
         $this->profile_model = 
             ORM::factory('profile')->delete_all();

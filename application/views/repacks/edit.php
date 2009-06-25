@@ -123,7 +123,7 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
         <?php
             $locales = form::value('locales');
-            $locale_choices = Mozilla_BYOB_Repack::$locale_choices;
+            $locale_choices = Repack_Model::$locale_choices;
         ?>
         <ul class="locales">
             <?php if (!empty($locales)) foreach ($locales as $locale): ?>
@@ -183,7 +183,7 @@ form::$errors = isset($form_errors) ? $form_errors : array();
             ?>
             <label for="os[]">Operating Systems:</label>
             <ul class="repack-os">
-                <?php foreach (Mozilla_BYOB_Repack::$os_choices as $name=>$label): ?>
+                <?php foreach (Repack_Model::$os_choices as $name=>$label): ?>
                     <li>
                         <?= form::checkbox("os[]", $name, in_array($name, $osen)) ?>
                         <?= html::specialchars($label) ?>

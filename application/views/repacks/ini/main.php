@@ -1,16 +1,17 @@
 <?php
 $r = $repack;
-$partner_id = 'byob' . $r->created_by_user->username;
+$partner_id = 'byob' . $r->created_by->screen_name;
+$locales = (!empty($r->locales)) ? join(',', $r->locales) : '';
 ?>
 ; Partner XPI configuration file for "<?= $r->title ?>"
-; Author email: <?= $r->created_by_user->email . "\n" ?>
+; Author email: <?= $r->created_by->logins[0]->email . "\n" ?>
 ; UUID: <?= $r->uuid . "\n" ?>
 
-name=byob-<?= $r->created_by_user->username ?>-<?= $r->short_name . "\n" ?>
+name=byob-<?= $r->created_by->screen_name ?>-<?= $r->short_name . "\n" ?>
 version=<?= $r->version . "\n" ?>
 ini.version=1.3
 output=dex.xpi
-locales=<?= join(',', $r->locales) ."\n" ?>
+locales=<?= $locales . "\n" ?>
 
 [Repack]
 platforms=<?php
@@ -20,7 +21,7 @@ platforms=<?php
     if ($r->repack_linux) { array_push($platforms, "unix"); }
     echo join(",", $platforms) . "\n"; 
 ?>
-locales=<?= join(',', $r->locales) . "\n" ?>
+locales=<?= $locales . "\n" ?>
 firefox.version=<?= $r->product['version'] . "\n"; ?>
 base.url=<?= $r->product['url'] . "\n" ?>
 disable.migration=<?= (($r->product['disable_migration']) ? 'true' : 'false') . "\n"?>
@@ -28,16 +29,16 @@ disable.migration=<?= (($r->product['disable_migration']) ? 'true' : 'false') . 
 [InstallPrefs]
 minversion=<?= $r->min_version ?> 
 maxversion=<?= $r->max_version ?> 
-summary=<?= $r->title ?> 
+about=Mozilla Firefox for <?= $r->created_by->org_name . "\n" ?>
 description=<?= $r->description ?> 
-creator=<?= $r->created_by ?> 
-url=<?= $r->url() ?> 
+creator=<?= $r->created_by->screen_name ?> 
+url=<?= $r->url ?> 
 hidden=<?= (($r->hidden) ? 'true' : 'false') . "\n" ?>
 
 [GlobalLocalizablePrefs]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
-browser.startup.homepage=<?= $r->url() . '/startpage' . "\n" ?>
-browser.startup.homepage_reset=<?= $r->url() . '/firstrun' . "\n" ?>
+browser.startup.homepage=<?= $r->url . '/startpage' . "\n" ?>
+browser.startup.homepage_reset=<?= $r->url . '/firstrun' . "\n" ?>
 
 <?php if (!empty($r->bookmarks_menu)): ?>
 [BookmarksMenu]

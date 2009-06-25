@@ -12,7 +12,8 @@ View::factory('repacks/details')
     <input type="hidden" name="confirm" value="yes" />
     <h3>Generate a new release for this browser?</h3>
     <p>
-        Are you sure? <input type="submit" value="yes" />  /  
-        <a href="<?= $repack->url() ?>">no</a>
+        Are you sure?
+        <input type="submit" name="confirm" id="confirm" value="yes" />  /  
+        <input type="submit" name="cancel" id="cancel" value="no" /> 
     </p>
 </form>

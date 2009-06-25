@@ -8,7 +8,7 @@
  */
 class Auth_Permission_Model extends ORM
 {
-    protected $has_and_belongs_to_many = array('roles');
+    public $has_and_belongs_to_many = array('roles');
 
     protected $known_permissions = null;
 

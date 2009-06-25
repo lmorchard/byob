@@ -1,6 +1,6 @@
 <?php 
 $type = isset($item['type']) ? $item['type'] : 'normal';
-$fields = Mozilla_BYOB_Repack::$type_fields[$type];
+$fields = Repack_Model::$type_fields[$type];
 ?>
 <li class="bookmark clearfix">
     <span class="type <?= $type ?>">

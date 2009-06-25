@@ -89,12 +89,10 @@ class ORM_Manager_Controller extends Layout_Controller
                 ->in($model->primary_key, $this->input->post('select_row'))
                 ->find_all();
 
-            
 
             foreach ($model_rows as $row) {
                 var_dump($row->as_array());
             }
-
             var_dump($this->input->post()); die;
         }
 
@@ -104,9 +102,9 @@ class ORM_Manager_Controller extends Layout_Controller
             'total_items'    => $model->count_all(),
         ));
 
-        $model_rows = $model
-            ->limit($pg->items_per_page, $pg->sql_offset)
-            ->find_all();
+        $model->limit($pg->items_per_page, $pg->sql_offset);
+
+        $model_rows = $model->find_all();
 
         $this->view->set_global(array(
             'pagination' => $pg,
@@ -132,6 +130,23 @@ class ORM_Manager_Controller extends Layout_Controller
             // TODO: better error msg?
             return Event::run('system.404');
         }
+
+        $relations = array(
+        );
+        $rel_props = array(
+            'has_one'=>true, 'belongs_to'=>true, 
+            'has_many'=>false, 'has_and_belongs_to_many'=>false
+        );
+
+        foreach ($rel_props as $rel_prop_name=>$singular) {
+            foreach ($model->{$rel_prop_name} as $alias=>$name) {
+                $attr_name = (!is_numeric($alias)) ? $alias : $name;
+                $relations[$attr_name] = ($singular) ?
+                    array($model->{$attr_name}) : $model->{$attr_name};
+            }
+        }
+
+        $this->view->relations = $relations;
 
         $return_page = $this->input->get(
             'return_page', $this->input->post('return_page')

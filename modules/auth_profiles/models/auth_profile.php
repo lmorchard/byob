@@ -21,7 +21,7 @@ class Auth_Profile_Model extends ORM
         'last_login'     => 'Last login',
     );
 
-    protected $has_and_belongs_to_many = array('roles', 'logins');
+    public $has_and_belongs_to_many = array('roles', 'logins');
     // protected $has_many = array('profile_attributes');
     // }}}
 

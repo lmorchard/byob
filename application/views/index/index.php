@@ -21,7 +21,7 @@ Want to [get started building a browser][create]?
 Or, you can manage one of your existing custom browsers:
 
 <?php foreach ($repacks as $repack): ?>
-* [<?= html::specialchars($repack->title) ?>](<?= $repack->url() ?>)
+* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>)
 <?php endforeach ?>
 
 <?php endif ?>
@@ -31,7 +31,7 @@ Or, you can manage one of your existing custom browsers:
 ### Latest browsers by everyone
 
 <?php foreach ($latest_repacks as $repack): ?>
-* [<?= html::specialchars($repack->title) ?>](<?= $repack->url() ?>) by <?= html::specialchars($repack->created_by_user->screen_name) . "\n" ?>
+* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>) by <?= html::specialchars($repack->created_by->screen_name) . "\n" ?>
 <?php endforeach ?>
 
 <?php slot::end_filter('Markdown') ?>

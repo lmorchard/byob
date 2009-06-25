@@ -12,7 +12,7 @@ $items = form::value($prefix, array());
 ?></ul>
 
 <div class="bookmark-add-options">
-    <?php foreach (Mozilla_BYOB_Repack::$bookmark_types as $name=>$label): ?>
+    <?php foreach (Repack_Model::$bookmark_types as $name=>$label): ?>
     <div class="bookmark-add bookmark-add-<?= html::specialchars($name) ?>">
         <a class="add" href="#">Add a new <?= html::specialchars($label) ?> bookmark</a>
         <ul class="template">

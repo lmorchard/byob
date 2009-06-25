@@ -8,9 +8,9 @@ View::factory('repacks/details')
     ->set('repack', $repack)->render(true); 
 ?>
 
-<?php if (AuthProfiles::get_profile('id') == $repack->created_by): ?>
+<?php if (AuthProfiles::get_profile('id') == $repack->created_by->id): ?>
 
-    <?php $rp_url = $repack->url(); ?>
+    <?php $rp_url = $repack->url; ?>
     <div>
         <h3>Admin options</h3>
         <ul class="options">
