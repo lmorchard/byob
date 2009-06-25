@@ -9,6 +9,18 @@
 class Auth_Profile_Model extends ORM
 {
     // {{{ Model attributes
+
+    // Titles for named columns
+    public $table_column_titles = array(
+        'id'             => 'ID',
+        'uuid'           => 'UUID',
+        'screen_name'    => 'Screen name',     
+        'full_name'      => 'Full name',
+        'bio'            => 'Bio',
+        'created'        => 'Created',
+        'last_login'     => 'Last login',
+    );
+
     protected $has_and_belongs_to_many = array('roles', 'logins');
     // protected $has_many = array('profile_attributes');
     // }}}

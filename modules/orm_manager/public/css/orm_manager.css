@@ -27,6 +27,12 @@
     border: 1px solid #ccc;
     padding: 0.5em 0.25em;
 }
+.list_model table tbody tr td.primary_key {
+}
+.list_model table tbody tr td.primary_key a {
+    display: block;
+    text-align: center;
+}
 .list_model table tbody tr td span {
     font-size: 80%;
 }

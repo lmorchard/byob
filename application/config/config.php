@@ -4,7 +4,7 @@
  * then a full URL will be used, eg: http://localhost/kohana/. If it only includes
  * the path, and a site_protocol is specified, the domain will be auto-detected.
  */
-$config['site_domain'] = $_SERVER['HTTP_HOST'] . '/~lorchard/byob2/';
+$config['site_domain'] = $_SERVER['HTTP_HOST'] . '/';
 
 /**
  * Force a default protocol to be used by the site. If no site_protocol is
@@ -120,6 +120,7 @@ $config['modules'] = array
     MODPATH.'messagequeue',
 
     MODPATH.'orm_manager',
+    MODPATH.'recaptcha',
 
     MODPATH.'phpunit',
     MODPATH.'lmo_utils',

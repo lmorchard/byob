@@ -8,6 +8,21 @@
  */
 class Login_Model extends Auth_Login_Model
 {
+    // {{{ Model attributes
+
+    // Titles for named columns
+    public $table_column_titles = array(
+        'id'             => 'ID',
+        'login_name'     => 'Login name',     
+        'active'         => 'Active',
+        'email'          => 'Email',
+        'password'       => 'Password',
+        'last_login'     => 'Last login',
+        'modified'       => 'Modified',
+        'created'        => 'Created',
+    );
+
+    // }}}
 
     /**
      * Return a set of columns to be shown in lists.
@@ -16,7 +31,19 @@ class Login_Model extends Auth_Login_Model
     {
         return arr::extract(
             $this->table_columns, 
-            'id', 'login_name', 'email', 'last_login', 'created', 'active'
+            'id', 'login_name', 'active', 'email', 'last_login', 
+            'modified', 'created'
+        );
+    }
+
+    /**
+     * Return a set of columns to be shown in editing.
+     */
+    public function get_edit_columns()
+    {
+        return arr::extract(
+            $this->table_columns, 
+            'login_name', 'email', 'active', 'password'
         );
     }
 
@@ -74,7 +101,7 @@ class Login_Model extends Auth_Login_Model
             // Change some known valid fields.
             $this->set(arr::extract(
                 $form->as_array(), 
-                'login_name', 'created', 'last_login', 'active'
+                'login_name', 'active'
             ))->save();
 
             // Perform password change if requested.
@@ -91,6 +118,42 @@ class Login_Model extends Auth_Login_Model
         }
 
         return $is_valid;
+    }
+
+    /**
+     * Validate registration data
+     */
+    public function validate_registration(&$data)
+    {
+        // Force screen name to match login name.
+        if (isset($data['login_name']))
+            $data['screen_name'] = $data['login_name'];
+
+        $profile_model = new Profile_Model();
+
+        $data = Validation::factory($data)
+            ->pre_filter('trim')
+            ->add_rules('login_name',       
+                'required', 'length[3,64]', 'valid::alpha_dash', 
+                array($this, 'is_login_name_available'))
+            ->add_rules('email', 
+                'required', 'length[3,255]', 'valid::email',
+                array($this, 'is_email_available'))
+            ->add_rules('email_confirm', 
+                'required', 'valid::email', 'matches[email]')
+            ->add_rules('password', 'required')
+            ->add_rules('password_confirm', 'required', 'matches[password]')
+            ->add_rules('screen_name',      
+                'required', 'length[3,64]', 'valid::alpha_dash', 
+                array($profile_model, 'is_screen_name_available'))
+            ->add_rules('full_name', 'required', 'valid::standard_text')
+            ;
+
+        if ('post' == request::method() && !recaptcha::check()) {
+            $data->add_error('recaptcha', recaptcha::error());
+        }
+
+        return $data->validate();
     }
 
 }

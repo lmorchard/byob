@@ -135,24 +135,44 @@ class form extends form_Core
         } else {
 
             $classes = array($type);
-            if (!empty($params['class']))
+            if (!empty($params['class'])) {
                 $classes[] = $params['class'];
+                unset($params['class']);
+            }
 
             if ('checkbox' == $type) {
-                // Checkboxes get special handling because 'value' and 
-                // 'checked' are relevant.
+
                 $field = form::checkbox(
-                    array_merge(array('name' => $name, 'class' => join(' ', $classes)), $params),
+                    array_merge(array(
+                        'name' => $name, 
+                        'class' => join(' ', $classes)
+                    ), $params),
                     @$params['value'], $value, false
                 );
-            // } else if ('select' == $type) { // TODO
+
+            } else if ('dropdown' == $type || 'select' == $type) {
+
+                // HACK: Keeps 'options' out of HTML attributes
+                $options = $params['options'];
+                unset($params['options']);
+
+                $field = form::dropdown(
+                    array_merge(array(
+                        'name' => $name, 
+                        'class' => join(' ', $classes)
+                    ), $params),
+                    $options, $value, ''
+                );
+
             } else {
+
                 // Dynamic dispatch to other form::* static helpers.
                 $field = call_user_func(
                     array('form', $type), 
                     array('name' => $name, 'class' => join(' ', $classes)),
                     $value, '', false
                 );
+
             }
 
             // List item classes consist of the name of the field type, along 

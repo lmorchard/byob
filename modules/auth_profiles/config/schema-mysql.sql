@@ -106,6 +106,7 @@ ALTER TABLE `profile_attributes`
 DROP TABLE IF EXISTS `roles`;
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL auto_increment,
+  `parent_role_id` int(11) default NULL,
   `name` varchar(32) default NULL,
   `description` text,
   PRIMARY KEY  (`id`)

@@ -25,6 +25,12 @@ $row_view = (method_exists($model, 'get_list_row_view')) ?
                 <tr>
                     <th><span> </span></th>
                     <?php foreach ($columns as $c_name=>$c_info): ?>
+                        <?php
+                            if (isset($model->table_column_titles) &&
+                                isset($model->table_column_titles[$c_name])) {
+                                $c_name = $model->table_column_titles[$c_name];
+                            }
+                        ?>
                         <th><?= html::specialchars($c_name) ?></th>
                     <?php endforeach ?>
                 </tr>

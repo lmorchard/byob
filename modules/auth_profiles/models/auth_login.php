@@ -9,6 +9,18 @@
 class Auth_Login_Model extends ORM
 {
     // {{{ Model attributes
+
+    // Titles for named columns
+    public $table_column_titles = array(
+        'id'             => 'ID',
+        'login_name'     => 'Login name',     
+        'active'         => 'Active',
+        'email'          => 'Email',
+        'password'       => 'Password',
+        'last_login'     => 'Last login',
+        'modified'       => 'Modified',
+        'created'        => 'Created',
+    );
     
     protected $has_and_belongs_to_many = array('profiles');
 
@@ -61,6 +73,19 @@ class Auth_Login_Model extends ORM
         unset($this->password);
 
         return parent::save();
+    }
+
+    /**
+     * Perform anything necessary for login on the model side.
+     *
+     * @param  array|Validation Form data used in login
+     * @return boolean
+     */
+    public function login($data)
+    {
+        $this->last_login = gmdate('c');
+        $this->save();
+        return true;
     }
 
 

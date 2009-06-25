@@ -8,9 +8,12 @@
  */
 class ManagedORM extends ORM
 {
-    protected $edit_column_names = null;
-    protected $list_column_names = null;
-    protected $list_row_view_name = null;
+    // Titles for named columns
+    public $table_column_titles = array();
+
+    public $edit_column_names = null;
+    public $list_column_names = null;
+    public $list_row_view_name = null;
 
     protected $batch_methods = array(
         'delete' => array(
@@ -156,7 +159,10 @@ class ManagedORM extends ORM
 
         $form = Validation::factory($form)->pre_filter('trim');
 
-        foreach ($model->table_columns as $column_name=>$column_info) {
+        $edit_columns = method_exists($model, 'get_edit_columns') ?
+            $model->get_edit_columns() : $model->table_columns;
+
+        foreach ($edit_columns as $column_name=>$column_info) {
 
             if ($column_name == $model->primary_key) {
                 continue; // Protect primary key from edits.

@@ -13,6 +13,7 @@ class LMO_Utils_Init {
      */
     public static function init()
     {
+        require_once(Kohana::find_file('vendor', 'Markdown'));
     }
 
 }

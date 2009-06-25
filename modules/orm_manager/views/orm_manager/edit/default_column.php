@@ -2,12 +2,16 @@
 $is_error      = !empty($errors[$column_name]);
 $error_message = $is_error ? $errors[$column_name] : '';
 
+$column_title = (isset($model->table_column_titles) &&
+    isset($model->table_column_titles[$column_name])) ?
+    $model->table_column_titles[$column_name] : $column_name;
+
 $h = html::escape_array(compact(
-    'column_name', 'column_value', 'error_message'
+    'column_name', 'column_title', 'column_value', 'error_message'
 ));
 ?>
 <tr class="<?=$is_error?'error':''?>">
-    <th><span><?=$h['column_name']?></span></th>
+    <th><span><?=$h['column_title']?></span></th>
     <td>
         <?php if ($column_name == $model->primary_key): ?>
             <span class="primary_key"><?=$h['column_value']?></span>

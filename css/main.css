@@ -1,299 +1,330 @@
-/**
- * Common CSS
- */
-.template { display: none; }
-
-html, body, form { 
-    margin: 0; padding: 0; 
-}
-body { 
-    font-family: arial, sans-serif; 
-    background-color: #fff;
-}
-
-a:link { 
-    text-decoration: none; 
-    color: #00f; 
-}
-a:visited { 
-    text-decoration: none; 
-    color: #639; 
-}
-a:hover { 
-    text-decoration: underline; 
-}
-a:active { 
-    text-decoration: underline; 
-}
-
-form p.hint {
-    margin: 0;
-    padding: 0.25em 1em;
-    font-weight: bold;
-}
-
-form {
-    margin: 0; padding: 0;
-}
-
-form ul {
-    list-style-type: none;
-}
-form ul li {
-    clear: both;
-}
-form ul li label {
-    width: 10ex;
-    text-align: right;
-    float: left;
-    display: block;
-    padding: 0.5em 0.5em 0.5em 0;
-}
-form ul li label:after {
-    content: ': ';
-}
-form ul li label.hidden:after {
-    content: '';
-}
-form ul li.hidden {
-    display: none;
-}
-form ul li.input input,
-form ul li.password input {
-    margin: 0.5em 0em;
-    width: 75ex;
-}
-form ul li.submit input {
-    margin: 0.5em 0em;
-}
-form ul textarea {
-    font-family: arial, sans-serif;
+html, *, body { 
+    margin: 0; 
+    padding: 0; 
+    /*
+    border: 0; 
+    outline: 0; 
+    font-weight: inherit; 
+    font-style: inherit; 
     font-size: 100%; 
-    width: 75ex;
-}
-form ul li.captcha input {
-    width: 10ex;
-    clear: right;
-    display: block;
-}
-form ul li.captcha img {
+    font-family: inherit; 
+     */
+    vertical-align: baseline; 
 }
 
-
-form fieldset {
-    margin: 0.25em;
-    padding: 0.25em;
+html, body, #wrap {
+    height: 100%;
 }
-form fieldset ul {
-    list-style-type: none;
+body > #wrap {
+    height: auto; min-height: 100%;
 }
-form fieldset ul li {
-    clear: both;
-}
-form fieldset ul li label {
-    width: 18ex;
-    text-align: right;
-    float: left;
-    display: block;
-    padding: 0.5em 0.5em 0.5em 0;
-}
-form fieldset ul li label:after {
-    content: ': ';
-}
-form fieldset ul li label.hidden:after {
-    content: '';
-}
-form fieldset ul li.hidden {
-    display: none;
-}
-form fieldset ul li.input input,
-form fieldset ul li.password input {
-    margin: 0.5em 0em;
-    width: 75ex;
-}
-form fieldset ul li.submit input {
-    margin: 0.5em 0em;
-}
-form fieldset ul textarea {
-    font-family: arial, sans-serif;
-    font-size: 100%; 
-    width: 75ex;
-}
-form fieldset ul li.captcha input {
-    width: 10ex;
-    clear: right;
-    display: block;
-}
-form fieldset ul li.captcha img {
-}
-
-#header {
-    font-size: 75%;
-    margin: 0.5em 1.5em 0.5em 1.5em; 
-    padding: 0 0 0 0;
-    height: 80px;
-    position: relative;
-}
-#header .logo {
-    float: left;
-}
-/*
-#header .logo span:before {
-    font-size: 75px;
-    content: 'M';
-}
-#header .logo span {
-    padding: 0 15px 0 10px;
-}
-*/
-#header .crumbs {
-    font-size: 200%;
-    padding: 0.25em 0 0 0;
-}
-#header .crumbs .title {
-    display: inline;
-    font-weight: bold;
-}
-#header .main {
-    margin: 0 0 0 0;
-    padding: 0.75em 0 0 0;
-    position: absolute;
-    left: 85px;
-    bottom: 1.25em;
-}
-#header .main .nav {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    list-style: none;    
-}
-#header .main .nav li {
-    display: inline;
-    border-left: 1px solid #000; 
-    margin-left: 0.25em;
-    padding-left: 0.5em;
-}
-#header .main .nav li.first {
-    font-weight: bold;
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-#header .main .title {
-    margin: 0 0 0.5em 0;
-    padding: 0 0 0 0;    
-}
-#header .sub {
-    position: absolute;
-    right: 0;
-    bottom: 1.25em;
-    margin: 1.25em 0 0 0;
-    padding: 0 0 0 0;
-}
-#header .sub .nav {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;  
-}
-#header .sub .nav li {
-    display: inline;
-    border-left: 1px solid #000; 
-    margin-left: 0.25em;
-    padding-left: 0.5em;
-}
-#header .sub .nav li.first {
-    border: none;
-    padding: 0;
-    margin: 0;
-}
-#infobar {
-    font-size: 75%;
-    margin: 0.5em 1.5em 1.5em 1.5em; 
-    padding: 0.5em 0.8em; 
-    background-color: #eee; 
-    border: 1px solid #ccc; 
-    border-left: none;
-    border-right: none;
-}
-#middle {
-    position: relative;
-}
-#content {
-    font-size: 75%;
-    margin: 0em 1.5em 0em 1.5em; 
-}
-
-.with_sidebar #content {
-    margin-right: 20.5em;
-}
-.with_sidebar #content .pagination {
-    margin-right: -19em;
-}
-#sidebar {
-    font-size: 75%;
-    position: absolute;
-    top: 0;
-    right: 1.5em;
-    width: 18em;
-}
-#sidebar div {
-    background-color: #eee; 
-    border: 1px solid #ccc; 
-    border-left: none;
-    border-right: none;
-    margin: 0em 1.5em 0em 1.5em; 
-    padding: 0 1em 0 1em;
+#main {
+    /* must be same height as the footer */
+    padding-bottom: 65px;
 }
 
 #footer {
     position: relative;
-    font-size: 75%;
-    margin: 0em 1.5em 1.5em 1.5em;
-    padding: 0.5em 0 0 0; 
-    background-color: #eee; 
+    /* negative value of footer height */
+    margin-top: -65px; 
+    height: 65px;
+    clear:both;
+} 
+
+#footer {
 }
-#footer .nav {
-    background-color: #fff; 
-    margin: 0 0 0 0;
-    padding: 0.5em 0 0 0;
-    border-top: 1px solid #ccc; 
-    list-style: none;    
+#footer .content {
+    padding: 1em;
+    border-top: 1px solid #333;
 }
-#footer .nav:before {
-}
-#footer .nav li {
-    display: inline;
-    border-left: 1px solid #000; 
-    margin-left: 0.25em;
-    padding-left: 0.5em;
-}
-#footer .nav li.first {
-    font-weight: bold;
-    border: none;
-    padding: 0;
-    margin: 0;
+#footer .content p {
+    font-size: 0.75em;
 }
 
-#sidebar .section {
-    margin: 0 0 1.5em 0;
-    padding: 1em;
+
+.clearfix:after {content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;}
+.clearfix {display: inline-block;}
+/* Hides from IE-mac \*/
+* html .clearfix { height: 1%;}
+.clearfix {display: block;}
+/* End hide from IE-mac */
+
+body {
+    font-family: arial; 
 }
-#sidebar .section h4 {
-    font-size: 120%;
+
+#header { 
+    padding: 1em; 
+    border-bottom: 1px solid #333; 
+    background-color: #ddd; 
+    position: relative; 
+}
+#header .nav { 
+    position: absolute; 
+    top: 1em; 
+    right: 1em; 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
+#header .nav li { 
+    float: left; 
+    padding-left: 1em; 
+}
+
+#content { 
+    margin: 1em;
+}
+.template {
+    display: none;
+}
+#content .notification {
+    padding: 0.5em;
+    margin: 1em 0.25em 1.5em 0.25em;
+    border: 1px solid #999;
+    /*text-align: center;*/
+    font-size: 0.75em;
+}
+
+#content p {
+    margin: 0.75em 0 1em 0;
+}
+#content h1, #content h2, #content h3 {
     margin: 0em 0 0.5em 0;
-    padding: 0 0 0 0;
 }
-#sidebar .section ul {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
+#content h3 {
+    margin: 1em 0 0.5em 0;
 }
-#sidebar .section ul li {
+#content ul {
+    padding: 0 0 0 2em;
+}
+#content ul li {
+    padding: 0 0 0.5em 0;
+}
+#content form fieldset {
+    padding: 0.75em 1em; 
+    margin: 0.25em;
+    border: 1px solid #aaa;
+}
+#content form fieldset fieldset {
+    padding: 0.25em; 
+    margin: 0.25em;
+}
+#content form fieldset legend {
+    font-size: 0.75em;
+    color: #666;
+}
+#content form ul.errors {
+    color: red;
+    padding: 1em 0 1em 2em;
+    font-size: 0.85em;
+}
+#content form ul.fields {
     list-style: none;
-    line-height: 1.5em;
+    padding: 0;
+    margin:  0;
 }
-#sidebar .top_tags ul li .count {
+#content form ul.fields li {
+    margin-bottom: 0.25em;
+}
+#content form ul.fields li label {
     float: left;
-    width: 6ex;
+    display: block;
+    width: 14ex;
+    padding-top: 0.125em;
+    font-size: 0.85em;
+    margin-right: 1ex;
     text-align: right;
 }
-#sidebar .top_tags ul li .tag {
-    padding-left: 0.75em;
+#content form ul.fields li.required label {
+    font-weight: bold;
+}
+#content form ul.fields li.required label:before {
+    content: "*\00a0";
+}
+#content form ul li p.notes {
+    margin: 0 0 0 24ex;
+    font-size: 0.75em;
+}
+#content form ul.fields li.error label {
+    color: #ff0000;
+}
+#content form ul.fields li.error input {
+    background-color: #ffeeee;
+}
+.ctrl_auth_act_register #content form ul.fields li label {
+    width: 18ex;
+}
+#content form ul.fields li.text input, #content form ul.fields li.password input {
+    width: 50ex;
+    font-family: arial;
+    font-size: 0.85em;
+    padding: 0.125em;
+}
+#content form ul.fields li.textarea textarea {
+    width: 50ex;
+    height: 15ex;
+    font-family: arial;
+    font-size: 0.85em;
+    padding: 0.125em;
+}
+#content form fieldset.narrow-labels li label {
+    width: 10ex;
+}
+
+#content #wizard .accordion {
+
+}
+#content #wizard .accordion h3.ui-accordion-header {
+}
+#content #wizard .accordion div.ui-accordion-content {
+    padding: 0 0.75em;
+}
+
+#content #wizard .nav {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 1em 0 2em 0.25em;
+}
+#content #wizard .nav li {
+    float: left;
+    margin: 0;
+    padding: 0;
+}
+#content #wizard .nav li a {
+    display: block;
+    margin: 0 0.25em 0 0;
+    padding: 0.25em;
+    border: 1px solid #999;
+}
+
+#content #wizard .nav li.submit {
+    display: block;
+    margin: 0 0.25em 0 0;
+    padding: 0.125em 1.5em;
+}
+#content #wizard .nav li.submit input {
+    width: 18ex;
+}
+
+#content dl {
+    padding: 0;
+    margin: 0.25em 0 0.25em 0;
+}
+#content dl dt {
+    float: left;
+    width: 15ex;
+    text-align: right;
+    padding: 0.25em 0.5em 0.25em 0.25em;
+    background-color: #ddd;
+}
+#content dl dd {
+    padding: 0.25em;
+    margin: 0.25em 0.25em 0.25em 17ex;
+}
+
+#content .sections {
+    list-style-type: none;
+}
+#content .section dl {
+}
+#content .section dl dt {
+    width: auto;
+    background: none;
+    float: none;
+    text-align: left;
+}
+#content .section dl dd {
+    margin: 0 0 0 2em;
+    font-size: 0.85em;
+}
+
+#content ul.bookmarks {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1em;
+}
+#content ul.bookmarks .bookmark {
+    clear: both;
+}
+#content ul.bookmarks .bookmark table {
+    float: left;
+    width: 96%;
+    margin: 0 0 0 0;
+}
+#content ul.bookmarks .bookmark table tr {
+}
+#content ul.bookmarks .bookmark table tr th {
+    text-align: left;
+    padding-top: 0;
+}
+#content ul.bookmarks .bookmark table tr th span {
+    display: block;
+    padding: 0.125em 0.5em;
+    margin: 0 0.25em 0 0;
+    border-bottom: 1px solid #aaa;
+    font-size: 0.75em;
+    background-color: #ddd;
+}
+#content ul.bookmarks .bookmark table tr td {
+}
+#content ul.bookmarks .bookmark table tr td span {
+    display: block;
+    margin: 0 0.25em 0 0;
+}
+#content ul.bookmarks .bookmark table tr td span input {
+    width: 100%;
+}
+
+#content ul.bookmarks .bookmark span.type {
+    padding: 0;
+    margin: 0;
+    display: block;
+    float: left;
+    width: 16px;
+    text-indent: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: transparent url(../img/pageStarred.png) no-repeat top left;
+}
+#content ul.bookmarks .bookmark span.normal {
+    background-image: url(../img/pageStarred.png);
+}
+#content ul.bookmarks .bookmark span.live {
+    background-image: url(../img/livemark-item.png);
+}
+#content ul.bookmarks .bookmark a.delete {
+    float: left;
+    display: block;
+    width: 16px;
+    text-indent: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: transparent url(../img/Info.png) no-repeat top left;
+}
+#content ul.bookmarks .bookmark table th span.error {
+    color: #ff0000;
+    background-color: #edd;
+}
+#content ul.bookmarks table td span.error {
+}
+#content ul.bookmarks table td span.error input {
+    background-color: #ffeeee;
+}
+#content .bookmark-add {
+    margin: 0.75em 0;
+}
+#content .bookmark-add a.add {
+    padding-left: 18px;
+    background: transparent url(../img/../img/pageStarred.png) no-repeat top left;
+}
+#content .bookmark-add-normal a.add {
+    background-image: url(../img/pageStarred.png);
+}
+#content .bookmark-add-live a.add {
+    background-image: url(../img/livemark-item.png);
 }

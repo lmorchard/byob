@@ -90,8 +90,8 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function login()
     {
-        $form_data = form::validate($this,
-            $this->login_model, 
+        $form_data = form::validate(
+            $this, $this->login_model, 
             'validate_login', 'form_errors_auth'
         );
         if (null===$form_data) return;
@@ -108,7 +108,8 @@ class Auth_Profiles_Controller extends Local_Controller
         // TODO: Allow profile selection here if multiple.
         $profile = $login->find_default_profile_for_login();
 
-        AuthProfiles::login($form_data['login_name'], $login, $profile);
+        $login->login($form_data);
+        AuthProfiles::login($login->login_name, $login, $profile);
 
         if (isset($form_data['jump']) && substr($form_data['jump'], 0, 1) == '/') {
             // Allow post-login redirect only if the param starts with '/', 
@@ -133,8 +134,8 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function changeemail()
     {
-        $form_data = form::validate($this,
-            $this->login_model, 
+        $form_data = form::validate(
+            $this, $this->login_model, 
             'validate_change_email', 'form_errors_auth'
         );
         if (null===$form_data) return;
