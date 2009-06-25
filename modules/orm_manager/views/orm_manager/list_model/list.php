@@ -37,8 +37,4 @@ $row_view = (method_exists($model, 'get_list_row_view')) ?
             <?php endforeach ?>
         </tbody>
     </table>
-    <ul class="controls">
-        <li><input type="submit" name="batch_delete" id="batch_delete" 
-            value="Delete" /></li>
-    </ul>
 </form>

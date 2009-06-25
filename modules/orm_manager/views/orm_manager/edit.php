@@ -8,8 +8,11 @@ $model_name = $model->object_name;
 $primary_key = $model->primary_key;
 $primary_key_value = $row->{$primary_key};
 
+$model_title = empty($model->model_title) ?
+    $model_name : $model->model_title;
+
 $h = html::escape_array(compact(
-    'primary_key', 'primary_key_value', 'model_name', 'return_page'
+    'primary_key', 'primary_key_value', 'model_name', 'model_title', 'return_page'
 ));
 $u = html::urlencode_array(compact(
     'model_name', 'return_page'
@@ -28,16 +31,23 @@ $u = html::urlencode_array(compact(
         <li><a href="<?=$return_url?>">&laquo; back to list</a></li>
     </ul>
 
+    <h3><?=$h['model_title']?></h3>
+
     <form method="POST">
         <input type="hidden" name="primary_key" value="<?=$h['primary_key_value']?>" />
         <input type="hidden" name="return_page" value="<?=$h['return_page']?>" />
         
         <table>
-            <tbody>
 
-                <th colspan="2" class="controls">
-                    <input type="submit" name="save" value="Save" />
-                </th>
+            <thead>
+                <tr>
+                    <th colspan="2" class="controls">
+                        <input type="submit" name="save" value="Save" />
+                    </th>
+                </tr>
+            </thead>
+
+            <tbody>
 
                 <?php foreach ($columns as $column_name=>$column_info): ?>
                     <?php
@@ -60,10 +70,6 @@ $u = html::urlencode_array(compact(
                         'column_info'  => $column_info,
                     ))->render()?>
                 <?php endforeach ?>
-
-                <th colspan="2" class="controls">
-                    <input type="submit" name="save" value="Save" />
-                </th>
 
             </tbody>
         </table>
@@ -89,11 +95,14 @@ $u = html::urlencode_array(compact(
                         $sub_model = ORM::factory($row->object_name);
                     $sub_rows[] = $row;
                 }
+
+                $title = empty($sub_model->model_title) ?
+                    $name : $sub_model->model_title;
             ?>
             <?php if (!empty($sub_rows)): ?>
 
                 <div class="list_model">
-                    <h3><?=html::specialchars($name)?></h3>
+                    <h3><?=html::specialchars($title)?></h3>
                     <?= View::factory("{$view_base}/list_model/list")->set(array(
                         'rows'  => $sub_rows,
                         'model' => $sub_model

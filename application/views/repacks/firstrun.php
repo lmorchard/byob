@@ -4,3 +4,5 @@
 <?php slot::end() ?>
 
 <h3>Welcome to <?= html::specialchars($repack->title) ?></h3>
+
+<p><?=$repack->firstrun_content?></p>

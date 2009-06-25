@@ -10,6 +10,9 @@ class Login_Model extends Auth_Login_Model
 {
     // {{{ Model attributes
 
+    // Display title for the model
+    public $model_title = "Login";
+
     // Titles for named columns
     public $table_column_titles = array(
         'id'             => 'ID',
@@ -32,7 +35,7 @@ class Login_Model extends Auth_Login_Model
         return arr::extract(
             $this->table_columns, 
             'id', 'login_name', 'active', 'email', 'last_login', 
-            'modified', 'created'
+            'created', 'modified'
         );
     }
 

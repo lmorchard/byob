@@ -16,6 +16,26 @@
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
+-- Table structure for table `logevents`
+--
+
+DROP TABLE IF EXISTS `logevents`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `logevents` (
+  `id` int(11) NOT NULL auto_increment,
+  `uuid` char(64) default NULL,
+  `profile_id` int(11) default NULL,
+  `action` varchar(255) default NULL,
+  `details` text,
+  `data` text,
+  `created` datetime default NULL,
+  PRIMARY KEY  (`id`),
+  KEY `uuid` (`uuid`)
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `login_email_verification_tokens`
 --
 
@@ -191,6 +211,26 @@ CREATE TABLE `posts` (
 SET character_set_client = @saved_cs_client;
 
 --
+-- Table structure for table `products`
+--
+
+DROP TABLE IF EXISTS `products`;
+SET @saved_cs_client     = @@character_set_client;
+SET character_set_client = utf8;
+CREATE TABLE `products` (
+  `id` int(10) unsigned NOT NULL auto_increment,
+  `name` varchar(32) NOT NULL default 'Firefox',
+  `version` varchar(32) NOT NULL default '',
+  `url` varchar(255) NOT NULL default '',
+  `locales` varchar(255) NOT NULL default 'en-US',
+  `disable_migration` tinyint(1) default '0',
+  `created` datetime default NULL,
+  `modified` datetime default NULL,
+  PRIMARY KEY  (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+SET character_set_client = @saved_cs_client;
+
+--
 -- Table structure for table `profile_attributes`
 --
 
@@ -221,7 +261,6 @@ CREATE TABLE `profiles` (
   `screen_name` varchar(64) NOT NULL,
   `full_name` varchar(128) NOT NULL,
   `created` datetime default NULL,
-  `last_login` datetime default NULL,
   `phone` varchar(24) default NULL,
   `fax` varchar(24) default NULL,
   `org_address` text,
@@ -263,22 +302,19 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `repacks` (
   `id` int(10) unsigned NOT NULL auto_increment,
-  `uuid` varchar(64) NOT NULL default '0',
+  `uuid` char(64) NOT NULL default '0',
   `created` datetime default NULL,
   `modified` datetime default NULL,
-  `created_by_id` int(11) unsigned NOT NULL,
-  `approved_by_id` int(11) unsigned default NULL,
-  `approved_on` datetime default NULL,
+  `profile_id` int(10) unsigned NOT NULL,
+  `product_id` int(10) unsigned NOT NULL,
   `short_name` varchar(128) default NULL,
   `title` varchar(255) default NULL,
   `description` text,
-  `category` varchar(64) default NULL,
+  `state` int(11) default '0',
   `json_data` text,
   PRIMARY KEY  (`id`),
-  UNIQUE KEY `uniq_uuid` (`uuid`),
-  KEY `created_by` (`created_by_id`),
-  KEY `approval` (`approved_on`,`approved_by_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+  KEY `created_by` (`profile_id`)
+) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -306,4 +342,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-06-18 19:29:23
+-- Dump completed on 2009-06-25 15:44:05

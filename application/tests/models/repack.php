@@ -21,32 +21,33 @@ class Repack_Test extends PHPUnit_Framework_TestCase
     {
         LMO_Utils_EnvConfig::apply('testing');
 
+        ORM::factory('logevent')->delete_all();
         ORM::factory('repack')->delete_all();
         ORM::factory('profile')->delete_all();
         ORM::factory('login')->delete_all();
-
-        $this->profile_1 = ORM::factory('profile')->set(array(
-            'screen_name' => 'tester1',
-            'full_name'   => 'Tess T. Err',
-            'org_name'    => 'Test Organization'
-        ))->save();
 
         $this->login_1 = ORM::factory('login')->set(array(
             'login_name' => 'tester1',
             'email'      => 'tester1@example.com',
         ))->save();
 
+        $this->profile_1 = ORM::factory('profile')->set(array(
+            'screen_name' => 'tester1',
+            'full_name'   => 'Tess T. Err',
+            'org_name'    => 'Test Organization',
+        ))->save();
+
         $this->profile_1->add($this->login_1);
         $this->profile_1->save();
+
+        Logevent_Model::setCurrentProfileID($this->profile_1->id);
 
         $this->test_data_1 = array(
             'short_name'  => 'test-repack',
             'title'       => 'Test repack',
             'description' => 'This is my testing repack',
 
-            'created' => gmdate('c'),
-
-            'startpage_feed_url' => 'http://decafbad.com/blog/feed',
+            'locales' => array('en-US','de'),
 
             'bookmarks_menu' => array(
                 array(
@@ -106,6 +107,9 @@ class Repack_Test extends PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Simple warm-up test, ensures two new repacks have different UUIDs
+     */
     public function testConstructorAssignsUuidIfNotGiven()
     {
         $r1 = ORM::factory('repack')->save();
@@ -116,25 +120,14 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $this->assertTrue($r1->uuid != $r2->uuid);
     }
 
-    public function testConstructorAcceptsArrayOfData()
-    {
-        $data = array(
-            'name'        => 'Test repack',
-            'description' => 'This is my testing repack'
-        ); 
-        $r = ORM::factory('repack')->set($data);
-
-        foreach ($data as $name=>$value) {
-            $this->assertEquals($value, $r->{$name});
-        }
-    }
-
+    /**
+     * Exercise repack INI generation
+     */
     public function testRepackCanProduceConfigIniRepresentation()
     {
         $r1 = ORM::factory('repack')
-            ->set($this->test_data_1)
-            ->save();
-        $r1->created_by = $this->profile_1;
+            ->set($this->test_data_1);
+        $r1->profile_id = $this->profile_1->id;
         $r1->save();
 
         $ini_txt = $r1->buildConfigIni();
@@ -148,10 +141,14 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $this->assertNotNull($conf);
     }
 
+    /**
+     * Exercise repack generation, up to the point of actually performing the 
+     * repack.
+     */
     public function testRepackCanGenerateBrowserRepack()
     {
         $r1 = ORM::factory('repack')->set($this->test_data_1);
-        $r1->created_by = $this->profile_1;
+        $r1->profile_id = $this->profile_1->id;
         $r1->save();
         
         $r1->processRepack(FALSE);
@@ -173,22 +170,25 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $this->assertNotNull($conf);
     }
 
+    /**
+     * Exercise form validation and editing
+     */
     public function testFormDataCanBeValidatedAndUsedToSetProperties()
     {
         $r1 = ORM::factory('repack')->set($this->test_data_1);
-        $r1->created_by = $this->profile_1;
+        $r1->profile = $this->profile_1;
         $r1->save();
 
         $_SERVER['REQUEST_METHOD'] = 'POST';
         $bad_data_1 = array();
-        $is_valid_1 = $r1->validate_repack($bad_data_1);
+        $is_valid_1 = $r1->validateRepack($bad_data_1);
         $this->assertTrue(!$is_valid_1);
         
         $bad_data_2 = array(
             'short_name' => 'x',
             'title' => ''
         );
-        $is_valid_2 = $r1->validate_repack($bad_data_2);
+        $is_valid_2 = $r1->validateRepack($bad_data_2);
         $this->assertTrue(!$is_valid_2);
 
         $good_data_1 = $good_data_2 = array(
@@ -197,11 +197,14 @@ class Repack_Test extends PHPUnit_Framework_TestCase
             'description' => 'Not too long for a description'
         );
 
-        $is_valid_3 = $r1->validate_repack($good_data_1, false);
+        $is_valid_3 = $r1->validateRepack($good_data_1, false);
         $this->assertTrue($is_valid_3);
-        $this->assertTrue($r1->short_name != $good_data_1['short_name']);
+        $this->assertTrue(
+            $r1->short_name != $good_data_2['short_name'],
+            "{$r1->short_name} shouldn't equal {$good_data_2['short_name']}"
+        );
 
-        $is_valid_4 = $r1->validate_repack($good_data_2);
+        $is_valid_4 = $r1->validateRepack($good_data_2);
         $this->assertTrue($is_valid_4);
         $this->assertEquals($r1->short_name, $good_data_2['short_name']);
 
@@ -213,7 +216,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
             'short_name' => 'another-name'
         );
         $copy_fields = array(
-            'title','description','startpage_feed_url'
+            'title','description'
         );
         foreach($copy_fields as $field) {
             $form_data[$field] = $this->test_data_1[$field];
@@ -236,15 +239,13 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1 = ORM::factory('repack')->set($this->test_data_1)->save();
 
         $r2 = ORM::factory('repack')->set()->save();
-        $is_valid = $r2->validate_repack($form_data);
+        $is_valid = $r2->validateRepack($form_data);
         $this->assertTrue($is_valid, 'Form should be valid. Errors: ' . 
             var_export($form_data->errors(), true));
         $r2->save();
 
-        $r1_meta = arr::extract($r1->as_array(), 
-            'title', 'description', 'startpage_feed_url');
-        $r2_meta = arr::extract($r2->as_array(),
-            'title', 'description', 'startpage_feed_url');
+        $r1_meta = arr::extract($r1->as_array(), 'title', 'description');
+        $r2_meta = arr::extract($r2->as_array(), 'title', 'description');
         $this->assertEquals(
             $r1_meta, $r2_meta,
             "Test data and form data repacks should have the same metadata"
@@ -262,5 +263,212 @@ class Repack_Test extends PHPUnit_Framework_TestCase
 
     }
 
+    /**
+     * Work through a series of repack workflow steps, verify restrictions and 
+     * log events
+     */
+    public function testWorkflowAndLogEvents()
+    {
+        $expected_log_events = 0;
+
+        // First try creating and editing a repack.
+
+        $r1 = ORM::factory('repack')->set($this->test_data_1)->save();
+
+        $this->assertRepackState($r1, 'new');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 'created');
+
+        $r1->title = "edited title";
+        $r1->save();
+
+        $this->assertRepackState($r1, 'edited');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 'modified');
+
+        // Next, try requesting a release and then try cancelling it before the 
+        // build process starts.
+
+        $r1->requestRelease('PLEASE APPROVE ME~!');
+
+        $this->assertTrue($r1->isLockedForChanges(), 
+            "Repack pending approval should be locked for changes");
+        $this->assertRepackState($r1, 'requested');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'requestRelease', 'PLEASE APPROVE ME~!');
+
+        $this->assertException(array($r1, 'requestRelease'),
+            'Requesting a release twice should fail');
+
+        $r1->cancelRelease("Oops, sorry.");
+
+        $this->assertTrue(!$r1->isLockedForChanges(),
+            "Repack after release request cancelled should be writable again");
+        $this->assertRepackState($r1, 'cancelled');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'cancelRelease', 'Oops, sorry.');
+
+        // Incidentally, a few other actions should fail on a repack not 
+        // pending review...
+
+        $this->assertException(array($r1, 'cancelRelease'),
+            'cancelRelease should fail');
+        $this->assertException(array($r1, 'approveRelease'),
+            'approveRelease should fail');
+        $this->assertException(array($r1, 'rejectRelease'),
+            'rejectRelease should fail');
+
+        // Now, try requesting a release and let the build process start, 
+        // then try cancelling.  That should fail.
+
+        $r1->requestRelease("Try this one!");
+        $this->assertRepackState($r1, 'requested');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'requestRelease', 'Try this one!');
+
+        $r1->beginRelease("Starting release process");
+        $this->assertRepackState($r1, 'started');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'beginRelease', 'Starting release process');
+
+        $this->assertTrue($r1->isLockedForChanges(),
+            "Repacks in the build process should be locked");
+
+        $this->assertException(array($r1, 'cancelRelease'),
+            'cancelRelease should fail');
+
+        // Finish the process, then cancel. Should succeed.
+        $r1->finishRelease("Build process completed");
+        $r1->cancelRelease("Whoops, too early.");
+        $expected_log_events += 2;
+
+        // Next, restart the build process and reject it.
+        $r1->requestRelease("Try this one!");
+        $r1->beginRelease("Starting release process");
+        $expected_log_events += 2;
+
+        $r1->finishRelease("Build process completed");
+        $this->assertRepackState($r1, 'pending');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid,
+            'finishRelease', 'Build process completed');
+
+        $this->assertTrue($r1->isLockedForChanges(),
+            "Repacks pending approval should be locked");
+
+        $r1->rejectRelease("Is this a joke?");
+        $this->assertRepackState($r1, 'rejected');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'rejectRelease', "Is this a joke?");
+
+        $this->assertTrue(!$r1->isLockedForChanges(),
+            "Repack after rejection should be writable again");
+
+        // Try running through the build process, but fail the build.
+        
+        $r1->requestRelease("Seriously, check it out");
+        $r1->beginRelease("Starting release process");
+        $expected_log_events += 2; // Skip some log events.
+
+        $r1->failRelease("Solar flares prevented build completion");
+        $this->assertRepackState($r1, 'failed');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'failRelease', 'Solar flares prevented build completion');
+
+        $this->assertTrue(!$r1->isLockedForChanges(),
+            "Repack after build failure should be writable again");
+
+        // Okay, try requesting release again and approve it this time.
+
+        $r1->requestRelease("Seriously, check it out");
+        $r1->beginRelease("Starting release process");
+        $r1->finishRelease("Build process completed");
+        $expected_log_events += 3; // Skip some log events.
+
+        $r1->approveRelease("Okay fine, you win.");
+        $this->assertRepackState($r1, 'released');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'approveRelease', 'Okay fine, you win.');
+
+        $this->assertTrue($r1->isLockedForChanges(),
+            "Releases should be locked for changes");
+
+        // Revert the release.
+
+        $rr = $r1->revertRelease('This browser is awful, on second thought');
+        $this->assertRepackState($r1, 'reverted');
+        $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
+            'revertRelease', 'This browser is awful, on second thought');
+
+        $this->assertEquals($rr->id, $r1->id,
+            'Release revert with no changes should result in original release'
+        );
+
+        // Run through another release, start an edit, then revert the release.
+        // This should result in the edit surviving, and the release deleted.
+
+        $r1->requestRelease("Try this for a change.");
+        $r1->beginRelease("Starting release process");
+        $r1->finishRelease("Build process completed");
+        $r1->approveRelease("Okay, that's better.");
+
+        $r2 = $r1->findEditable();
+        $r2->title = "New title";
+        $r2->save();
+        
+        $expected_log_events += 5; // Skip this run of log messages
+
+        $old_id = $r1->id;
+        $rr = $r1->revertRelease('Wait, nope, still crap');
+        $this->assertRepackState($rr, 'edited');
+        $this->assertLatestLog(++$expected_log_events, $rr->uuid, 
+            'revertRelease', 'Wait, nope, still crap');
+
+        $this->assertEquals($rr->id, $r2->id,
+            'Revert with pending changes should result in pending changes surviving'
+        );
+
+        $rq = ORM::factory('repack', $old_id);
+        $this->assertTrue(
+            !$rq->loaded,
+            'Revert with pending changes should result in pending changes surviving'
+        );
+
+    }
+
+
+    public function assertException($callback, $message, $params=null, $message_expected=null)
+    {
+        try {
+            if ($params) {
+                call_user_func_array($callback, $params);
+            } else {
+                call_user_func($callback);
+            }
+            $failed = false;
+        } catch (Exception $e) {
+            $failed = true;
+        }
+        $this->assertTrue($failed, $message);
+    }
+
+    public function assertRepackState($repack, $state_name, $message=null)
+    {
+        $state = Repack_Model::$states[$state_name];
+        if (null===$message) {
+            $message = 
+                "Expected state {$state_name} ($state) state - " .
+                "was {$repack->getStateName()} ({$repack->state})";
+        }
+        $this->assertEquals($state, $repack->state, $message);
+    }
+
+    public function assertLatestLog($count, $uuid, $action, $details=null)
+    {
+        $events = ORM::factory('logevent')->findByUUID($uuid);
+        $this->assertEquals($count, $events->count(), 
+            "Expect {$count} log event(s).");
+        $this->assertEquals($action, $events[0]->action);
+        if (null !== $details) {
+            $this->assertEquals($details, $events[0]->details);
+        }
+    }
 
 }

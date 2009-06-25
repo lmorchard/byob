@@ -15,11 +15,13 @@ class Index_Controller extends Local_Controller
     {
         if (!AuthProfiles::is_logged_in()) {
             $this->view->repacks = ORM::factory('repack')
-                ->where('created_by', AuthProfiles::get_profile('id'))
+                ->where('profile_id', AuthProfiles::get_profile('id'))
                 ->find_all();
         }
 
-        $this->view->latest_repacks = ORM::factory('repack')->find_all(10);
+        $this->view->latest_repacks = ORM::factory('repack')
+            ->where('state', Repack_Model::$states['released'])
+            ->find_all(10);
     }
 
 }

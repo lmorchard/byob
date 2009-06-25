@@ -10,6 +10,9 @@ class Profile_Model extends Auth_Profile_Model
 {
     // {{{ Model attributes
 
+    // Display title for the model
+    public $model_title = "Profile";
+
     public $has_many = array('repacks');
 
     // Titles for named columns
@@ -25,7 +28,7 @@ class Profile_Model extends Auth_Profile_Model
         'org_type'       => 'Organization type',
         'org_type_other' => 'Organization type (other)',
         'created'        => 'Created',
-        'last_login'     => 'Last login',
+        'modified'       => 'Modified',
     );
 
     // }}}
@@ -37,8 +40,7 @@ class Profile_Model extends Auth_Profile_Model
     {
         return arr::extract(
             $this->table_columns, 
-            'id', 'screen_name', 'full_name', 'org_name', 'last_login', 
-            'created'
+            'id', 'screen_name', 'full_name', 'org_name', 'created', 'modified'
         );
     }
 

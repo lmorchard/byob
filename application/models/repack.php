@@ -6,23 +6,44 @@
  * @subpackage Models
  * @author     l.m.orchard <lorchard@mozilla.com>
  */
-class Repack_Model extends ORM
+class Repack_Model extends ManagedORM
 {
-    // {{{ Class properties
+    // {{{ Model properties
+
+    // Display title for the model
+    public $model_title = "Repack";
     
-    public $belongs_to = array(
-        'created_by'=>'profile'
-   );
-    
+    public $belongs_to = array('profile', 'product');
+
     protected $sorting = array(
         'modified' => 'desc',
         'created'  => 'desc'
     );
 
+    // Titles for named columns
+    public $table_column_titles = array(
+        'id'          => 'ID',
+        'uuid'        => 'UUID',
+        'short_name'  => 'Short name',     
+        'title'       => 'Title',
+        'description' => 'Description',
+        'created'     => 'Created',
+        'modified'    => 'Modified',
+    );
+
+    public $list_column_names = array(
+        'id', 'profile_id', 'title', 'short_name', 'uuid', 'created', 'modified'
+    );
+
+    public $edit_column_names = array(
+        'short_name', 'title'
+    );
+
     protected $attrs = array(
         'min_version' => '3.0',
         'max_version' => '3.5.*',
-        'version'     => '1'
+        'version'     => '1',
+        'os'          => array('win','mac','linux'),
     ); 
 
     public static $os_choices = array(
@@ -67,8 +88,342 @@ class Repack_Model extends ORM
         'bookmarks_menu' => 5
     );
 
+    // Workflow states for a repack
+    public static $states = array(
+        'new'        => 0,
+        'edited'     => 10,
+        'requested'  => 20,
+        'cancelled'  => 30,
+        'started'    => 40,
+        'failed'     => 50,
+        'pending'    => 60,
+        'approved'   => 70,
+        'rejected'   => 80,
+        'released'   => 90,
+        'deleted'    => 100,
+        'reverted'   => 110,
+    );
+
+    // state flags for which the repack should be treated as read-only.
+    public static $read_only_states = array(
+    );
 
     // }}}
+    
+    /**
+     * Find an editable alternative for this repack, creating a new clone if 
+     * necessary or simply returning self if editable.
+     *
+     * Also sets state of the returned repack to edited.
+     *
+     * @return Repack_Model
+     */
+    public function findEditable()
+    {
+        $edited = self::$states['edited'];
+
+        if ($this->state != self::$states['released']) {
+            // This repack is itself editable, so return self.
+            $this->state = $edited;
+            return $this;
+        }
+
+        // Since this repack is released, look for one with pending changes.
+        $pending_rp = ORM::factory('repack')
+            ->where(array(
+                'uuid'      => $this->uuid,
+                'state <>' => Repack_Model::$states['released'],
+            ))->find();
+        if ($pending_rp->loaded) {
+            $pending_rp->state = $edited;
+            return $pending_rp;
+        }
+
+        // No repack with pending changes, so clone a new one.
+        $new_rp = ORM::factory('repack')->set(array_merge(
+            $this->as_array(), 
+            array(
+                'id'     => null, 
+                'state' => $edited
+            )
+        ));
+        return $new_rp;
+    }
+
+
+    /**
+     * Build a URL for a repack
+     * @TODO Should this be in the controller?
+     */
+    public function url($action=null)
+    {
+        $url = url::base() . 
+            "profiles/{$this->profile->screen_name}".
+            "/browsers/{$this->short_name}";
+        if ($this->state != self::$states['released'])
+            $url .= '/unreleased';
+        if ($action)
+            $url .= ";$action";
+        return $url;
+    }
+    
+    /**
+     * Convert the state code into a name.
+     *
+     * @return string
+     */
+    public function getStateName()
+    {
+        $r_states = array_flip(self::$states);
+        return $r_states[$this->state];
+    }
+
+    /**
+     * Determine whether this repack has been released.
+     *
+     * @return boolean
+     */
+    public function isRelease()
+    {
+        return $this->state == self::$states['released'];
+    }
+
+    /**
+     * Determine whether this repack is pending release approval
+     *
+     * @return boolean
+     */
+    public function isPendingApproval()
+    {
+        return $this->state == self::$states['pending'];
+    }
+
+    /**
+     * Determine whether this repack should be considered locked as read-only.
+     *
+     * @return boolean
+     */
+    public function isLockedForChanges()
+    {
+        return in_array(
+            $this->getStateName(), 
+            array('requested', 'started', 'pending', 'approved', 'released')
+        );
+    }
+
+
+    /**
+     * Shortcut to add where clause for released state
+     *
+     * @param boolean Whether to search for released (TRUE) or non-released (FALSE) repacks.
+     * @return Repack_Model
+     * @chainable
+     */
+    public function whereReleased($released=TRUE) {
+        return $this->where(
+            ($released) ? 'state' : 'state <>', 
+            self::$states['released']
+        );
+    }
+
+
+    /**
+     * Request a new release of this repack.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function requestRelease($comments=null)
+    {
+        $allowed_state = arr::extract(
+            self::$states, 
+            'new', 'edited', 'failed', 'cancelled', 'rejected', 'reverted'
+        );
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('requestRelease not allowed');
+        }
+        $this->state = self::$states['requested'];
+        $this->save();
+        Logevent_Model::log($this->uuid, 'requestRelease', $comments);
+        
+        // TODO: Fire up the repack process
+
+        return $this;
+    }
+
+    /**
+     * Cancel a release request for this repack.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function cancelRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'requested', 'pending');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('cancelRelease not allowed');
+        }
+        $this->state = self::$states['cancelled'];
+        $this->save();
+        Logevent_Model::log($this->uuid, 'cancelRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Approve the current release request for this repack.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function approveRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'pending');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('approveRelease not allowed');
+        }
+
+        // There should only be one previous release, but search for multiples 
+        // anyway just in case.
+        $previous_releases = ORM::factory('repack')->where(array(
+            'uuid'   => $this->uuid,
+            'state' => self::$states['released']
+        ))->find_all();
+
+        // Delete each of the previous releases with the model method, so as to 
+        // allow for final clean up if necessary.
+        foreach ($previous_releases as $release) {
+            $release->delete();
+        }
+
+        $this->state = self::$states['released'];
+        $this->save();
+        Logevent_Model::log($this->uuid, 'approveRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Reject the current release request for this repack.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function rejectRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'pending');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('rejectRelease not allowed');
+        }
+        $this->state = self::$states['rejected'];
+        $this->save();
+        Logevent_Model::log($this->uuid, 'rejectRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Mark the repack as a release in progress.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function beginRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'requested');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('beginRelease not allowed');
+        }
+        $this->state = self::$states['started'];
+        $this->save();
+        
+        Logevent_Model::log($this->uuid, 'beginRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Mark the repack as a failed build.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function failRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'started');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('failRelease not allowed');
+        }
+        $this->state = self::$states['failed'];
+        $this->save();
+        
+        Logevent_Model::log($this->uuid, 'failRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Complete the release process for this repack.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function finishRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'started');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('finishRelease not allowed');
+        }
+
+        // Finally, mark this repack as released.
+        $this->state = self::$states['pending'];
+        $this->save();
+        Logevent_Model::log($this->uuid, 'finishRelease', $comments);
+
+        return $this;
+    }
+
+    /**
+     * Revert a previously approved & completed release.
+     *
+     * If there are existing changes in progress, this repack will be deleted.  
+     * Otherwise, the state will be changed to reverted.
+     *
+     * The repack that survives the process will be returned.
+     *
+     * @param  string optional comments
+     * @return Repack_Model
+     */
+    public function revertRelease($comments=null)
+    {
+        $allowed_state = arr::extract(self::$states, 'released');
+        if (!in_array($this->state, $allowed_state)) {
+            throw new Exception('revertRelease not allowed');
+        }
+
+        // TODO: Delete / make private released assets
+        
+        // Look for existing changes - don't want to clobber them.
+        $existing_changes = ORM::factory('repack')->where(array(
+            'uuid'      => $this->uuid,
+            'state <>' => self::$states['released']
+        ))->find_all();
+
+        Logevent_Model::log($this->uuid, 'revertRelease', $comments);
+
+        if ($existing_changes->count() > 0) {
+            // Delete this repack in favor of pending changes.
+            $this->delete();
+            return $existing_changes[0];
+        } else {
+            // Change state of this repack to reverted.
+            $this->state = self::$states['reverted'];
+            $this->save();
+            return $this;
+        }
+
+    }
+
 
     /**
      * Extract & validate data from a form and optionally update this instance 
@@ -78,7 +433,7 @@ class Repack_Model extends ORM
      * @param  boolean Whether or not to update this instance's properties.
      * @return boolean Whether or not the data was valid.
      */
-    public function validate_repack(&$data, $set=true)
+    public function validateRepack(&$data, $set=true)
     {
 		$data = Validation::factory($data)
 			->pre_filter('trim')
@@ -88,19 +443,25 @@ class Repack_Model extends ORM
             ->add_rules('title', 'required', 'length[3,255]')
             ->add_rules('category', 'length[3,255]')
             ->add_rules('description', 'length[0,1000]')
-            ->add_rules('startpage_content', 'length[0,1000]')
-            ->add_rules('startpage_feed_url', 'length[0,255]', 'url')
+            ->add_rules('firstrun_content', 'length[0,1000]')
             ->add_rules('addons_collection_url', 'length[0,255]', 'url')
-            ->add_rules('persona_id', 'is_numeric')
+            //->add_rules('persona_id', 'is_numeric')
+            //->add_rules('product_id', 'is_numeric')
+            ->add_rules('locales', 'is_array')
             ->add_rules('os', 'is_array')
             
-            ->add_callbacks('short_name', array($this, 'short_name_available'))
+            ->add_callbacks('short_name', 
+                array($this, 'isShortNameAvailable'))
 
-            ->add_callbacks('locales', array($this, 'extractValidLocales'))
-            ->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'))
-            ->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'))
-            ->add_callbacks('product', array($this, 'extractProduct'))
-            ->add_callbacks('os', array($this, 'extractOS'))
+            ->add_callbacks('product_id', 
+                array($this, 'extractProduct'))
+            ->add_callbacks('locales', 
+                array($this, 'extractLocales'))
+            ->add_callbacks('bookmarks_toolbar', 
+                array($this, 'extractBookmarks'))
+            ->add_callbacks('bookmarks_menu', 
+                array($this, 'extractBookmarks'))
+
             ;
 
         $is_valid = $data->validate();
@@ -120,38 +481,22 @@ class Repack_Model extends ORM
 
 
     /**
-     * Validate and extract the OS list
-     */
-    public function extractOS(&$valid, $field) 
-    {
-        if (isset($valid['os'])) {
-            foreach (self::$os_choices as $name=>$label) {
-                $this->{"repack_{$name}"} = in_array($name, $valid['os']);
-            }
-        } else {
-            foreach (self::$os_choices as $name=>$label) {
-                if ($this->{"repack_{$name}"}) {
-                    $osen[] = $name;
-                }
-            }
-        }
-    }
-
-    /**
      * Validate & extract the selected product from the form data by ID.
      */
     public function extractProduct(&$valid, $field) 
     {
+        return;
         $all_products = Kohana::config('products.all_products');
+
         if (!isset($valid['product_id'])) {
-            $valid['product_id'] = $this->product['id'];
+            $valid['product_id'] = $this->product_id;
+            return;
         }
+
         if (!isset($all_products[$valid['product_id']])) {
             // Not a valid product, so flag an error.
             $valid->add_error("product_id", 'invalid');
             $is_valid = false;
-        } else {
-            $valid['product'] = $all_products[$valid['product_id']];
         }
     }
 
@@ -159,9 +504,9 @@ class Repack_Model extends ORM
      * Extract selected locales from form data, accepting only locales that 
      * match valid product locales.
      */
-    public function extractValidLocales(&$valid, $field)
+    public function extractLocales(&$valid, $field)
     {
-        if (empty($this->locales) && empty($valid['locales'])) {
+        if (empty($this->locales) && empty($valid[$field])) {
             // Detect locale from request if neither repack nor form offers locales.
             $m = array();
             preg_match_all(
@@ -169,39 +514,31 @@ class Repack_Model extends ORM
                 strtolower(trim(@$_SERVER['HTTP_ACCEPT_LANGUAGE'])), 
                 $m
             );
-            $valid['locales'] = $m[0];
+            $valid[$field] = $m[0];
         }
 
-        if (empty($valid['locales']) || !$valid['locales']) {
+        if (empty($valid[$field])) {
 
             // Populate form from repack product locales.
-            $valid['locales'] = $this->locales;
+            $valid[$field] = $this->locales;
 
         } else {
 
             // Ensure that only locales appearing in the product locales are 
             // accepted from form data into the repack.
-            $locales = array();
+            $valid_locales = array();
 
-            $lc_prod_locales = array();
-            if (!empty($this->product['locales'])) {
-                foreach ($this->product['locales'] as $locale) {
-                    $lc_prod_locales[strtolower($locale)] = $locale;
+            foreach (self::$locale_choices as $code=>$name) {
+                if (in_array($code, $valid[$field])) {
+                    $valid_locales[] = $code;
                 }
             }
 
-            $form_locales = $valid['locales'];
-            if (!empty($form_locales)) foreach ($form_locales as $locale) {
-                $locale = strtolower($locale);
-                if (isset($lc_prod_locales[$locale])) {
-                    $locales[] = $lc_prod_locales[$locale];
-                }
-            }
-            $valid['locales'] = $locales;
+            $valid[$field] = $valid_locales;
 
         }
 
-        return $valid['locales'];
+        return $valid[$field];
     }
 
     /**
@@ -294,7 +631,7 @@ class Repack_Model extends ORM
      * Validation callback that checks to see if the given short name is taken 
      * any repack other than the one being validated.
      */
-    public function short_name_available($valid, $field)
+    public function isShortNameAvailable($valid, $field)
     {
         $taken = (bool) ORM::factory('repack')
             ->where(array(
@@ -339,7 +676,7 @@ class Repack_Model extends ORM
      */
     public function processRepack($run_script=TRUE)
     {
-        Kohana::log('info', 'Processing repack for ' . $this->created_by->screen_name . ' - ' . $this->uuid);
+        Kohana::log('info', 'Processing repack for ' . $this->profile->screen_name . ' - ' . $this->uuid);
         Kohana::log_save();
 
         $storage   = Kohana::config('repacks.storage');
@@ -369,22 +706,22 @@ class Repack_Model extends ORM
         file_put_contents("$repack_dir/xpi-config.ini", $this->buildConfigIni());
         file_put_contents("$repack_dir/distribution.ini", $this->buildDistributionIni());
 
-        // Execute the repack script and capture output / status.
+        // Execute the repack script and capture output / state.
         Kohana::log('debug', "Executing {$script}...");
         Kohana::log_save();
         $output = array();
-        $status = 0;
-        exec("{$script} xpi-config.ini >repack.log 2>&1", $output, $status);
+        $state = 0;
+        exec("{$script} xpi-config.ini >repack.log 2>&1", $output, $state);
 
-        if (0 == $status) {
-            Kohana::log('debug', "Success in {$script} with status $status");
+        if (0 == $state) {
+            Kohana::log('debug', "Success in {$script} with state $state");
         } else {
-            Kohana::log('error', "Failure in {$script} with status $status");
+            Kohana::log('error', "Failure in {$script} with state $state");
         }
         Kohana::log_save();
 
         // If the script executed successfully, there should be repacks available.
-        if (0 == $status) {
+        if (0 == $state) {
 
             // Copy the repacks into the download directory.
             foreach (glob("{$repack_dir}/repacks/*") as $fn) {
@@ -397,7 +734,7 @@ class Repack_Model extends ORM
         // Restore original directory.
         chdir($origdir);
 
-        Kohana::log('info', 'Finished repack for ' . $this->created_by->screen_name . ' - ' . $this->uuid);
+        Kohana::log('info', 'Finished repack for ' . $this->profile->screen_name . ' - ' . $this->uuid);
         Kohana::log_save();
     }
 
@@ -423,10 +760,27 @@ class Repack_Model extends ORM
 
 
     /**
-     * Internal access to the parent class' isset()
+     * Before saving to database, encode the grab bag of attributes into JSON.
      */
-    protected function orm_isset($column) {
-        return parent::__isset($column);
+    public function save()
+    {
+        if (!isset($this->state)) {
+            $this->state = self::$states['new'];
+        } elseif ($this->state == self::$states['new']) {
+            $this->state = self::$states['edited'];
+        }
+
+        $this->json_data = json_encode($this->attrs);
+
+        parent::save();
+
+        if ($this->state == self::$states['new']) {
+            Logevent_Model::log($this->uuid, 'created', null, $this->as_array());
+        } elseif ($this->state == self::$states['edited']) {
+            Logevent_Model::log($this->uuid, 'modified', null, $this->as_array());
+        }
+
+        return $this;
     }
 
     /**
@@ -434,11 +788,8 @@ class Repack_Model extends ORM
      */
     public function __get($column)
     {
-        if ('url' == $column) {
-            return url::base() . 
-                "profiles/{$this->created_by->screen_name}".
-                "/browsers/{$this->short_name}";
-        }
+        if ('url' == $column)
+            return $this->url();
 
         try {
             return parent::__get($column);
@@ -456,29 +807,18 @@ class Repack_Model extends ORM
      */
     public function __set($column, $value)
     {
-        if ('url' == $column) {
-            return $this->url;
-        }
         try {
             parent::__set($column, $value);
         } catch (Kohana_Exception $e) {
         }
-        return $this->attrs[$column] = $value;
-    }
-
-    /**
-     * Before saving to database, encode the grab bag of attributes into JSON.
-     */
-    public function save()
-    {
-        $this->json_data = json_encode($this->attrs);
-        return parent::save();
+        if ('json_data' != $column)
+            $this->attrs[$column] = $value;
     }
 
     /**
      * After loading from database, decode the grab bag of attributes from JSON.
      */
-    public function load_values($values)
+    public function load_values(array $values)
     {
         parent::load_values($values);
         $this->attrs = json_decode($this->json_data, true);

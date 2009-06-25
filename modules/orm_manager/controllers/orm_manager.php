@@ -12,7 +12,8 @@ class ORM_Manager_Controller extends Layout_Controller
 
     protected $url_base     = null;
     protected $view_base    = null;
-    protected $known_models = null;
+
+    protected $known_model_names = null;
 
     /**
      * Initialize the controller.
@@ -29,14 +30,9 @@ class ORM_Manager_Controller extends Layout_Controller
             $this->url_base = 'orm_manager';
         }
 
-        if (empty($this->known_models)) {
-            $this->known_models = $this->_find_models();
-        }
-
         $this->view->set_global(array(
             'url_base'     => url::base() . $this->url_base,
             'view_base'    => $this->view_base,
-            'known_models' => $this->known_models
         ));
 
         slot::append('head_end', html::stylesheet(array(
@@ -67,7 +63,7 @@ class ORM_Manager_Controller extends Layout_Controller
      */
     public function index()
     {
-        $this->view->models = $this->known_models;
+        $this->view->models = $this->get_models();
     }
 
     /**
@@ -188,6 +184,24 @@ class ORM_Manager_Controller extends Layout_Controller
 
 
     /**
+     * Return instances of models known to this controller, indexed by name.
+     *
+     * @return array Models indexed by name.
+     */
+    public function get_models()
+    {
+        if (empty($this->known_model_names)) {
+            $this->known_model_names = $this->_find_models();
+        }
+        $models = array();
+        foreach ($this->known_model_names as $name) {
+            $model = $this->_load_model($name);
+            if ($model) $models[$name] = $model;
+        }
+        return $models;
+    }
+
+    /**
      * Load a named model, return an instance if it's known and is an ORM 
      * subclass.  NULL returned otherwise.
      *
@@ -195,7 +209,10 @@ class ORM_Manager_Controller extends Layout_Controller
      * @return ORM
      */
     public function _load_model($model_name) {
-        if (!in_array($model_name, $this->known_models)) {
+        if (empty($this->known_model_names)) {
+            $this->known_model_names = $this->_find_models();
+        }
+        if (!in_array($model_name, $this->known_model_names)) {
             return null;
         }
         $model = ORM::factory($model_name);
@@ -204,7 +221,7 @@ class ORM_Manager_Controller extends Layout_Controller
         }
         return $model;
     }
-        
+
     /**
      * Return the names of all known models, drawn either from configuration or 
      * derived from models found by Kohana.

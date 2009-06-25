@@ -1,15 +1,15 @@
 <?php
 $r = $repack;
-$partner_id = 'byob' . $r->created_by->screen_name;
+$partner_id = 'byob' . $r->profile->screen_name;
 ?>
 ; Partner distribution.ini file for "<?= $r->title ?>"
-; Author email: <?= $r->created_by->logins[0]->email . "\n" ?>
+; Author email: <?= $r->profile->logins[0]->email . "\n" ?>
 ; UUID: <?= $r->uuid . "\n" ?>
 
 [Global]
-id=byob-<?= $r->created_by->screen_name . '-' . $r->short_name . "\n" ?>
+id=byob-<?= $r->profile->screen_name . '-' . $r->short_name . "\n" ?>
 version=<?= $r->version . "\n" ?>
-about=Mozilla Firefox for <?= $r->created_by->org_name . "\n" ?>
+about=Mozilla Firefox for <?= $r->profile->org_name . "\n" ?>
 
 [LocalizablePrefs]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>

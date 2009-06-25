@@ -9,7 +9,7 @@ $h = html::escape_array(compact(
 ));
 ?>
 <tr>
-    <td><span>
+    <td class="select_row"><span>
         <input type="checkbox" name="select_row[]" 
             value="<?=$h['primary_key_value']?>" />
     </span></td>

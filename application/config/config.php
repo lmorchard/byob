@@ -4,7 +4,6 @@
  * then a full URL will be used, eg: http://localhost/kohana/. If it only includes
  * the path, and a site_protocol is specified, the domain will be auto-detected.
  */
-//$config['site_domain'] = $_SERVER['HTTP_HOST'] . '/';
 $config['site_domain'] = '/';
 
 /**

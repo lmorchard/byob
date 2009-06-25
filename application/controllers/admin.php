@@ -5,8 +5,9 @@
 class Admin_Controller extends ORM_Manager_Controller
 {
     protected $url_base = 'admin';
-    protected $known_models = array(
-        'post', 'profile', 'login', 'repack', 'permission', 'role'
+    protected $known_model_names = array(
+        'repack', 'logevent', 'product', 'profile', 'login', 'permission', 
+        'role', 'post'
     );
 
     /**

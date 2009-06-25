@@ -43,76 +43,6 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
     <?php if (!$create): ?>
 
-    <h3><a href="#">Would you like to customize the start page?</a></h3>
-    <div>
-        <p>You can customize the content displayed on your browser's start page.</p>
-
-        <p>You can provide static content to be hosted by us, as well as an optional RSS 
-        or Atom feed to include dynamic headlines.</p>
-
-        <p>Alternatively, you can supply the URL to a custom start page of your own.</p>
-
-        <?= 
-        form::fieldset('start page', array(), array( 
-            form::field('textarea', 'startpage_content', 'content'),
-            form::field('input', 'startpage_feed_url', 'feed URL'),
-            '<li><label>&nbsp</label><p>- OR -</p></li>',
-            form::field('input', 'startpage_custom_url', 'custom page URL')
-        ))
-        ?>
-    </div>
-
-    <h3><a href="#">Would you like to customize the bookmarks menu?</a></h3>
-    <div>
-        <p>You can add up to 5 custom bookmarks to your browser's bookmark menu.</p>
-        <?php
-            View::factory('repacks/edit_bookmarks', array(
-                'prefix' => 'bookmarks_menu'
-            ))->render(true);
-        ?>
-    </div>
-
-    <h3><a href="#">Would you like to customize the bookmarks toolbar?</a></h3>
-
-    <div>
-        <p>You can add up to 3 custom bookmarks to your browser's link toolbar.</p>
-        <?php
-            View::factory('repacks/edit_bookmarks', array(
-                'prefix' => 'bookmarks_toolbar'
-            ))->render(true);
-        ?>
-    </div>
-
-    <h3><a href="#">Would you like to choose a collection of pre-installed addons?</a></h3>
-
-    <div>
-
-        <p>You can choose a set of addons to come pre-installed in your 
-        browser by using the collections feature of addons.mozilla.com</p>
-
-        <?= 
-        form::fieldset('addons collection', array(), array( 
-            form::field('input', 'addons_collection_url', 'Collection URL'),
-        ))
-        ?>
-
-    </div>
-
-    <h3><a href="#">Would you like to select a Persona for customize your browser's appearance?</a></h3>
-
-    <div>
-
-        <p>You can choose a custom appearance to apply to your browser
-        by selecting a Persona from getpersonas.com</p>
-
-        <?= 
-        form::fieldset('Personas for Firefox', array(), array( 
-            form::field('input', 'persona_id', 'Persona ID'),
-        ))
-        ?>
-
-    </div>
-
     <h3><a href="#">Would you like to customize the languages supported by your browser?</a></h3>
 
     <div>
@@ -191,6 +121,69 @@ form::$errors = isset($form_errors) ? $form_errors : array();
                 <?php endforeach ?>
             </ul>
         </div>
+
+    </div>
+
+    <h3><a href="#">Would you like to customize the first run page?</a></h3>
+    <div>
+        <p>You can customize the content displayed when your browser is started for the first time.</p>
+
+
+        <?= 
+        form::fieldset('first run page', array(), array( 
+            form::field('textarea', 'firstrun_content', 'content'),
+        ))
+        ?>
+    </div>
+
+    <h3><a href="#">Would you like to customize the bookmarks menu?</a></h3>
+    <div>
+        <p>You can add up to 5 custom bookmarks to your browser's bookmark menu.</p>
+        <?php
+            View::factory('repacks/elements/edit_bookmarks', array(
+                'prefix' => 'bookmarks_menu'
+            ))->render(true);
+        ?>
+    </div>
+
+    <h3><a href="#">Would you like to customize the bookmarks toolbar?</a></h3>
+
+    <div>
+        <p>You can add up to 3 custom bookmarks to your browser's link toolbar.</p>
+        <?php
+            View::factory('repacks/elements/edit_bookmarks', array(
+                'prefix' => 'bookmarks_toolbar'
+            ))->render(true);
+        ?>
+    </div>
+
+    <h3><a href="#">Would you like to choose a collection of pre-installed addons?</a></h3>
+
+    <div>
+
+        <p>You can choose a set of addons to come pre-installed in your 
+        browser by using the collections feature of addons.mozilla.com</p>
+
+        <?= 
+        form::fieldset('addons collection', array(), array( 
+            form::field('input', 'addons_collection_url', 'Collection URL'),
+        ))
+        ?>
+
+    </div>
+
+    <h3><a href="#">Would you like to select a Persona for customize your browser's appearance?</a></h3>
+
+    <div>
+
+        <p>You can choose a custom appearance to apply to your browser
+        by selecting a Persona from getpersonas.com</p>
+
+        <?= 
+        form::fieldset('Personas for Firefox', array(), array( 
+            form::field('input', 'persona_id', 'Persona ID'),
+        ))
+        ?>
 
     </div>
 

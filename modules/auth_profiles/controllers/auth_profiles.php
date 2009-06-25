@@ -82,6 +82,11 @@ class Auth_Profiles_Controller extends Local_Controller
                 )
             );
         }
+        Session::instance()->set_flash(
+            'message', 
+            'Check your email to verify your address before login.'
+        );
+
         return url::redirect('login');
     }
 
@@ -171,6 +176,20 @@ class Auth_Profiles_Controller extends Local_Controller
             return;
         }
         $login->change_email($new_email);
+
+        // TODO: Make auto-login on email verification configurable?
+        if (!AuthProfiles::is_logged_in()) {
+
+            $profile = $login->find_default_profile_for_login();
+            $login->login();
+            AuthProfiles::login($login->login_name, $login, $profile);
+            Session::instance()->set_flash(
+                'message', 
+                'Email address verified. Welcome!'
+            );
+
+            return url::redirect('/home');
+        }
     }
 
 
@@ -230,8 +249,6 @@ class Auth_Profiles_Controller extends Local_Controller
             // Something unexpected happened.
             $this->view->password_change_failed = true;
         } else {
-            // Force re-login after password change.
-            AuthProfiles::logout();
             $this->view->password_changed = true;
         }
     }

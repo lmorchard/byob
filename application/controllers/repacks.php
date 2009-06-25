@@ -15,7 +15,7 @@ class Repacks_Controller extends Local_Controller
         parent::__construct();
 
         $unauth_methods = array(
-            'index', 'view', 'startpage', 'firstrun'
+            'index', 'view', 'firstrun'
         );
 
         if (!AuthProfiles::is_logged_in()) {
@@ -30,8 +30,9 @@ class Repacks_Controller extends Local_Controller
         $this->repack_model = new Repack_Model();
     }
 
+
     /**
-     * List browsers for a user.
+     * List browsers for a profile.
      */
     public function index()
     {
@@ -39,16 +40,30 @@ class Repacks_Controller extends Local_Controller
             'screen_name' => null,
         ));
 
+        // Look for a profile by screen name, 404 if not found.
         $profile = $this->view->profile = 
             ORM::factory('profile', $params['screen_name']);
-
         if (false === $profile->loaded) {
             return Event::run('system.404');
         }
 
-        $this->view->repacks = ORM::factory('repack')
-            ->where('created_by', $profile->id)
+        // Find all repacks for the profile.
+        $all_profile_repacks = ORM::factory('repack')
+            ->where('profile_id', $profile->id)
             ->find_all();
+
+        // Index unique repacks by UUID and release / non-release
+        $indexed_repacks = array();
+        foreach ($all_profile_repacks as $repack) {
+            $uuid = $repack->uuid;
+            if (!isset($indexed_repacks[$uuid])) 
+                $indexed_repacks[$uuid] = array();
+            $key = ($repack->isRelease()) ?
+                'released' : 'unreleased';
+            $indexed_repacks[$uuid][$key] = $repack;
+        }
+
+        $this->view->indexed_repacks = $indexed_repacks;
     }
 
     /**
@@ -58,38 +73,8 @@ class Repacks_Controller extends Local_Controller
     {
         $rp = $this->_getRequestedRepack();
         $this->view->repack = $rp;
-
-        if (AuthProfiles::is_logged_in()) {
-
-            // Come up with in-progress releases for this user & repack UUID.
-            $mq = new MessageQueue_Model();
-            $msgs = $mq->findByOwner(AuthProfiles::get_profile('id'));
-            $queued = array();
-            foreach ($msgs as $msg) {
-                if ($msg->finished_at || $msg->reserved_at) continue;
-                $qrp = Mozilla_BYOB_Repack::factoryJSON($msg->body);
-                if ($qrp->uuid != $rp->uuid) continue;
-                $queued[] = array('msg' => $msg, 'repack' => $qrp);
-            }
-            $this->view->queued = $queued;
-
-        }
-
-        // Find the completed releases.
-        $releases = array();
-        $downloads = Kohana::config('repacks.downloads');
-        $repack_base = "{$downloads}/{$rp->uuid}/*";
-        foreach (glob($repack_base, GLOB_ONLYDIR) as $rev_dir) {
-            $files = array();
-            foreach (glob("{$rev_dir}/*") as $release_fn) {
-                $files[] = basename($release_fn);
-            }
-            $releases[] = array(
-                'rev'   => basename($rev_dir),
-                'files' => $files
-            );
-        }
-        $this->view->releases = array_reverse($releases);
+        $this->view->logevents = ORM::factory('logevent')
+            ->findByUUID($rp->uuid);
     }
 
     /**
@@ -106,17 +91,34 @@ class Repacks_Controller extends Local_Controller
 
             // On creation, instantiate a new repack.
             $rp = ORM::factory('repack');
-            $rp->created_by_id = AuthProfiles::get_profile('id');
+            $rp->profile_id = AuthProfiles::get_profile('id');
             $this->view->create = true;
 
         } else {
 
+            // On editing, look for an editable version of this repack.
+            $this->view->create = false;
+
             $rp = $this->_getRequestedRepack();
-            if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
+            if (!$rp->loaded) {
+                return Event::run('system.404');
+            }
+            if ($rp->profile->id != AuthProfiles::get_profile('id')) {
                 // Bail out if the logged in user doesn't own it.
                 return Event::run('system.403');
             }
-            $this->view->create = false;
+
+            $editable_rp = $rp->findEditable();
+            if (!$editable_rp) {
+                // No editable alternative, so bail.
+                return Event::run('system.403');
+            } elseif ($editable_rp->id != $rp->id) {
+                // Redirect to editable alternative.
+                if (!$editable_rp->saved) {
+                    $editable_rp->save();
+                }
+                return url::redirect($editable_rp->url.';edit');
+            }
 
             if ($this->input->post('cancel', false)) {
                 return url::redirect($rp->url);
@@ -130,7 +132,7 @@ class Repacks_Controller extends Local_Controller
         $form_data['uuid'] = $rp->uuid;
 
         // Try to validate the form data and update the repack.
-        $is_valid = $rp->validate_repack(
+        $is_valid = $rp->validateRepack(
             $form_data, ('post' == request::method())
         );
 
@@ -171,14 +173,104 @@ class Repacks_Controller extends Local_Controller
         }
     }
 
+
+    /**
+     * Request a new browser release
+     */
+    public function release()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $rp = $rp->requestRelease($this->input->post('comments'));
+            }
+            return url::redirect($rp->url);
+        }
+        $this->view->repack = $rp;
+    }
+
+    /**
+     * Cancel browser relase request.
+     */
+    public function cancel()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $rp = $rp->cancelRelease($this->input->post('comments'));
+            }
+            return url::redirect($rp->url);
+        }
+        $this->view->repack = $rp;
+    }
+
+    /**
+     * Cancel Release of a new release.
+     */
+    public function approve()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $rp = $rp->approveRelease($this->input->post('comments'));
+            }
+            return url::redirect($rp->url);
+        }
+        $this->view->repack = $rp;
+    }
+
+    /**
+     * Reject release of a new release.
+     */
+    public function reject()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $rp = $rp->rejectRelease($this->input->post('comments'));
+            }
+            return url::redirect($rp->url);
+        }
+        $this->view->repack = $rp;
+    }
+
+    /**
+     * Revert a public release
+     */
+    public function revert()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $rp = $rp->revertRelease($this->input->post('comments'));
+            }
+            return url::redirect($rp->url);
+        }
+        $this->view->repack = $rp;
+    }
+
     /**
      * Delete the details of a customized repack
      */
     public function delete()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
-            // Bail out if the logged in user doesn't own it.
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
             return Event::run('system.403');
         }
 
@@ -186,15 +278,46 @@ class Repacks_Controller extends Local_Controller
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm']) ) {
-                $this->repack_model->where(array('uuid' => $rp->uuid))->delete();
+                $rp->delete();
                 Session::instance()->set_flash(
-                    'message', 'Repack deleted'
+                    'message', 'Browser deleted'
                 );
                 return url::redirect('');
             } else {
                 return url::redirect($rp->url);
             }
         }
+    }
+
+
+    public function begin()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        $rp = $rp->beginRelease();
+        return url::redirect($rp->url);
+    }
+
+    public function fail()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        $rp = $rp->failRelease('Solar flares');
+        return url::redirect($rp->url);
+    }
+
+    public function finish()
+    {
+        $rp = $this->_getRequestedRepack();
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            return Event::run('system.403');
+        }
+        $rp = $rp->finishRelease();
+        return url::redirect($rp->url);
     }
 
     /**
@@ -211,47 +334,6 @@ class Repacks_Controller extends Local_Controller
         $this->layout->set_filename('layout-non-auth');
     }
 
-    /**
-     * Present the browser home page for a repack.
-     */
-    public function startpage()
-    {
-        $rp = $this->_getRequestedRepack();
-
-        $this->view->set(array(
-            'repack'     => $rp,
-            'content'    => $rp->startpage_content,
-            'feed_items' => (!empty($rp->startpage_feed_url)) ?
-                feed::parse($rp->startpage_feed_url) : array(),
-        ));
-
-        $this->layout->set_filename('layout-non-auth');
-    }
-
-    /**
-     * Schedule the build of a new release.
-     */
-    public function release()
-    {
-        $rp = $this->_getRequestedRepack();
-        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
-            // Bail out if the logged in user doesn't own it.
-            return Event::run('system.403');
-        }
-
-        if ('post' == request::method()) {
-            if (isset($_POST['confirm']) ) {
-                // Schedule a repack via event and return to detail page.
-                $ev_data = $rp->as_array();
-                Event::run('BYOB.process_repack', $ev_data);
-                return url::redirect($rp->url);
-            } else {
-                return url::redirect($rp->url);
-            }
-        }
-
-        $this->view->repack = $rp;
-    }
 
     /**
      * Spew out the raw xpi-config.ini used by repack
@@ -259,7 +341,7 @@ class Repacks_Controller extends Local_Controller
     public function xpiconfigini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;
@@ -273,53 +355,12 @@ class Repacks_Controller extends Local_Controller
     public function distributionini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->created_by->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;
         header('Content-Type: text/plain');
         echo $rp->buildDistributionIni();
-    }
-
-    private function _getRequestedRepack()
-    {
-        $params = Router::get_params(array(
-            'uuid'        => null,
-            'screen_name' => null,
-            'short_name'  => null
-        ));
-
-        if (!empty($params['uuid'])) {
-
-            $rp = $this->repack_model
-                ->orwhere(array( 'uuid' => $params['uuid'] ))
-                ->find()->get();
-
-        } else if (!empty($params['screen_name']) && !empty($params['short_name'])) {
-
-            $profile = ORM::factory('profile', $params['screen_name']);
-            if (null == $profile) {
-                Event::run('system.404');
-                exit();
-            }
-
-            $rp = $this->repack_model
-                ->find(array( 
-                    'created_by_id' => $profile,
-                    'short_name' => $params['short_name']
-                ));
-
-        } else {
-            $rp = null;
-        }
-
-        if (null === $rp) {
-            // Bail out if not found.
-            Event::run('system.404');
-            exit();
-        }
-
-        return $rp;
     }
 
 }

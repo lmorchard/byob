@@ -8,6 +8,11 @@
  */
 class ManagedORM extends ORM
 {
+    // {{{ Model attributes
+
+    // Display title for the model
+    public $model_title = null;
+
     // Titles for named columns
     public $table_column_titles = array();
 
@@ -21,6 +26,8 @@ class ManagedORM extends ORM
             'title'  => 'Delete'
         )
     );
+    
+    // }}}
 
     /**
      * Perform custom validation for model.

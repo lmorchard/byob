@@ -9,6 +9,12 @@
         <?php endif ?>
     </ul>
 
+    <?php
+        $title = empty($model->model_title) ?
+            $name : $model->model_title;
+    ?>
+    <h3><?=html::specialchars($title)?></h3>
+
     <?= View::factory("{$view_base}/list_model/list")->render() ?>
 
     <?php if (!empty($pagination)): ?>

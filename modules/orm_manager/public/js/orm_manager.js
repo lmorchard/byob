@@ -10,9 +10,7 @@ ORM_Manager = function() {
          */
         init: function() {
 
-            $('.list_model').each(function() {
-                $this.wireUpToggleAll();
-            });
+            $this.wireUpToggleAll();
 
             return this;
         },
@@ -22,18 +20,20 @@ ORM_Manager = function() {
          */
         wireUpToggleAll: function() {
 
-            // Add a select-all link
-            $('.list_model th:first').append('<a href="#">all</a>');
-
-            // Wire up select-all to toggle all checkboxes
-            $('.list_model th:first a')
-                .click(function() {
-                    $('.list_model input[type=checkbox]').each(function() {
-                        var box = $(this);
-                        box.attr('checked', !box.attr('checked'));
+            // Add a select-all link to each table
+            $('.list_model').each(function() {
+                var list_model = $(this);
+                var th = list_model.find('th:first span');
+                th.append('<a class="select-all" href="#">all</a>');
+                th.find('a.select-all')
+                    .click(function() {
+                        list_model.find('input[type=checkbox]').each(function() {
+                            var box = $(this);
+                            box.attr('checked', !box.attr('checked'));
+                        });
+                        return false;
                     });
-                    return false;
-                })
+            });
 
         },
 

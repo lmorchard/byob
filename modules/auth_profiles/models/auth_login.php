@@ -78,10 +78,10 @@ class Auth_Login_Model extends ORM
     /**
      * Perform anything necessary for login on the model side.
      *
-     * @param  array|Validation Form data used in login
+     * @param  array|Validation Form data (if any) used in login
      * @return boolean
      */
-    public function login($data)
+    public function login($data=null)
     {
         $this->last_login = gmdate('c');
         $this->save();
