@@ -5,41 +5,65 @@ $h = html::escape_array(array_merge(
         'url' => $repack->url
     )
 ));
+$privs = $repack->checkPrivileges();
 ?>
 <?php if ($repack->isRelease()): ?>
 
     <ul class="actions">
-        <li><a href="<?=$h['url']?>">View details</a></li>
-        <li><a href="<?=$h['url']?>;edit">Change details</a></li>
-        <li><a href="<?=$h['url']?>;revert">Take down release</a></li>
+        <?php if ($privs['view']): ?>
+            <li><a href="<?=$h['url']?>">View details</a></li>
+        <?php endif ?>
+        <?php if ($privs['edit']): ?>
+            <li><a href="<?=$h['url']?>;edit">Change details</a></li>
+        <?php endif ?>
+        <?php if ($privs['revert']): ?>
+            <li><a href="<?=$h['url']?>;revert">Take down release</a></li>
+        <?php endif ?>
     </ul>
 
 <?php else: ?>
 
     <ul class="actions">
-        <li><a href="<?=$h['url']?>">Preview details</a></li>
+        <?php if ($privs['view']): ?>
+            <li><a href="<?=$h['url']?>">Preview details</a></li>
+        <?php endif ?>
 
-        <?php if (!$repack->isLockedForChanges()): ?>
+        <?php if ($privs['edit']): ?>
             <li><a href="<?=$h['url']?>;edit">Continue editing</a></li>
+        <?php endif ?>
+        <?php if ($privs['delete']): ?>
             <li><a href="<?=$h['url']?>;delete">Abandon changes</a></li>
         <?php endif ?>
 
         <?php if ($repack->isPendingApproval()): ?>
-            <li><a href="<?=$h['url']?>;cancel">Cancel release</a></li>
-            <li><a href="<?=$h['url']?>;approve">Approve release</a></li>
-            <li><a href="<?=$h['url']?>;reject">Reject release</a></li>
+            <?php if ($privs['cancel']): ?>
+                <li><a href="<?=$h['url']?>;cancel">Cancel release</a></li>
+            <?php endif ?>
+            <?php if ($privs['approve']): ?>
+                <li><a href="<?=$h['url']?>;approve">Approve release</a></li>
+            <?php endif ?>
+            <?php if ($privs['reject']): ?>
+                <li><a href="<?=$h['url']?>;reject">Reject release</a></li>
+            <?php endif ?>
         <?php else: ?>
             <?php if (!$repack->isLockedForChanges()): ?>
-                <li><a href="<?=$h['url']?>;release">Request release</a></li>
-
+                <?php if ($privs['release']): ?>
+                    <li><a href="<?=$h['url']?>;release">Request release</a></li>
+                <?php endif ?>
             <?php // TEMPORARY HACK AHOY! ?>
             <?php else: ?>
                 <?php if ($repack->state == Repack_Model::$states['requested']): ?>
-                    <li><a href="<?=$h['url']?>;begin">SIMULATE BUILD START</a></li>
+                    <?php if ($privs['begin']): ?>
+                        <li><a href="<?=$h['url']?>;begin">SIMULATE BUILD START</a></li>
+                    <?php endif ?>
                 <?php endif ?>
                 <?php if ($repack->state == Repack_Model::$states['started']): ?>
-                    <li><a href="<?=$h['url']?>;fail">SIMULATE BUILD FAIL</a></li>
-                    <li><a href="<?=$h['url']?>;finish">SIMULATE BUILD FINISH</a></li>
+                    <?php if ($privs['fail']): ?>
+                        <li><a href="<?=$h['url']?>;fail">SIMULATE BUILD FAIL</a></li>
+                    <?php endif ?>
+                    <?php if ($privs['finish']): ?>
+                        <li><a href="<?=$h['url']?>;finish">SIMULATE BUILD FINISH</a></li>
+                    <?php endif ?>
                 <?php endif ?>
 
             <?php endif ?>

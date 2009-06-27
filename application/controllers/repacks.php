@@ -55,6 +55,9 @@ class Repacks_Controller extends Local_Controller
         // Index unique repacks by UUID and release / non-release
         $indexed_repacks = array();
         foreach ($all_profile_repacks as $repack) {
+            $privs = $repack->checkPrivileges();
+            if (!$privs['view']) continue;
+            
             $uuid = $repack->uuid;
             if (!isset($indexed_repacks[$uuid])) 
                 $indexed_repacks[$uuid] = array();
@@ -71,10 +74,16 @@ class Repacks_Controller extends Local_Controller
      */
     public function view()
     {
-        $rp = $this->_getRequestedRepack();
-        $this->view->repack = $rp;
-        $this->view->logevents = ORM::factory('logevent')
-            ->findByUUID($rp->uuid);
+        $repack = $this->_getRequestedRepack();
+        $privs = $repack->checkPrivileges();
+        if (!$privs['view']) return Event::run('system.403');
+
+        $this->view->repack = $repack;
+
+        if ($privs['view_history']) {
+            $this->view->logevents = ORM::factory('logevent')
+                ->findByUUID($repack->uuid);
+        }
     }
 
     /**
@@ -89,6 +98,10 @@ class Repacks_Controller extends Local_Controller
 
         if (false !== $params['create']) {
 
+            if (!authprofiles::is_allowed('repacks', 'create')) {
+                return Event::run('system.403');
+            }
+
             // On creation, instantiate a new repack.
             $rp = ORM::factory('repack');
             $rp->profile_id = authprofiles::get_profile('id');
@@ -100,19 +113,17 @@ class Repacks_Controller extends Local_Controller
             $this->view->create = false;
 
             $rp = $this->_getRequestedRepack();
-            if (!$rp->loaded) {
-                return Event::run('system.404');
-            }
-            if ($rp->profile->id != authprofiles::get_profile('id')) {
-                // Bail out if the logged in user doesn't own it.
-                return Event::run('system.403');
-            }
 
             $editable_rp = $rp->findEditable();
             if (!$editable_rp) {
                 // No editable alternative, so bail.
                 return Event::run('system.403');
-            } elseif ($editable_rp->id != $rp->id) {
+            }
+
+            $privs = $editable_rp->checkPrivileges();
+            if (!$privs['edit']) return Event::run('system.403');
+           
+            if ($editable_rp->id != $rp->id) {
                 // Redirect to editable alternative.
                 if (!$editable_rp->saved) {
                     $editable_rp->save();
@@ -179,17 +190,17 @@ class Repacks_Controller extends Local_Controller
      */
     public function release()
     {
-        $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $repack = $this->_getRequestedRepack();
+        $privs = $repack->checkPrivileges();
+        if (!$privs['release']) return Event::run('system.403');
+
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
-                $rp = $rp->requestRelease($this->input->post('comments'));
+                $repack = $repack->requestRelease($this->input->post('comments'));
             }
-            return url::redirect($rp->url);
+            return url::redirect($repack->url);
         }
-        $this->view->repack = $rp;
+        $this->view->repack = $repack;
     }
 
     /**
@@ -198,9 +209,9 @@ class Repacks_Controller extends Local_Controller
     public function cancel()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['cancel']) return Event::run('system.403');
+
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
                 $rp = $rp->cancelRelease($this->input->post('comments'));
@@ -215,17 +226,17 @@ class Repacks_Controller extends Local_Controller
      */
     public function approve()
     {
-        $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $repack = $this->_getRequestedRepack();
+        $privs = $repack->checkPrivileges();
+        if (!$privs['approve']) return Event::run('system.403');
+
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
-                $rp = $rp->approveRelease($this->input->post('comments'));
+                $repack = $repack->approveRelease($this->input->post('comments'));
             }
-            return url::redirect($rp->url);
+            return url::redirect($repack->url);
         }
-        $this->view->repack = $rp;
+        $this->view->repack = $repack;
     }
 
     /**
@@ -234,9 +245,9 @@ class Repacks_Controller extends Local_Controller
     public function reject()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['reject']) return Event::run('system.403');
+
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
                 $rp = $rp->rejectRelease($this->input->post('comments'));
@@ -252,9 +263,9 @@ class Repacks_Controller extends Local_Controller
     public function revert()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['revert']) return Event::run('system.403');
+
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
                 $rp = $rp->revertRelease($this->input->post('comments'));
@@ -270,9 +281,8 @@ class Repacks_Controller extends Local_Controller
     public function delete()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['delete']) return Event::run('system.403');
 
         $this->view->repack = $rp;
 
@@ -290,12 +300,13 @@ class Repacks_Controller extends Local_Controller
     }
 
 
+    /** HACK: temporary methods */
+
     public function begin()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
+        if (!authprofiles::is_allowed('repacks', 'begin'))
             return Event::run('system.403');
-        }
         $rp = $rp->beginRelease();
         return url::redirect($rp->url);
     }
@@ -303,9 +314,8 @@ class Repacks_Controller extends Local_Controller
     public function fail()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
+        if (!authprofiles::is_allowed('repacks', 'fail'))
             return Event::run('system.403');
-        }
         $rp = $rp->failRelease('Solar flares');
         return url::redirect($rp->url);
     }
@@ -313,9 +323,8 @@ class Repacks_Controller extends Local_Controller
     public function finish()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
+        if (!authprofiles::is_allowed('repacks', 'finish'))
             return Event::run('system.403');
-        }
         $rp = $rp->finishRelease();
         return url::redirect($rp->url);
     }

@@ -26,6 +26,7 @@ class Acl_Test extends PHPUnit_Framework_TestCase
         $acls = new Zend_Acl();
         $acls
             ->addRole(new Zend_Acl_Role('default'))
+            ->addRole(new Zend_Acl_Role('loggedin'))
             ->addRole(new Zend_Acl_Role('admin'))
             ->addRole(new Zend_Acl_Role('alpha'))
             ->addRole(new Zend_Acl_Role('beta'), 'alpha')
@@ -37,15 +38,17 @@ class Acl_Test extends PHPUnit_Framework_TestCase
             ->add(new Zend_Acl_Resource('three'))
 
             ->allow('admin')
-            ->allow('alpha',   'one',   array('cut', 'spindle', 'fold'))
-            ->allow('beta',    'one',   array('munge'))
-            ->allow('gamma',   'two',   array('remix', 'sample'))
-            ->allow('delta',   'two',   array('share'))
-            ->allow('default', 'three', array('explode'))
+            ->allow('alpha',    'one',   array('cut', 'spindle', 'fold'))
+            ->allow('beta',     'one',   array('munge'))
+            ->allow('gamma',    'two',   array('remix', 'sample'))
+            ->allow('delta',    'two',   array('share'))
+            ->allow('default',  'three', array('explode'))
+            ->allow('loggedin', 'three', array('transplode'))
             ;
 
         Kohana::config_set('auth_profiles.acls', $acls);
-        Kohana::config_set('auth_profiles.default_role', 'default');
+        Kohana::config_set('auth_profiles.base_anonymous_role', 'default');
+        Kohana::config_set('auth_profiles.base_login_role',     'loggedin');
 
         $this->logins   = array();
         $this->profiles = array();
@@ -113,20 +116,21 @@ class Acl_Test extends PHPUnit_Framework_TestCase
             array('two',   'share'),
             array('three', 'implode'),
             array('three', 'explode'),
+            array('three', 'transplode'),
         );
 
         // Permission results for each profile defined in setup.
         $expected_results = array(
-            array(true,  true,  true,  true,  true,  true,  true,  true,  true),
-            array(true,  true,  true,  false, false, false, false, false, false),
-            array(true,  true,  true,  true,  false, false, false, false, false),
-            array(false, false, false, false, true,  true,  false, false, false),
-            array(false, false, false, false, true,  true,  true,  false, false),
-            array(true,  true,  true,  false, true,  true,  false, false, false),
-            array(true,  true,  true,  true,  true,  true,  true,  false, false),
+            array(true,  true,  true,  true,  true,  true,  true,  true,  true,  true),
+            array(true,  true,  true,  false, false, false, false, false, false, true),
+            array(true,  true,  true,  true,  false, false, false, false, false, true),
+            array(false, false, false, false, true,  true,  false, false, false, true),
+            array(false, false, false, false, true,  true,  true,  false, false, true),
+            array(true,  true,  true,  false, true,  true,  false, false, false, true),
+            array(true,  true,  true,  true,  true,  true,  true,  false, false, true),
 
             // default role used when profiles run out.
-            array(false, false, false, false, false, false, false, false, true),
+            array(false, false, false, false, false, false, false, false, true,  false),
         );
 
         // Iterate through the expected results and profiles, check the 

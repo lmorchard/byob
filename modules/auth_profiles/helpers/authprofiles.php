@@ -38,7 +38,7 @@ class authprofiles_Core
         if (null===$url) 
             $url = '/'.url::current(TRUE);
         return url::redirect(
-            url::base() . '/login?jump=' . rawurlencode($url)
+            url::base() . 'login?jump=' . rawurlencode($url)
         );
     }
 
@@ -209,19 +209,21 @@ class authprofiles_Core
      * @param  string                             $privilege
      * @return boolean
      */
-    public static function is_allowed($resource=null, $privilege=null)
+    public static function is_allowed($resource=null, $privilege=null, $profile=null)
     {
         $acls = Kohana::config('auth_profiles.acls');
 
         // Allow by default if no ACLs defined.
         if (empty($acls)) return true;
 
-        $profile = self::get_profile();
-        if (empty($profile) || $profile->roles->count() == 0) {
-            // If no profile logged in, or if the logged in profile has no 
-            // roles, use the default role.
-            $default_role = Kohana::config('auth_profiles.default_role');
-            return $acls->isAllowed($default_role, $resource, $privilege);
+        if (empty($profile)) {
+            $profile = self::get_profile();
+            if (empty($profile)) {
+                // If no profile logged in, or if the logged in profile has no 
+                // roles, use the default role.
+                $base_role = Kohana::config('auth_profiles.base_anonymous_role');
+                return $acls->isAllowed($base_role, $resource, $privilege);
+            }
         }
 
         // Iterate through the roles and return true for the first 
@@ -230,6 +232,12 @@ class authprofiles_Core
             if ($acls->isAllowed($role->name, $resource, $privilege)) {
                 return true;
             }
+        }
+
+        // Check the base logged-in role as a last ditch effort.
+        $base_role = Kohana::config('auth_profiles.base_login_role');
+        if ($acls->isAllowed($base_role, $resource, $privilege)) {
+            return true;
         }
 
         return false;

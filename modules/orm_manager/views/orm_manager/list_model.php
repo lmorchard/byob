@@ -11,7 +11,7 @@
 
     <?php
         $title = empty($model->model_title) ?
-            $name : $model->model_title;
+            $model->object_name : $model->model_title;
     ?>
     <h3><?=html::specialchars($title)?></h3>
 
