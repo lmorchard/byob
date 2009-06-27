@@ -13,9 +13,9 @@ class Index_Controller extends Local_Controller
 
     public function index()
     {
-        if (!AuthProfiles::is_logged_in()) {
+        if (!authprofiles::is_logged_in()) {
             $this->view->repacks = ORM::factory('repack')
-                ->where('profile_id', AuthProfiles::get_profile('id'))
+                ->where('profile_id', authprofiles::get_profile('id'))
                 ->find_all();
         }
 

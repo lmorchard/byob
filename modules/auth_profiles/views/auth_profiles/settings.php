@@ -1,5 +1,5 @@
 <?php
-    $screen_name = AuthProfiles::get_profile('screen_name');
+    $screen_name = authprofiles::get_profile('screen_name');
     $u_screen_name = rawurlencode($screen_name);
 ?>
 <?php

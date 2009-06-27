@@ -1,6 +1,6 @@
 <?php
 /**
- *
+ * Local controller base class for all application controllers.
  */
 class Local_Controller extends Layout_Controller
 {
@@ -11,8 +11,21 @@ class Local_Controller extends Layout_Controller
 
         // Set the global profile ID for log events during this request.
         Logevent_Model::setCurrentProfileID(
-            AuthProfiles::get_profile('id')
+            authprofiles::get_profile('id')
         );
+
+        Event::add('system.403', array($this, 'show_403'));
+    }
+
+    /**
+     * In reaction to a 403 Forbidden event, throw up a forbidden view.
+     */
+    public function show_403()
+    {
+        header('403 Forbidden');
+        $this->view = View::factory('forbidden');
+        $this->_display();
+        exit();
     }
 
     /**

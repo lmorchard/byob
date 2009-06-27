@@ -1,5 +1,5 @@
-<?php if (AuthProfiles::is_logged_in() && 
-    AuthProfiles::get_profile('screen_name') == $profile->screen_name): ?>
+<?php if (authprofiles::is_logged_in() && 
+    authprofiles::get_profile('screen_name') == $profile->screen_name): ?>
     <p>
         <?php
             $create_url = url::base() .

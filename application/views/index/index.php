@@ -1,6 +1,6 @@
 <?php slot::start('prose') ?>
 
-<?php if (!AuthProfiles::is_logged_in()): ?>
+<?php if (!authprofiles::is_logged_in()): ?>
 
 ## Welcome!
 
@@ -15,7 +15,7 @@ To get started building your own browser, [register][] and [login][]!
 
 Want to [get started building a browser][create]?
 
-[create]: <?= url::base() . 'profiles/' . html::specialchars(AuthProfiles::get_profile('screen_name')) . '/browsers;create' ?> "create"
+[create]: <?= url::base() . 'profiles/' . html::specialchars(authprofiles::get_profile('screen_name')) . '/browsers;create' ?> "create"
 
 <?php if (!empty($repacks)): ?>
 Or, you can manage one of your existing custom browsers:

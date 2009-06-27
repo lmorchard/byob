@@ -18,8 +18,10 @@
         ->set('repack', $repack)->render()?>
 </div>
 
+<?php if (!empty($logevents)): ?>
 <div>
     <h3>History</h3>
     <?=View::factory('repacks/elements/history')
         ->set('logevents', $logevents)->render()?>
 </div>
+<?php endif ?>

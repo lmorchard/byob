@@ -1,6 +1,6 @@
 -- MySQL dump 10.11
 --
--- Host: localhost    Database: byob2
+-- Host: localhost    Database: byob2_test
 -- ------------------------------------------------------
 -- Server version	5.0.77-log
 
@@ -32,7 +32,7 @@ CREATE TABLE `logevents` (
   `created` datetime default NULL,
   PRIMARY KEY  (`id`),
   KEY `uuid` (`uuid`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -50,7 +50,7 @@ CREATE TABLE `login_email_verification_tokens` (
   PRIMARY KEY  (`id`),
   KEY `login_email_verification_tokens_ibfk_2` (`login_id`),
   CONSTRAINT `login_email_verification_tokens_ibfk_2` FOREIGN KEY (`login_id`) REFERENCES `logins` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -89,7 +89,7 @@ CREATE TABLE `logins` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `login_name` (`login_name`),
   KEY `email` (`email`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -108,7 +108,7 @@ CREATE TABLE `logins_profiles` (
   KEY `logins_profiles_ibfk_2` (`profile_id`),
   CONSTRAINT `logins_profiles_ibfk_1` FOREIGN KEY (`login_id`) REFERENCES `logins` (`id`) ON DELETE CASCADE,
   CONSTRAINT `logins_profiles_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -149,68 +149,6 @@ CREATE TABLE `message_queue` (
 SET character_set_client = @saved_cs_client;
 
 --
--- Table structure for table `permissions`
---
-
-DROP TABLE IF EXISTS `permissions`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `permissions` (
-  `id` int(11) NOT NULL auto_increment,
-  `name` varchar(32) default NULL,
-  `description` text,
-  PRIMARY KEY  (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
-
---
--- Table structure for table `permissions_roles`
---
-
-DROP TABLE IF EXISTS `permissions_roles`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `permissions_roles` (
-  `id` int(11) NOT NULL auto_increment,
-  `role_id` int(11) default NULL,
-  `permission_id` int(11) default NULL,
-  PRIMARY KEY  (`id`),
-  KEY `permissions_roles_ibfk_1` (`permission_id`),
-  KEY `permissions_roles_ibfk_2` (`role_id`),
-  CONSTRAINT `permissions_roles_ibfk_1` FOREIGN KEY (`permission_id`) REFERENCES `permissions` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `permissions_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
-
---
--- Table structure for table `posts`
---
-
-DROP TABLE IF EXISTS `posts`;
-SET @saved_cs_client     = @@character_set_client;
-SET character_set_client = utf8;
-CREATE TABLE `posts` (
-  `id` int(11) NOT NULL auto_increment,
-  `uuid` varchar(40) NOT NULL,
-  `signature` varchar(40) NOT NULL,
-  `profile_id` int(11) NOT NULL,
-  `url_id` int(11) NOT NULL,
-  `title` varchar(255) default NULL,
-  `notes` text,
-  `tags` text,
-  `visibility` int(11) default NULL,
-  `user_date` datetime default NULL,
-  `created` datetime default NULL,
-  `modified` datetime default NULL,
-  PRIMARY KEY  (`id`),
-  UNIQUE KEY `profile_id_url_id` (`profile_id`,`url_id`),
-  UNIQUE KEY `uuid` (`uuid`),
-  KEY `url_id` (`url_id`),
-  KEY `user_date` (`user_date`)
-) ENGINE=InnoDB AUTO_INCREMENT=12172 DEFAULT CHARSET=utf8;
-SET character_set_client = @saved_cs_client;
-
---
 -- Table structure for table `products`
 --
 
@@ -227,7 +165,7 @@ CREATE TABLE `products` (
   `created` datetime default NULL,
   `modified` datetime default NULL,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -271,7 +209,7 @@ CREATE TABLE `profiles` (
   PRIMARY KEY  (`id`),
   UNIQUE KEY `uuid` (`uuid`),
   UNIQUE KEY `screen_name` (`screen_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -283,13 +221,13 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `profiles_roles` (
   `id` int(11) NOT NULL auto_increment,
-  `profile_id` int(11) default NULL,
-  `role_id` int(11) default NULL,
+  `role_id` int(11) NOT NULL,
+  `profile_id` int(11) NOT NULL,
   PRIMARY KEY  (`id`),
-  KEY `profiles_roles_ibfk_1` (`profile_id`),
-  KEY `profiles_roles_ibfk_2` (`role_id`),
-  CONSTRAINT `profiles_roles_ibfk_1` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE,
-  CONSTRAINT `profiles_roles_ibfk_2` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE
+  UNIQUE KEY `role_id_profile_id` (`role_id`,`profile_id`),
+  KEY `profiles_roles_ibfk_2` (`profile_id`),
+  CONSTRAINT `profiles_roles_ibfk_1` FOREIGN KEY (`role_id`) REFERENCES `roles` (`id`) ON DELETE CASCADE,
+  CONSTRAINT `profiles_roles_ibfk_2` FOREIGN KEY (`profile_id`) REFERENCES `profiles` (`id`) ON DELETE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
@@ -314,7 +252,7 @@ CREATE TABLE `repacks` (
   `json_data` text,
   PRIMARY KEY  (`id`),
   KEY `created_by` (`profile_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=103 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 
 --
@@ -326,11 +264,10 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL auto_increment,
-  `parent_role_id` int(11) default NULL,
+  `profile_id` int(11) default NULL,
   `name` varchar(32) default NULL,
-  `description` text,
   PRIMARY KEY  (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 SET character_set_client = @saved_cs_client;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -342,4 +279,4 @@ SET character_set_client = @saved_cs_client;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2009-06-25 15:44:05
+-- Dump completed on 2009-06-26  3:33:57

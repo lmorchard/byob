@@ -8,8 +8,7 @@
  */
 class Auth_Role_Model extends ORM
 {
-    public $belongs_to = array('parent_role'=>'role');
-    public $has_and_belongs_to_many = array('permissions');
+    public $has_and_belongs_to_many = array('profiles');
 
     /**
      * Returns the unique key for a specific value. This method is expected
@@ -27,44 +26,4 @@ class Auth_Role_Model extends ORM
         }
         return parent::unique_key($id);
     }
-
-    /**
-     * Add a permission by name.
-     *
-     * Note that ->save() must still be called after granting permissions.
-     *
-     * @chainable
-     * @param   string  Permission name.
-     * @return  ORM
-     */
-    public function grant_permission($perm_name)
-    {
-        return $this->add(ORM::factory('permission', $perm_name));
-    }
-
-    /**
-     * Revoke a permission by name.
-     *
-     * Note that ->save() must still be called after revoking permissions.
-     *
-     * @chainable
-     * @param   string  Permission name.
-     * @return  ORM
-     */
-    public function revoke_permission($perm_name)
-    {
-        return $this->remove(ORM::factory('permission', $perm_name));
-    }
-
-    /**
-     * Check a permission by name.
-     *
-     * @param   string  Permission name.
-     * @return  boolean
-     */
-    public function has_permission($perm_name)
-    {
-        return $this->has(ORM::factory('permission', $perm_name));
-    }
-
 }

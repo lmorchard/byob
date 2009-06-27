@@ -152,6 +152,84 @@ class Repack_Model extends ManagedORM
 
 
     /**
+     * Run through possible privileges and assemble results.
+     *
+     * @TODO: Allow request for just one or two perms, optimization
+     */
+    public function checkPrivileges($privileges=null,$profile_id=null)
+    {
+        if (null === $profile_id) {
+            $profile_id = authprofiles::get_profile('id');
+        }
+        $own = $profile_id == $this->profile_id;
+        $perms = array(
+
+            'view' => 
+                authprofiles::is_allowed('repacks', 'view') ||
+                ($this->isRelease() &&
+                    authprofiles::is_allowed('repacks', 'view_released')) ||
+                (!$this->isRelease() && 
+                    authprofiles::is_allowed('repacks', 'view_unreleased')) ||
+                ($own && authprofiles::is_allowed('repacks', 'view_own')),
+
+            'view_history' =>
+                authprofiles::is_allowed('repacks', 'view_history') ||
+                ($own && authprofiles::is_allowed('repacks', 'view_own_history')),
+                
+            'edit' => 
+                (!$this->isLockedForChanges() && 
+                    authprofiles::is_allowed('repacks', 'edit')) ||
+                (!$this->isLockedForChanges() && $own && 
+                    authprofiles::is_allowed('repacks', 'edit_own')) ||
+                ($this->isLockedForChanges() &&
+                    authprofiles::is_allowed('repacks', 'edit_locked')),
+
+            'delete' => 
+                (!$this->isLockedForChanges() && 
+                    authprofiles::is_allowed('repacks', 'delete')) ||
+                (!$this->isLockedForChanges() && $own && 
+                    authprofiles::is_allowed('repacks', 'delete_own')) ||
+                ($this->isLockedForChanges() &&
+                authprofiles::is_allowed('repacks', 'delete_locked')),
+
+            'release' =>
+                authprofiles::is_allowed('repacks', 'release') ||
+                ($own && authprofiles::is_allowed('repacks', 'release_own')),
+
+            'revert' =>
+                authprofiles::is_allowed('repacks', 'revert') ||
+                ($own && authprofiles::is_allowed('repacks', 'revert_own')),
+
+            'approve' => 
+                authprofiles::is_allowed('repacks', 'approve') ||
+                ($own && authprofiles::is_allowed('repacks', 'approve_own')),
+
+            'auto_approve' => 
+                authprofiles::is_allowed('repacks', 'auto_approve') ||
+                ($own && authprofiles::is_allowed('repacks', 'auto_approve_own')),
+
+            'reject' => 
+                authprofiles::is_allowed('repacks', 'reject'),
+
+            'cancel' => 
+                authprofiles::is_allowed('repacks', 'cancel') ||
+                ($own && authprofiles::is_allowed('repacks', 'cancel_own')),
+
+            'begin' =>
+                authprofiles::is_allowed('repacks', 'begin'),
+
+            'finish' =>
+                authprofiles::is_allowed('repacks', 'finish'),
+
+            'fail' =>
+                authprofiles::is_allowed('repacks', 'fail'),
+
+        );
+        return $perms;
+    }
+
+
+    /**
      * Build a URL for a repack
      * @TODO Should this be in the controller?
      */
@@ -174,6 +252,9 @@ class Repack_Model extends ManagedORM
      */
     public function getStateName()
     {
+        if (empty($this->state)) {
+            return NULL;
+        }
         $r_states = array_flip(self::$states);
         return $r_states[$this->state];
     }
@@ -379,6 +460,11 @@ class Repack_Model extends ManagedORM
         $this->state = self::$states['pending'];
         $this->save();
         Logevent_Model::log($this->uuid, 'finishRelease', $comments);
+
+        // Auto-approve for trusted profiles granted the privilege
+        if (authprofiles::is_allowed('repacks', 'auto_approve_own', $this->profile)) {
+            return $this->approveRelease('Auto approved.');
+        }
 
         return $this;
     }

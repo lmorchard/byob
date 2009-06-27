@@ -21,8 +21,8 @@ class Auth_Profile_Model extends ORM
         'last_login'     => 'Last login',
     );
 
-    public $has_and_belongs_to_many = array('roles', 'logins');
-    // protected $has_many = array('profile_attributes');
+    public $has_and_belongs_to_many = array('logins','roles');
+
     // }}}
 
     /**
@@ -83,55 +83,25 @@ class Auth_Profile_Model extends ORM
     /**
      * Add a role by name.
      *
-     * Note that ->save() must still be called after adding roles.
+     * Looks up an existing record, or creates a new one if not found.
      *
      * @chainable
-     * @param   string  Role name.
-     * @return  ORM
+     * @return Profile_Model
      */
     public function add_role($role_name)
     {
-        return $this->add(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Remove a role by name.
-     *
-     * Note that ->save() must still be called after removing roles.
-     *
-     * @chainable
-     * @param   string  Role name.
-     * @return  ORM
-     */
-    public function remove_role($role_name)
-    {
-        return $this->remove(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Check if a user has a given role.
-     *
-     * @param   string  Role name.
-     * @return  boolean
-     */
-    public function has_role($role_name)
-    {
-        return $this->has(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Check a permission by name, across all roles.
-     *
-     * @param   string  Permission name.
-     * @return  boolean
-     */
-    public function has_permission($perm_name)
-    {
-        $perm = ORM::factory('permission', $perm_name);
-        foreach ($this->roles as $role) {
-            if ($role->has($perm)) return TRUE;
+        // Look for existing role by name, create a new one if not found.
+        $role = ORM::factory('role', $role_name);
+        if (!$role->loaded) {
+            $role = ORM::factory('role')->set(array(
+                'name' => $role_name
+            ))->save();
         }
-        return FALSE;
+
+        // Add the role, save it, done.
+        $this->add($role);
+        $this->save();
+        return $this;
     }
 
 

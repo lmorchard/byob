@@ -1,5 +1,5 @@
 <?php
-    $screen_name = AuthProfiles::get_profile('screen_name');
+    $screen_name = authprofiles::get_profile('screen_name');
     $u_screen_name = rawurlencode($screen_name);
 ?>
 <html> 
@@ -28,7 +28,7 @@
                     <div class="sub">
                         <div class="auth">
                             <ul class="nav">
-                                <?php if (!AuthProfiles::is_logged_in()): ?>
+                                <?php if (!authprofiles::is_logged_in()): ?>
                                     <li class="first"><a href="<?= url::base() . 'register' ?>">register</a></li>
                                     <li><a href="<?= url::base() . 'login' ?>">login</a></li>
                                 <?php else: ?>
