@@ -9,8 +9,8 @@ $config['cookie_path']  = '/';
 
 $config['default_role'] = 'guest';
 
-$acl = new Zend_Acl();
-$config['acls'] = $acl
+$acls = new Zend_Acl();
+$config['acls'] = $acls
 
     ->addRole(new Zend_Acl_Role('guest'))
     ->addRole(new Zend_Acl_Role('member'), 'guest')
