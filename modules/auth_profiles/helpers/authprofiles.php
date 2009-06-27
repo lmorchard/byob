@@ -1,12 +1,12 @@
 <?php
 /**
- * Main auth profiles library
+ * Auth profiles login helper
  *
  * @package    auth_profiles
- * @subpackage libraries
+ * @subpackage helpers
  * @author     l.m.orchard <l.m.orchard@pobox.com>
  */
-class AuthProfiles
+class authprofiles_Core
 {
     public static $cookie_manager = null;
     public static $cookie_name = 'auth_profiles';

@@ -11,7 +11,7 @@ class Local_Controller extends Layout_Controller
 
         // Set the global profile ID for log events during this request.
         Logevent_Model::setCurrentProfileID(
-            AuthProfiles::get_profile('id')
+            authprofiles::get_profile('id')
         );
     }
 

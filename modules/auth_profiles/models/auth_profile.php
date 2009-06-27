@@ -21,8 +21,9 @@ class Auth_Profile_Model extends ORM
         'last_login'     => 'Last login',
     );
 
-    public $has_and_belongs_to_many = array('roles', 'logins');
-    // protected $has_many = array('profile_attributes');
+    public $has_and_belongs_to_many = array('logins');
+    public $has_many = array('roles');
+
     // }}}
 
     /**
@@ -77,61 +78,6 @@ class Auth_Profile_Model extends ORM
             return 'screen_name';
         }
         return parent::unique_key($id);
-    }
-
-
-    /**
-     * Add a role by name.
-     *
-     * Note that ->save() must still be called after adding roles.
-     *
-     * @chainable
-     * @param   string  Role name.
-     * @return  ORM
-     */
-    public function add_role($role_name)
-    {
-        return $this->add(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Remove a role by name.
-     *
-     * Note that ->save() must still be called after removing roles.
-     *
-     * @chainable
-     * @param   string  Role name.
-     * @return  ORM
-     */
-    public function remove_role($role_name)
-    {
-        return $this->remove(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Check if a user has a given role.
-     *
-     * @param   string  Role name.
-     * @return  boolean
-     */
-    public function has_role($role_name)
-    {
-        return $this->has(ORM::factory('role', $role_name));
-    }
-
-    /**
-     * Check a permission by name, across all roles.
-     *
-     * @param   string  Permission name.
-     * @return  boolean
-     */
-    public function has_permission($perm_name)
-    {
-        $perm = ORM::factory('permission', $perm_name);
-        foreach ($this->roles as $role) {
-            if ($role->has($perm)) return TRUE;
-        }
-        return FALSE;
     }
 
 

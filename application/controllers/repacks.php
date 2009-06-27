@@ -18,12 +18,12 @@ class Repacks_Controller extends Local_Controller
             'index', 'view', 'firstrun'
         );
 
-        if (!AuthProfiles::is_logged_in()) {
+        if (!authprofiles::is_logged_in()) {
             if (!in_array(Router::$method, $unauth_methods)) {
                 Session::instance()->set_flash(
                     'message', 'Login required to manipulate repacks.'
                 );
-                return AuthProfiles::redirect_login();
+                return authprofiles::redirect_login();
             }
         }
 
@@ -91,7 +91,7 @@ class Repacks_Controller extends Local_Controller
 
             // On creation, instantiate a new repack.
             $rp = ORM::factory('repack');
-            $rp->profile_id = AuthProfiles::get_profile('id');
+            $rp->profile_id = authprofiles::get_profile('id');
             $this->view->create = true;
 
         } else {
@@ -103,7 +103,7 @@ class Repacks_Controller extends Local_Controller
             if (!$rp->loaded) {
                 return Event::run('system.404');
             }
-            if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+            if ($rp->profile->id != authprofiles::get_profile('id')) {
                 // Bail out if the logged in user doesn't own it.
                 return Event::run('system.403');
             }
@@ -180,7 +180,7 @@ class Repacks_Controller extends Local_Controller
     public function release()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         if ('post' == request::method()) {
@@ -198,7 +198,7 @@ class Repacks_Controller extends Local_Controller
     public function cancel()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         if ('post' == request::method()) {
@@ -216,7 +216,7 @@ class Repacks_Controller extends Local_Controller
     public function approve()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         if ('post' == request::method()) {
@@ -234,7 +234,7 @@ class Repacks_Controller extends Local_Controller
     public function reject()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         if ('post' == request::method()) {
@@ -252,7 +252,7 @@ class Repacks_Controller extends Local_Controller
     public function revert()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         if ('post' == request::method()) {
@@ -270,7 +270,7 @@ class Repacks_Controller extends Local_Controller
     public function delete()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
 
@@ -293,7 +293,7 @@ class Repacks_Controller extends Local_Controller
     public function begin()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $rp = $rp->beginRelease();
@@ -303,7 +303,7 @@ class Repacks_Controller extends Local_Controller
     public function fail()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $rp = $rp->failRelease('Solar flares');
@@ -313,7 +313,7 @@ class Repacks_Controller extends Local_Controller
     public function finish()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $rp = $rp->finishRelease();
@@ -342,7 +342,7 @@ class Repacks_Controller extends Local_Controller
     public function xpiconfigini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;
@@ -356,7 +356,7 @@ class Repacks_Controller extends Local_Controller
     public function distributionini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != AuthProfiles::get_profile('id')) {
+        if ($rp->profile->id != authprofiles::get_profile('id')) {
             return Event::run('system.403');
         }
         $this->auto_render = false;

@@ -21,9 +21,9 @@ class Auth_Profiles_Controller extends Local_Controller
         $protected_methods = array(
             'home', 'changeemail', 'logout'
         );
-        if (!AuthProfiles::is_logged_in()) {
+        if (!authprofiles::is_logged_in()) {
             if (in_array(Router::$method, $protected_methods)) {
-                return AuthProfiles::redirect_login();
+                return authprofiles::redirect_login();
             }
         }
 
@@ -36,13 +36,13 @@ class Auth_Profiles_Controller extends Local_Controller
     public function home()
     {
         $this->auto_render = false;
-        if (!AuthProfiles::is_logged_in()) {
+        if (!authprofiles::is_logged_in()) {
             return url::redirect('login');
         } else {
-            $auth_data = AuthProfiles::get_user_data();
+            $auth_data = authprofiles::get_user_data();
             return url::redirect(sprintf(
                 Kohana::config('auth_profiles.home_url'),
-                AuthProfiles::get_profile('screen_name')
+                authprofiles::get_profile('screen_name')
             ));
         }
     }
@@ -114,7 +114,7 @@ class Auth_Profiles_Controller extends Local_Controller
         $profile = $login->find_default_profile_for_login();
 
         $login->login($form_data);
-        AuthProfiles::login($login->login_name, $login, $profile);
+        authprofiles::login($login->login_name, $login, $profile);
 
         if (isset($form_data['jump']) && substr($form_data['jump'], 0, 1) == '/') {
             // Allow post-login redirect only if the param starts with '/', 
@@ -130,7 +130,7 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function logout()
     {
-        AuthProfiles::logout();
+        authprofiles::logout();
     }
 
 
@@ -145,7 +145,7 @@ class Auth_Profiles_Controller extends Local_Controller
         );
         if (null===$form_data) return;
 
-        $token = ORM::factory('login', AuthProfiles::get_login('id'))
+        $token = ORM::factory('login', authprofiles::get_login('id'))
             ->set_email_verification_token($form_data['new_email']);
 
         $this->view->email_verification_token_set = true;
@@ -155,7 +155,7 @@ class Auth_Profiles_Controller extends Local_Controller
             'auth_profiles/changeemail_email',
             array(
                 'email_verification_token' => $token,
-                'login_name' => AuthProfiles::get_login('login_name')
+                'login_name' => authprofiles::get_login('login_name')
             )
         );
     }
@@ -178,11 +178,11 @@ class Auth_Profiles_Controller extends Local_Controller
         $login->change_email($new_email);
 
         // TODO: Make auto-login on email verification configurable?
-        if (!AuthProfiles::is_logged_in()) {
+        if (!authprofiles::is_logged_in()) {
 
             $profile = $login->find_default_profile_for_login();
             $login->login();
-            AuthProfiles::login($login->login_name, $login, $profile);
+            authprofiles::login($login->login_name, $login, $profile);
             Session::instance()->set_flash(
                 'message', 
                 'Email address verified. Welcome!'
@@ -203,15 +203,15 @@ class Auth_Profiles_Controller extends Local_Controller
             $this->input->post('password_reset_token') :
             $this->input->get('password_reset_token');
 
-        if (empty($reset_token) && !AuthProfiles::is_logged_in()) {
+        if (empty($reset_token) && !authprofiles::is_logged_in()) {
         
             // If no token and not logged in, jump to login.
-            return AuthProfiles::redirect_login();
+            return authprofiles::redirect_login();
         
-        } elseif (empty($reset_token) && AuthProfiles::is_logged_in()) {
+        } elseif (empty($reset_token) && authprofiles::is_logged_in()) {
         
             // Logged in and no token, so use auth login details.
-            $login = ORM::factory('login', AuthProfiles::get_login('id')); 
+            $login = ORM::factory('login', authprofiles::get_login('id')); 
         
         } else {
             
@@ -228,7 +228,7 @@ class Auth_Profiles_Controller extends Local_Controller
             
             // Pre-emptively force logout in case current login and login 
             // associated with token differ.
-            AuthProfiles::logout();
+            authprofiles::logout();
 
         }
 
@@ -293,12 +293,12 @@ class Auth_Profiles_Controller extends Local_Controller
     {
         $params = Router::get_params();
 
-        if ($params['screen_name'] != AuthProfiles::get_profile('screen_name')) {
+        if ($params['screen_name'] != authprofiles::get_profile('screen_name')) {
             header("HTTP/1.1 403 Forbidden"); 
             exit;
         }
 
-        $u_name = rawurlencode(AuthProfiles::get_profile('screen_name'));
+        $u_name = rawurlencode(authprofiles::get_profile('screen_name'));
 
         // Set up initial whiteboard, fire off event to gather content from 
         // interested listeners.

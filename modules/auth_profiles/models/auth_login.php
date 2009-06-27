@@ -469,7 +469,7 @@ class Auth_Login_Model extends ORM
     public function is_password_correct($valid, $field)
     {
         $login_name = (isset($valid['login_name'])) ?
-            $valid['login_name'] : AuthProfiles::get_login('login_name');
+            $valid['login_name'] : authprofiles::get_login('login_name');
         $count = $this->db
             ->where('login_name', $login_name)
             ->where('password', $this->encrypt_password($valid[$field]))
