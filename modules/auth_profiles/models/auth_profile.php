@@ -21,8 +21,7 @@ class Auth_Profile_Model extends ORM
         'last_login'     => 'Last login',
     );
 
-    public $has_and_belongs_to_many = array('logins');
-    public $has_many = array('roles');
+    public $has_and_belongs_to_many = array('logins','roles');
 
     // }}}
 
@@ -78,6 +77,31 @@ class Auth_Profile_Model extends ORM
             return 'screen_name';
         }
         return parent::unique_key($id);
+    }
+
+
+    /**
+     * Add a role by name.
+     *
+     * Looks up an existing record, or creates a new one if not found.
+     *
+     * @chainable
+     * @return Profile_Model
+     */
+    public function add_role($role_name)
+    {
+        // Look for existing role by name, create a new one if not found.
+        $role = ORM::factory('role', $role_name);
+        if (!$role->loaded) {
+            $role = ORM::factory('role')->set(array(
+                'name' => $role_name
+            ))->save();
+        }
+
+        // Add the role, save it, done.
+        $this->add($role);
+        $this->save();
+        return $this;
     }
 
 

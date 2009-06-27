@@ -73,7 +73,7 @@ class authprofiles_Core
             self::$cookie_name,
             Kohana::config('auth_profiles.cookie_path')
         );
-        return self::$user_data = null;
+        self::$profile = self::$login = self::$user_data = null;
     }
 
     /**
@@ -85,8 +85,22 @@ class authprofiles_Core
     {
         if (null===self::$user_data) {
 
-            $data = self::$cookie_manager->getCookieValue(self::$cookie_name);
+            try {
+                $data = self::$cookie_manager->getCookieValue(self::$cookie_name);
+            } catch (Exception $e) {
+                // HACK: This should only happen from CLI tests, where headers 
+                // are already sent and cookies can't be set.
+                if (strpos($e->getMessage(), 'headers already sent')) {
+                    return null; 
+                } else {
+                    throw $e;
+                }
+            }
             self::$user_data = $data ? unserialize($data) : null;
+
+            if (empty(self::$user_data)) {
+                return null;
+            }
 
             if (empty(self::$user_data['login_name']) || 
                     empty(self::$user_data['profile_id'])) {
@@ -105,6 +119,12 @@ class authprofiles_Core
      */
     public static function is_logged_in()
     {
+        // If the profile & login have been set, consider user logged in.
+        if (!empty(self::$profile) && !empty(self::$login)) {
+            return true;
+        }
+
+        // Otherwise, try checking the cookie to test login.
         $data = self::get_user_data();
         return !empty( $data );
     }
@@ -118,19 +138,23 @@ class authprofiles_Core
      */
     public static function get_login($key=null, $default=null)
     {
-        $user_data = self::get_user_data();
-
-        if (empty($user_data)) {
-            return $default;
-        }
-
         if (null === self::$login) {
-            self::$login = ORM::factory('login', self::$user_data['login_name']);
+
+            // Get user data from the cookie, or return default if
+            // not found.
+            $user_data = self::get_user_data();
+            if (empty($user_data)) return $default;
+
+            // Get the login based on user data, or return default if 
+            // not found.
+            self::$login = ORM::factory('login', 
+                self::$user_data['login_name']);
             if (empty(self::$login) || !self::$login->active) {
                 // Force cookie clear if no such login, or login disabled.
                 self::logout();
                 return $default;
             }
+
         }
 
         if (null===$key) {
@@ -150,18 +174,22 @@ class authprofiles_Core
      */
     public static function get_profile($key=null, $default=null)
     {
-        $user_data = self::get_user_data();
+        if (null === self::$profile) {
 
-        if (empty($user_data)) {
-            return $default;
-        }
+            // Get user data from the cookie, or return default if
+            // not found.
+            $user_data = self::get_user_data();
+            if (empty($user_data)) return $default;
 
-        if (null === self::$login) {
-            self::$profile = ORM::factory('profile', self::$user_data['profile_id']);
+            // Get the profile based on user data, or return default if 
+            // not found.
+            self::$profile = ORM::factory('profile', 
+                self::$user_data['profile_id']);
             if (!self::$profile->loaded) {
                 self::logout();
                 return $default;
             }
+
         }
 
         if (null===$key) {
@@ -171,6 +199,40 @@ class authprofiles_Core
                 self::$profile->{$key} : $default;
         }
 
+    }
+
+    /**
+     * Check whether the given resource and privilege is allowed for the 
+     * current logged in profile, using default role if no login available.
+     *
+     * @param  Zend_Acl_Resource_Interface|string $resource
+     * @param  string                             $privilege
+     * @return boolean
+     */
+    public static function is_allowed($resource=null, $privilege=null)
+    {
+        $acls = Kohana::config('auth_profiles.acls');
+
+        // Allow by default if no ACLs defined.
+        if (empty($acls)) return true;
+
+        $profile = self::get_profile();
+        if (empty($profile) || $profile->roles->count() == 0) {
+            // If no profile logged in, or if the logged in profile has no 
+            // roles, use the default role.
+            $default_role = Kohana::config('auth_profiles.default_role');
+            return $acls->isAllowed($default_role, $resource, $privilege);
+        }
+
+        // Iterate through the roles and return true for the first 
+        // allowed result.
+        foreach ($profile->roles as $role) {
+            if ($acls->isAllowed($role->name, $resource, $privilege)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
 }
