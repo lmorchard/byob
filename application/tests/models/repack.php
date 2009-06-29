@@ -49,6 +49,8 @@ class Repack_Test extends PHPUnit_Framework_TestCase
 
             'locales' => array('en-US','de'),
 
+            'oses' => array('linux', 'mac'),
+
             'bookmarks_menu' => array(
                 array(
                     'type'        => 'normal',
@@ -130,7 +132,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->profile_id = $this->profile_1->id;
         $r1->save();
 
-        $ini_txt = $r1->buildConfigIni();
+        $ini_txt = $r1->buildDistributionIni();
         $ini_fn = tempnam("tmp","test-");
         file_put_contents($ini_fn, $ini_txt);
         $conf = parse_ini_file($ini_fn, true);
@@ -140,6 +142,36 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         // asserts that it was parseable.
         $this->assertNotNull($conf);
     }
+
+    /**
+     * Exercise repack.cfg generation
+     */
+    public function testRepackCfg()
+    {
+        $r1 = ORM::factory('repack')->set(array(
+            'short_name' => 'testingbrowser',
+            'profile_id' => $this->profile_1->id,
+            'oses'       => array( 'linux', 'mac' ),
+            'locales'    => array( 'en-US', 'de', 'fr' ),
+        ))->save();
+
+        $cfg_txt = $r1->buildRepackCfg();
+
+        $expected_txt = join("\n", array(
+            'aus="tester1_testingbrowser"',
+            'dist_id="tester1_testingbrowser"',
+            'dist_version="'.$r1->version.'"',
+            'locales="en-US de fr"',
+            'linux-i686=true',
+            'mac=true',
+            'win32=false',
+            ""
+        ));
+
+        $this->assertEquals($expected_txt, $cfg_txt,
+            "repack.cfg should match expected");
+    }
+
 
     /**
      * Exercise repack generation, up to the point of actually performing the 
@@ -153,21 +185,22 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         
         $r1->processRepack(FALSE);
 
-        $storage = Kohana::config('repacks.storage');
-        $repack_dir = "$storage/{$r1->uuid}/{$r1->version}";
+        $partners_path = Kohana::config('repacks.partners_path');
+        $repack_dir = 
+            "$partners_path/{$r1->profile->screen_name}_{$r1->short_name}";
 
-        $this->assertTrue(is_dir($storage));
+        $this->assertTrue(is_dir($partners_path));
         $this->assertTrue(is_dir($repack_dir));
 
-        $ini_fn = "$repack_dir/xpi-config.ini";
-        $this->assertFileExists($ini_fn);
-        $conf = parse_ini_file($ini_fn, true);
-        $this->assertNotNull($conf);
+        $repack_cfg_fn = "$repack_dir/repack.cfg";
+        $this->assertFileExists($repack_cfg_fn);
+        $repack_cfg = parse_ini_file($repack_cfg_fn, true);
+        $this->assertNotNull($repack_cfg);
 
-        $ini_fn = "$repack_dir/distribution.ini";
-        $this->assertFileExists($ini_fn);
-        $conf = parse_ini_file($ini_fn, true);
-        $this->assertNotNull($conf);
+        $distribution_ini_fn = "$repack_dir/distribution/distribution.ini";
+        $this->assertFileExists($distribution_ini_fn);
+        $distribution_ini = parse_ini_file($distribution_ini_fn, true);
+        $this->assertNotNull($distribution_ini);
     }
 
     /**

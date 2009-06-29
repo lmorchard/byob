@@ -736,9 +736,9 @@ class Repack_Model extends ManagedORM
      * Build and return a repack tools config INI source based on the 
      * properties of this instance.
      */
-    public function buildConfigIni()
+    public function buildDistributionIni()
     {
-        $data = View::factory('repacks/ini/main')
+        $data = View::factory('repacks/ini/distribution')
             ->set('repack', $this)
             ->render();
         return $data;
@@ -748,13 +748,14 @@ class Repack_Model extends ManagedORM
      * Build and return a repack tools config INI source based on the 
      * properties of this instance.
      */
-    public function buildDistributionIni()
+    public function buildRepackCfg()
     {
-        $data = View::factory('repacks/ini/distribution')
+        $data = View::factory('repacks/ini/repack_cfg')
             ->set('repack', $this)
             ->render();
         return $data;
     }
+
 
     /**
      * Perform the actual process of browser repacking based on the properties 
@@ -765,21 +766,25 @@ class Repack_Model extends ManagedORM
         Kohana::log('info', 'Processing repack for ' . $this->profile->screen_name . ' - ' . $this->uuid);
         Kohana::log_save();
 
-        $storage   = Kohana::config('repacks.storage');
+        $partners_path = Kohana::config('repacks.partners_path');
         $downloads = Kohana::config('repacks.downloads');
         $script    = Kohana::config('repacks.repack_script');
 
         // Clean up and make the repack directory.
-        $repack_dir = "$storage/{$this->uuid}/{$this->version}";
+        $repack_dir = 
+            "$partners_path/{$this->profile->screen_name}_{$this->short_name}";
         if (is_dir($repack_dir))
-            $this->rmdir_recurse($repack_dir);
+            $this->rmdirRecurse($repack_dir);
         mkdir($repack_dir, 0775, true);
+        mkdir("{$repack_dir}/distribution", 0775, true);
 
         // Clean up and make the downloads directory.
+        /*
         $downloads_dir = "$downloads/{$this->uuid}/{$this->version}";
         if (is_dir($downloads_dir))
-            $this->rmdir_recurse($downloads_dir);
+            $this->rmdirRecurse($downloads_dir);
         mkdir($downloads_dir, 0775, true);
+         */
 
         // Remember the original directory and change to the repack dir.
         $origdir = getcwd();
@@ -789,32 +794,36 @@ class Repack_Model extends ManagedORM
         Kohana::log_save();
             
         // Generate the repack configs.
-        file_put_contents("$repack_dir/xpi-config.ini", $this->buildConfigIni());
-        file_put_contents("$repack_dir/distribution.ini", $this->buildDistributionIni());
+        file_put_contents("$repack_dir/repack.cfg", 
+            $this->buildRepackCfg());
+        file_put_contents("$repack_dir/distribution/distribution.ini", 
+            $this->buildDistributionIni());
 
-        // Execute the repack script and capture output / state.
-        Kohana::log('debug', "Executing {$script}...");
-        Kohana::log_save();
-        $output = array();
-        $state = 0;
-        exec("{$script} xpi-config.ini >repack.log 2>&1", $output, $state);
+        if ($run_script) {
+            // Execute the repack script and capture output / state.
+            Kohana::log('debug', "Executing {$script}...");
+            Kohana::log_save();
+            $output = array();
+            $state = 0;
+            exec("{$script} xpi-config.ini >repack.log 2>&1", $output, $state);
 
-        if (0 == $state) {
-            Kohana::log('debug', "Success in {$script} with state $state");
-        } else {
-            Kohana::log('error', "Failure in {$script} with state $state");
-        }
-        Kohana::log_save();
-
-        // If the script executed successfully, there should be repacks available.
-        if (0 == $state) {
-
-            // Copy the repacks into the download directory.
-            foreach (glob("{$repack_dir}/repacks/*") as $fn) {
-                if (is_file($fn)) 
-                    copy($fn, $downloads_dir.'/'.basename($fn));
+            if (0 == $state) {
+                Kohana::log('debug', "Success in {$script} with state $state");
+            } else {
+                Kohana::log('error', "Failure in {$script} with state $state");
             }
+            Kohana::log_save();
 
+            // If the script executed successfully, there should be repacks available.
+            if (0 == $state) {
+
+                // Copy the repacks into the download directory.
+                foreach (glob("{$repack_dir}/repacks/*") as $fn) {
+                    if (is_file($fn)) 
+                        copy($fn, $downloads_dir.'/'.basename($fn));
+                }
+
+            }
         }
 
         // Restore original directory.
@@ -828,14 +837,14 @@ class Repack_Model extends ManagedORM
      * Recursively delete a directory and its contents.
      * see: http://us.php.net/manual/en/function.rmdir.php#89497
      */
-    function rmdir_recurse($path) {
+    function rmdirRecurse($path) {
         $path= rtrim($path, '/').'/';
         $handle = opendir($path);
         for (;false !== ($file = readdir($handle));)
             if($file != "." and $file != ".." ) {
                 $fullpath= $path.$file;
                 if( is_dir($fullpath) ) {
-                    $this->rmdir_recurse($fullpath);
+                    $this->rmdirRecurse($fullpath);
                 } else {
                     unlink($fullpath);
                 }
@@ -876,6 +885,8 @@ class Repack_Model extends ManagedORM
     {
         if ('url' == $column)
             return $this->url();
+        if ('version' == $column)
+            return gmdate('odmHis',strtotime($this->modified));
 
         try {
             return parent::__get($column);
