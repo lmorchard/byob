@@ -34,7 +34,7 @@ Or, you can manage one of your existing custom browsers:
 ### Latest browsers by everyone
 
 <?php foreach ($latest_repacks as $repack): ?>
-* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>) by <?= html::specialchars($repack->profile->screen_name) . "\n" ?>
+* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>) by [<?= html::specialchars($repack->profile->screen_name) . "\n" ?>](<?=url::base() . 'profiles/' . $repack->profile->screen_name?>)
 <?php endforeach ?>
 
 <?php slot::end_filter('Markdown') ?>
