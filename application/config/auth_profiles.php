@@ -35,7 +35,8 @@ $config['acls'] = $acls
         'approve_own', 'auto_approve_own'
     ))
     ->allow('editor', 'repacks', array(
-        'view_unreleased', 'edit', 'delete', 'release', 
+        'view_unreleased', 'view_history', 'view_approval_queue',
+        'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 'download_unreleased',
     ))
 

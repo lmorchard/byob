@@ -14,6 +14,16 @@ class Local_Controller extends Layout_Controller
             authprofiles::get_profile('id')
         );
 
+        if (authprofiles::is_allowed('repacks', 'view_approval_queue')) {
+            $this->view->set_global(array(
+                'approval_queue_allowed' => TRUE,
+                'approval_queue_count' => 
+                    ORM::factory('repack')
+                    ->where('state', Repack_Model::$states['pending'])
+                    ->count_all()
+            ));
+        }
+
         Event::add('system.403', array($this, 'show_403'));
     }
 

@@ -23,16 +23,18 @@ class Repack_Model extends ManagedORM
     // Titles for named columns
     public $table_column_titles = array(
         'id'          => 'ID',
+        'profile_id'  => 'Profile ID',
         'uuid'        => 'UUID',
         'short_name'  => 'Short name',     
         'title'       => 'Title',
         'description' => 'Description',
+        'state'       => 'State',
         'created'     => 'Created',
         'modified'    => 'Modified',
     );
 
     public $list_column_names = array(
-        'id', 'profile_id', 'title', 'short_name', 'uuid', 'created', 'modified'
+        'id', 'profile_id', 'title', 'short_name', 'state', 'created', 'modified'
     );
 
     public $edit_column_names = array(

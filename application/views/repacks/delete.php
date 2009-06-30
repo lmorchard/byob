@@ -1,7 +1,7 @@
 <?=View::factory('repacks/elements/confirm', array(
     'repack'     => $repack,
-    'head_title' => 'delete :: ' . $repack->title,
-    'page_title' => 'Delete ' . $repack->title,
+    'head_title' => 'delete',
+    'crumbs'     => 'delete browser',
     'message'    => ($repack->isRelease()) ?
         'Delete this browser?' :
         'Abandon changes to this browser?',

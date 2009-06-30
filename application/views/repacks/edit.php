@@ -1,7 +1,6 @@
-<?php slot::set('head_title', ' :: customize your browser'); ?>
-
-<?php slot::start('page_title') ?>
- :: <a href="<?= url::base() . url::current() ?>">customize your browser</a>
+<?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->title)); ?>
+<?php slot::start('crumbs') ?>
+    <a href="<?= $repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: customize your browser
 <?php slot::end() ?>
 
 <?php

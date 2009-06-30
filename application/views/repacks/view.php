@@ -1,6 +1,6 @@
-<?php slot::set('head_title', ' :: view :: ' . html::specialchars($repack->title)); ?>
-<?php slot::start('page_title') ?>
-    :: view :: <a href="<?= url::base() . url::current() ?>"><?= html::specialchars($repack->title) ?></a>
+<?php slot::set('head_title', 'view :: ' . html::specialchars($repack->title)); ?>
+<?php slot::start('crumbs') ?>
+    <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: view details
 <?php slot::end() ?>
 
 <?=View::factory('repacks/elements/details')

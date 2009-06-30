@@ -9,17 +9,23 @@ $h = html::escape_array(compact(
 ));
 ?>
 <tr>
-    <td class="select_row"><span>
-        <input type="checkbox" name="select_row[]" 
-            value="<?=$h['primary_key_value']?>" />
-    </span></td>
+    <?php if (!isset($allow_batch) || $allow_batch): ?>
+        <td class="select_row"><span>
+            <input type="checkbox" name="select_row[]" 
+                value="<?=$h['primary_key_value']?>" />
+        </span></td>
+    <?php endif ?>
     <?php foreach ($columns as $column_name=>$column_info): ?>
         <?php
-            $column_view = method_exists($model, 'get_list_column_view') ?
-                $column_view = $model->get_list_column_view(
-                    $view_base, $column_name, $column_info
-                ) :
-                View::factory("{$view_base}/list_model/default_column");
+            if (isset($column_views[$column_name])) {
+                $column_view = $column_views[$column_name];
+            } else {
+                $column_view = method_exists($model, 'get_list_column_view') ?
+                    $column_view = $model->get_list_column_view(
+                        $view_base, $column_name, $column_info
+                    ) :
+                    View::factory("{$view_base}/list_model/default_column");
+            }
         ?>
         <?=$column_view->set(array(
             'model'        => $model,

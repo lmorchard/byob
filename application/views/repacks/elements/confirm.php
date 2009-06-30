@@ -1,6 +1,6 @@
-<?php slot::set('head_title', html::specialchars($head_title)) ?>
-<?php slot::start('page_title') ?>
-    <a href="<?= url::current() ?>"><?=html::specialchars($page_title)?></a>
+<?php slot::set('head_title', $head_title . ' :: ' . html::specialchars($repack->title)); ?>
+<?php slot::start('crumbs') ?>
+    <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: <?=$crumbs?>
 <?php slot::end() ?>
 
 <?php if (!empty($repack)): ?>
