@@ -264,7 +264,6 @@ SET @saved_cs_client     = @@character_set_client;
 SET character_set_client = utf8;
 CREATE TABLE `roles` (
   `id` int(11) NOT NULL auto_increment,
-  `profile_id` int(11) default NULL,
   `name` varchar(32) default NULL,
   PRIMARY KEY  (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
