@@ -59,14 +59,20 @@ $privs = $repack->checkPrivileges();
                 <?php endif ?>
                 <?php if ($repack->state == Repack_Model::$states['started']): ?>
                     <?php if ($privs['fail']): ?>
-                        <li><a href="<?=$h['url']?>;fail">SIMULATE BUILD FAIL</a></li>
+                        <li><a href="<?=$h['url']?>;fail">Force build failure</a></li>
                     <?php endif ?>
                     <?php if ($privs['finish']): ?>
-                        <li><a href="<?=$h['url']?>;finish">SIMULATE BUILD FINISH</a></li>
+                        <li><a href="<?=$h['url']?>;finish">Force build finish</a></li>
                     <?php endif ?>
                 <?php endif ?>
 
             <?php endif ?>
+        <?php endif ?>
+        <?php if ($privs['distributionini']): ?>
+            <li><a href="<?=$h['url']?>/distribution.ini">Preview distribution.ini</a></li>
+        <?php endif ?>
+        <?php if ($privs['repackcfg']): ?>
+            <li><a href="<?=$h['url']?>/repack.cfg">Preview repack.cfg</a></li>
         <?php endif ?>
     </ul>
 

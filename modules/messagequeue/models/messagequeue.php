@@ -149,7 +149,7 @@ class MessageQueue_Model extends Model
     {
         // If the first param is an array, assume it's a message array
         if (is_array($topic)) extract($topic);
-        
+
         // One way or another, get an object for this subscription.
         if (is_object($object)) {
             $obj = $object;
@@ -361,6 +361,12 @@ class MessageQueue_Model extends Model
             if ($max_runs != NULL && ( ++$cnt > $max_runs ) )
                 throw new Exception('Too many runs');
         }
+        if ($cnt > 0) {
+            Kohana::log('info', "Message queue exhaust() processed {$cnt} messages.");
+        } else {
+            Kohana::log('debug', "Message queue exhaust() processed {$cnt} messages.");
+        }
+        return $cnt;
     }
 
     /**
@@ -370,18 +376,27 @@ class MessageQueue_Model extends Model
     {
         $msg = $this->reserve();
         if ($msg) try {
+
+            Kohana::log('info', "Message queue runOnce() processing " .
+                "{$msg['topic']} {$msg['uuid']} {$msg['object']} {$msg['method']}");
+            Kohana::log_save();
+
             $this->handle($msg);
             $this->finish($msg);
-            Kohana::log('debug',
-                "processed {$msg['topic']} {$msg['uuid']} ".
-                "{$msg['object']} {$msg['method']}"
-            ); 
+
+            Kohana::log('info', "Message queue runOnce() processed " .
+                "{$msg['topic']} {$msg['uuid']} {$msg['object']} {$msg['method']}");
+            Kohana::log_save();
+
         } catch (Exception $e) {
+
             Kohana::log('error',
                 "EXCEPTION! {$msg['topic']} {$msg['uuid']} ".
                 "{$msg['object']} {$msg['method']} " . 
                 $e->getMessage()
             );
+            Kohana::log_save();
+
         }
         return $msg;
     }

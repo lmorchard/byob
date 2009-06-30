@@ -30,7 +30,7 @@ $config['url_suffix'] = '';
  * The internal cache stores file paths and config entries across requests and
  * can give significant speed improvements at the expense of delayed updating.
  */
-$config['internal_cache'] = FALSE;
+$config['internal_cache'] = 120;
 
 /**
  * Internal cache directory.
@@ -93,7 +93,7 @@ $config['log_directory'] = APPPATH.'logs';
  * Enable or disable displaying of Kohana error pages. This will not affect
  * logging. Turning this off will disable ALL error pages.
  */
-$config['display_errors'] = TRUE;
+$config['display_errors'] = FALSE;
 
 /**
  * Enable or disable statistics in the final output. Stats are replaced via
@@ -101,7 +101,7 @@ $config['display_errors'] = TRUE;
  *
  * @see http://docs.kohanaphp.com/general/configuration
  */
-$config['render_stats'] = TRUE;
+$config['render_stats'] = FALSE;
 
 /**
  * Filename prefixed used to determine extensions. For example, an

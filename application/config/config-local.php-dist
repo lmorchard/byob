@@ -1,5 +1,11 @@
 <?php
 $config['core.needs_installation'] = false;
+$config['core.site_domain'] =
+    (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '') . '/';
+$config['core.log_threshold'] = 0;
+$config['core.internal_cache'] = 120;
+$config['core.display_errors'] = FALSE;
+
 $config['model.database'] = 'local';
 
 $config['database.local'] = array(

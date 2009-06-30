@@ -13,6 +13,12 @@
 </div>
 
 <div>
+    <h3>Downloads</h3>
+    <?=View::factory('repacks/elements/downloads')
+        ->set('repack', $repack)->render()?> 
+</div>
+
+<div>
     <h3>Actions</h3>
     <?=View::factory('repacks/elements/actions')
         ->set('repack', $repack)->render()?>

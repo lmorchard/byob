@@ -16,10 +16,11 @@ app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
 browser.startup.homepage=<?= $r->url . '/startpage' . "\n" ?>
 browser.startup.homepage_reset=<?= $r->url . '/firstrun' . "\n" ?>
 
-<?php if (!empty($r->bookmarks_menu)): ?>
+<?php $bookmarks_menu = $r->bookmarks_menu; ?>
+<?php if (!empty($bookmarks_menu)): ?>
 [BookmarksMenu]
 <?php 
-foreach ($r->bookmarks_menu as $idx=>$bookmark) {
+foreach ($bookmarks_menu as $idx=>$bookmark) {
     View::factory('repacks/ini/bookmark', array(
         'idx' => $idx, 'bookmark' => $bookmark
     ))->render(TRUE);
@@ -27,10 +28,11 @@ foreach ($r->bookmarks_menu as $idx=>$bookmark) {
 ?>
 <?php endif ?>
 
-<?php if (!empty($r->bookmarks_toolbar)): ?>
+<?php $bookmarks_toolbar = $r->bookmarks_toolbar; ?>
+<?php if (!empty($bookmarks_toolbar)): ?>
 [BookmarksToolbar]
 <?php 
-foreach ($r->bookmarks_toolbar as $idx=>$bookmark) {
+foreach ($bookmarks_toolbar as $idx=>$bookmark) {
     View::factory('repacks/ini/bookmark', array(
         'idx' => $idx, 'bookmark' => $bookmark
     ))->render(TRUE);

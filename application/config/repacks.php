@@ -2,8 +2,12 @@
 /**
  * Configuration for the repack process.
  */
-$base_dir = dirname(APPPATH);
-$config['storage']       = "$base_dir/storage/prod";
-$config['downloads']     = "$base_dir/downloads";
-$config['repack_script'] = "$base_dir/partner-tools/scripts/partner-repack";
+$base_path = dirname(APPPATH);
 
+$config['storage']   = "$base_path/storage";
+$config['partners']  = "{$config['storage']}/partners";
+
+$config['repack_script'] = "$base_path/bin/partner-repacks.py";
+
+$config['downloads_private'] = "$base_path/downloads/private";
+$config['downloads_public']  = "$base_path/downloads/public";

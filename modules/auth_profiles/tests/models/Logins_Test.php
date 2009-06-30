@@ -75,15 +75,14 @@ class Logins_Test extends PHPUnit_Framework_TestCase
         ORM::factory('login')->set(array(
             'login_name' => 'tester1',
             'email'      => 'tester1@example.com',
-            'password'   => 'tester_password',
+            //'password'   => 'tester_password',
         ))->save();
 
         $login = ORM::factory('login', 'tester1');
 
         $this->assertEquals($login->login_name, 'tester1');
         $this->assertEquals($login->email, 'tester1@example.com');
-        $this->assertEquals($login->password, 
-            $login->encrypt_password('tester_password'));
+        //$this->assertEquals($login->password, $login->encrypt_password('tester_password'));
     }
 
     /**
@@ -122,7 +121,7 @@ class Logins_Test extends PHPUnit_Framework_TestCase
             'password'    => 'tester_password',
             'screen_name' => 'tester1_screenname',
             'full_name'   => 'Tess T. Erone',
-            'bio'         => 'I live!'
+            //'bio'         => 'I live!'
         ));
         $this->assertTrue(null !== $login);
         $login = ORM::factory('login', $login->id);
@@ -132,7 +131,7 @@ class Logins_Test extends PHPUnit_Framework_TestCase
         $this->assertTrue(null !== $profile);
         $this->assertEquals($profile->screen_name, 'tester1_screenname');
         $this->assertEquals($profile->full_name, 'Tess T. Erone');
-        $this->assertEquals($profile->bio, 'I live!');
+        //$this->assertEquals($profile->bio, 'I live!');
 
         $default_profile = $login->find_default_profile_for_login();
         $this->assertEquals($profile->id, $default_profile->id);

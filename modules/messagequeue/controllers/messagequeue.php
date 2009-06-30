@@ -29,7 +29,7 @@ class Messagequeue_Controller extends Controller
     }
 
     /**
-     * Run the procesing loop at the command line.
+     * Run the procesing loop at the command line forever.
      */
     public function run()
     {
@@ -38,6 +38,16 @@ class Messagequeue_Controller extends Controller
         $mq->run();
     }
     
+    /**
+     * Exhaust the queue at the command line.
+     */
+    public function exhaust()
+    {
+        $args = $this->_prepareForCli();
+        $mq = new MessageQueue_Model();
+        $cnt = $mq->exhaust();
+    }
+
     /**
      * Run the procesing loop at the command line.
      */
