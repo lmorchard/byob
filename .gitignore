@@ -16,5 +16,6 @@ logs/
 logs/*log
 application/config/config-local.php
 application/config/config-testing.php
+application/config/repacks.php
 httpd.conf
 .htaccess
