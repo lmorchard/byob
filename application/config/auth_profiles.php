@@ -25,7 +25,7 @@ $config['acls'] = $acls
     // Privileges for repacks
     ->add(new Zend_Acl_Resource('repacks'))
     ->allow('guest', 'repacks', array(
-        'view_released',
+        'view_released', 'download_released',
     ))
     ->allow('member', 'repacks', array(
         'create', 'view_own', 'view_own_history', 'edit_own', 'delete_own', 
@@ -36,7 +36,7 @@ $config['acls'] = $acls
     ))
     ->allow('editor', 'repacks', array(
         'view_unreleased', 'edit', 'delete', 'release', 
-        'revert', 'approve', 'reject'
+        'revert', 'approve', 'reject', 'download_unreleased',
     ))
 
     ->add(new Zend_Acl_Resource('profiles'))

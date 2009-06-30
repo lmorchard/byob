@@ -62,7 +62,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'profile' => array(
                 'screen_name' => 'Tester1',
                 'full_name'   => 'Iam Tester',
-                'bio'         => 'Random bio ensues'
+                //'bio'         => 'Random bio ensues'
             ),
             'roles' => array(
                 'alpha_reader', 'beta_reader'
@@ -72,7 +72,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'profile' => array(
                 'screen_name' => 'Tester2',
                 'full_name'   => 'Tester Smith',
-                'bio'         => 'Juffo wup'
+                //'bio'         => 'Juffo wup'
             ),
             'roles' => array(
                 'superuser'
@@ -82,7 +82,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'profile' => array(
                 'screen_name' => 'Tester3',
                 'full_name'   => 'Joe Smith',
-                'bio'         => 'Whee haw'
+                //'bio'         => 'Whee haw'
             ),
             'roles' => array(
                 'alpha_admin', 'beta_admin'
@@ -175,7 +175,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
         $profile = ORM::factory('profile')->set(array(
             'screen_name' => 'tester1_screenname',
             'full_name'   => 'Tess T. Erone',
-            'bio'         => 'I live!'
+            //'bio'         => 'I live!'
         ))->save();
 
         $found_profile = 
@@ -185,14 +185,13 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'tester1_screenname');
         $this->assertEquals($found_profile->full_name, 
             'Tess T. Erone');
-        $this->assertEquals($found_profile->bio, 
-            'I live!');
+        //$this->assertEquals($found_profile->bio, 'I live!');
 
         $updated_profile = ORM::factory('profile',$found_profile->id)
             ->set(array(
                 'screen_name' => 'updated_tester1_screenname',
                 'full_name'   => 'Updated Tess T. Erone',
-                'bio'         => 'Updated I live!'
+                //'bio'         => 'Updated I live!'
             ))->save();
 
         $updated_profile = 
@@ -202,8 +201,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'updated_tester1_screenname');
         $this->assertEquals($updated_profile->full_name, 
             'Updated Tess T. Erone');
-        $this->assertEquals($updated_profile->bio, 
-            'Updated I live!');
+        //$this->assertEquals($updated_profile->bio, 'Updated I live!');
 
         $updated_profile_1 = 
             ORM::factory('profile',$found_profile->id);
@@ -212,8 +210,7 @@ class Profiles_Test extends PHPUnit_Framework_TestCase
             'updated_tester1_screenname');
         $this->assertEquals($updated_profile_1->full_name, 
             'Updated Tess T. Erone');
-        $this->assertEquals($updated_profile_1->bio, 
-            'Updated I live!');
+        //$this->assertEquals($updated_profile_1->bio, 'Updated I live!');
     }
 
     /**

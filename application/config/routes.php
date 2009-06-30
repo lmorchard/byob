@@ -22,7 +22,7 @@ $config['profiles/([^/]+)/browsers/([^;/]+)/?([^;]*);reject'] =
 $config['profiles/([^/]+)/browsers/([^;/]+)/?([^;]*);revert'] =   
     'repacks/revert/screen_name/$1/short_name/$2/status/$3';
 
-// HACK: REMOVE THESE SIMULATION URLS
+// HACK: REMOVE THESE SIMULATION URLS?
 $config['profiles/([^/]+)/browsers/([^;/]+)/?([^;]*);begin'] =   
     'repacks/begin/screen_name/$1/short_name/$2/status/$3';
 $config['profiles/([^/]+)/browsers/([^;/]+)/?([^;]*);fail'] =   
@@ -32,10 +32,12 @@ $config['profiles/([^/]+)/browsers/([^;/]+)/?([^;]*);finish'] =
 
 $config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/firstrun'] =  
     'repacks/firstrun/screen_name/$1/short_name/$2/status/$3';
-$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/xpi-config.ini'] =  
-    'repacks/xpiconfigini/screen_name/$1/short_name/$2/status/$3';
-$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/distribution.ini'] =  
+$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/repack.cfg'] =
+    'repacks/repackcfg/screen_name/$1/short_name/$2/status/$3';
+$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/distribution.ini'] =
     'repacks/distributionini/screen_name/$1/short_name/$2/status/$3';
+$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/downloads/(.*)'] =  
+    'repacks/download/screen_name/$1/short_name/$2/status/$3/filename/$4';
 $config['profiles/([^/]+)/browsers/([^/]+)/?(.*)'] =              
     'repacks/view/screen_name/$1/short_name/$2/status/$3';
 

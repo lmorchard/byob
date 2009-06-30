@@ -35,10 +35,8 @@
 
                 <?php foreach ($repacks as $key=>$repack): ?>
                     <li>
-                        <span>
-                            <?=View::factory('repacks/elements/status')
-                                ->set('repack', $repack)->render()?> 
-                        </span>
+                        <?=View::factory('repacks/elements/status')
+                            ->set('repack', $repack)->render()?> 
                         <?=View::factory('repacks/elements/actions')
                             ->set('repack', $repack)->render() ?>
                     </li>

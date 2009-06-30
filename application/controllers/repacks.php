@@ -15,7 +15,7 @@ class Repacks_Controller extends Local_Controller
         parent::__construct();
 
         $unauth_methods = array(
-            'index', 'view', 'firstrun'
+            'index', 'view', 'download', 'firstrun'
         );
 
         if (!authprofiles::is_logged_in()) {
@@ -186,6 +186,64 @@ class Repacks_Controller extends Local_Controller
 
 
     /**
+     * Download a build of a repack.
+     */
+    public function download()
+    {
+        // Find repack and filename parameter.
+        $repack = $this->_getRequestedRepack();
+        $params = Router::get_params(array(
+            'filename' => null
+        ), 'filename');
+
+        // Does the file exist for this repack?
+        if (!in_array($params['filename'], $repack->files)) {
+            return Event::run('system.404');
+        }
+
+        // Is the user allowed to download it?
+        $privs = $repack->checkPrivileges();
+        if (!$privs['download']) return Event::run('system.403');
+
+        // Build a full path to the downloadable file.
+        $base_path = $repack->isRelease() ?
+            Kohana::config('repacks.downloads_public') :
+            Kohana::config('repacks.downloads_private');
+        $repack_name = 
+            "{$repack->profile->screen_name}_{$repack->short_name}";
+        $filename = 
+            "{$base_path}/{$repack_name}/{$params['filename']}";
+
+        // Try guessing a content-type for the file.
+        $ext_map = array(
+            '.tar.bz2' => 'application/x-bzip2',
+            '.dmg'     => 'application/x-apple-diskimage',
+            '.exe'     => 'application/x-msdownload',
+        );
+        $content_type = 'application/octet-stream';
+        foreach ($ext_map as $ext=>$type) {
+            if (strpos($filename, $ext) !== FALSE) {
+                $content_type = $type; break;
+            }
+        }
+
+        // Finally, dump the file out as a response.
+        $this->auto_render = FALSE;
+        header('Content-Type: ' . $content_type);
+        header('Content-Length: ' . filesize($filename));
+        header('Content-Description: File Transfer');
+        header('Content-Disposition: attachment; filename='.basename($filename));
+        header('Content-Transfer-Encoding: binary');
+        header('Expires: 0');
+        header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+        header('Pragma: public');
+        ob_clean();
+        flush();
+        readfile($filename);
+    }
+
+
+    /**
      * Request a new browser release
      */
     public function release()
@@ -348,15 +406,15 @@ class Repacks_Controller extends Local_Controller
     /**
      * Spew out the raw xpi-config.ini used by repack
      */
-    public function xpiconfigini()
+    public function repackcfg()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['repackcfg']) return Event::run('system.403');
+
         $this->auto_render = false;
         header('Content-Type: text/plain');
-        echo $rp->buildConfigIni();
+        echo $rp->buildRepackCfg();
     }
 
     /**
@@ -365,9 +423,9 @@ class Repacks_Controller extends Local_Controller
     public function distributionini()
     {
         $rp = $this->_getRequestedRepack();
-        if ($rp->profile->id != authprofiles::get_profile('id')) {
-            return Event::run('system.403');
-        }
+        $privs = $rp->checkPrivileges();
+        if (!$privs['distributionini']) return Event::run('system.403');
+
         $this->auto_render = false;
         header('Content-Type: text/plain');
         echo $rp->buildDistributionIni();
