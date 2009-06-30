@@ -14,13 +14,13 @@ class Router extends Router_Core
      *
      * @return array Parameters based on current route.
      */
-    public function get_params($defaults=null)
+    public function get_params($defaults=null, $wildcard='path')
     {
         $args = self::$arguments;
         $params = empty($defaults) ? array() : $defaults;
         while (!empty($args)) {
             $name = array_shift($args);
-            if ('tags' == $name || 'path' == $name) {
+            if ($wildcard == $name) {
                 $params[$name] = join('/', $args);
                 break;
             } else {

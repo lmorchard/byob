@@ -82,29 +82,12 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
     </div>
 
-    <h3><a href="#">Would you like to customize the Firefox version and OS?</a></h3>
+    <h3><a href="#">Would you like to choose the browser operating systems?</a></h3>
 
     <div>
 
-        <p>You can choose the original product on which your browser will be 
-        based, as well as the operating systems for which it will be made 
-        available.</p>
-
-        <div>
-            <label for="product_id">Product:</label>
-            <?php
-                $all_products = Kohana::config('products.all_products');
-                $product_choices = array();
-                foreach ($all_products as $id=>$product) {
-                    $product_choices[$id] =
-                        "{$product['name']} {$product['version']}";
-                }
-            ?>
-            <?= 
-                form::dropdown('product_id', $product_choices, 
-                    form::value('product_id')) 
-            ?>
-        </div>
+        <p>You can choose the operating systems for which your browser
+        will be made available.</p>
 
         <div>
             <?php

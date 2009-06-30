@@ -4,7 +4,10 @@
  */
 $base_path = dirname(APPPATH);
 
-$config['storage_path']  = "$base_path/data";
-$config['partners_path'] = "{$config['storage_path']}/partners";
+$config['storage']   = "$base_path/storage";
+$config['partners']  = "{$config['storage']}/partners";
 
-$config['repack_script'] = "{$config['storage_path']}/scripts/partner-repacks.py";
+$config['repack_script'] = "$base_path/bin/partner-repacks.py";
+
+$config['downloads_private'] = "$base_path/downloads/private";
+$config['downloads_public']  = "$base_path/downloads/public";

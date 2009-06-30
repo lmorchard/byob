@@ -19,7 +19,7 @@ class MessageQueueTest extends PHPUnit_Framework_TestCase
      */
     public function setUp()
     {
-        DecafbadUtils_EnvConfig::apply('testing');
+        LMO_Utils_EnvConfig::apply('testing');
 
         $log = MessageQueueTest_LogCollector::getInstance();
         $log->reset();

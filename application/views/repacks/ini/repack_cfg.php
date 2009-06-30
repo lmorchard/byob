@@ -3,14 +3,15 @@
     $dist_id = $repack->profile->screen_name . '_' . $repack->short_name;
     $version = $repack->version;
     $locales = join(' ', $repack->locales);
-    
-    $os = array();
-    if (!is_array($repack->oses)){
-        var_dump($repack->oses);
-        die;
-    }
-    foreach (array('linux','mac','win') as $os_name) {
-        $os[$os_name] = (in_array($os_name, $repack->oses)) ?
+
+    $os = array(
+        'linux' => 'false',
+        'win'   => 'false',
+        'mac'   => 'false',
+    );
+    $oses = $repack->os;
+    if (!empty($oses)) foreach ($os as $os_name=>$val) {
+        $os[$os_name] = in_array($os_name, $oses) ?
             'true' : 'false';
     }
 ?>

@@ -149,7 +149,7 @@ class MessageQueue_Model extends Model
     {
         // If the first param is an array, assume it's a message array
         if (is_array($topic)) extract($topic);
-        
+
         // One way or another, get an object for this subscription.
         if (is_object($object)) {
             $obj = $object;

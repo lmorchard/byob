@@ -151,7 +151,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1 = ORM::factory('repack')->set(array(
             'short_name' => 'testingbrowser',
             'profile_id' => $this->profile_1->id,
-            'oses'       => array( 'linux', 'mac' ),
+            'os'       => array( 'linux', 'mac' ),
             'locales'    => array( 'en-US', 'de', 'fr' ),
         ))->save();
 
@@ -182,10 +182,12 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1 = ORM::factory('repack')->set($this->test_data_1);
         $r1->profile_id = $this->profile_1->id;
         $r1->save();
-        
-        $r1->processRepack(FALSE);
 
-        $partners_path = Kohana::config('repacks.partners_path');
+        $r1->requestRelease();
+        
+        $r1->processBuilds(FALSE);
+
+        $partners_path = Kohana::config('repacks.partners');
         $repack_dir = 
             "$partners_path/{$r1->profile->screen_name}_{$r1->short_name}";
 
