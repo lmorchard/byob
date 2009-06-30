@@ -19,6 +19,12 @@ $privs = $repack->checkPrivileges();
         <?php if ($privs['revert']): ?>
             <li><a href="<?=$h['url']?>;revert">Take down release</a></li>
         <?php endif ?>
+        <?php if ($privs['distributionini']): ?>
+            <li><a href="<?=$h['url']?>/distribution.ini">Preview distribution.ini</a></li>
+        <?php endif ?>
+        <?php if ($privs['repackcfg']): ?>
+            <li><a href="<?=$h['url']?>/repack.cfg">Preview repack.cfg</a></li>
+        <?php endif ?>
     </ul>
 
 <?php else: ?>

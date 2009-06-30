@@ -964,6 +964,7 @@ class Repack_Model extends ManagedORM
      */
     public static function rmdirRecurse($path) {
         $path= rtrim($path, '/').'/';
+        if (!is_dir($path)) return;
         $handle = opendir($path);
         for (;false !== ($file = readdir($handle));)
             if($file != "." and $file != ".." ) {
