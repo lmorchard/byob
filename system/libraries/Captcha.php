@@ -134,7 +134,7 @@ class Captcha_Core {
 		if ( ! ($this->driver instanceof Captcha_Driver))
 			throw new Kohana_Exception('core.driver_implements', $config['style'], get_class($this), 'Captcha_Driver');
 
-		Kohana::log('debug', 'Captcha Library initialized');
+		#Kohana::log('debug', 'Captcha Library initialized');
 	}
 
 	/**

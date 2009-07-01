@@ -438,7 +438,7 @@ abstract class Database_Driver {
 			unset($this->query_cache[$this->query_hash($sql)]);
 		}
 
-		Kohana::log('debug', 'Database cache cleared: '.get_class($this));
+		#Kohana::log('debug', 'Database cache cleared: '.get_class($this));
 	}
 
 	/**

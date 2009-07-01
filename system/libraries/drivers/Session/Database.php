@@ -61,7 +61,7 @@ class Session_Database_Driver implements Session_Driver {
 		// Load database
 		$this->db = Database::instance($this->db);
 
-		Kohana::log('debug', 'Session Database Driver Initialized');
+		#Kohana::log('debug', 'Session Database Driver Initialized');
 	}
 
 	public function open($path, $name)
@@ -155,7 +155,7 @@ class Session_Database_Driver implements Session_Driver {
 		// Delete all expired sessions
 		$query = $this->db->delete($this->table, array('last_activity <' => time() - $maxlifetime));
 
-		Kohana::log('debug', 'Session garbage collected: '.$query->count().' row(s) deleted.');
+		#Kohana::log('debug', 'Session garbage collected: '.$query->count().' row(s) deleted.');
 
 		return TRUE;
 	}
