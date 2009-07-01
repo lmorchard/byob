@@ -11,6 +11,7 @@ $config['addons'] = array(
         'guid' => 'personas@christopher.beard',
         'name' => 'Personas for Firefox',
     ),
+    /*
     '1843' => array(
         'guid' => 'firebug@software.joehewitt.com',
         'name' => 'Firebug',
@@ -19,6 +20,7 @@ $config['addons'] = array(
         'guid' => '{2fa4ed95-0317-4c6a-a74c-5f3e3912c1f9}',
         'name' => 'Delicious Bookmarks',
     ),
+     */
 );
 $config['dir'] = dirname(APPPATH) . "/addons";
 
