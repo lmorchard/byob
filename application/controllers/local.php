@@ -64,7 +64,7 @@ class Local_Controller extends Layout_Controller
         }
 
         // Handle status, if provided.
-        if ('released' == $params['status'] || null === $params['status']) {
+        if ('released' == $params['status'] || empty($params['status'])) {
             $m->whereReleased(TRUE);
         } elseif ('unreleased' == $params['status']) {
             $m->whereReleased(FALSE);
@@ -87,7 +87,7 @@ class Local_Controller extends Layout_Controller
         // Finally, look for the repack.
         $rp = $m->find();
 
-        if (null === $rp) {
+        if (null === $rp || !$rp->loaded) {
             // Bail out if not found.
             Event::run('system.404');
             exit();
