@@ -52,9 +52,10 @@ class ORM_Manager_Controller extends Layout_Controller
      */
     public function _set_view_base()
     {
-        $this->view->set_filename(
-            $this->view_base . '/' . Router::$method
-        );
+        if (!$this->view->get_filename())
+            $this->view->set_filename(
+                $this->view_base . '/' . Router::$method
+            );
     }
 
 
@@ -74,11 +75,16 @@ class ORM_Manager_Controller extends Layout_Controller
         $params = Router::get_params();
 
         $model = $this->_load_model($params['model_name']);
-        if (null===$model) {
-            return Event::run('system.404');
-        }
+        if (null===$model) return Event::run('system.404');
 
-        if ('post' == request::method()) {
+        return $this->_list_model(
+            $model, $model->count_all(), $model->find_all()
+        );
+    }
+
+    public function _list_model($model, $count, $rows, $allow_batch=TRUE) {
+
+        if ($allow_batch && 'post' == request::method()) {
 
             // Load all the selected rows.
             $model_rows = $model
@@ -95,18 +101,17 @@ class ORM_Manager_Controller extends Layout_Controller
         $pg = new Pagination(array(
             'uri_segment'    => 'page',
             'items_per_page' => 20,
-            'total_items'    => $model->count_all(),
+            'total_items'    => $count,
         ));
 
         $model->limit($pg->items_per_page, $pg->sql_offset);
 
-        $model_rows = $model->find_all();
-
         $this->view->set_global(array(
             'pagination' => $pg,
-            'rows'       => $model_rows,
+            'rows'       => $rows,
             'model'      => $model,
         ));
+
     }
 
     /**

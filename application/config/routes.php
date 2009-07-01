@@ -50,4 +50,7 @@ $config['admin/model/(.*)/edit/(.*)'] =
 $config['admin/model/(.*)'] = 
     'admin/list_model/model_name/$1';
 
+$config['admin/(.*)'] = 
+    'admin/$1';
+
 $config['_default'] = 'index';

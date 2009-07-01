@@ -1,21 +1,30 @@
 <?php
-$columns = (method_exists($model, 'get_list_columns')) ?
-    $model->get_list_columns() : $model->table_columns;
+if (empty($list_columns)) {
+    $list_columns = (method_exists($model, 'get_list_columns')) ?
+        $model->get_list_columns() : $model->table_columns;
+}
 
-$row_view = (method_exists($model, 'get_list_row_view')) ?
-    $model->get_list_row_view($view_base) :
-    View::factory("{$view_base}/list_model/default_row");
+if (empty($actions_view)) {
+    $actions_view = (method_exists($model, 'get_list_actions_view')) ?
+        $model->get_list_row_view($view_base) :
+        View::factory("{$view_base}/list_model/default_actions");
+}
+
+if (empty($row_view)){
+    $row_view = (method_exists($model, 'get_list_row_view')) ?
+        $model->get_list_row_view($view_base) :
+        View::factory("{$view_base}/list_model/default_row");
+}
 ?>
 <form method="POST">
-    <ul class="controls">
-        <li><input type="submit" name="batch_delete" id="batch_delete" 
-            value="Delete" /></li>
-    </ul>
+    <?=$actions_view->set(array('model' => $model))->render()?>
     <table>
         <thead>
             <tr>
-                <th><span> </span></th>
-                <?php foreach ($columns as $c_name=>$c_info): ?>
+                <?php if (!isset($allow_batch) || $allow_batch): ?>
+                    <th class="batch_select"><span> </span></th>
+                <?php endif ?>
+                <?php foreach ($list_columns as $c_name=>$c_info): ?>
                     <?php
                         if (isset($model->table_column_titles) &&
                             isset($model->table_column_titles[$c_name])) {
@@ -31,9 +40,9 @@ $row_view = (method_exists($model, 'get_list_row_view')) ?
                 <?=$row_view->set(array(
                     'row_index' => $row_index,
                     'row'       => $row,
-                    'columns'   => $columns,
+                    'columns'   => $list_columns,
                     'model'     => $model,
-                ))->render(true)?>
+                ))->render()?>
             <?php endforeach ?>
         </tbody>
     </table>

@@ -33,6 +33,9 @@
                                     <li><a href="<?= url::base() . 'login' ?>">login</a></li>
                                 <?php else: ?>
                                     <li class="first">logged in as <a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
+                                    <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
+                                        <li><a href="<?= url::base() . 'admin/approvalqueue' ?>">queue</a> (<?=$approval_queue_count?>)</li>
+                                    <?php endif ?>
                                     <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">settings</a></li>
                                     <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
                                 <?php endif; ?>

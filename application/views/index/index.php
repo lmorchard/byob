@@ -1,3 +1,6 @@
+<?php slot::set('head_title', 'home') ?>
+<?php slot::set('crumbs', 'home') ?>
+
 <?php slot::start('prose') ?>
 
 <?php if (!authprofiles::is_logged_in()): ?>

@@ -374,7 +374,7 @@ class Repacks_Controller extends Local_Controller
         $rp = $this->_getRequestedRepack();
         if (!authprofiles::is_allowed('repacks', 'fail'))
             return Event::run('system.403');
-        $rp = $rp->failRelease('Solar flares');
+        $rp = $rp->failRelease('Solar flares induced failure');
         return url::redirect($rp->url);
     }
 
