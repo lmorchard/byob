@@ -796,7 +796,6 @@ class Repack_Model extends ManagedORM
             Kohana::log_save();
 
             $workspace = Kohana::config('repacks.workspace');
-            $partners  = Kohana::config('repacks.partners');
             $script    = Kohana::config('repacks.repack_script');
 
             $downloads_private = 
@@ -804,7 +803,7 @@ class Repack_Model extends ManagedORM
 
             // Clean up and make the repack directory.
             $repack_dir =
-                "$partners/{$this->profile->screen_name}_{$this->short_name}";
+                "$workspace/partners/{$this->profile->screen_name}_{$this->short_name}";
             if (is_dir($repack_dir)) {
                 self::rmdirRecurse($repack_dir);
             }
@@ -854,7 +853,7 @@ class Repack_Model extends ManagedORM
                 $repack_name = "{$this->profile->screen_name}_{$this->short_name}";
                 $cmd = join(' ', array(
                     "{$script}",
-                    "-d {$partners}",
+                    "-d partners",
                     "-p $repack_name",
                     "-v {$this->product->version}",
                     "-n {$this->product->build}",
