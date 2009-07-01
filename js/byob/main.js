@@ -67,6 +67,7 @@ BYOB_Main = function() {
 
             // Set up the accordion for the editing form
             $('.accordion').accordion({
+                autoHeight: false,
                 change: function(event, ui) {
                     // Remember the accordion title on change.
                     $this.last_accordion_header = ui.newHeader.text();

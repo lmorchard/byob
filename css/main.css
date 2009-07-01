@@ -328,3 +328,12 @@ body {
 #content .bookmark-add-live a.add {
     background-image: url(../img/livemark-item.png);
 }
+#content ul.repack-addons {
+}
+#content ul.repack-addons li.addon {
+}
+#content ul.repack-addons li.addon p {
+    font-size: 0.75em;
+    margin: 0.5em 0 1em 1em;
+    width: 55em;
+}

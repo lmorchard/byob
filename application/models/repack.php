@@ -1,6 +1,6 @@
 <?php
 /**
- * Storage of a customized browser repack.
+ * workspace of a customized browser repack.
  *
  * @package    BYOB
  * @subpackage Models
@@ -19,6 +19,12 @@ class Repack_Model extends ManagedORM
         'modified' => 'desc',
         'created'  => 'desc'
     );
+
+    // Default attributes
+    protected $attrs = array(
+        'locales' => array('en-US'),
+        'os'      => array('win','mac','linux'),
+    ); 
 
     // Titles for named columns
     public $table_column_titles = array(
@@ -40,14 +46,6 @@ class Repack_Model extends ManagedORM
     public $edit_column_names = array(
         'short_name', 'title'
     );
-
-    protected $attrs = array(
-        'min_version' => '3.0',
-        'max_version' => '3.5.*',
-        'version'     => '1',
-        'locales'     => array('en-US'),
-        'os'          => array('win','mac','linux'),
-    ); 
 
     public static $os_choices = array(
         'win'   => 'Windows',
@@ -112,7 +110,263 @@ class Repack_Model extends ManagedORM
     );
 
     // }}}
+
+    /**
+     * Extract & validate data from a form and optionally update this instance 
+     * with the data.
+     *
+     * @param  array Form data, replaced by reference with a Validation instance.
+     * @param  boolean Whether or not to update this instance's properties.
+     * @return boolean Whether or not the data was valid.
+     */
+    public function validateRepack(&$data, $set=true)
+    {
+		$data = Validation::factory($data)
+			->pre_filter('trim')
+
+            ->add_rules('uuid', 'alpha_dash')
+            ->add_rules('short_name', 'required', 'alpha_dash', 'length[3,128]')
+            ->add_rules('title', 'required', 'length[3,255]')
+            ->add_rules('category', 'length[3,255]')
+            ->add_rules('description', 'length[0,1000]')
+            ->add_rules('firstrun_content', 'length[0,1000]')
+            ->add_rules('addons_collection_url', 'length[0,255]', 'url')
+            //->add_rules('persona_id', 'is_numeric')
+            ->add_rules('addons', 'is_array')
+            ->add_rules('locales', 'is_array')
+            ->add_rules('os', 'is_array')
+            
+            ->add_callbacks('short_name', array($this, 'isShortNameAvailable'))
+            ->add_callbacks('addons', array($this, 'addonsAreKnown'))
+            ->add_callbacks('locales', array($this, 'extractLocales'))
+            ->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'))
+            ->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'))
+            ;
+
+        if (empty($data['os'])) {
+            // No operating systems selected is useless, so ignore the input.
+            $data['os'] = $this->os;
+        }
+
+        $is_valid = $data->validate();
+
+        if (!$set) {
+            foreach ($data->field_names() as $name) {
+                $data[$name] = $this->{$name};
+            }
+        } elseif ($is_valid && $set) {
+            foreach ($data->field_names() as $name) {
+                $this->{$name} = $data[$name];
+            }
+        }
+
+        return $is_valid;
+    }
+
+
+    /**
+     * Ensure all selected addons are known to the application.
+     */
+    public function addonsAreKnown(&$valid, $field)
+    {
+        $addon_model = new Addon_Model();
+        $chosen_ids = $valid[$field];
+        foreach ($chosen_ids as $id) {
+            $addon = $addon_model->find($id);
+            if (!$addon) {
+                $valid->add_error($field, 'unknown_addon');
+                break;
+            }
+        }
+    }
+
+    /**
+     * Extract selected locales from form data, accepting only locales that 
+     * match valid product locales.
+     */
+    public function extractLocales(&$valid, $field)
+    {
+        if (empty($this->locales) && empty($valid[$field])) {
+            // Detect locale from request if neither repack nor form offers locales.
+            $m = array();
+            preg_match_all(
+                '/[-a-z]{2,}/', 
+                strtolower(trim(@$_SERVER['HTTP_ACCEPT_LANGUAGE'])), 
+                $m
+            );
+            $valid[$field] = $m[0];
+        }
+
+        if (empty($valid[$field])) {
+
+            // Populate form from repack product locales.
+            $valid[$field] = $this->locales;
+
+        } else {
+
+            // Ensure that only locales appearing in the product locales are 
+            // accepted from form data into the repack.
+            $valid_locales = array();
+            $choices = array_map('strtolower', $valid[$field]); 
+            foreach (self::$locale_choices as $code=>$name) {
+                if (in_array(strtolower($code), $choices)) {
+                    $valid_locales[] = $code;
+                }
+            }
+
+            $valid[$field] = $valid_locales;
+
+        }
+
+        return $valid[$field];
+    }
+
+    /**
+     * Validate a bookmark extracted from form data.
+     */
+    public function validateBookmark(&$data)
+    {
+        $type = isset($data['type']) ? $data['type'] : 'normal';
+		$data = Validation::factory($data)
+			->pre_filter('trim')
+            ->add_rules('type', 'length[0,16]')
+            ->add_rules('title', 'required', 'length[3,255]')
+            ->add_rules('location', 'required', 'url')
+            ;
+        if ('normal' == $type) {
+            $data->add_rules('description', 'length[0,1024]');
+        } else {
+            $data->add_rules('feed', 'required', 'url');
+        }
+        $is_valid = $data->validate();
+        return $is_valid;
+    }
+
+    /**
+     * Extract bookmarks from form data.
+     */
+    public function extractBookmarks(&$valid, $prefix)
+    {
+        if ('post' != request::method()) {
+
+            // If not a POST, just pass along the object property.
+            return $valid[$prefix] = $this->{$prefix};
+
+        } else {
+
+            $new_bookmarks = array();
+
+            if (!empty($valid[$prefix . '_type'])) {
+                $types = $valid[$prefix . '_type'];
+
+                // Copy the bookmark data arrays from validator so 
+                // array_shift() works in the next loop
+                $bm_data = array();
+                foreach (self::$type_fields as $type=>$fields) {
+                    foreach ($fields as $name=>$label) {
+                        $n = "{$prefix}_{$name}";
+                        if (!empty($valid[$n]))
+                            $bm_data[$n] = $valid[$n];
+                    }
+                }
+
+                // Now, iterate through all the types listed in the form, which 
+                // also happens to correspond to the whole set of bookmarks in 
+                // form
+                foreach ($types as $idx => $type) {
+
+                    // Extract properties for the current bookmark from the form 
+                    // according to type.
+                    $bm = array('type'=>$type);
+                    $fields = self::$type_fields[$type];
+                    foreach ($fields as $name => $label) {
+                        $bm[$name] = array_shift($bm_data["{$prefix}_{$name}"]);
+                    }
+
+                    // Validate the bookmark and flag any errors.
+                    $is_valid = $this->validateBookmark($bm);
+                    if (!$is_valid) {
+                        foreach ($bm->errors() as $key => $val) {
+                            $valid->add_error("{$prefix}_{$key}[{$idx}]", $val);
+                        }
+                        $valid->add_error("{$prefix}", 'invalid');
+                    }
+
+                    // Add the extracted properties to the list of bookmarks.
+                    $new_bookmarks[] = $bm->as_array();
+
+                }
+
+            }
+
+            if (count($new_bookmarks) > self::$bookmark_limits[$prefix]) {
+                $valid->add_error("{$prefix}", 'limit');
+            }
+
+            return $valid[$prefix] = $new_bookmarks;
+        }
+    }
+
+    /**
+     * Validation callback that checks to see if the given short name is taken 
+     * any repack other than the one being validated.
+     */
+    public function isShortNameAvailable($valid, $field)
+    {
+        $taken = (bool) ORM::factory('repack')
+            ->where(array(
+                'short_name' => $valid[$field],
+                'uuid !='    => $valid['uuid']
+            ))
+            ->count_all();
+
+        if ($taken) {
+            $valid->add_error($field, 'short_name_available');
+        }
+    }
+
     
+    /**
+     * Find an editable alternative for this repack, creating a new clone if 
+     * necessary or simply returning self if editable.
+     *
+     * Also sets state of the returned repack to edited.
+     *
+     * @return Repack_Model
+     */
+    public function findEditable()
+    {
+        $edited = self::$states['edited'];
+
+        if ($this->state != self::$states['released']) {
+            // This repack is itself editable, so return self.
+            $this->state = $edited;
+            return $this;
+        }
+
+        // Since this repack is released, look for one with pending changes.
+        $pending_rp = ORM::factory('repack')
+            ->where(array(
+                'uuid'      => $this->uuid,
+                'state <>' => Repack_Model::$states['released'],
+            ))->find();
+        if ($pending_rp->loaded) {
+            $pending_rp->state = $edited;
+            return $pending_rp;
+        }
+
+        // No repack with pending changes, so clone a new one.
+        $new_rp = ORM::factory('repack')->set(array_merge(
+            $this->as_array(), 
+            array(
+                'id'     => null, 
+                'state' => $edited
+            )
+        ));
+        return $new_rp;
+    }
+
+
     /**
      * Run through possible privileges and assemble results.
      *
@@ -281,46 +535,6 @@ class Repack_Model extends ManagedORM
             ($released) ? 'state' : 'state <>', 
             self::$states['released']
         );
-    }
-
-    /**
-     * Find an editable alternative for this repack, creating a new clone if 
-     * necessary or simply returning self if editable.
-     *
-     * Also sets state of the returned repack to edited.
-     *
-     * @return Repack_Model
-     */
-    public function findEditable()
-    {
-        $edited = self::$states['edited'];
-
-        if ($this->state != self::$states['released']) {
-            // This repack is itself editable, so return self.
-            $this->state = $edited;
-            return $this;
-        }
-
-        // Since this repack is released, look for one with pending changes.
-        $pending_rp = ORM::factory('repack')
-            ->where(array(
-                'uuid'      => $this->uuid,
-                'state <>' => Repack_Model::$states['released'],
-            ))->find();
-        if ($pending_rp->loaded) {
-            $pending_rp->state = $edited;
-            return $pending_rp;
-        }
-
-        // No repack with pending changes, so clone a new one.
-        $new_rp = ORM::factory('repack')->set(array_merge(
-            $this->as_array(), 
-            array(
-                'id'     => null, 
-                'state' => $edited
-            )
-        ));
-        return $new_rp;
     }
 
 
@@ -543,204 +757,6 @@ class Repack_Model extends ManagedORM
 
 
     /**
-     * Extract & validate data from a form and optionally update this instance 
-     * with the data.
-     *
-     * @param  array Form data, replaced by reference with a Validation instance.
-     * @param  boolean Whether or not to update this instance's properties.
-     * @return boolean Whether or not the data was valid.
-     */
-    public function validateRepack(&$data, $set=true)
-    {
-		$data = Validation::factory($data)
-			->pre_filter('trim')
-
-            ->add_rules('uuid', 'alpha_dash')
-            ->add_rules('short_name', 'required', 'alpha_dash', 'length[3,128]')
-            ->add_rules('title', 'required', 'length[3,255]')
-            ->add_rules('category', 'length[3,255]')
-            ->add_rules('description', 'length[0,1000]')
-            ->add_rules('firstrun_content', 'length[0,1000]')
-            ->add_rules('addons_collection_url', 'length[0,255]', 'url')
-            //->add_rules('persona_id', 'is_numeric')
-            ->add_rules('locales', 'is_array')
-            ->add_rules('os', 'is_array')
-            
-            ->add_callbacks('short_name', 
-                array($this, 'isShortNameAvailable'))
-
-            ->add_callbacks('locales', 
-                array($this, 'extractLocales'))
-            ->add_callbacks('bookmarks_toolbar', 
-                array($this, 'extractBookmarks'))
-            ->add_callbacks('bookmarks_menu', 
-                array($this, 'extractBookmarks'))
-
-            ;
-
-        $is_valid = $data->validate();
-
-        if (!$set) {
-            foreach ($data->field_names() as $name) {
-                $data[$name] = $this->{$name};
-            }
-        } elseif ($is_valid && $set) {
-            foreach ($data->field_names() as $name) {
-                $this->{$name} = $data[$name];
-            }
-        }
-
-        return $is_valid;
-    }
-
-
-    /**
-     * Extract selected locales from form data, accepting only locales that 
-     * match valid product locales.
-     */
-    public function extractLocales(&$valid, $field)
-    {
-        if (empty($this->locales) && empty($valid[$field])) {
-            // Detect locale from request if neither repack nor form offers locales.
-            $m = array();
-            preg_match_all(
-                '/[-a-z]{2,}/', 
-                strtolower(trim(@$_SERVER['HTTP_ACCEPT_LANGUAGE'])), 
-                $m
-            );
-            $valid[$field] = $m[0];
-        }
-
-        if (empty($valid[$field])) {
-
-            // Populate form from repack product locales.
-            $valid[$field] = $this->locales;
-
-        } else {
-
-            // Ensure that only locales appearing in the product locales are 
-            // accepted from form data into the repack.
-            $valid_locales = array();
-
-            foreach (self::$locale_choices as $code=>$name) {
-                if (in_array($code, $valid[$field])) {
-                    $valid_locales[] = $code;
-                }
-            }
-
-            $valid[$field] = $valid_locales;
-
-        }
-
-        return $valid[$field];
-    }
-
-    /**
-     * Validate a bookmark extracted from form data.
-     */
-    public function validateBookmark(&$data)
-    {
-        $type = isset($data['type']) ? $data['type'] : 'normal';
-		$data = Validation::factory($data)
-			->pre_filter('trim')
-            ->add_rules('type', 'length[0,16]')
-            ->add_rules('title', 'required', 'length[3,255]')
-            ->add_rules('location', 'required', 'url')
-            ;
-        if ('normal' == $type) {
-            $data->add_rules('description', 'length[0,1024]');
-        } else {
-            $data->add_rules('feed', 'required', 'url');
-        }
-        $is_valid = $data->validate();
-        return $is_valid;
-    }
-
-    /**
-     * Extract bookmarks from form data.
-     */
-    public function extractBookmarks(&$valid, $prefix)
-    {
-        if ('post' != request::method()) {
-
-            // If not a POST, just pass along the object property.
-            return $valid[$prefix] = $this->{$prefix};
-
-        } else {
-
-            $new_bookmarks = array();
-
-            if (!empty($valid[$prefix . '_type'])) {
-                $types = $valid[$prefix . '_type'];
-
-                // Copy the bookmark data arrays from validator so 
-                // array_shift() works in the next loop
-                $bm_data = array();
-                foreach (self::$type_fields as $type=>$fields) {
-                    foreach ($fields as $name=>$label) {
-                        $n = "{$prefix}_{$name}";
-                        if (!empty($valid[$n]))
-                            $bm_data[$n] = $valid[$n];
-                    }
-                }
-
-                // Now, iterate through all the types listed in the form, which 
-                // also happens to correspond to the whole set of bookmarks in 
-                // form
-                foreach ($types as $idx => $type) {
-
-                    // Extract properties for the current bookmark from the form 
-                    // according to type.
-                    $bm = array('type'=>$type);
-                    $fields = self::$type_fields[$type];
-                    foreach ($fields as $name => $label) {
-                        $bm[$name] = array_shift($bm_data["{$prefix}_{$name}"]);
-                    }
-
-                    // Validate the bookmark and flag any errors.
-                    $is_valid = $this->validateBookmark($bm);
-                    if (!$is_valid) {
-                        foreach ($bm->errors() as $key => $val) {
-                            $valid->add_error("{$prefix}_{$key}[{$idx}]", $val);
-                        }
-                        $valid->add_error("{$prefix}", 'invalid');
-                    }
-
-                    // Add the extracted properties to the list of bookmarks.
-                    $new_bookmarks[] = $bm->as_array();
-
-                }
-
-            }
-
-            if (count($new_bookmarks) > self::$bookmark_limits[$prefix]) {
-                $valid->add_error("{$prefix}", 'limit');
-            }
-
-            return $valid[$prefix] = $new_bookmarks;
-        }
-    }
-
-    /**
-     * Validation callback that checks to see if the given short name is taken 
-     * any repack other than the one being validated.
-     */
-    public function isShortNameAvailable($valid, $field)
-    {
-        $taken = (bool) ORM::factory('repack')
-            ->where(array(
-                'short_name' => $valid[$field],
-                'uuid !='    => $valid['uuid']
-            ))
-            ->count_all();
-
-        if ($taken) {
-            $valid->add_error($field, 'short_name_available');
-        }
-    }
-
-
-    /**
      * Build and return a repack tools config INI source based on the 
      * properties of this instance.
      */
@@ -779,7 +795,7 @@ class Repack_Model extends ManagedORM
                 $this->profile->screen_name . ' - ' . $this->short_name);
             Kohana::log_save();
 
-            $storage   = Kohana::config('repacks.storage');
+            $workspace = Kohana::config('repacks.workspace');
             $partners  = Kohana::config('repacks.partners');
             $script    = Kohana::config('repacks.repack_script');
 
@@ -789,8 +805,9 @@ class Repack_Model extends ManagedORM
             // Clean up and make the repack directory.
             $repack_dir =
                 "$partners/{$this->profile->screen_name}_{$this->short_name}";
-            if (is_dir($repack_dir))
+            if (is_dir($repack_dir)) {
                 self::rmdirRecurse($repack_dir);
+            }
             mkdir("$repack_dir/distribution", 0775, true);
 
             Kohana::log('debug', "Repack directory at {$repack_dir}");
@@ -802,11 +819,34 @@ class Repack_Model extends ManagedORM
             file_put_contents("$repack_dir/distribution/distribution.ini",
                 $this->buildDistributionIni());
 
+            // Check for selected addons...
+            if (false && !empty($this->addons)) {
+
+                // Create the directory for this repack's addons
+                mkdir("$repack_dir/extensions", 0775, true);
+
+                $addon_model = new Addon_Model();
+                foreach ($this->addons as $addon_id) {
+
+                    // Look for selected addons, skip any that are unknown.
+                    $addon = $addon_model->find($addon_id);
+                    if (!$addon) continue;
+
+                    // Update the addon files and copy them into the repack.
+                    $addon_dir = $addon->updateFiles();
+                    self::recurseCopy(
+                        $addon_dir, 
+                        "{$repack_dir}/extensions/{$addon->guid}"
+                    );
+
+                }
+            }
+
             if ($run_script) {
 
                 // Remember the original directory and change to the repack dir.
                 $origdir = getcwd();
-                chdir($storage);
+                chdir($workspace);
 
                 // Execute the repack script and capture output / state.
                 $output = array();
@@ -814,7 +854,7 @@ class Repack_Model extends ManagedORM
                 $repack_name = "{$this->profile->screen_name}_{$this->short_name}";
                 $cmd = join(' ', array(
                     "{$script}",
-                    "-d partners",
+                    "-d {$partners}",
                     "-p $repack_name",
                     "-v {$this->product->version}",
                     "-n {$this->product->build}",
@@ -837,7 +877,7 @@ class Repack_Model extends ManagedORM
                 Kohana::log_save();
 
                 // Record all the filenames generated by the repack.
-                $src = "{$storage}/repacked_builds/{$this->product->version}".
+                $src = "{$workspace}/repacked_builds/{$this->product->version}".
                     "/build{$this->product->build}/{$repack_name}";
                 $files = array();
                 foreach (glob("{$src}/*/*/*") as $fn) {
@@ -981,6 +1021,25 @@ class Repack_Model extends ManagedORM
         rmdir($path);
     } 
 
+    /**
+     * Utility function to recursively copy files.
+     */
+    public static function recurseCopy($src,$dst) {
+        $dir = opendir($src);
+        @mkdir($dst);
+        while(false !== ( $file = readdir($dir)) ) {
+            if (( $file != '.' ) && ( $file != '..' )) {
+                if ( is_dir($src . '/' . $file) ) {
+                    self::recurseCopy($src . '/' . $file,$dst . '/' . $file);
+                }
+                else {
+                    copy($src . '/' . $file,$dst . '/' . $file);
+                }
+            }
+        }
+        closedir($dir);
+    } 
+
 
     /**
      * Delete this repack, cleaning up any builds and other associated 
@@ -1058,12 +1117,24 @@ class Repack_Model extends ManagedORM
     }
 
     /**
+     * Checkes if object data is set.
+     *
+     * @param   string  column name
+     * @return  boolean
+     */
+    public function __isset($column) {
+        return isset($this->attrs[$column]) ? true : parent::__isset($column);
+    }
+
+    /**
      * After loading from database, decode the grab bag of attributes from JSON.
      */
     public function load_values(array $values)
     {
         parent::load_values($values);
-        $this->attrs = json_decode($this->json_data, true);
+        if (!empty($this->json_data)) {
+            $this->attrs = json_decode($this->json_data, true);
+        }
         if (empty($this->attrs)) $this->attrs = array();
         return $this;
     }
