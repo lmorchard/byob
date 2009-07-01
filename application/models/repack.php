@@ -820,7 +820,7 @@ class Repack_Model extends ManagedORM
                 $this->buildDistributionIni());
 
             // Check for selected addons...
-            if (false && !empty($this->addons)) {
+            if (!empty($this->addons)) {
 
                 // Create the directory for this repack's addons
                 mkdir("$repack_dir/extensions", 0775, true);
