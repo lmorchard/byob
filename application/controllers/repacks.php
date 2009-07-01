@@ -407,7 +407,7 @@ class Repacks_Controller extends Local_Controller
 
 
     /**
-     * Spew out the raw xpi-config.ini used by repack
+     * Spew out the raw repack.cfg used by repack
      */
     public function repackcfg()
     {
@@ -418,6 +418,23 @@ class Repacks_Controller extends Local_Controller
         $this->auto_render = false;
         header('Content-Type: text/plain');
         echo $rp->buildRepackCfg();
+    }
+
+    /**
+     * Output the last repack.log from build
+     */
+    public function repacklog()
+    {
+        $rp = $this->_getRequestedRepack();
+        $privs = $rp->checkPrivileges();
+        if (!$privs['repacklog']) return Event::run('system.403');
+
+        $workspace = Kohana::config('repacks.workspace');
+        $repack_name = "{$rp->profile->screen_name}_{$rp->short_name}";
+
+        $this->auto_render = false;
+        header('Content-Type: text/plain');
+        readfile("{$workspace}/partners/{$repack_name}/repack.log");
     }
 
     /**

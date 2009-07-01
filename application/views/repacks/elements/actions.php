@@ -80,6 +80,9 @@ $privs = $repack->checkPrivileges();
         <?php if ($privs['repackcfg']): ?>
             <li><a href="<?=$h['url']?>/repack.cfg">Preview repack.cfg</a></li>
         <?php endif ?>
+        <?php if ($privs['repacklog']): ?>
+            <li><a href="<?=$h['url']?>/repack.log">Preview repack.log</a></li>
+        <?php endif ?>
     </ul>
 
 <?php endif ?>

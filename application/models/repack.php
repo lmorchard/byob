@@ -454,6 +454,9 @@ class Repack_Model extends ManagedORM
             'repackcfg' =>
                 authprofiles::is_allowed('repacks', 'repackcfg'),
 
+            'repacklog' =>
+                authprofiles::is_allowed('repacks', 'repacklog'),
+
         );
         return $perms;
     }
