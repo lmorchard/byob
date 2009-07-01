@@ -29,7 +29,7 @@ class Database_Pdosqlite_Driver extends Database_Driver {
 	{
 		$this->db_config = $config;
 
-		Kohana::log('debug', 'PDO:Sqlite Database Driver Initialized');
+		#Kohana::log('debug', 'PDO:Sqlite Database Driver Initialized');
 	}
 
 	public function connect()

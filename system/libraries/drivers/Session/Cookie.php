@@ -23,7 +23,7 @@ class Session_Cookie_Driver implements Session_Driver {
 			$this->encrypt = Encrypt::instance();
 		}
 
-		Kohana::log('debug', 'Session Cookie Driver Initialized');
+		#Kohana::log('debug', 'Session Cookie Driver Initialized');
 	}
 
 	public function open($path, $name)

@@ -147,8 +147,11 @@ class Repacks_Controller extends Local_Controller
             $form_data, ('post' == request::method())
         );
 
+        $addons = Model::factory('addon')->find_all();
+
         $this->view->set(array(
             'repack'    => $rp,
+            'addons'    => $addons,
             'form_data' => $form_data
         ));
 
@@ -232,7 +235,7 @@ class Repacks_Controller extends Local_Controller
         header('Content-Type: ' . $content_type);
         header('Content-Length: ' . filesize($filename));
         header('Content-Description: File Transfer');
-        header('Content-Disposition: attachment; filename='.basename($filename));
+        //header('Content-Disposition: attachment; filename='.basename($filename));
         header('Content-Transfer-Encoding: binary');
         header('Expires: 0');
         header('Cache-Control: must-revalidate, post-check=0, pre-check=0');

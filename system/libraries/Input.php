@@ -57,14 +57,14 @@ class Input_Core {
 			if (get_magic_quotes_runtime())
 			{
 				set_magic_quotes_runtime(0);
-				Kohana::log('debug', 'Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes');
+				#Kohana::log('debug', 'Disable magic_quotes_runtime! It is evil and deprecated: http://php.net/magic_quotes');
 			}
 
 			// magic_quotes_gpc is enabled
 			if (get_magic_quotes_gpc())
 			{
 				$this->magic_quotes_gpc = TRUE;
-				Kohana::log('debug', 'Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes');
+				#Kohana::log('debug', 'Disable magic_quotes_gpc! It is evil and deprecated: http://php.net/magic_quotes');
 			}
 
 			// register_globals is enabled
@@ -93,7 +93,7 @@ class Input_Core {
 				}
 
 				// Warn the developer about register globals
-				Kohana::log('debug', 'Disable register_globals! It is evil and deprecated: http://php.net/register_globals');
+				#Kohana::log('debug', 'Disable register_globals! It is evil and deprecated: http://php.net/register_globals');
 			}
 
 			if (is_array($_GET))
@@ -142,7 +142,7 @@ class Input_Core {
 			// Create a singleton
 			Input::$instance = $this;
 
-			Kohana::log('debug', 'Global GET, POST and COOKIE data sanitized');
+			#Kohana::log('debug', 'Global GET, POST and COOKIE data sanitized');
 		}
 	}
 

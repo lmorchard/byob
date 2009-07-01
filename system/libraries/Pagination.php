@@ -62,7 +62,7 @@ class Pagination_Core {
 		// Pagination setup
 		$this->initialize($config);
 
-		Kohana::log('debug', 'Pagination Library initialized');
+		#Kohana::log('debug', 'Pagination Library initialized');
 	}
 
 	/**

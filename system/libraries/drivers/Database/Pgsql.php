@@ -24,7 +24,7 @@ class Database_Pgsql_Driver extends Database_Driver {
 	{
 		$this->db_config = $config;
 
-		Kohana::log('debug', 'PgSQL Database Driver Initialized');
+		#Kohana::log('debug', 'PgSQL Database Driver Initialized');
 	}
 
 	public function connect()

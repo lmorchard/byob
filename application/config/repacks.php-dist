@@ -4,8 +4,7 @@
  */
 $base_path = dirname(APPPATH);
 
-$config['storage']   = "$base_path/storage";
-$config['partners']  = "{$config['storage']}/partners";
+$config['workspace'] = "$base_path/workspace";
 
 $config['repack_script'] = "$base_path/bin/partner-repacks.py";
 

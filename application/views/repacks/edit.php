@@ -139,11 +139,44 @@ form::$errors = isset($form_errors) ? $form_errors : array();
         ?>
     </div>
 
-    <h3><a href="#">Would you like to choose a collection of pre-installed addons?</a></h3>
+    <h3><a href="#">Would you like to choose some addons to pre-install?</a></h3>
 
     <div>
 
-        <p>You can choose a set of addons to come pre-installed in your 
+        <p>You can choose some addons to come pre-installed in your browser:</p>
+
+        <div>
+            <?php
+                $addons_selected = form::value('addons');
+                if (empty($addons_selected)) $addons_selected = array();
+            ?>
+            <label for="addons[]">Addons:</label>
+            <ul class="repack-addons">
+                <?php foreach ($addons as $addon): ?>
+                    <?php
+                        $selected = in_array($addon->id, $addons_selected);
+                        $h = html::escape_array(array(
+                            'icon'    => $addon->icon,
+                            'name'    => $addon->name,
+                            'summary' => $addon->summary,
+                        ));
+                    ?>
+                    <li class="addon">
+                        <?= form::checkbox("addons[]", $addon->id, $selected) ?>
+                        <img src="<?=$h['icon']?>" /> <?=$h['name']?>
+                        <p><?=$h['summary']?></p>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </div>
+
+    </div>
+
+    <h3><a href="#">Would you like to choose a collection of suggested addons?</a></h3>
+
+    <div>
+
+        <p>You can choose a set of addons to suggest for installation in your 
         browser by using the collections feature of addons.mozilla.com</p>
 
         <?= 

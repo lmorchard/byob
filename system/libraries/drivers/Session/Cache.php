@@ -30,7 +30,7 @@ class Session_Cache_Driver implements Session_Driver {
 			$this->encrypt = new Encrypt;
 		}
 
-		Kohana::log('debug', 'Session Cache Driver Initialized');
+		#Kohana::log('debug', 'Session Cache Driver Initialized');
 	}
 
 	public function open($path, $name)
