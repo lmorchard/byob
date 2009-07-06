@@ -337,3 +337,20 @@ body {
     margin: 0.5em 0 1em 1em;
     width: 55em;
 }
+.ctrl_repacks_act_view table.changes {
+    margin: 0.5em;
+}
+.ctrl_repacks_act_view table.changes thead tr {
+}
+.ctrl_repacks_act_view table.changes thead tr th {
+    border-bottom: 2px solid #000;
+    background-color: #ddd;
+    font-size: 0.75em;
+    padding: 0.125em 0.5em;
+}
+.ctrl_repacks_act_view table.changes tbody tr {
+}
+.ctrl_repacks_act_view table.changes tbody tr td {
+    font-size: 0.75em;
+    padding: 0.125em 0.5em;
+}

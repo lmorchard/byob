@@ -12,6 +12,14 @@
         ->set('repack', $repack)->render()?> 
 </div>
 
+<?php if (!empty($changes)): ?>
+<div>
+    <h3>Changes</h3>
+    <?=View::factory('repacks/elements/changes')
+        ->set('changes', $changes)->render()?> 
+</div>
+<?php endif ?>
+
 <div>
     <h3>Downloads</h3>
     <?=View::factory('repacks/elements/downloads')

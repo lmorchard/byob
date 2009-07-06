@@ -78,7 +78,12 @@ class Repacks_Controller extends Local_Controller
         $privs = $repack->checkPrivileges();
         if (!$privs['view']) return Event::run('system.403');
 
-        $this->view->repack = $repack;
+        $this->view->repack  = $repack;
+
+        $release = $repack->findRelease();
+        if ($release && $release->id != $repack->id) {
+            $this->view->changes = $repack->compare($release);
+        }
 
         if ($privs['view_history']) {
             $this->view->logevents = ORM::factory('logevent')
@@ -128,7 +133,11 @@ class Repacks_Controller extends Local_Controller
                 if (!$editable_rp->saved) {
                     $editable_rp->save();
                 }
-                return url::redirect($editable_rp->url.';edit');
+                if ($editable_rp->isLockedForChanges()) {
+                    return url::redirect($editable_rp->url);
+                } else {
+                    return url::redirect($editable_rp->url.';edit');
+                }
             }
 
             if ($this->input->post('cancel', false)) {

@@ -351,7 +351,9 @@ class Repack_Model extends ManagedORM
                 'state <>' => Repack_Model::$states['released'],
             ))->find();
         if ($pending_rp->loaded) {
-            $pending_rp->state = $edited;
+            if (!$pending_rp->isLockedForChanges()) {
+                $pending_rp->state = $edited;
+            }
             return $pending_rp;
         }
 
@@ -364,6 +366,71 @@ class Repack_Model extends ManagedORM
             )
         ));
         return $new_rp;
+    }
+
+    /**
+     * Find a released alternative for this repack, returning self
+     * if released or null if no release found.
+     *
+     * @return Repack_Model
+     */
+    public function findRelease()
+    {
+        if ($this->state == self::$states['released']) {
+            // This repack is itself released, so return self.
+            return $this;
+        }
+
+        // Since this repack is edited, look for a release.
+        $rp = ORM::factory('repack')
+            ->where(array(
+                'uuid'  => $this->uuid,
+                'state' => Repack_Model::$states['released'],
+            ))->find();
+        if ($rp->loaded) return $rp;
+
+        return null;
+    }
+
+    /**
+     * Shortcut to add where clause for released state
+     *
+     * @param boolean Whether to search for released (TRUE) or non-released (FALSE) repacks.
+     * @return Repack_Model
+     * @chainable
+     */
+    public function whereReleased($released=TRUE) {
+        return $this->where(
+            ($released) ? 'state' : 'state <>', 
+            self::$states['released']
+        );
+    }
+
+    /**
+     * Compare this repack against another and assemble an array of the 
+     * differences. eg. name => array(other_val, this_val)
+     *
+     * @param  Repack_Model
+     * @return array
+     */
+    public function compare($other)
+    {
+        $this_vals  = $this->as_array();
+        $other_vals = $other->as_array();
+        $keys = array_unique(array_merge(
+            array_keys($this_vals), array_keys($other_vals)
+        ));
+
+        $changed = array();
+
+        foreach ($keys as $key) {
+            $this_val  = isset($this_vals[$key]) ? $this_vals[$key] : null;
+            $other_val = isset($other_vals[$key]) ? $other_vals[$key] : null;
+            if ($this_val != $other_val)
+                $changed[$key] = array($other_val, $this_val);
+        }
+
+        return $changed;
     }
 
 
@@ -521,22 +588,7 @@ class Repack_Model extends ManagedORM
     {
         return in_array(
             $this->getStateName(), 
-            array('requested', 'started', 'pending', 'approved', 'released')
-        );
-    }
-
-
-    /**
-     * Shortcut to add where clause for released state
-     *
-     * @param boolean Whether to search for released (TRUE) or non-released (FALSE) repacks.
-     * @return Repack_Model
-     * @chainable
-     */
-    public function whereReleased($released=TRUE) {
-        return $this->where(
-            ($released) ? 'state' : 'state <>', 
-            self::$states['released']
+            array('requested', 'started', 'pending', 'approved')
         );
     }
 
@@ -1050,7 +1102,19 @@ class Repack_Model extends ManagedORM
     public function delete($id=NULL)
     {
         if ($id === NULL AND $this->loaded) {
+
+            // Clean up builds for this repack.
             $this->deleteBuilds();
+
+            // And if this is the last repack with this UUID, delete the 
+            // associated log events.
+            $count = $this->db->where('uuid', $this->uuid)
+                ->count_records('repacks');
+            if ($count == 1) {
+                ORM::factory('logevent')
+                    ->where('uuid', $this->uuid)->delete_all();
+            }
+
         }
         return parent::delete($id);
     }
