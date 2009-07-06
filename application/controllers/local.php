@@ -14,7 +14,7 @@ class Local_Controller extends Layout_Controller
             authprofiles::get_profile('id')
         );
 
-        if (authprofiles::is_allowed('repacks', 'view_approval_queue')) {
+        if (authprofiles::is_allowed('search', 'approvalqueue')) {
             $this->view->set_global(array(
                 'approval_queue_allowed' => TRUE,
                 'approval_queue_count' => 

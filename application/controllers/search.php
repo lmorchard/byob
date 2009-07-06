@@ -14,40 +14,120 @@ class Search_Controller extends Local_Controller
         'profile', 'repack'
     );
 
+    /**
+     * General search method.
+     */
     public function index()
     {
+        // Verify search privileges.
         if (!authprofiles::is_allowed('search', 'search')) {
             return Event::run('system.403');
         }
 
-        $terms = explode(' ', $this->input->get('q'));
+        // Grab the pagination parameters from the URL.
+        list($per_page, $page_num, $offset) = $this->_getPageParams();
 
+        // Grab the terms from the URL, or punt with no results on no terms.
+        $terms = trim($this->input->get('q'));
+        if (empty($terms)) {
+            $this->view->set(array(
+                'results' => array(), 'terms' => array()
+            ));
+            return;
+        }
+        $terms = explode(' ', $terms);
+
+        // Check for models for search, or default to all known searchable 
+        // models.
         $models = $this->input->get('m');
         $models = (empty($models)) ?
             $this->searchable_models : explode(' ', $models);
 
+        // Iterate over known models and try to accumulate results...
         $results = array();
         foreach ($models as $model_name) {
             if (!in_array($model_name, $this->searchable_models)) continue;
 
             $model = ORM::factory($model_name);
+
             $fields = $model->list_fields();
-            foreach ($terms as $term) {
-                foreach ($fields as $name=>$meta) {
+            foreach ($fields as $name=>$meta) {
+                foreach ($terms as $term) {
                     $model->orlike($name, $term);
                 }
             }
 
-            $rows = $model->find_all();
-            if ($rows->count()) $results[$model_name] = array(
-                'model' => $model, 'rows' => $rows
-            );
+            $rows  = $model->limit($per_page, $offset)->find_all();
+            $count = $model->count_last_query();
+
+            if ($count) {
+
+                // HACK: Force ?m to current iteration's model name so pagination 
+                // links are model-specific.
+                $_GET['m'] = $model_name;
+                $pg = new Pagination(array(
+                    'items_per_page' => 20,
+                    'total_items'    => $count,
+                    'query_string'   => 'page',
+                ));
+
+                $results[$model_name] = array(
+                    'pagination' => $pg,
+                    'model'      => $model, 
+                    'rows'       => $rows
+                );
+
+            }
         }
 
         $this->view->set(array(
             'results' => $results,
-            'terms'   => $terms
+            'terms'   => $terms,
         ));
+    }
+
+    /**
+     * Specialized search for approval queue
+     */
+    public function approvalqueue()
+    {
+        if (!authprofiles::is_allowed('search', 'approvalqueue')) {
+            return Event::run('system.403');
+        }
+
+        list($per_page, $page_num, $offset) = $this->_getPageParams();
+
+        $model = ORM::factory('repack');
+
+        $rows = $model
+            ->where('state', Repack_Model::$states['pending'])
+            ->limit($per_page, $offset)
+            ->find_all();
+        $count = $model->count_last_query();
+
+        $pg = new Pagination(array(
+            'query_string'   => 'page',
+            'items_per_page' => $per_page,
+            'total_items'    => $count,
+        ));
+
+        $this->view->set(array(
+            'pagination' => $pg,
+            'rows'       => $rows,
+            'model'      => $model,
+        ));
+    }
+
+
+    /**
+     * Grab the pagination 
+     */
+    protected function _getPageParams()
+    {
+        $per_page = $this->input->get('limit', 20);
+        $page_num = $this->input->get('page', 1);
+        $offset   = ($page_num - 1) * $per_page;
+        return array($per_page, $page_num, $offset);
     }
 
 }

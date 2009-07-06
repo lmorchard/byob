@@ -7,6 +7,8 @@
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <title>byob :: <?= slot::get('head_title') ?></title>
+        <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
+
         <?=html::stylesheet(array(
             'css/main.css', 
             // 'css/' . Router::$controller . '.css'
@@ -23,7 +25,7 @@
                 <div id="header">
                     <div class="crumbs">
                         <h1 class="title"><a href="<?=url::base()?>">mozilla byob</a></h1>
-                        <?= slot::get('crumbs') ?>
+                        <?= slot::get('crumbs') ?>&nbsp;
                     </div>
                     <div class="sub">
                         <div class="auth">
@@ -34,7 +36,7 @@
                                 <?php else: ?>
                                     <li class="first">logged in as <a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
-                                        <li><a href="<?= url::base() . 'admin/approvalqueue' ?>">queue</a> (<?=$approval_queue_count?>)</li>
+                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue</a> (<?=$approval_queue_count?>)</li>
                                     <?php endif ?>
                                     <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">settings</a></li>
                                     <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
@@ -45,7 +47,11 @@
                             <div class="search">
                                 <?=form::open('search', array('method'=>'get'))?>
                                     <?=form::input('q', @$_GET['q'], ' size="30"') ?>
-                                    in <?=form::dropdown('m', array( ''=>'all', 'repack'=>'browsers', 'profile'=>'profiles'), @$_GET['m']) ?>
+                                    in <?=form::dropdown('m', array( 
+                                        //''=>'all', 
+                                        'repack'=>'browsers', 
+                                        'profile'=>'profiles'
+                                    ), @$_GET['m']) ?>
                                     <input type="submit" value="search" />
                                 </form>
                             </div>

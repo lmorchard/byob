@@ -32,8 +32,22 @@ $config['acls'] = $acls
 
     // Search privileges
     ->add(new Zend_Acl_Resource('search'))
+    ->allow('editor', 'search', array(
+        'search', 'approvalqueue'
+    ))
+    // ->allow('member', 'search', array('search'))
+    // ->allow('guest', 'search', array('search'))
 
-    // Privileges for repacks
+    // Product privileges
+    ->add(new Zend_Acl_Resource('products'))
+
+    // Profile privileges
+    ->add(new Zend_Acl_Resource('profiles'))
+    ->allow('member', 'profiles', array(
+        'view_own', 'edit_own',
+    ))
+
+    // Repack privileges
     ->add(new Zend_Acl_Resource('repacks'))
     ->allow('guest', 'repacks', array(
         'view_released', 'download_released',
@@ -48,16 +62,8 @@ $config['acls'] = $acls
     ->allow('editor', 'repacks', array(
         'view_unreleased', 'view_history', 'view_approval_queue',
         'edit', 'delete', 'release', 
-        'revert', 'approve', 'reject', 'download_unreleased',
-        'search'
+        'revert', 'approve', 'reject', 
+        'download_unreleased',
     ))
-
-    ->add(new Zend_Acl_Resource('profiles'))
-
-    ->allow('member', 'profiles', array(
-        'view_own', 'edit_own',
-    ))
-
-    ->add(new Zend_Acl_Resource('products'))
 
     ;

@@ -165,7 +165,11 @@ class Auth_Profiles_Controller extends Local_Controller
         $profile->set($form_data)->save();
 
         if ($profile->checkPrivilege('edit_roles')) {
-            $profile->add_roles($form_data['roles']); 
+            if (empty($form_data['roles'])) {
+                $profile->clear_roles();
+            } else {
+                $profile->add_roles($form_data['roles']); 
+            }
             $profile->save();
         }
 
@@ -332,14 +336,15 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function settings()
     {
-        $params = Router::get_params();
+        $params = Router::get_params(array(
+            'screen_name' => null,
+        ));
 
-        if ($params['screen_name'] != authprofiles::get_profile('screen_name')) {
-            header("HTTP/1.1 403 Forbidden"); 
-            exit;
-        }
+        $profile = ORM::factory('profile')->find($params['screen_name']);
+        if (!$profile->checkPrivilege('edit')) 
+            return Event::run('system.403');
 
-        $u_name = rawurlencode(authprofiles::get_profile('screen_name'));
+        $u_name = rawurlencode($profile->screen_name);
 
         // Set up initial whiteboard, fire off event to gather content from 
         // interested listeners.
@@ -383,7 +388,12 @@ class Auth_Profiles_Controller extends Local_Controller
                 )
             )
         );
+        
         Event::run('auth_profiles.before_settings_menu', $data);
-        $this->view->sections = $data['sections'];
+
+        $this->view->set(array(
+            'sections' => $data['sections'],
+            'profile'  => $profile
+        ));
     }
 } 

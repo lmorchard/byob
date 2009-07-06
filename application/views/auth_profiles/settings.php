@@ -12,7 +12,10 @@ usort($sections, create_function(
     '
 ))
 ?>
-<h3>Profile settings for <a href="<?=url::base().'profiles/'.$u_screen_name?>"><?=$h_screen_name?></a></h3>
+<?php slot::set('head_title', 'profile :: settings :: ' . $h_screen_name); ?>
+<?php slot::start('crumbs') ?>
+    Profile settings for <a href="<?=url::base().'profiles/'.$u_screen_name?>"><?=$h_screen_name?></a>
+<?php slot::end() ?>
 <ul class="sections">
     <?php foreach ($sections as $section): ?>
         <li class="section">

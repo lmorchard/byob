@@ -12,6 +12,14 @@
     </p>
 <?php endif ?>
 
+<?php if ($profile->checkPrivilege('edit')): ?>
+    <?php 
+        $u_screen_name = urlencode($profile->screen_name);
+        $h_screen_name = html::specialchars($profile->screen_name);
+    ?>
+        <p><a href="<?=url::base().'profiles/'.$u_screen_name.'/settings'?>">Manage profile settings for <?=$h_screen_name?></a></p>
+<?php endif ?>
+
 <h3>Browsers by <?= html::specialchars($profile->screen_name) ?></h3>
 
 <ul>

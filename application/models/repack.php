@@ -40,7 +40,7 @@ class Repack_Model extends ManagedORM
     );
 
     public $search_column_names = array(
-        'state', 'short_name', 'title', 'modified'
+        'short_name', 'profile_id', 'state', 'title', 'modified'
     );
 
     public $list_column_names = array(
@@ -1108,6 +1108,10 @@ class Repack_Model extends ManagedORM
     {
         $vals = array(
             'short_name' => array($this->url(), $this->short_name),
+            'profile_id' => array(
+                url::base() . 'profiles/' . $this->profile->screen_name,
+                $this->profile->screen_name
+            ),
             'title'      => $this->title,
             'state'      => $this->getStateName(),
             'modified'   => $this->modified
