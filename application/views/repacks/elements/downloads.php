@@ -2,12 +2,13 @@
 $privs = $repack->checkPrivileges();
 $files = (!$privs['download']) ?  array() : $repack->files;
 ?>
-<ul>
+<table class="downloads">
     <?php if (empty($files)): ?>
-        <li>None, yet.</li>
+        <thead><tr><th>None, yet.</th></tr></thead>
     <?php else: ?>
         <?php 
             $downloads = array();
+            $locales = array();
             foreach ($files as $file_path) {
                 $file_url = "{$repack->url}/downloads/{$file_path}";
                 
@@ -15,9 +16,6 @@ $files = (!$privs['download']) ?  array() : $repack->files;
                 if (count($parts) != 3) continue;
                 
                 list($os_path, $locale, $fn) = $parts;
-
-                if (!isset($downloads[$locale]))
-                    $downloads[$locale] = array();
 
                 $os_names = array(
                     'linux' => 'Linux',
@@ -31,21 +29,37 @@ $files = (!$privs['download']) ?  array() : $repack->files;
                     }
                 }
 
-                $downloads[$locale][] = array(
-                    $file_url, "{$os_name}"
-                );
+                if (!isset($downloads[$os_name]))
+                    $downloads[$os_name] = array();
+
+                $downloads[$os_name][$locale] = $file_url;
+                $locales[$locale]= 1;
             }
+            $locales = array_keys($locales);
         ?>
-        <?php foreach ($downloads as $locale=>$files): ?>
-            <li>
-                <span><?=$locale?></span>
-                <ul>
-                    <?php foreach ($files as $file): ?>
-                        <?php list($url, $title) = $file; ?>
-                        <li><a href="<?=$url?>"><?=$title?></a></li>
+        <thead>
+            <tr>
+                <th class="empty">&nbsp;</th>
+                <?php foreach ($locales as $locale): ?>
+                    <th><?=html::specialchars($locale)?></th>
+                <?php endforeach ?>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($downloads as $os=>$files): ?>
+                <tr>
+                    <td class="os"><?=html::specialchars($os)?></td>
+                    <?php foreach ($locales as $locale): ?>
+                        <?php 
+                            $h = html::escape_array(array(
+                                'locale' => $locale,
+                                'url'    => $files[$locale],
+                            ));
+                        ?>
+                        <td><a href="<?=$h['url']?>">download</a></td>
                     <?php endforeach ?>
-                </ul>
-            </li>
-        <?php endforeach ?>
+                </tr>
+            <?php endforeach ?>
+        </tbody>
     <?php endif ?>
-</ul>
+</table>

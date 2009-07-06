@@ -354,3 +354,34 @@ body {
     font-size: 0.75em;
     padding: 0.125em 0.5em;
 }
+.ctrl_repacks_act_view table.downloads {
+    margin: 0.5em;
+}
+.ctrl_repacks_act_view table.downloads thead tr {
+}
+.ctrl_repacks_act_view table.downloads thead tr th {
+    border-bottom: 2px solid #000;
+    background-color: #ddd;
+    font-size: 0.75em;
+    padding: 0.125em 0.5em;
+}
+.ctrl_repacks_act_view table.downloads thead tr th.empty {
+    border: none;
+    background: transparent;
+    border-bottom: 2px solid #000;
+    border-right: 2px solid #000;
+}
+.ctrl_repacks_act_view table.downloads tbody tr {
+}
+.ctrl_repacks_act_view table.downloads tbody tr td.os {
+    border-right: 2px solid #000;
+    background-color: #ddd;
+    text-align: right;
+}
+.ctrl_repacks_act_view table.downloads tbody tr td {
+}
+.ctrl_repacks_act_view table.downloads tbody tr td a {
+    display: block;
+    font-size: 1.125em;
+    padding: 0.25em 0.25em;
+}
