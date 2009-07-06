@@ -75,6 +75,14 @@ body {
     float: left; 
     padding-left: 1em; 
 }
+#header .search { 
+    position: absolute; 
+    bottom: 1em; 
+    right: 1em; 
+    list-style-type: none; 
+    margin: 0; 
+    padding: 0; 
+}
 
 #content { 
     margin: 1em;
@@ -386,4 +394,19 @@ body {
 .ctrl_repacks_act_view table.downloads tbody tr td a {
     display: block;
     padding: 0.25em 0.25em;
+}
+.search-results table {
+    width: 90%;
+    margin: 0.25em 0.25em 1em 0.25em;
+}
+.search-results table thead tr th {
+    border: 1px solid #333;
+    padding: 0.25em;
+    background: #ddd;
+    font-size: 0.75em;
+}
+.search-results table tbody tr td {
+    border: 1px solid #333;
+    padding: 0.25em;
+    font-size: 0.85em;
 }

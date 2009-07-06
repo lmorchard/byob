@@ -21,4 +21,4 @@ $config['profiles/([^/]+)/settings/basics/changeemail'] =
     'auth_profiles/changeemail/screen_name/$1';
 
 $config['profiles/([^/]+)/settings/basics/details'] = 
-    'auth_profiles/details/screen_name/$1';
+    'auth_profiles/editprofile/screen_name/$1';

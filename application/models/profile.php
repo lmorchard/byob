@@ -31,8 +31,31 @@ class Profile_Model extends Auth_Profile_Model
         'modified'       => 'Modified',
     );
 
+    public $search_column_names = array(
+        'screen_name', 'full_name', 'org_name', 'modified',
+    );
+
     // }}}
 
+    /**
+     * Build a list of values suitable for display in a list.
+     *
+     * @return Array
+     */
+    public function as_list_array()
+    {
+        $vals = array(
+            'screen_name' => array(
+                url::base() . 'profiles/' . $this->screen_name,
+                $this->screen_name
+            ),
+            'full_name' => $this->full_name,
+            'org_name' => $this->org_name,
+            'modified' => $this->modified
+        ); 
+        return $vals;
+    }
+    
     /**
      * Return a set of columns to be shown in lists.
      */

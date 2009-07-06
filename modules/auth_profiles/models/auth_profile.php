@@ -155,6 +155,8 @@ class Auth_Profile_Model extends ORM
      */
     public function add_role($role_name)
     {
+        if (!$this->loaded) return;
+
         // Look for existing role by name, create a new one if not found.
         $role = ORM::factory('role', $role_name);
         if (!$role->loaded) {
@@ -162,10 +164,40 @@ class Auth_Profile_Model extends ORM
                 'name' => $role_name
             ))->save();
         }
+        var_dump(array($role->id, $role->name));
 
         // Add the role, save it, done.
         $this->add($role);
-        $this->save();
+        return $this;
+    }
+
+    /**
+     * Set roles for this profile.
+     *
+     * @chainable
+     * @return Profile_Model
+     */
+    public function add_roles($role_names)
+    {
+        if (!$this->loaded) return;
+        $this->clear_roles();
+        foreach ($role_names as $name) {
+            $this->add_role($name);
+        }
+    }
+
+    /**
+     * Remove all roles from this profile.
+     *
+     * @chainable
+     * @return Profile_Model
+     */
+    public function clear_roles()
+    {
+        if (!$this->loaded) return;
+        foreach ($this->roles as $role) {
+            $this->remove($role);
+        }
         return $this;
     }
 

@@ -1,7 +1,38 @@
 /**
- * JS enhancements to ORM Manager pages
+ * BYOB main JS enhancements
  */
 if ('undefined' == typeof(window.BYOB_Main)) window.BYOB_Main = {};
+
+(function($) {
+    $.fn.listbuilder = function(options) {
+        var root = $(this);
+
+        root.find('.add').click(function(ev) {
+            var choices = root.find('select.choices');
+            var choice  = choices.val();
+            var name    = choices.find('option[value='+choice+']').text()
+
+            root.find('.template')
+                .clone().removeClass('template')
+                .find('input').val(choice).end()
+                .find('span').text(name).end()
+                .appendTo(root.find('.list'));
+
+            return false;
+        });
+
+        // Event delegation for delete links
+        root.find('.list').click(function(ev) {
+            var t = $(ev.target);
+            if (t.hasClass('delete')) {
+                t.parent().remove();
+                return false;
+            }
+        });
+
+    }
+})(jQuery);
+
 BYOB_Main = function() {
     var $this = {
 
@@ -15,6 +46,8 @@ BYOB_Main = function() {
                 //var n = $(this);
                 //setTimeout(function() { n.hide('highlight') }, 2000);
             });
+
+            $('.listbuilder').listbuilder();
 
             // Kill all the templates with invisible form fields.
             $('form').submit(function() {

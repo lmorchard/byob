@@ -137,7 +137,7 @@ class Auth_Profiles_Controller extends Local_Controller
     /**
      * Manage profile details.
      */
-    public function details()
+    public function editprofile()
     {
         $params = Router::get_params(array(
             'screen_name' => null,
@@ -149,6 +149,13 @@ class Auth_Profiles_Controller extends Local_Controller
 
         $this->view->profile = $profile;
 
+        if ($profile->checkPrivilege('edit_roles')) {
+            $this->view->set(array(
+                'roles' => $profile->roles,
+                'role_choices' => Kohana::config('auth_profiles.roles')
+            ));
+        }
+
         $form_data = form::validate(
             $this, $profile, 
             'validate_update', 'form_errors_auth'
@@ -156,6 +163,12 @@ class Auth_Profiles_Controller extends Local_Controller
         if (null===$form_data) return;
 
         $profile->set($form_data)->save();
+
+        if ($profile->checkPrivilege('edit_roles')) {
+            $profile->add_roles($form_data['roles']); 
+            $profile->save();
+        }
+
         Session::instance()->set_flash(
             'message', 'Profile updated'
         );

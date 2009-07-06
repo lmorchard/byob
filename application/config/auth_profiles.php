@@ -10,6 +10,14 @@ $config['cookie_path']  = '/';
 $config['base_anonymous_role'] = 'guest';
 $config['base_login_role']     = 'member';
 
+$config['roles'] = array(
+    'guest'   => 'Guest', 
+    'member'  => 'Regular member', 
+    'trusted' => 'Trusted member', 
+    'editor'  => 'Editor', 
+    'admin'   => 'Administrator'
+);
+
 $acls = new Zend_Acl();
 $config['acls'] = $acls
 
@@ -21,6 +29,9 @@ $config['acls'] = $acls
 
     // Admins can do anything.
     ->allow('admin')
+
+    // Search privileges
+    ->add(new Zend_Acl_Resource('search'))
 
     // Privileges for repacks
     ->add(new Zend_Acl_Resource('repacks'))
@@ -38,6 +49,7 @@ $config['acls'] = $acls
         'view_unreleased', 'view_history', 'view_approval_queue',
         'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 'download_unreleased',
+        'search'
     ))
 
     ->add(new Zend_Acl_Resource('profiles'))

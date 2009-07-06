@@ -11,7 +11,7 @@ class Repack_Model extends ManagedORM
     // {{{ Model properties
 
     // Display title for the model
-    public $model_title = "Repack";
+    public $model_title = "Browser";
     
     public $belongs_to = array('profile', 'product');
 
@@ -37,6 +37,10 @@ class Repack_Model extends ManagedORM
         'state'       => 'State',
         'created'     => 'Created',
         'modified'    => 'Modified',
+    );
+
+    public $search_column_names = array(
+        'state', 'short_name', 'title', 'modified'
     );
 
     public $list_column_names = array(
@@ -1093,6 +1097,23 @@ class Repack_Model extends ManagedORM
         }
         closedir($dir);
     } 
+
+
+    /**
+     * Build a list of values suitable for display in a list.
+     *
+     * @return Array
+     */
+    public function as_list_array()
+    {
+        $vals = array(
+            'short_name' => array($this->url(), $this->short_name),
+            'title'      => $this->title,
+            'state'      => $this->getStateName(),
+            'modified'   => $this->modified
+        ); 
+        return $vals;
+    }
 
 
     /**

@@ -41,6 +41,15 @@
                                 <?php endif; ?>
                             </ul>
                         </div>
+                        <?php if (authprofiles::is_allowed('search', 'search')): ?>
+                            <div class="search">
+                                <?=form::open('search', array('method'=>'get'))?>
+                                    <?=form::input('q', @$_GET['q'], ' size="30"') ?>
+                                    in <?=form::dropdown('m', array( ''=>'all', 'repack'=>'browsers', 'profile'=>'profiles'), @$_GET['m']) ?>
+                                    <input type="submit" value="search" />
+                                </form>
+                            </div>
+                        <?php endif ?>
                     </div>
                 </div>
 

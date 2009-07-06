@@ -1,3 +1,6 @@
+<?php slot::set('head_title', 'profile :: ' . html::specialchars($profile->screen_name)); ?>
+<?php slot::set('crumbs', 'profile :: ' . html::specialchars($profile->screen_name)); ?>
+
 <?php if (authprofiles::is_logged_in() && 
     authprofiles::get_profile('screen_name') == $profile->screen_name): ?>
     <p>
