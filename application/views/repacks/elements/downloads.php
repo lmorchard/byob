@@ -53,10 +53,17 @@ $files = (!$privs['download']) ?  array() : $repack->files;
                         <?php 
                             $h = html::escape_array(array(
                                 'locale' => $locale,
-                                'url'    => $files[$locale],
+                                'url'    => 
+                                    isset($files[$locale]) ? $files['locale'] : '',
                             ));
                         ?>
-                        <td><a href="<?=$h['url']?>">download</a></td>
+                        <td>
+                            <?php if (empty($h['url'])): ?>
+                                &nbsp;
+                            <?php else: ?>
+                                <a href="<?=$h['url']?>">download</a>
+                            <?php endif ?>
+                        </td>
                     <?php endforeach ?>
                 </tr>
             <?php endforeach ?>
