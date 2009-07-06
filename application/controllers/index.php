@@ -19,11 +19,9 @@ class Index_Controller extends Local_Controller
                 ->find_all();
         }
 
-        $repacks = new Repack_Model();
-        if (!authprofiles::is_allowed('repacks', 'view_unreleased')) {
-            $repacks->whereReleased();
-        }
-        $this->view->latest_repacks = $repacks->find_all(10);
+        $this->view->latest_repacks = ORM::factory('repack')
+            ->whereReleased()
+            ->find_all(10);
     }
 
 }
