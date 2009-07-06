@@ -363,7 +363,7 @@ body {
     border-bottom: 2px solid #000;
     background-color: #ddd;
     font-size: 0.75em;
-    padding: 0.125em 0.5em;
+    padding: 0.25em 0.5em;
 }
 .ctrl_repacks_act_view table.downloads thead tr th.empty {
     border: none;
@@ -377,11 +377,13 @@ body {
     border-right: 2px solid #000;
     background-color: #ddd;
     text-align: right;
+    font-size: 0.75em;
+    font-weight: bold;
+    padding: 0.25em 0.75em;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td {
 }
 .ctrl_repacks_act_view table.downloads tbody tr td a {
     display: block;
-    font-size: 1.125em;
     padding: 0.25em 0.25em;
 }
