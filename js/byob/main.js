@@ -28,7 +28,7 @@ BYOB_Main = function() {
                 $this.wireUpRepackLocales();
             });
 
-            $('.register .organization').each(function() {
+            $('form .organization').each(function() {
                 $this.wireUpHideShowOrgTypeOther($(this));
             });
 
@@ -42,9 +42,8 @@ BYOB_Main = function() {
         wireUpHideShowOrgTypeOther: function(org_fieldset) {
 
             var org_type_other = org_fieldset.find('#org_type_other');
-            org_type_other.parent().hide();
 
-            org_fieldset.find('#org_type').change(function() {
+            var cb = function() {
                 var org_type = $(this);
                 if ('other' == org_type.val()) {
                     // Show the 'other' field.
@@ -53,7 +52,11 @@ BYOB_Main = function() {
                     // Clear out and hide the 'other' field.
                     org_type_other.val('').parent().hide();
                 }
-            });
+            }
+
+            // Both set the initial visibility of the other field, and set up
+            // to update on changes to the dropdown.
+            org_fieldset.find('#org_type').each(cb).change(cb);
 
         },
 

@@ -26,9 +26,78 @@ class Auth_Profile_Model extends ORM
     // }}}
 
     /**
+     * Check an individual privilege by nickname against variants including 
+     * *_own & etc.
+     */
+    public function checkPrivilege($priv, $profile_id=null)
+    {
+        if (null === $profile_id) {
+            $profile_id = authprofiles::get_profile('id');
+        }
+        $own = ( $profile_id == $this->id );
+
+        switch($priv) {
+
+            case 'view':
+                return
+                    authprofiles::is_allowed('profiles', 'view') ||
+                    ($own && authprofiles::is_allowed('profiles', 'view_own'));
+
+            case 'edit':
+                return
+                    authprofiles::is_allowed('profiles', 'edit') ||
+                    ($own && authprofiles::is_allowed('profiles', 'edit_own'));
+
+            default:
+                return authprofiles::is_allowed('profiles', $priv); 
+
+        }
+    }
+
+    /**
+     * Check multiple privileges, returning an array of indexed results.
+     */
+    public function checkPrivileges($privs, $profile_id=null)
+    {
+        $results = array();
+        foreach ($privs as $priv) {
+            $results[$priv] = $this->checkPrivilege($priv, $profile_id);
+        }
+        return $results;
+    }
+
+
+    /**
+     * Find the default login for this profile, usually the first registered.
+     * @TODO: Change point for future multiple logins per profile
+     */
+    public function find_default_login_for_profile()
+    {
+        if (!$this->loaded) return null;
+        $logins = $this->logins;
+        return $logins[0];
+    }
+
+
+    /**
      * Validate form data for profile creation, optionally saving it if valid.
      */
     public function validate_create(&$data, $save = FALSE)
+    {
+        $data = Validation::factory($data)
+            ->pre_filter('trim')
+            ->add_rules('screen_name',      
+                'required', 'length[3,64]', 'valid::alpha_dash', 
+                array($this, 'is_screen_name_available'))
+            ->add_rules('full_name', 'required', 'valid::standard_text')
+            ;
+        return $this->validate($data, $save);
+    }
+
+    /**
+     * Validate form data for profile modification, optionally saving if valid.
+     */
+    public function validate_update(&$data, $save = FALSE)
     {
         $data = Validation::factory($data)
             ->pre_filter('trim')
@@ -48,17 +117,13 @@ class Auth_Profile_Model extends ORM
      */
     public function is_screen_name_available($name)
     {
+        if ($this->loaded && $name == $this->screen_name) {
+            return true;
+        }
         $count = $this->db
             ->where('screen_name', $name)
             ->count_records($this->table_name);
         return (0==$count);
-    }
-
-    /**
-     *
-     */
-    public function validate_update(&$data, $save = FALSE)
-    {
     }
 
 

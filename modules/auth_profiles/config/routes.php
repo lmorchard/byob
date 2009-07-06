@@ -19,3 +19,6 @@ $config['profiles/([^/]+)/settings/basics/changepassword'] =
 
 $config['profiles/([^/]+)/settings/basics/changeemail'] = 
     'auth_profiles/changeemail/screen_name/$1';
+
+$config['profiles/([^/]+)/settings/basics/details'] = 
+    'auth_profiles/details/screen_name/$1';

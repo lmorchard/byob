@@ -26,8 +26,6 @@ class Repacks_Controller extends Local_Controller
                 return authprofiles::redirect_login();
             }
         }
-
-        $this->repack_model = new Repack_Model();
     }
 
 

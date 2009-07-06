@@ -42,6 +42,10 @@ $config['acls'] = $acls
 
     ->add(new Zend_Acl_Resource('profiles'))
 
+    ->allow('member', 'profiles', array(
+        'view_own', 'edit_own',
+    ))
+
     ->add(new Zend_Acl_Resource('products'))
 
     ;

@@ -135,6 +135,34 @@ class Auth_Profiles_Controller extends Local_Controller
 
 
     /**
+     * Manage profile details.
+     */
+    public function details()
+    {
+        $params = Router::get_params(array(
+            'screen_name' => null,
+        ));
+
+        $profile = ORM::factory('profile')->find($params['screen_name']);
+        if (!$profile->checkPrivilege('edit')) 
+            return Event::run('system.403');
+
+        $this->view->profile = $profile;
+
+        $form_data = form::validate(
+            $this, $profile, 
+            'validate_update', 'form_errors_auth'
+        );
+        if (null===$form_data) return;
+
+        $profile->set($form_data)->save();
+        Session::instance()->set_flash(
+            'message', 'Profile updated'
+        );
+        return url::redirect(url::current());
+    }
+
+    /**
      * Start email address change process.
      */
     public function changeemail()

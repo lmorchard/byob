@@ -56,4 +56,17 @@ class Profile_Model extends Auth_Profile_Model
         );
     }
 
+
+    /**
+     * Validate form data for profile modification, optionally saving if valid.
+     */
+    public function validate_update(&$data, $save = FALSE)
+    {
+        $data = Validation::factory($data)
+            ->pre_filter('trim')
+            ->add_rules('full_name', 'required', 'valid::standard_text')
+            ;
+        return $this->validate($data, $save);
+    }
+
 }

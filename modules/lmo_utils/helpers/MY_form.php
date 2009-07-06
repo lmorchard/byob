@@ -20,6 +20,12 @@ class form extends form_Core
      * @return Validation       validation object with data, or null on validation failure
      */
     public static function validate($ctrl, $model, $callback, $errors, $require_post=true) {
+        self::$data = $ctrl->view->form_data = array_merge(
+            $model->loaded ?
+                $model->as_array() : array(),
+            ('post' == request::method()) ? 
+                $ctrl->input->post() : $ctrl->input->get()
+        );
         
         if ($require_post && 'post' != request::method()) {
             return;
@@ -34,10 +40,6 @@ class form extends form_Core
             $callback = array($model, $callback);
         }
 
-        self::$data = $ctrl->view->form_data =
-            ('post' == request::method()) ? 
-                $ctrl->input->post() : $ctrl->input->get();
-        
         $is_valid = call_user_func_array($callback, array(&self::$data));
 
         if (!$is_valid) {

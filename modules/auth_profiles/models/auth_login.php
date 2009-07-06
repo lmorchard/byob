@@ -122,6 +122,7 @@ class Auth_Login_Model extends ORM
 
     /**
      * Find the default profile for this login, usually the first registered.
+     * @TODO: Change point for future multiple profiles per login
      */
     public function find_default_profile_for_login()
     {
