@@ -54,7 +54,7 @@ $files = (!$privs['download']) ?  array() : $repack->files;
                             $h = html::escape_array(array(
                                 'locale' => $locale,
                                 'url'    => 
-                                    isset($files[$locale]) ? $files['locale'] : '',
+                                    isset($files[$locale]) ? $files[$locale] : '',
                             ));
                         ?>
                         <td>
