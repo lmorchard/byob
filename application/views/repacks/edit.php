@@ -172,7 +172,7 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
     </div>
 
-    <h3><a href="#">Would you like to choose a collection of suggested addons?</a></h3>
+    <h3><a href="#">Would you like to choose a collection of addons to suggest for installation?</a></h3>
 
     <div>
 

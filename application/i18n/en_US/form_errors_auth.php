@@ -23,7 +23,9 @@ $lang = array(
         'required' 
             => 'Email is required.',
         'email'
-            => 'Valid email is required.'
+            => 'Valid email is required.',
+        'is_email_available' 
+            => 'A login has already been registered using this email address',
     ),
     'email_confirm' => array(
         'default'
@@ -63,6 +65,10 @@ $lang = array(
         'standard_text' 
             => 'Full name must contain only alphanumeric characters'
     ),
+    'org_name' => array(
+        'required'      
+            => 'Organization name is required',
+    ),
     'recaptcha' => array(
         'default' 
             => 'Valid captcha response is required.'
@@ -85,7 +91,9 @@ $lang = array(
     ),
     'new_email' => array(
         'default' =>
-            'A valid new email is required'
+            'A valid new email is required',
+        'is_email_available' =>
+            'That email address is used by another login.',
     ),
     'new_email_confirm' => array(
         'default' =>

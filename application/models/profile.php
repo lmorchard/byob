@@ -88,6 +88,7 @@ class Profile_Model extends Auth_Profile_Model
         $data = Validation::factory($data)
             ->pre_filter('trim')
             ->add_rules('full_name', 'required', 'valid::standard_text')
+            ->add_rules('org_name', 'required')
             ;
         return $this->validate($data, $save);
     }

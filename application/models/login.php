@@ -149,6 +149,7 @@ class Login_Model extends Auth_Login_Model
                 'required', 'length[3,64]', 'valid::alpha_dash', 
                 array($profile_model, 'is_screen_name_available'))
             ->add_rules('full_name', 'required', 'valid::standard_text')
+            ->add_rules('org_name', 'required')
             ;
 
         if ('post' == request::method() && !recaptcha::check()) {

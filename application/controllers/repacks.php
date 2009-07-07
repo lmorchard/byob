@@ -72,7 +72,7 @@ class Repacks_Controller extends Local_Controller
      */
     public function view()
     {
-        $repack = $this->_getRequestedRepack();
+        $repack = $this->_getRequestedRepack(true);
         $privs = $repack->checkPrivileges();
         if (!$privs['view']) return Event::run('system.403');
 

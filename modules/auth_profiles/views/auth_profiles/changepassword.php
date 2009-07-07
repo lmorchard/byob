@@ -1,7 +1,6 @@
 <?php if (!empty($password_changed)): ?>
 
-    <p>Password changed. 
-    <?=html::anchor('login', 'Login again?')?></p>
+    <p>Password changed.</p>
 
 <?php elseif (!empty($invalid_reset_token)): ?>
 

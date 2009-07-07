@@ -1,7 +1,6 @@
 <?php if (!empty($email_verification_token_set)): ?>
     <p>
-        Check the email address registered for this account for a link 
-        to verify your new email address.
+        Check your inbox for a link to verify this new email address.
     </p>
 <?php else: ?>
     <?php form::$errors = @$form_errors ?>

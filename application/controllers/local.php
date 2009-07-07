@@ -41,7 +41,7 @@ class Local_Controller extends Layout_Controller
     /**
      * Attempt to grab a repack based on router parameters.
      */
-    protected function _getRequestedRepack()
+    protected function _getRequestedRepack($redirect_unreleased=false)
     {
         $params = Router::get_params(array(
             'uuid'        => null,
@@ -88,6 +88,10 @@ class Local_Controller extends Layout_Controller
         $rp = $m->find();
 
         if (null === $rp || !$rp->loaded) {
+            if ($redirect_unreleased && 'unreleased' == $params['status']) {
+                $url = str_replace('/unreleased', '', Router::$current_uri);
+                return url::redirect($url);
+            }
             // Bail out if not found.
             Event::run('system.404');
             exit();

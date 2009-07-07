@@ -23,8 +23,10 @@ $lang = array(
         'required' 
             => 'Email is required.',
         'email'
-            => 'Valid email is required.'
-    ),
+            => 'Valid email is required.',
+        'is_email_available' 
+            => 'A login has already been registered using this email address.',
+        ),
     'email_confirm' => array(
         'default'
             => 'Valid email confirmation is required.',

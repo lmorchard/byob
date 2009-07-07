@@ -368,7 +368,8 @@ class Auth_Login_Model extends ORM
     {
         $data = Validation::factory($data)
             ->pre_filter('trim')
-            ->add_callbacks('old_password', 
+            ->add_rules('old_password', 'required')
+            ->add_callbacks('old_password',
                 array($this, 'is_password_correct'))
             ->add_rules('new_password', 'required')
             ->add_rules('new_password_confirm', 
