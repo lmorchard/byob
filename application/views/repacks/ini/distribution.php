@@ -13,14 +13,14 @@ about=Mozilla Firefox for <?= $r->profile->org_name . "\n" ?>
 
 [LocalizablePrefs]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
-browser.startup.homepage=<?= $r->url . '/startpage' . "\n" ?>
+<?php if (!empty($r->firstrun_content)): ?>
 browser.startup.homepage_reset=<?= $r->url . '/firstrun' . "\n" ?>
+<?php endif ?>
 
-<?php $bookmarks_menu = $r->bookmarks_menu; ?>
-<?php if (!empty($bookmarks_menu)): ?>
+<?php if (!empty($r->bookmarks_menu)): ?>
 [BookmarksMenu]
 <?php 
-foreach ($bookmarks_menu as $idx=>$bookmark) {
+foreach ($r->bookmarks_menu as $idx=>$bookmark) {
     View::factory('repacks/ini/bookmark', array(
         'idx' => $idx, 'bookmark' => $bookmark
     ))->render(TRUE);
@@ -28,11 +28,11 @@ foreach ($bookmarks_menu as $idx=>$bookmark) {
 ?>
 <?php endif ?>
 
-<?php $bookmarks_toolbar = $r->bookmarks_toolbar; ?>
-<?php if (!empty($bookmarks_toolbar)): ?>
+<?php $r->bookmarks_toolbar = $r->bookmarks_toolbar; ?>
+<?php if (!empty($r->bookmarks_toolbar)): ?>
 [BookmarksToolbar]
 <?php 
-foreach ($bookmarks_toolbar as $idx=>$bookmark) {
+foreach ($r->bookmarks_toolbar as $idx=>$bookmark) {
     View::factory('repacks/ini/bookmark', array(
         'idx' => $idx, 'bookmark' => $bookmark
     ))->render(TRUE);
