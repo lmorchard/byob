@@ -1,40 +1,47 @@
 <?php slot::set('head_title', 'home') ?>
 <?php slot::set('crumbs', 'home') ?>
 
-<?php slot::start('prose') ?>
-
 <?php if (!authprofiles::is_logged_in()): ?>
 
-## Welcome!
+    <h2>Welcome!</h2>
 
-To get started building your own browser, [register][] and [login][]!
-
-[register]: <?= url::base().'register' ?> "register!"
-[login]: <?= url::base().'login' ?> "login"
+    <p>To get started building your own browser, 
+    <a href="<?= url::base().'register' ?>">register</a> and 
+    <a href="<?= url::base().'login' ?>">login</a>!
 
 <?php else: ?>
 
-## Welcome back!
+    <h2>Welcome back!</h2>
 
-Want to [get started building a browser][create]?
+    <p>
+        <?php
+            $create_url = url::base() .
+            "profiles/".authprofiles::get_profile('screen_name').
+            "/browsers/create";
+        ?>
+        <form action="<?=$create_url?>" method="POST">
+            Want to
+            <button name="confirm" id="confirm" value="yes">create a browser</button>?
+        </form>
+    </p>
 
-[create]: <?= url::base() . 'profiles/' . html::specialchars(authprofiles::get_profile('screen_name')) . '/browsers;create' ?> "create"
-
-<?php if (!empty($repacks)): ?>
-Or, you can manage one of your existing custom browsers:
-
-<?php foreach ($repacks as $repack): ?>
-* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>)
-<?php endforeach ?>
+    <?php if (!empty($repacks)): ?>
+        Or, you can manage one of your existing custom browsers:
+        <ul>
+        <?php foreach ($repacks as $repack): ?>
+            <li><a href="<?= $repack->url ?>"><?= html::specialchars($repack->title) ?></a></li>
+        <?php endforeach ?>
+        </ul>
+    <?php endif ?>
 
 <?php endif ?>
 
-<?php endif ?>
+<h3>Latest browsers by everyone</h3>
 
-### Latest browsers by everyone
-
+<ul>
 <?php foreach ($latest_repacks as $repack): ?>
-* [<?= html::specialchars($repack->title) ?>](<?= $repack->url ?>) by [<?= html::specialchars($repack->profile->screen_name) . "\n" ?>](<?=url::base() . 'profiles/' . $repack->profile->screen_name?>)
+    <li>
+    <a href="<?= $repack->url ?>"><?= html::specialchars($repack->title) ?></a>
+    by <a href="<?=url::base() . 'profiles/' . $repack->profile->screen_name?>"><?= html::specialchars($repack->profile->screen_name)?></a>
 <?php endforeach ?>
-
-<?php slot::end_filter('Markdown') ?>
+</ul>

@@ -90,6 +90,26 @@ class Repacks_Controller extends Local_Controller
     }
 
     /**
+     * Create a new repack.
+     */
+    public function create()
+    {
+
+        if (!authprofiles::is_allowed('repacks', 'create')) {
+            return Event::run('system.403');
+        }
+            
+        if ('post' == request::method()) {
+            // On creation, instantiate a new repack.
+            $rp = ORM::factory('repack');
+            $rp->profile_id = authprofiles::get_profile('id');
+            $rp->save();
+            return url::redirect($rp->url . ';edit');
+        }
+
+    }
+
+    /**
      * Edit details of a customized repack
      */
     public function edit()
@@ -99,54 +119,38 @@ class Repacks_Controller extends Local_Controller
             'uuid'   => null
         ));
 
-        if (false !== $params['create']) {
+        // On editing, look for an editable version of this repack.
+        $this->view->create = false;
 
-            if (!authprofiles::is_allowed('repacks', 'create')) {
-                return Event::run('system.403');
+        $rp = $this->_getRequestedRepack();
+
+        $editable_rp = $rp->findEditable();
+        if (!$editable_rp) {
+            // No editable alternative, so bail.
+            return Event::run('system.403');
+        }
+
+        $privs = $editable_rp->checkPrivileges();
+        if (!$privs['edit']) return Event::run('system.403');
+       
+        if ($editable_rp->id != $rp->id) {
+            // Redirect to editable alternative.
+            if (!$editable_rp->saved) {
+                $editable_rp->save();
             }
-
-            // On creation, instantiate a new repack.
-            $rp = ORM::factory('repack');
-            $rp->profile_id = authprofiles::get_profile('id');
-            $this->view->create = true;
-
-        } else {
-
-            // On editing, look for an editable version of this repack.
-            $this->view->create = false;
-
-            $rp = $this->_getRequestedRepack();
-
-            $editable_rp = $rp->findEditable();
-            if (!$editable_rp) {
-                // No editable alternative, so bail.
-                return Event::run('system.403');
+            if ($editable_rp->isLockedForChanges()) {
+                return url::redirect($editable_rp->url);
+            } else {
+                return url::redirect($editable_rp->url.';edit');
             }
+        }
 
-            $privs = $editable_rp->checkPrivileges();
-            if (!$privs['edit']) return Event::run('system.403');
-           
-            if ($editable_rp->id != $rp->id) {
-                // Redirect to editable alternative.
-                if (!$editable_rp->saved) {
-                    $editable_rp->save();
-                }
-                if ($editable_rp->isLockedForChanges()) {
-                    return url::redirect($editable_rp->url);
-                } else {
-                    return url::redirect($editable_rp->url.';edit');
-                }
-            }
-
-            if ($this->input->post('cancel', false)) {
-                return url::redirect($rp->url);
-            }
-
+        if ($this->input->post('cancel', false)) {
+            return url::redirect($rp->url);
         }
 
         // Grab the form data, ensure UUID not changed.
-        $form_data = ('post' == request::method()) ?
-            $this->input->post() : $this->input->get();
+        $form_data = $this->input->post();
         $form_data['uuid'] = $rp->uuid;
 
         // Try to validate the form data and update the repack.

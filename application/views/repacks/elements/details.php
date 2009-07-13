@@ -1,7 +1,7 @@
 <?php
 $display = array(
-    'short_name' => 'Short Name',
-    'title' => 'Title',
+    //'short_name' => 'Short Name',
+    //'title' => 'Title',
     'description' => 'Description'
 );
 ?>

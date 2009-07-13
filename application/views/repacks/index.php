@@ -6,9 +6,11 @@
     <p>
         <?php
             $create_url = url::base() .
-                "profiles/{$profile->screen_name}/browsers;create";
+                "profiles/{$profile->screen_name}/browsers/create";
         ?>
-        <a href="<?=$create_url?>">Create new browser</a>
+        <form action="<?=$create_url?>" method="POST">
+            <button name="confirm" id="confirm" value="yes">create new browser</button>
+        </form>
     </p>
 <?php endif ?>
 

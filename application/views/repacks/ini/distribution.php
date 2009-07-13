@@ -9,7 +9,7 @@ $partner_id = 'byob' . $r->profile->screen_name;
 [Global]
 id=byob-<?= $r->profile->screen_name . '-' . $r->short_name . "\n" ?>
 version=<?= $r->version . "\n" ?>
-about=Mozilla Firefox for <?= $r->profile->org_name . "\n" ?>
+about=<?= $r->title . "\n" ?>
 
 [LocalizablePrefs]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>

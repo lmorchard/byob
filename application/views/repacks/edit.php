@@ -27,12 +27,6 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
         <?= 
         form::fieldset('browser details', array('class'=>'selected'), array( 
-            form::field('input', 'short_name', 'short name', array('class'=>'required'), array(
-                'required, length between 3 and 128 characters'
-            )),
-            form::field('input', 'title', 'title', array('class'=>'required'), array(
-                'required, length between 3 and 255 characters'
-            )),
             form::field('textarea', 'description', 'description', array(), array(
                 'optional, max length 1000 characters'
             ))

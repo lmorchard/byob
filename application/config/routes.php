@@ -7,8 +7,8 @@ $config['profiles/([^/]+)/'] =
     'repacks/index/screen_name/$1';
 $config['profiles/([^/]+)/browsers/'] =                  
     'repacks/index/screen_name/$1';
-$config['profiles/([^/]+)/browsers;create'] =            
-    'repacks/edit/create/true';
+$config['profiles/([^/]+)/browsers/create'] =            
+    'repacks/create';
 
 $config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/firstrun'] =  
     'repacks/firstrun/screen_name/$1/short_name/$2/status/$3';
