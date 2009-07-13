@@ -1,5 +1,6 @@
 <?php
 $r = $repack;
+$dist_id = "byob-{$r->profile->screen_name}-{$r->short_name}";
 $partner_id = 'byob' . $r->profile->screen_name;
 ?>
 ; Partner distribution.ini file for "<?= $r->title ?>"
@@ -7,7 +8,7 @@ $partner_id = 'byob' . $r->profile->screen_name;
 ; UUID: <?= $r->uuid . "\n" ?>
 
 [Global]
-id=byob-<?= $r->profile->screen_name . '-' . $r->short_name . "\n" ?>
+id=<?=$dist_id ."\n" ?>
 version=<?= $r->version . "\n" ?>
 about=<?= $r->title . "\n" ?>
 
