@@ -12,10 +12,10 @@ id=<?=$dist_id ."\n" ?>
 version=<?= $r->version . "\n" ?>
 about=<?= $r->title . "\n" ?>
 
-[LocalizablePrefs]
+[Preferences]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
 <?php if (!empty($r->firstrun_content)): ?>
-browser.startup.homepage_reset=<?= $r->url . '/firstrun' . "\n" ?>
+startup.homepage_welcome_url="<?= $r->releaseUrl() . '/firstrun' ?>"
 <?php endif ?>
 
 <?php if (!empty($r->bookmarks_menu)): ?>

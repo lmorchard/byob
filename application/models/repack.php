@@ -546,6 +546,21 @@ class Repack_Model extends ManagedORM
             $url .= ";$action";
         return $url;
     }
+
+    /**
+     * Build a release URL for the repack, regardless of the release status of 
+     * this particular instance
+     * @TODO Should this be in the controller?
+     */
+    public function releaseUrl($action=null)
+    {
+        $url = url::base() . 
+            "profiles/{$this->profile->screen_name}".
+            "/browsers/{$this->short_name}";
+        if ($action)
+            $url .= ";$action";
+        return $url;
+    }
     
     /**
      * Convert the state code into a name.
