@@ -1,7 +1,6 @@
 <?php if (!empty($password_reset_token_set)): ?>
     <p>
-        Check the email address registered for this account for a link to change 
-        your password.
+        Check your inbox for a link to change your password.
     </p>
 <?php else: ?>
     <?= 
