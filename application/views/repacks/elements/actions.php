@@ -6,86 +6,70 @@ $h = html::escape_array(array_merge(
     )
 ));
 $privs = $repack->checkPrivileges();
+$actions = array();
+
+if ($repack->isRelease()) { 
+
+    if ($privs['view'])
+        $actions['/'] = "View details";
+    if ($privs['edit'])
+        $actions[';edit'] = "Change details";
+    if ($privs['revert'])
+        $actions[';revert'] = "Take down release";
+
+} else { 
+
+    if ($privs['view']) 
+        $actions['/'] = "Preview details";
+    if ($privs['edit'])
+        $actions[';edit'] = "Continue editing";
+    if ($privs['delete'])
+        $actions[';delete'] = "Abandon changes";
+
+    if ($repack->isPendingApproval()) { 
+
+        if ($privs['cancel'])
+            $actions[';cancel'] = "Cancel release";
+        if ($privs['approve'])
+            $actions[';approve'] = "Approve release";
+        if ($privs['reject'])
+            $actions[';reject'] = "Reject release";
+
+    } else { 
+
+        if (!$repack->isLockedForChanges()) { 
+            if ($privs['release']) { 
+                $actions[';release'] = "Request release";
+            } else { 
+                if ($repack->state == Repack_Model::$states['requested']) { 
+                    if ($privs['begin'])
+                        $actions[';begin'] = "Force build start state";
+                } 
+                if ($repack->state == Repack_Model::$states['started']) { 
+                    if ($privs['fail']) 
+                        $actions[';fail'] = "Force build failure state";
+                    if ($privs['finish'])
+                        $actions[';finish'] = "Force build finish state";
+                } 
+
+            } 
+        } 
+
+    } 
+}
+
+$actions['/firstrun'] = "Preview first-run page";
+
+if ($privs['distributionini']) 
+    $actions['/distribution.ini'] = "Preview distribution.ini";
+if ($privs['repackcfg'])
+    $actions['/repack.cfg'] = "Preview repack.cfg";
+if ($privs['repacklog'])
+    $actions['/repack.log'] = "View repack.log";
+
 ?>
-<?php if ($repack->isRelease()): ?>
-
-    <ul class="actions">
-        <?php if ($privs['view']): ?>
-            <li><a href="<?=$h['url']?>">View details</a></li>
-        <?php endif ?>
-        <?php if ($privs['edit']): ?>
-            <li><a href="<?=$h['url']?>;edit">Change details</a></li>
-        <?php endif ?>
-        <?php if ($privs['revert']): ?>
-            <li><a href="<?=$h['url']?>;revert">Take down release</a></li>
-        <?php endif ?>
-        <?php if ($privs['distributionini']): ?>
-            <li><a href="<?=$h['url']?>/distribution.ini">Preview distribution.ini</a></li>
-        <?php endif ?>
-        <?php if ($privs['repackcfg']): ?>
-            <li><a href="<?=$h['url']?>/repack.cfg">Preview repack.cfg</a></li>
-        <?php endif ?>
-        <?php if ($privs['repacklog']): ?>
-            <li><a href="<?=$h['url']?>/repack.log">View repack.log</a></li>
-        <?php endif ?>
-    </ul>
-
-<?php else: ?>
-
-    <ul class="actions">
-        <?php if ($privs['view']): ?>
-            <li><a href="<?=$h['url']?>">Preview details</a></li>
-        <?php endif ?>
-
-        <?php if ($privs['edit']): ?>
-            <li><a href="<?=$h['url']?>;edit">Continue editing</a></li>
-        <?php endif ?>
-        <?php if ($privs['delete']): ?>
-            <li><a href="<?=$h['url']?>;delete">Abandon changes</a></li>
-        <?php endif ?>
-
-        <?php if ($repack->isPendingApproval()): ?>
-            <?php if ($privs['cancel']): ?>
-                <li><a href="<?=$h['url']?>;cancel">Cancel release</a></li>
-            <?php endif ?>
-            <?php if ($privs['approve']): ?>
-                <li><a href="<?=$h['url']?>;approve">Approve release</a></li>
-            <?php endif ?>
-            <?php if ($privs['reject']): ?>
-                <li><a href="<?=$h['url']?>;reject">Reject release</a></li>
-            <?php endif ?>
-        <?php else: ?>
-            <?php if (!$repack->isLockedForChanges()): ?>
-                <?php if ($privs['release']): ?>
-                    <li><a href="<?=$h['url']?>;release">Request release</a></li>
-                <?php endif ?>
-            <?php // TEMPORARY HACK AHOY! ?>
-            <?php else: ?>
-                <?php if ($repack->state == Repack_Model::$states['requested']): ?>
-                    <?php if ($privs['begin']): ?>
-                        <li><a href="<?=$h['url']?>;begin">Force build start state</a></li>
-                    <?php endif ?>
-                <?php endif ?>
-                <?php if ($repack->state == Repack_Model::$states['started']): ?>
-                    <?php if ($privs['fail']): ?>
-                        <li><a href="<?=$h['url']?>;fail">Force build failure state</a></li>
-                    <?php endif ?>
-                    <?php if ($privs['finish']): ?>
-                        <li><a href="<?=$h['url']?>;finish">Force build finish state</a></li>
-                    <?php endif ?>
-                <?php endif ?>
-
-            <?php endif ?>
-        <?php endif ?>
-        <?php if ($privs['distributionini']): ?>
-            <li><a href="<?=$h['url']?>/distribution.ini">Preview distribution.ini</a></li>
-        <?php endif ?>
-        <?php if ($privs['repackcfg']): ?>
-            <li><a href="<?=$h['url']?>/repack.cfg">Preview repack.cfg</a></li>
-        <?php endif ?>
-        <?php if ($privs['repacklog']): ?>
-            <li><a href="<?=$h['url']?>/repack.log">View repack.log</a></li>
-        <?php endif ?>
-    </ul>
-
-<?php endif ?>
+<ul class="actions">
+    <?php foreach ($actions as $url=>$title): ?>
+        <li><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
+    <?php endforeach ?>
+</ul>

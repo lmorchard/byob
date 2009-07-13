@@ -1203,6 +1203,14 @@ class Repack_Model extends ManagedORM
             if (empty($time)) $time = $this->created;
             return gmdate('odmHis',strtotime($time));
         }
+        if ('collection_addons' == $column) {
+            if (empty($this->addons_collection_url)) {
+                return array();
+            } else {
+                return Model::factory('addon')
+                    ->find_all_by_collection_url($this->addons_collection_url);
+            }
+        }
         if ('title' == $column)
             return "Mozilla Firefox for {$this->profile->org_name}";
 
@@ -1241,6 +1249,9 @@ class Repack_Model extends ManagedORM
      * @return  boolean
      */
     public function __isset($column) {
+        if ('collection_addons' == $column) {
+            return isset($this->addons_collection_url);
+        }
         return isset($this->attrs[$column]) ? true : parent::__isset($column);
     }
 

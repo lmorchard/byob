@@ -53,20 +53,52 @@ class Addon_Model extends Model
     }
 
     /**
+     * Fetch a set of addons by collection URL
+     *
+     * @param  string Collection web URL
+     * @return array of Addon_Model
+     */
+    public function find_all_by_collection_url($url)
+    {
+        $cache = Cache::instance();
+        $key = "collection-" . md5($url);
+        $addon_ids = $cache->get($key);
+
+        if (empty($addon_ids)) {
+            // HACK: If the addon IDs need loading, try fetching the RSS feed 
+            // for the collection and extract the addon IDs that way.
+            $addon_ids = array();
+            $feed_url = feed::find($url);
+            $items = feed::parse($feed_url);
+            foreach ($items as $item) {
+                $addon_ids[] = basename($item['link']);
+            }
+            $cache->set($key, $addon_ids);
+        }
+
+        $addons = array();
+        foreach ($addon_ids as $id) {
+            $addons[] = $this->find($id, true);
+        }
+        return $addons;
+    }
+
+    /**
      * Find an addon by id
      *
      * @param  string      Addon ID
      * @return Addon_Model
      */
-    public function find($id)
+    public function find($id, $load_unknown=false)
     {
-        if (!isset($this->_known[$id])) {
+        if (!$load_unknown && !isset($this->_known[$id])) {
             return null;
         } 
         $addon = new self();
         $addon->id = $id;
 
-        $details = $this->_known[$id];
+        $details = isset($this->_known[$id]) ?
+            $this->_known[$id] : array();
         foreach ($details as $name=>$val) {
             $addon->{$name} = $val;
         }

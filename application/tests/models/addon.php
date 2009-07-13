@@ -70,6 +70,31 @@ class Addon_Test extends PHPUnit_Framework_TestCase
     }
 
     /**
+     * Exercise fetching a collection of addons.
+     */
+    public function testFindAllByCollection()
+    {
+        $collection_url = 
+            'https://addons.mozilla.org/en-US/firefox/collection/webdeveloper';
+        $addons = Model::factory('addon')
+            ->find_all_by_collection_url($collection_url);
+        $expected_ids = array(
+            '966', '5369', '539', '271', '590', '748', '684', '7943', '60', 
+            '1843', '3829', '2464',
+        );
+        $result_ids = array();
+        foreach ($addons as $addon) {
+            $result_ids[] = $addon->id;
+        }
+        $this->assertEquals(
+            count($expected_ids), count($result_ids)
+        );
+        foreach ($expected_ids as $id) {
+            $this->assertTrue(in_array($id, $result_ids));
+        }
+    }
+
+    /**
      * Exercise calls out to the AMO api for addon details.
      */
     public function testDetailsFromAMO()
