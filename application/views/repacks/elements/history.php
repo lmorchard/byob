@@ -2,6 +2,18 @@
     <?php foreach ($logevents as $event): ?>
         <?php
             $action_titles = array(
+                'new'        => 'Created',
+                'edited'     => 'Modified',
+                'requested'  => 'Release requested',
+                'pending'    => 'Build completed',
+                'rejected'   => 'Release rejected',
+                'reverted'   => 'Release reverted',
+                'started'    => 'Build started',
+                'failed'     => 'Build failed',
+                'released'   => 'Release approved',
+                'deleted'    => 'Release deleted',
+                'cancelled'  => 'Release cancelled',
+                
                 'created'         => 'Created',
                 'modified'        => 'Modified',
                 'requestRelease'  => 'Release requested',
@@ -12,6 +24,7 @@
                 'failRelease'     => 'Build failed',
                 'finishRelease'   => 'Build completed',
                 'revertRelease'   => 'Release reverted',
+                 
             );
             $h = html::escape_array(array(
                 'when' => $event->created,

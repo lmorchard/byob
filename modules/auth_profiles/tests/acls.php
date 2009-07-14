@@ -83,6 +83,7 @@ class Acl_Test extends PHPUnit_Framework_TestCase
             foreach ($roles as $role_name) {
                 $profile->add_role($role_name);
             }
+            $profile->save();
 
         }
 
@@ -99,6 +100,49 @@ class Acl_Test extends PHPUnit_Framework_TestCase
             'Default permission with no ACLs should be allowed'
         );
     }
+
+    /**
+     * Ensure profiles can be queried by role name
+     */
+    public function testFindProfileByRole()
+    {
+        $roles = array(
+            'admin' => array( 'tester0' ), 
+            'alpha' => array( 'tester1', 'tester5' ), 
+            'beta'  => array( 'tester2', 'tester6' ), 
+            'gamma' => array( 'tester3', 'tester5' ),
+            'delta' => array( 'tester4', 'tester6' ),
+            
+            'alpha beta' => array( 
+                'tester1', 'tester5', 'tester2', 'tester6' 
+            ), 
+            'gamma delta' => array( 
+                'tester3', 'tester5', 'tester4', 'tester6' 
+            ),
+        );
+        foreach ($roles as $role_name => $expected_screen_names) {
+            
+            if (strpos($role_name, ' ') !== FALSE) {
+                $role_name = explode(' ', $role_name);
+            }
+            $profiles = ORM::factory('profile')
+                ->find_all_by_role($role_name);
+            
+            $result_screen_names = array();
+            foreach ($profiles as $profile)
+                $result_screen_names[] = $profile->screen_name;
+
+            sort($expected_screen_names);
+            sort($result_screen_names);
+
+            $this->assertEquals(
+                $expected_screen_names,
+                $result_screen_names
+            );
+
+        }
+    }
+
 
     /**
      * Exercise the is_allowed helper method against the configured ACLs.

@@ -78,6 +78,22 @@ class Auth_Profile_Model extends ORM
         return $logins[0];
     }
 
+    /**
+     * Find profiles by role name.
+     *
+     * @param  string|array Role name or names
+     * @return ORM_Iterator
+     */
+    public function find_all_by_role($role_name)
+    {
+        if (!is_array($role_name)) $role_name = array($role_name);
+        return $this
+            ->join('profiles_roles', 'profiles_roles.profile_id', 'profiles.id')
+            ->join('roles', 'roles.id', 'profiles_roles.role_id')
+            ->in('roles.name', $role_name)
+            ->find_all();
+    }
+
 
     /**
      * Validate form data for profile creation, optionally saving it if valid.
@@ -164,7 +180,6 @@ class Auth_Profile_Model extends ORM
                 'name' => $role_name
             ))->save();
         }
-        var_dump(array($role->id, $role->name));
 
         // Add the role, save it, done.
         $this->add($role);

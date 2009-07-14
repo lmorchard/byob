@@ -102,11 +102,24 @@ class Repack_Model extends ManagedORM
         'started'    => 40,
         'failed'     => 50,
         'pending'    => 60,
-        'approved'   => 70,
         'rejected'   => 80,
         'released'   => 90,
         'deleted'    => 100,
         'reverted'   => 110,
+    );
+
+    public static $transitions = array(
+        'new'        => array('edited', 'requested', 'deleted',),
+        'edited'     => array('requested', 'deleted',),
+        'requested'  => array('cancelled', 'started',),
+        'cancelled'  => array('edited', 'requested', 'deleted',),
+        'started'    => array('failed', 'pending',),
+        'failed'     => array('edited', 'requested', 'deleted',),
+        'pending'    => array('cancelled', 'released', 'rejected',),
+        'rejected'   => array('edited', 'requested', 'deleted',),
+        'released'   => array('reverted',),
+        'reverted'   => array('edited', 'requested', 'deleted',),
+        'deleted'    => array(),
     );
 
     // state flags for which the repack should be treated as read-only.
@@ -569,9 +582,7 @@ class Repack_Model extends ManagedORM
      */
     public function getStateName()
     {
-        if (empty($this->state)) {
-            return NULL;
-        }
+        if (empty($this->state)) return 'new';
         $r_states = array_flip(self::$states);
         return $r_states[$this->state];
     }
@@ -609,6 +620,57 @@ class Repack_Model extends ManagedORM
         );
     }
 
+    /**
+     * Check whether this repack can change to the new named state.
+     *
+     * @param  string  name of the new state
+     * @return boolean
+     */
+    public function canChangeState($new_state)
+    {
+        $old_state = $this->getStateName();
+        return in_array(
+            $new_state, 
+            self::$transitions[$old_state]
+        );
+    }
+
+
+    /**
+     * Change the state of this repack.
+     *
+     * @param  string Name of the new state
+     * @param  string Any user-supplied comments about the change
+     * @return Repack_Model
+     * @chainable
+     */
+    public function changeState($new_state, $comments=null)
+    {
+        $old_state = $this->getStateName();
+
+        if (!$this->canChangeState($new_state)) {
+            throw new Repack_Model_State_Exception(
+                "State change from {$old_state} to {$new_state} not allowed"
+            );
+        }
+        
+        $ev_data = array(
+            'repack'    => $this->as_array(),
+            'old_state' => $old_state,
+            'new_state' => $new_state,
+            'comments'  => $comments,
+        );
+        Event::run("BYOB.repack.changeState", $ev_data);
+
+        $this->state = self::$states[$ev_data['new_state']];
+        $this->save();
+
+        Logevent_Model::log(
+            $this->uuid, $ev_data['new_state'], $ev_data['comments']
+        );
+        return $this;
+    }
+
 
     /**
      * Request a new release of this repack.
@@ -618,22 +680,7 @@ class Repack_Model extends ManagedORM
      */
     public function requestRelease($comments=null)
     {
-        $allowed_state = arr::extract(
-            self::$states, 
-            'new', 'edited', 'failed', 'cancelled', 'rejected', 'reverted'
-        );
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('requestRelease not allowed');
-        }
-        $this->state = self::$states['requested'];
-        $this->save();
-        Logevent_Model::log($this->uuid, 'requestRelease', $comments);
-        
-        // Schedule the repack process
-        $ev_data = $this->as_array();
-        Event::run('BYOB.process_repack', $ev_data);
-
-        return $this;
+        return $this->changeState('requested', $comments);
     }
 
     /**
@@ -644,19 +691,7 @@ class Repack_Model extends ManagedORM
      */
     public function cancelRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'requested', 'pending');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('cancelRelease not allowed');
-        }
-
-        // Clean up the builds.
-        $this->deleteBuilds();
-
-        $this->state = self::$states['cancelled'];
-        $this->save();
-        Logevent_Model::log($this->uuid, 'cancelRelease', $comments);
-
-        return $this;
+        return $this->changeState('cancelled', $comments);
     }
 
     /**
@@ -667,33 +702,23 @@ class Repack_Model extends ManagedORM
      */
     public function approveRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'pending');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('approveRelease not allowed');
+        if ($this->canChangeState('released')) {
+
+            // There should only be one previous release, but search for multiples 
+            // anyway just in case.
+            $previous_releases = ORM::factory('repack')->where(array(
+                'uuid'   => $this->uuid,
+                'state' => self::$states['released']
+            ))->find_all();
+
+            // Delete each of the previous releases with the model method, so as to 
+            // allow for final clean up if necessary.
+            foreach ($previous_releases as $release) {
+                $release->delete();
+            }
         }
 
-        // There should only be one previous release, but search for multiples 
-        // anyway just in case.
-        $previous_releases = ORM::factory('repack')->where(array(
-            'uuid'   => $this->uuid,
-            'state' => self::$states['released']
-        ))->find_all();
-
-        // Delete each of the previous releases with the model method, so as to 
-        // allow for final clean up if necessary.
-        foreach ($previous_releases as $release) {
-            $release->delete();
-        }
-
-        // Schedule the builds move.
-        $ev_data = $this->as_array();
-        Event::run('BYOB.move_builds', $ev_data);
-
-        $this->state = self::$states['released'];
-        $this->save();
-        Logevent_Model::log($this->uuid, 'approveRelease', $comments);
-
-        return $this;
+        return $this->changeState('released', $comments);
     }
 
     /**
@@ -704,19 +729,7 @@ class Repack_Model extends ManagedORM
      */
     public function rejectRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'pending');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('rejectRelease not allowed');
-        }
-
-        // Clean up the builds.
-        $this->deleteBuilds();
-        
-        $this->state = self::$states['rejected'];
-        $this->save();
-        Logevent_Model::log($this->uuid, 'rejectRelease', $comments);
-
-        return $this;
+        return $this->changeState('rejected', $comments);
     }
 
     /**
@@ -727,16 +740,7 @@ class Repack_Model extends ManagedORM
      */
     public function beginRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'requested');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('beginRelease not allowed');
-        }
-        $this->state = self::$states['started'];
-        $this->save();
-        
-        Logevent_Model::log($this->uuid, 'beginRelease', $comments);
-
-        return $this;
+        return $this->changeState('started', $comments);
     }
 
     /**
@@ -747,16 +751,7 @@ class Repack_Model extends ManagedORM
      */
     public function failRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'started');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('failRelease not allowed');
-        }
-        $this->state = self::$states['failed'];
-        $this->save();
-        
-        Logevent_Model::log($this->uuid, 'failRelease', $comments);
-
-        return $this;
+        return $this->changeState('failed', $comments);
     }
 
     /**
@@ -767,15 +762,7 @@ class Repack_Model extends ManagedORM
      */
     public function finishRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'started');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('finishRelease not allowed');
-        }
-
-        // Finally, mark this repack as released.
-        $this->state = self::$states['pending'];
-        $this->save();
-        Logevent_Model::log($this->uuid, 'finishRelease', $comments);
+        $this->changeState('pending', $comments);
 
         // Auto-approve for trusted profiles granted the privilege
         if (authprofiles::is_allowed('repacks', 'auto_approve_own', $this->profile)) {
@@ -798,33 +785,46 @@ class Repack_Model extends ManagedORM
      */
     public function revertRelease($comments=null)
     {
-        $allowed_state = arr::extract(self::$states, 'released');
-        if (!in_array($this->state, $allowed_state)) {
-            throw new Exception('revertRelease not allowed');
+        $repack = $this;
+        if ($this->canChangeState('reverted')) {
+
+            // Look for existing changes - don't want to clobber them.
+            $existing_changes = ORM::factory('repack')->where(array(
+                'uuid'      => $this->uuid,
+                'state <>' => self::$states['released']
+            ))->find_all();
+
+            if ($existing_changes->count() > 0) {
+                // Delete this repack and switch to pending changes.
+                $this->changeState('reverted', $comments);
+                $this->delete();
+                return $existing_changes[0];
+            }
+
         }
+        return $repack->changeState('reverted', $comments);
+    }
 
-        // Clean up the builds.
-        $this->deleteBuilds();
-        
-        // Look for existing changes - don't want to clobber them.
-        $existing_changes = ORM::factory('repack')->where(array(
-            'uuid'      => $this->uuid,
-            'state <>' => self::$states['released']
-        ))->find_all();
+    /**
+     * Delete this repack, cleaning up any builds and other associated 
+     * resources.
+     */
+    public function delete($id=NULL)
+    {
+        if ($id === NULL AND $this->loaded) {
+            $this->changeState('deleted');
 
-        Logevent_Model::log($this->uuid, 'revertRelease', $comments);
+            // And if this is the last repack with this UUID, delete the 
+            // associated log events.
+            $count = $this->db->where('uuid', $this->uuid)
+                ->count_records('repacks');
+            if ($count == 1) {
+                ORM::factory('logevent')
+                    ->where('uuid', $this->uuid)->delete_all();
+            }
 
-        if ($existing_changes->count() > 0) {
-            // Delete this repack in favor of pending changes.
-            $this->delete();
-            return $existing_changes[0];
-        } else {
-            // Change state of this repack to reverted.
-            $this->state = self::$states['reverted'];
-            $this->save();
-            return $this;
         }
-
+        return parent::delete($id);
     }
 
 
@@ -854,265 +854,6 @@ class Repack_Model extends ManagedORM
 
 
     /**
-     * Perform the actual process of browser repacking based on the properties 
-     * of this object, calling on the external repack script.
-     */
-    public function processBuilds($run_script=TRUE)
-    {
-        $this->beginRelease();
-
-        try {
-
-            Kohana::log('info', 'Processing repack for ' .
-                $this->profile->screen_name . ' - ' . $this->short_name);
-            Kohana::log_save();
-
-            $workspace = Kohana::config('repacks.workspace');
-            $script    = Kohana::config('repacks.repack_script');
-
-            $downloads_private = 
-                Kohana::config('repacks.downloads_private');
-
-            // Clean up and make the repack directory.
-            $repack_dir =
-                "$workspace/partners/{$this->profile->screen_name}_{$this->short_name}";
-            if (is_dir($repack_dir)) {
-                self::rmdirRecurse($repack_dir);
-            }
-            mkdir("$repack_dir/distribution", 0775, true);
-
-            Kohana::log('debug', "Repack directory at {$repack_dir}");
-            Kohana::log_save();
-
-            // Generate the repack configs.
-            file_put_contents("$repack_dir/repack.cfg",
-                $this->buildRepackCfg());
-            file_put_contents("$repack_dir/distribution/distribution.ini",
-                $this->buildDistributionIni());
-
-            // Check for selected addons...
-            if (!empty($this->addons)) {
-
-                // Create the directory for this repack's addons
-                mkdir("$repack_dir/extensions", 0775, true);
-
-                $addon_model = new Addon_Model();
-                foreach ($this->addons as $addon_id) {
-
-                    // Look for selected addons, skip any that are unknown.
-                    $addon = $addon_model->find($addon_id);
-                    if (!$addon) continue;
-
-                    // Update the addon files and copy them into the repack.
-                    $addon_dir = $addon->updateFiles();
-                    self::recurseCopy(
-                        $addon_dir, 
-                        "{$repack_dir}/extensions/{$addon->guid}"
-                    );
-
-                }
-            }
-
-            if ($run_script) {
-
-                // Remember the original directory and change to the repack dir.
-                $origdir = getcwd();
-                chdir($workspace);
-
-                // Execute the repack script and capture output / state.
-                $output = array();
-                $state = 0;
-                $repack_name = "{$this->profile->screen_name}_{$this->short_name}";
-                $cmd = join(' ', array(
-                    "{$script}",
-                    "-d partners",
-                    "-p $repack_name",
-                    "-v {$this->product->version}",
-                    "-n {$this->product->build}",
-                    ">partners/{$repack_name}/repack.log 2>&1"
-                ));
-                Kohana::log('debug', "Executing {$cmd}...");
-                Kohana::log_save();
-                exec($cmd, $output, $state);
-
-                // Restore original directory.
-                chdir($origdir);
-
-                if (0 != $state) {
-                    Kohana::log('error', "Failure in {$script} with state $state");
-                    $this->failRelease("Failure in {$script} with state $state");
-                    return;
-                }
-
-                Kohana::log('debug', "Success in {$script} with state $state");
-                Kohana::log_save();
-
-                // Record all the filenames generated by the repack.
-                $src = "{$workspace}/repacked_builds/{$this->product->version}".
-                    "/build{$this->product->build}/{$repack_name}";
-                $files = array();
-                foreach (glob("{$src}/*/*/*") as $fn) {
-                    if (is_file($fn)) $files[] = str_replace("$src/", '', $fn);
-                }
-                $this->files = $files;
-                $this->save();
-
-                // Move the repacks to the private downloads area
-                $dest = "{$downloads_private}/{$repack_name}";
-                if (is_dir($dest)) self::rmdirRecurse($dest);
-                $cmd = rename($src, $dest);
-
-                Kohana::log('debug', "Moved {$src} to {$dest}");
-                Kohana::log_save();
-
-            }
-
-            Kohana::log('info', 'Finished repack for ' . 
-                $this->profile->screen_name . ' - ' . $this->short_name);
-            Kohana::log_save();
-
-            $this->finishRelease();
-
-        } catch (Exception $e) {
-            $this->failRelease($e->getMessage());
-        }
-    }
-
-    /**
-     * Move builds from private to public paths if the repack is a release, or 
-     * vice versa if the repack is unreleased.
-     */
-    public function moveBuilds() {
-
-        $src_path = $this->isRelease() ?
-            Kohana::config('repacks.downloads_private') :
-            Kohana::config('repacks.downloads_public');
-
-        $dest_path = $this->isRelease() ?
-            Kohana::config('repacks.downloads_public') :
-            Kohana::config('repacks.downloads_private');
-
-        $repack_name = "{$this->profile->screen_name}_{$this->short_name}";
-
-        $src  = "{$src_path}/{$repack_name}";
-        $dest = "{$dest_path}/{$repack_name}";
-        if (is_dir($dest)) self::rmdirRecurse($dest);
-        $cmd = rename($src, $dest);
-
-        Kohana::log('debug', "Moved {$src} to {$dest}");
-    }
-
-    /**
-     * Delete all build files associated with this repack.
-     */
-    public function deleteBuilds()
-    {
-        // Schedule the deletion of builds, assuming that this repack may be 
-        // gone from the database by that point.
-        $data = array_merge(
-            $this->as_array(),
-            array(
-                'is_release'  => $this->isRelease(),
-                'screen_name' => $this->profile->screen_name,
-            )
-        );
-        Event::run('BYOB.delete_builds', $data);
-
-        // Forget any files the repack knew about.
-        $this->files = array();
-        $this->save();
-    }
-
-
-    /**
-     * Handle an event for repack processing.
-     */
-    public static function handleProcessRepackEvent()
-    {
-        if (null === Event::$data) return;
-        $repack = ORM::factory('repack', Event::$data['id']);
-        $repack->processBuilds();
-    }
-
-    /**
-     * Handle an event for moving builds.
-     */
-    public static function handleMoveBuildsEvent()
-    {
-        if (null === Event::$data) return;
-        $repack = ORM::factory('repack', Event::$data['id']);
-        $repack->moveBuilds();
-    }
-
-    /**
-     * Clean up / delete the files associated with a repack build.
-     *
-     * The repack record itself may be gone by this point, so hopefully the 
-     * event data comes with everything we need to know to find the files.
-     *
-     * See also deleteBuilds()
-     */
-    public static function handleDeleteBuildsEvent()
-    {
-        if (null === Event::$data) return;
-        extract(Event::$data);
-
-        $base_path = $is_release ?
-            Kohana::config('repacks.downloads_public') :
-            Kohana::config('repacks.downloads_private');
-        $repack_name = "{$screen_name}_{$short_name}";
-        $dest = "{$base_path}/{$repack_name}";
-
-        Kohana::log('info', 'Deleting builds for ' .
-            $screen_name . ' - ' . $short_name);
-        Kohana::log('debug', "rmdir $dest");
-        Kohana::log_save();
-
-        self::rmdirRecurse($dest);
-    }
-
-
-    /**
-     * Utility function to recursively delete a directory.
-     */
-    public static function rmdirRecurse($path) {
-        $path= rtrim($path, '/').'/';
-        if (!is_dir($path)) return;
-        $handle = opendir($path);
-        for (;false !== ($file = readdir($handle));)
-            if($file != "." and $file != ".." ) {
-                $fullpath= $path.$file;
-                if( is_dir($fullpath) ) {
-                    self::rmdirRecurse($fullpath);
-                } else {
-                    unlink($fullpath);
-                }
-            }
-        closedir($handle);
-        rmdir($path);
-    } 
-
-    /**
-     * Utility function to recursively copy files.
-     */
-    public static function recurseCopy($src,$dst) {
-        $dir = opendir($src);
-        @mkdir($dst);
-        while(false !== ( $file = readdir($dir)) ) {
-            if (( $file != '.' ) && ( $file != '..' )) {
-                if ( is_dir($src . '/' . $file) ) {
-                    self::recurseCopy($src . '/' . $file,$dst . '/' . $file);
-                }
-                else {
-                    copy($src . '/' . $file,$dst . '/' . $file);
-                }
-            }
-        }
-        closedir($dir);
-    } 
-
-
-    /**
      * Build a list of values suitable for display in a list.
      *
      * @return Array
@@ -1132,30 +873,6 @@ class Repack_Model extends ManagedORM
         return $vals;
     }
 
-
-    /**
-     * Delete this repack, cleaning up any builds and other associated 
-     * resources.
-     */
-    public function delete($id=NULL)
-    {
-        if ($id === NULL AND $this->loaded) {
-
-            // Clean up builds for this repack.
-            $this->deleteBuilds();
-
-            // And if this is the last repack with this UUID, delete the 
-            // associated log events.
-            $count = $this->db->where('uuid', $this->uuid)
-                ->count_records('repacks');
-            if ($count == 1) {
-                ORM::factory('logevent')
-                    ->where('uuid', $this->uuid)->delete_all();
-            }
-
-        }
-        return parent::delete($id);
-    }
 
     /**
      * Before saving to database, encode the grab bag of attributes into JSON.
@@ -1291,4 +1008,11 @@ class Repack_Model extends ManagedORM
         return array_merge($this->attrs, parent::as_array());
     }
 
+}
+
+/**
+ * Exception thrown when an illegal state change is attempted
+ */
+class Repack_Model_State_Exception extends Exception 
+{
 }

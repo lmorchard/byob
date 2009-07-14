@@ -4,6 +4,9 @@
  */
 $base_path = dirname(APPPATH);
 
+$config['enable_builds'] = TRUE;
+$config['enable_notifications'] = TRUE;
+
 $config['workspace'] = "$base_path/workspace";
 
 $config['repack_script'] = "$base_path/bin/partner-repacks.py";

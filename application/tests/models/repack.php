@@ -21,6 +21,8 @@ class Repack_Test extends PHPUnit_Framework_TestCase
     {
         LMO_Utils_EnvConfig::apply('testing');
 
+        Kohana::config_set('repacks.enable_builds', FALSE);
+
         ORM::factory('logevent')->delete_all();
         ORM::factory('repack')->delete_all();
         ORM::factory('profile')->delete_all();
@@ -328,7 +330,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
             "Repack pending approval should be locked for changes");
         $this->assertRepackState($r1, 'requested');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'requestRelease', 'PLEASE APPROVE ME~!');
+            'requested', 'PLEASE APPROVE ME~!');
 
         $this->assertException(array($r1, 'requestRelease'),
             'Requesting a release twice should fail');
@@ -339,7 +341,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
             "Repack after release request cancelled should be writable again");
         $this->assertRepackState($r1, 'cancelled');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'cancelRelease', 'Oops, sorry.');
+            'cancelled', 'Oops, sorry.');
 
         // Incidentally, a few other actions should fail on a repack not 
         // pending review...
@@ -357,12 +359,12 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->requestRelease("Try this one!");
         $this->assertRepackState($r1, 'requested');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'requestRelease', 'Try this one!');
+            'requested', 'Try this one!');
 
         $r1->beginRelease("Starting release process");
         $this->assertRepackState($r1, 'started');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'beginRelease', 'Starting release process');
+            'started', 'Starting release process');
 
         $this->assertTrue($r1->isLockedForChanges(),
             "Repacks in the build process should be locked");
@@ -383,7 +385,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->finishRelease("Build process completed");
         $this->assertRepackState($r1, 'pending');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid,
-            'finishRelease', 'Build process completed');
+            'pending', 'Build process completed');
 
         $this->assertTrue($r1->isLockedForChanges(),
             "Repacks pending approval should be locked");
@@ -391,7 +393,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->rejectRelease("Is this a joke?");
         $this->assertRepackState($r1, 'rejected');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'rejectRelease', "Is this a joke?");
+            'rejected', "Is this a joke?");
 
         $this->assertTrue(!$r1->isLockedForChanges(),
             "Repack after rejection should be writable again");
@@ -405,7 +407,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->failRelease("Solar flares prevented build completion");
         $this->assertRepackState($r1, 'failed');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'failRelease', 'Solar flares prevented build completion');
+            'failed', 'Solar flares prevented build completion');
 
         $this->assertTrue(!$r1->isLockedForChanges(),
             "Repack after build failure should be writable again");
@@ -420,7 +422,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $r1->approveRelease("Okay fine, you win.");
         $this->assertRepackState($r1, 'released');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'approveRelease', 'Okay fine, you win.');
+            'released', 'Okay fine, you win.');
 
         //$this->assertTrue($r1->isLockedForChanges(),
         //    "Releases should be locked for changes");
@@ -430,7 +432,7 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $rr = $r1->revertRelease('This browser is awful, on second thought');
         $this->assertRepackState($r1, 'reverted');
         $this->assertLatestLog(++$expected_log_events, $r1->uuid, 
-            'revertRelease', 'This browser is awful, on second thought');
+            'reverted', 'This browser is awful, on second thought');
 
         $this->assertEquals($rr->id, $r1->id,
             'Release revert with no changes should result in original release'
@@ -452,9 +454,10 @@ class Repack_Test extends PHPUnit_Framework_TestCase
 
         $old_id = $r1->id;
         $rr = $r1->revertRelease('Wait, nope, still crap');
+        $expected_log_events += 1; // Skip the revert, which is followed by a delete
         $this->assertRepackState($rr, 'edited');
         $this->assertLatestLog(++$expected_log_events, $rr->uuid, 
-            'revertRelease', 'Wait, nope, still crap');
+            'deleted', '');
 
         $this->assertEquals($rr->id, $r2->id,
             'Revert with pending changes should result in pending changes surviving'
