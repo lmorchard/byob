@@ -13,6 +13,8 @@ class Mozilla_BYOB {
      */
     public static function init()
     {
+        // HACK: Attempt to ensure log file is always group-writable
+        @chmod(Kohana::log_directory().date('Y-m-d').'.log'.EXT, 0664);
     }
 
 }

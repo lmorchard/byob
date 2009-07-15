@@ -190,7 +190,9 @@ form::$errors = isset($form_errors) ? $form_errors : array();
 
         <?= 
         form::fieldset('Personas for Firefox', array(), array( 
-            form::field('input', 'persona_id', 'Persona ID'),
+            form::field('input', 'persona_url', 'Persona URL', array(), array(
+                '(eg. http://www.getpersonas.com/persona/34365)',
+            ))
         ))
         ?>
 

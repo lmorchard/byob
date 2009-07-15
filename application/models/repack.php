@@ -146,13 +146,14 @@ class Repack_Model extends ManagedORM
             ->add_rules('description', 'length[0,1000]')
             ->add_rules('firstrun_content', 'length[0,1000]')
             ->add_rules('addons_collection_url', 'length[0,255]', 'url')
-            //->add_rules('persona_id', 'is_numeric')
+            ->add_rules('persona_url', 'length[0,255]', 'url')
             ->add_rules('addons', 'is_array')
             ->add_rules('locales', 'is_array')
             ->add_rules('os', 'is_array')
             
             ->add_callbacks('short_name', array($this, 'isShortNameAvailable'))
             ->add_callbacks('addons', array($this, 'addonsAreKnown'))
+            ->add_callbacks('persona_url', array($this, 'personaExists'))
             ->add_callbacks('locales', array($this, 'extractLocales'))
             ->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'))
             ->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'))
@@ -192,6 +193,18 @@ class Repack_Model extends ManagedORM
                 $valid->add_error($field, 'unknown_addon');
                 break;
             }
+        }
+    }
+
+    /**
+     * Ensure the persona indicated by URL exists.
+     */
+    public function personaExists(&$valid, $field)
+    {
+        $persona_model = new Persona_Model();
+        $persona = $persona_model->find_by_url($valid[$field]);
+        if (!$persona->loaded) {
+            $valid->add_error($field, 'unknown_persona');
         }
     }
 
@@ -928,8 +941,12 @@ class Repack_Model extends ManagedORM
                     ->find_all_by_collection_url($this->addons_collection_url);
             }
         }
-        if ('title' == $column)
+        if ('title' == $column) {
             return "Mozilla Firefox for {$this->profile->org_name}";
+        }
+        if ('persona' == $column) {
+            return Model::factory('persona')->find_by_url($this->persona_url);
+        }
 
         try {
             return parent::__get($column);

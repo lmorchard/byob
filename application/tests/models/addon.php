@@ -1,6 +1,6 @@
 <?php
 /**
- * Test class for repack model
+ * Test class for addon model
  * 
  * @package    byob
  * @subpackage tests

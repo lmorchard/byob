@@ -117,7 +117,7 @@ class form extends form_Core
      * @param string Field label text
      * @param array  Field attributes
      */
-    public static function field($type, $name, $label=null, $params=null)
+    public static function field($type, $name, $label=null, $params=null, $arr=null)
     {
         if (null == $params) $params = array();
 
@@ -195,6 +195,7 @@ class form extends form_Core
                     form::label($name, $label) : 
                     form::label(array('for'=>$name, 'class'=>'hidden'), ''),
                 $field,
+                (!empty($arr)) ? '<p class="notes">'.join("\n", $arr).'</p>' : '',
                 '</li>'
             ));
 
