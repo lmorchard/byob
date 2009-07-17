@@ -119,6 +119,8 @@ class Repacks_Controller extends Local_Controller
             'uuid'   => null
         ));
 
+        $section = $this->input->get('section', 'general');
+
         // On editing, look for an editable version of this repack.
         $this->view->create = false;
 
@@ -141,7 +143,7 @@ class Repacks_Controller extends Local_Controller
             if ($editable_rp->isLockedForChanges()) {
                 return url::redirect($editable_rp->url);
             } else {
-                return url::redirect($editable_rp->url.';edit');
+                return url::redirect($editable_rp->url.';edit?section='.$section);
             }
         }
 
@@ -155,13 +157,14 @@ class Repacks_Controller extends Local_Controller
 
         // Try to validate the form data and update the repack.
         $is_valid = $rp->validateRepack(
-            $form_data, ('post' == request::method())
+            $form_data, ('post' == request::method()), $section
         );
 
         $addons = Model::factory('addon')->find_all();
 
-        $this->view->set(array(
+        $this->view->set_global(array(
             'repack'    => $rp,
+            'section'   => $section,
             'addons'    => $addons,
             'form_data' => $form_data
         ));
@@ -179,20 +182,27 @@ class Repacks_Controller extends Local_Controller
         
         } else {
 
+            // Mark this section as changed if the page thinks so.
+            if (!is_array($rp->changed_sections)) 
+                $rp->changed_sections = array();
+            if ('true' == $this->input->post('changed', 'false')) {
+                if (!in_array($section, $rp->changed_sections)) {
+                    $changed = $rp->changed_sections;
+                    array_push($changed, $section);
+                    $rp->changed_sections = $changed;
+                }
+            }
+
             // This was a valid POST, so save the modified repack.
             $rp->save();
 
-            // Notify the user that the repack was updated.
-            Session::instance()->set_flash(
-                'message', 
-                ($params['create']) ? 
-                    'New browser created' : 'Browser details saved'
-            );
-
             if ($this->input->post('done', false)) {
                 return url::redirect($rp->url);
+            } else if ($this->input->post('review', false)) {
+                return url::redirect($rp->url.';release');
             } else {
-                return url::redirect($rp->url.';edit');
+                return url::redirect($rp->url.';edit?section='.
+                    $this->input->post('next_section', $section));
             }
 
         }

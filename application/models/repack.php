@@ -22,8 +22,9 @@ class Repack_Model extends ManagedORM
 
     // Default attributes
     protected $attrs = array(
-        'locales' => array('en-US'),
-        'os'      => array('win','mac','linux'),
+        'locales'          => array('en-US'),
+        'os'               => array('win','mac','linux'),
+        'changed_sections' => array(),
     ); 
 
     // Titles for named columns
@@ -108,6 +109,7 @@ class Repack_Model extends ManagedORM
         'reverted'   => 110,
     );
 
+    // Legal transitions from key to listed states
     public static $transitions = array(
         'new'        => array('edited', 'requested', 'deleted',),
         'edited'     => array('requested', 'deleted',),
@@ -124,6 +126,18 @@ class Repack_Model extends ManagedORM
 
     // state flags for which the repack should be treated as read-only.
     public static $read_only_states = array(
+        'requested', 'started', 'pending', 'approved'
+    );
+
+    public static $edit_sections = array(
+        'general',
+        'locales',
+        'platforms',
+        'firstrun',
+        'bookmarks',
+        'addons',
+        'persona',
+        'advanced',
     );
 
     // }}}
@@ -136,44 +150,74 @@ class Repack_Model extends ManagedORM
      * @param  boolean Whether or not to update this instance's properties.
      * @return boolean Whether or not the data was valid.
      */
-    public function validateRepack(&$data, $set=true)
+    public function validateRepack(&$data, $set=true, $section='general')
     {
 		$data = Validation::factory($data)
-			->pre_filter('trim')
+			->pre_filter('trim');
 
-            ->add_rules('uuid', 'alpha_dash')
-            ->add_rules('category', 'length[3,255]')
-            ->add_rules('description', 'length[0,1000]')
-            ->add_rules('firstrun_content', 'length[0,1000]')
-            ->add_rules('addons_collection_url', 'length[0,255]', 'url')
-            ->add_rules('persona_url', 'length[0,255]', 'url')
-            ->add_rules('addons', 'is_array')
-            ->add_rules('locales', 'is_array')
-            ->add_rules('os', 'is_array')
+        switch ($section) {
+
+            case 'general':
+                $data->add_rules('description', 'length[0,1000]');
+                break;
             
-            ->add_callbacks('short_name', array($this, 'isShortNameAvailable'))
-            ->add_callbacks('addons', array($this, 'addonsAreKnown'))
-            ->add_callbacks('persona_url', array($this, 'personaExists'))
-            ->add_callbacks('locales', array($this, 'extractLocales'))
-            ->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'))
-            ->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'))
-            ;
+            case 'locales':
+                $data->add_rules('locales', 'is_array');
+                $data->add_callbacks('locales', array($this, 'extractLocales'));
+                break;
 
-        if (empty($data['os'])) {
-            // No operating systems selected is useless, so ignore the input.
-            $data['os'] = $this->os;
+            case 'platforms':
+                $data->add_rules('os', 'is_array');
+                if (empty($data['os'])) {
+                    // No operating systems selected is useless, so ignore the input.
+                    $data['os'] = $this->os;
+                }
+                break;
+
+            case 'firstrun':
+                $data->add_rules('firstrun_content', 'length[0,1000]');
+                $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
+                break;
+
+            case 'bookmarks':
+                $data->add_callbacks('bookmarks_toolbar', 
+                    array($this, 'extractBookmarks'));
+                $data->add_callbacks('bookmarks_menu', 
+                    array($this, 'extractBookmarks'));
+                break;
+
+            case 'addons':
+                $data->add_rules('addons', 'is_array');
+                $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
+                break;
+
+            case 'persona':
+                $data->add_rules('persona_url', 'length[0,255]', 'url');
+                $data->add_callbacks('persona_url', array($this, 'personaExists'));
+                break;
+
         }
 
         $is_valid = $data->validate();
+
 
         if (!$set) {
             foreach ($data->field_names() as $name) {
                 $data[$name] = $this->{$name};
             }
         } elseif ($is_valid && $set) {
+            
             foreach ($data->field_names() as $name) {
                 $this->{$name} = $data[$name];
             }
+
+            // HACK: If there's a Persona URL supplied, ensure that
+            // the Personas add-on is selected for install.
+            if (!empty($this->persona_url) == $section && 
+                    !in_array('10900', $this->addons)) {
+                $this->addons = array_merge(array('10900'), $this->addons);
+            }
+
         }
 
         return $is_valid;
@@ -259,7 +303,7 @@ class Repack_Model extends ManagedORM
 			->pre_filter('trim')
             ->add_rules('type', 'length[0,16]')
             ->add_rules('title', 'required', 'length[3,255]')
-            ->add_rules('location', 'required', 'url')
+            ->add_rules('location', 'required', 'valid::url')
             ;
         if ('normal' == $type) {
             $data->add_rules('description', 'length[0,1024]');
@@ -627,10 +671,7 @@ class Repack_Model extends ManagedORM
      */
     public function isLockedForChanges()
     {
-        return in_array(
-            $this->getStateName(), 
-            array('requested', 'started', 'pending', 'approved')
-        );
+        return in_array($this->getStateName(), self::$read_only_states);
     }
 
     /**
@@ -678,9 +719,11 @@ class Repack_Model extends ManagedORM
         $this->state = self::$states[$ev_data['new_state']];
         $this->save();
 
-        Logevent_Model::log(
-            $this->uuid, $ev_data['new_state'], $ev_data['comments']
-        );
+        if ('modified' !== $ev_data['new_state']) {
+            Logevent_Model::log(
+                $this->uuid, $ev_data['new_state'], $ev_data['comments']
+            );
+        }
         return $this;
     }
 
@@ -729,6 +772,8 @@ class Repack_Model extends ManagedORM
             foreach ($previous_releases as $release) {
                 $release->delete();
             }
+
+            $this->changed_sections = array();
         }
 
         return $this->changeState('released', $comments);

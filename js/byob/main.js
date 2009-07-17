@@ -18,6 +18,8 @@ if ('undefined' == typeof(window.BYOB_Main)) window.BYOB_Main = {};
                 .find('span').text(name).end()
                 .appendTo(root.find('.list'));
 
+            $('#changed').val('true');
+
             return false;
         });
 
@@ -25,6 +27,7 @@ if ('undefined' == typeof(window.BYOB_Main)) window.BYOB_Main = {};
         root.find('.list').click(function(ev) {
             var t = $(ev.target);
             if (t.hasClass('delete')) {
+                $('#changed').val('true');
                 t.parent().remove();
                 return false;
             }
@@ -56,9 +59,27 @@ BYOB_Main = function() {
 
             $('.ctrl_repacks_act_edit').each(function() {
                 // Wire up the UI for the repack editing page.
-                $this.wireUpRepackAccordion();
                 $this.wireUpRepackBookmarks();
                 $this.wireUpRepackLocales();
+
+                $('.save_buttons').hide();
+
+                $('input').add('textarea')
+                    .change(function() {
+                        $('#changed').val('true');
+                        return true;
+                    });
+
+                $('.tabs a').add('.section_nav a').click(function() {
+                    // Wire up nav tabs to submit the form after setting 
+                    // a hidden field with the name of the next section.
+                    var href = $(this).attr('href');
+                    var section = href.substr(href.indexOf('=')+1);
+                    $('#next_section').val(section);
+                    $('#wizard').submit();
+                    return false;
+                });
+
             });
 
             $('form .organization').each(function() {
@@ -92,50 +113,6 @@ BYOB_Main = function() {
             org_fieldset.find('#org_type').each(cb).change(cb);
 
         },
-
-        /**
-         * Wire up the accordion UI for the repack editing form, with
-         * cookie-based memory of last opened section.
-         */
-        wireUpRepackAccordion: function() {
-
-            var cookie_name = 'ctrl_repacks_act_edit_accordion_idx';
-
-            // Set up the accordion for the editing form
-            $('.accordion').accordion({
-                autoHeight: false,
-                change: function(event, ui) {
-                    // Remember the accordion title on change.
-                    $this.last_accordion_header = ui.newHeader.text();
-                }
-            });
-
-            // Retain active accordion pane cookie when save clicked.
-            $('#save').click(function() {
-                $.cookies.set(cookie_name, $this.last_accordion_header);
-                return true;
-            });
-
-            // Discard active accordion pane cookie when done clicked.
-            $('#done').click(function() {
-                $.cookies.set(cookie_name, '');
-                return true;
-            });
-
-            // If this is a creation form, delete the cookie.
-            $('#save[value=create]').each(function() {
-                $.cookies.set(cookie_name, '');
-            });
-
-            // If a previous title is set in a cookie, activate it.
-            var prev_title = $.cookies.get(cookie_name);
-            if (prev_title) {
-                $('.accordion').accordion(
-                    'activate', $('h3:contains('+prev_title+')')
-                )
-            }
-
-        },
        
         /**
          * Wire up the locales selection UI.
@@ -153,6 +130,7 @@ BYOB_Main = function() {
                     .find('input').val(locale).end()
                     .find('span').text(name).end()
                     .appendTo('.locales');
+                $('#changed').val('true');
 
                 return false;
             });
@@ -162,6 +140,7 @@ BYOB_Main = function() {
                 var t = $(ev.target);
                 if (t.hasClass('delete')) {
                     t.parent().remove();
+                    $('#changed').val('true');
                     return false;
                 }
             });

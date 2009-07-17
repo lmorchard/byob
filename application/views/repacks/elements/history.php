@@ -1,5 +1,6 @@
 <ul class="history">
     <?php foreach ($logevents as $event): ?>
+        <?php if ('modified' == $event->action) continue ?>
         <?php
             $action_titles = array(
                 'new'        => 'Created',

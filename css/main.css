@@ -111,7 +111,6 @@ body {
     padding: 0 0 0 2em;
 }
 #content ul li {
-    padding: 0 0 0.5em 0;
 }
 #content form fieldset {
     padding: 0.75em 1em; 
@@ -183,14 +182,63 @@ body {
 #content form fieldset.narrow-labels li label {
     width: 10ex;
 }
-
-#content #wizard .accordion {
-
+.ctrl_repacks_act_edit form {
 }
-#content #wizard .accordion h3.ui-accordion-header {
+.ctrl_repacks_act_edit #content .tabs {
+    width: 72%;
+    margin: 0 0 0 0;
+    padding: 0;
+    list-style: none;
+    text-indent: 0;
 }
-#content #wizard .accordion div.ui-accordion-content {
-    padding: 0 0.75em;
+.ctrl_repacks_act_edit #content .tabs li {
+    float: left;
+    font-size: 0.85em;
+    display: block;
+    margin-right: 0.75em;
+    padding: 0;
+    background: #ddd;
+    border-top: 2px solid #ddd;
+    border-left: 2px solid #ddd;
+    border-right: 2px solid #ddd;
+}
+.ctrl_repacks_act_edit #content .tabs li.selected {
+    background: #fff;
+}
+.ctrl_repacks_act_edit #content .tabs li.changed a:after {
+    content: "\2713";
+    color: #383;
+    padding-left: 0.5em;
+    text-decoration: none;
+}
+.ctrl_repacks_act_edit .tabs li a {
+    padding: 0.25em 0.5em 0.5em 0.5em;
+    display: block;
+    text-decoration: none;
+}
+.ctrl_repacks_act_edit .section_pane {
+    margin: -2px 0 0 0;
+    padding: 0.5em 1em 2em 1em ;
+    border: 2px solid #ddd;
+    width: 72%;
+}
+.ctrl_repacks_act_edit .prev_section {
+    float: left;
+}
+.ctrl_repacks_act_edit .next_section {
+    float: right;
+}
+.ctrl_repacks_act_edit .save_buttons {
+    display: none;
+}
+.ctrl_repacks_act_edit .section_nav {
+    padding: 0.5em 0 0 0;
+    margin: 1.5em 0 0 0;
+    border-top: 2px solid #ddd;
+}
+.ctrl_repacks_act_edit .summary {
+    float: right;
+    width: 22%;
 }
 
 #content #wizard .nav {
@@ -257,11 +305,10 @@ body {
     padding: 0 0 0 1em;
 }
 #content ul.bookmarks .bookmark {
-    clear: both;
 }
 #content ul.bookmarks .bookmark table {
     float: left;
-    width: 96%;
+    width: 92%;
     margin: 0 0 0 0;
 }
 #content ul.bookmarks .bookmark table tr {
@@ -343,7 +390,6 @@ body {
 #content ul.repack-addons li.addon p {
     font-size: 0.75em;
     margin: 0.5em 0 1em 1em;
-    width: 55em;
 }
 .ctrl_repacks_act_view table.changes {
     margin: 0.5em;
