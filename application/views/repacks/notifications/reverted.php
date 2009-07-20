@@ -1,5 +1,5 @@
 From: admin@byob.mozilla.com
-Subject: Release take down for <?=$repack->title?> 
+Subject: [BYOB] Release take down for <?=$repack->title?> 
 
 A release has been taken down for browser <?=$repack->title?>.
 

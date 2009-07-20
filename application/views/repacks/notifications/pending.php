@@ -1,5 +1,5 @@
 From: admin@byob.mozilla.com
-Subject: Approval pending for <?=$repack->title?> 
+Subject: [BYOB] Approval pending for <?=$repack->title?> 
 
 A build pending approval for the browser <?=$repack->title?> is ready.
 

@@ -24,6 +24,11 @@ class Mozilla_BYOB_RepackNotifications {
             "BYOB.repack.changeState",
             array(get_class(), 'handleStateChange')
         );
+
+        Event::add(
+            'auth_profiles.registered',
+            array(get_class(), 'handleRegistration')
+        );
     }
 
     /**
@@ -51,7 +56,7 @@ class Mozilla_BYOB_RepackNotifications {
             'bcc' => $watcher_emails
         );
 
-        Kohana::log('info', 
+        Kohana::log('debug',
             'Sending notifications on ' . 
             $repack->profile->screen_name . '/' . $repack->short_name .
             ' state change of ' .  Event::$data['new_state'] .
@@ -64,6 +69,35 @@ class Mozilla_BYOB_RepackNotifications {
             array_merge(Event::$data, array('repack' => $repack))
         );
 
+    }
+
+    /**
+     * Send notifications to admins on registration.
+     */
+    public static function handleRegistration()
+    {
+        if (!Kohana::config('repacks.enable_notifications')) return;
+
+        $watcher_emails = array();
+        $watchers = ORM::factory('profile')
+            ->find_all_by_role(array('admin'));
+        foreach ($watchers as $p)
+            $watcher_emails[] = $p->find_default_login_for_profile()->email;
+
+        $recipients = array(
+            'to' => $watcher_emails
+        );
+
+        Kohana::log('debug',
+            'Sending reg notification to ' . json_encode($recipients) .
+            ' with ' . json_encode(Event::$data)
+        );
+
+        email::send_view(
+            $recipients,
+            'auth_profiles/notify_admin_register',
+            Event::$data
+        );
     }
 
 }

@@ -117,6 +117,12 @@ class Auth_Login_Model extends ORM
         $new_login->add($new_profile);
         $new_login->save();
 
+        $data = array(
+            'login'   => $new_login->as_array(),
+            'profile' => $new_profile->as_array()
+        );
+        Event::run('auth_profiles.registered', $data);
+
         return arr::to_object($profile_data);
     }
 
