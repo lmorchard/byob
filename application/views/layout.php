@@ -39,6 +39,9 @@
                                         <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue</a> (<?=$approval_queue_count?>)</li>
                                     <?php endif ?>
                                     <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">settings</a></li>
+                                    <?php if (authprofiles::is_allowed('admin', 'index')): ?>
+                                        <li><a href="<?= url::base() . 'admin/' ?>">admin</a></li>
+                                    <?php endif ?>
                                     <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
                                 <?php endif; ?>
                             </ul>

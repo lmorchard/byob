@@ -767,10 +767,10 @@ class Repack_Model extends ManagedORM
                 'state' => self::$states['released']
             ))->find_all();
 
-            // Delete each of the previous releases with the model method, so as to 
+            // Revert each of the previous releases with the model method, so as to 
             // allow for final clean up if necessary.
             foreach ($previous_releases as $release) {
-                $release->delete();
+                $release->revertRelease('Previous release made obsolete by new release');
             }
 
             $this->changed_sections = array();
@@ -986,9 +986,6 @@ class Repack_Model extends ManagedORM
                     ->find_all_by_collection_url($this->addons_collection_url);
             }
         }
-        if ('title' == $column) {
-            return "Mozilla Firefox for {$this->profile->org_name}";
-        }
         if ('persona' == $column) {
             return Model::factory('persona')->find_by_url($this->persona_url);
         }
@@ -1044,6 +1041,7 @@ class Repack_Model extends ManagedORM
             $this->attrs = json_decode($this->json_data, true);
         }
         if (empty($this->attrs)) $this->attrs = array();
+        $this->title = "Mozilla Firefox for {$this->profile->org_name}";
         return $this;
     }
 

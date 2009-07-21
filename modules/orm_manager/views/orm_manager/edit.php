@@ -40,11 +40,6 @@ $u = html::urlencode_array(compact(
         <table>
 
             <thead>
-                <tr>
-                    <th colspan="2" class="controls">
-                        <input type="submit" name="save" value="Save" />
-                    </th>
-                </tr>
             </thead>
 
             <tbody>
@@ -71,11 +66,17 @@ $u = html::urlencode_array(compact(
                     ))->render()?>
                 <?php endforeach ?>
 
+                <tr>
+                    <th colspan="2" class="controls">
+                        <input type="submit" name="save" value="Save" />
+                    </th>
+                </tr>
             </tbody>
         </table>
 
     </form>
 
+    <?php if (!empty($relations)): ?>
     <div class="relations">
 
         <?php foreach ($relations as $name=>$rel_rows): ?>
@@ -113,5 +114,6 @@ $u = html::urlencode_array(compact(
         <?php endforeach ?>
 
     </div>
+    <?php endif ?>
 
 </div>

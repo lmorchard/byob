@@ -462,3 +462,8 @@ body {
     padding: 0.5em 0.25em;
     font-size: 0.85em;
 }
+.search-results table tbody tr td a {
+    display: block;
+    text-align: center;
+}
+

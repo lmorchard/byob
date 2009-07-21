@@ -38,9 +38,6 @@ $config['acls'] = $acls
     // ->allow('member', 'search', array('search'))
     // ->allow('guest', 'search', array('search'))
 
-    // Product privileges
-    ->add(new Zend_Acl_Resource('products'))
-
     // Profile privileges
     ->add(new Zend_Acl_Resource('profiles'))
     ->allow('member', 'profiles', array(
@@ -65,5 +62,8 @@ $config['acls'] = $acls
         'revert', 'approve', 'reject', 
         'download_unreleased',
     ))
+
+    // ORM Manager admin privileges
+    ->add(new Zend_Acl_Resource('admin'))
 
     ;

@@ -6,11 +6,9 @@ class Admin_Controller extends ORM_Manager_Controller
 {
     protected $url_base = 'admin';
     protected $known_model_names = array(
-        'repack', 
         'product', 
-        'profile', 
-        'login',
-        // 'logevent', 
+        // 'profile', 
+        // 'login',
     );
 
     /**
@@ -31,6 +29,14 @@ class Admin_Controller extends ORM_Manager_Controller
         }
 
         Event::add('system.403', array($this, 'show_403'));
+
+        // Check to see if the user can access the requested management method.
+        $params = Router::get_params();
+        $method = empty($params['model_name']) ?
+            Router::$method : $params['model_name'] . '_' . Router::$method;
+        if (!authprofiles::is_allowed('admin', Router::$method)) {
+            return Event::run('system.403');
+        }
     }
 
     /**

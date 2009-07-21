@@ -18,7 +18,7 @@ class Product_Model extends ManagedORM
         'id'                => 'ID',
         'name'              => 'Name',
         'version'           => 'Version',
-        'url'               => 'URL',
+        'build'             => 'Build',
         'locales'           => 'Locales',
         'disable_migration' => 'Disable migration?',
         'created'           => 'Created',
@@ -26,10 +26,10 @@ class Product_Model extends ManagedORM
     );
 
     public $list_column_names = array(
-        'id', 'name', 'version', 'created', 'modified'
+        'id', 'name', 'version', 'build', 'created'
     );
     public $edit_column_names = array(
-        'name', 'version', 'url', 'locales', 'disable_migration'
+        'name', 'version', 'build', 'locales', 'disable_migration'
     );
 
     public $has_many = array('repack');

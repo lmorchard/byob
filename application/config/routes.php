@@ -30,6 +30,8 @@ $config['admin'] =
     'admin/index';
 $config['admin/model/(.*)/edit/(.*)'] = 
     'admin/edit/model_name/$1/primary_key/$2';
+$config['admin/model/([^;]+);create'] = 
+    'admin/edit/model_name/$1/create/true';
 $config['admin/model/(.*)'] = 
     'admin/list_model/model_name/$1';
 $config['admin/(.*)'] = 

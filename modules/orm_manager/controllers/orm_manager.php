@@ -87,15 +87,21 @@ class ORM_Manager_Controller extends Layout_Controller
         if ($allow_batch && 'post' == request::method()) {
 
             // Load all the selected rows.
-            $model_rows = $model
+            $model_rows = ORM::factory($model->object_name)
                 ->in($model->primary_key, $this->input->post('select_row'))
                 ->find_all();
 
-
-            foreach ($model_rows as $row) {
-                var_dump($row->as_array());
+            if ($this->input->post('batch_delete', null)) {
+                foreach ($model_rows as $row) {
+                    $row->delete();
+                }
+                Session::instance()->set_flash('message', 
+                    'Deleted '. $model_rows->count() .' rows.');
+                return url::redirect(url::current());
             }
-            var_dump($this->input->post()); die;
+
+            // TODO: Dispatch to model batch commands.
+
         }
 
         $pg = new Pagination(array(
@@ -119,19 +125,25 @@ class ORM_Manager_Controller extends Layout_Controller
      */
     public function edit()
     {
-        $params = Router::get_params();
+        $params = Router::get_params(array(
+            'create' => false    
+        ));
 
         $model = $this->_load_model($params['model_name']);
         if (null===$model) {
             return Event::run('system.404');
         }
 
-        $model->find($params['primary_key']);
-        if (!$model->loaded) {
-            // TODO: better error msg?
-            return Event::run('system.404');
+        if (false === $params['create']) {
+            $model->find($params['primary_key']);
+            if (!$model->loaded) {
+                // TODO: better error msg?
+                return Event::run('system.404');
+            }
         }
 
+        /* TODO: get relations working sensibly
+         
         $relations = array(
         );
         $rel_props = array(
@@ -148,6 +160,7 @@ class ORM_Manager_Controller extends Layout_Controller
         }
 
         $this->view->relations = $relations;
+        */
 
         $return_page = $this->input->get(
             'return_page', $this->input->post('return_page')
@@ -172,7 +185,8 @@ class ORM_Manager_Controller extends Layout_Controller
                 $errors = $form->errors();
             } else {
                 Session::instance()->set_flash('message', 'Changes saved.');
-                url::redirect(url::current()."?return_page={$return_page}");
+                return url::redirect(url::base() . $this->url_base . '/model/' . 
+                    $model->object_name . '/edit/' . $model->id);
             }
 
         }

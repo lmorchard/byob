@@ -15,6 +15,8 @@
     ?>
     <h3><?=html::specialchars($title)?></h3>
 
+    <div><a href="<?=$url_base . '/model/' . urlencode($model->object_name) . ';create' ?>">Create new <?=html::specialchars($title)?></a></div>
+
     <?= View::factory("{$view_base}/list_model/list")->render() ?>
 
     <?php if (!empty($pagination)): ?>
