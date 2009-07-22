@@ -607,7 +607,7 @@ class Repack_Model extends ManagedORM
      */
     public function url($action=null)
     {
-	$profile = ORM::factory('profile', $this->profile_id);
+        $profile = ORM::factory('profile', $this->profile_id);
         $url = url::base() . 
             "profiles/{$profile->screen_name}".
             "/browsers/{$this->short_name}";
