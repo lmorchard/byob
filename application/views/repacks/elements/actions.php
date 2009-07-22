@@ -5,7 +5,11 @@ $h = html::escape_array(array_merge(
         'url' => $repack->url
     )
 ));
-$privs = $repack->checkPrivileges();
+$privs = $repack->checkPrivileges(array(
+    'view', 'view_history', 'edit', 'delete', 'download', 'release',
+    'revert', 'approve', 'auto_approve', 'reject', 'cancel', 'begin',
+    'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
+));
 $actions = array();
 
 if ($repack->isRelease()) { 

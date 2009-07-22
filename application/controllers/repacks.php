@@ -53,8 +53,7 @@ class Repacks_Controller extends Local_Controller
         // Index unique repacks by UUID and release / non-release
         $indexed_repacks = array();
         foreach ($all_profile_repacks as $repack) {
-            $privs = $repack->checkPrivileges();
-            if (!$privs['view']) continue;
+            if (!$repack->checkPrivilege('view')) continue;
             
             $uuid = $repack->uuid;
             if (!isset($indexed_repacks[$uuid])) 
@@ -73,8 +72,8 @@ class Repacks_Controller extends Local_Controller
     public function view()
     {
         $repack = $this->_getRequestedRepack(true);
-        $privs = $repack->checkPrivileges();
-        if (!$privs['view']) return Event::run('system.403');
+        if (!$repack->checkPrivilege('view')) 
+            return Event::run('system.403');
 
         $this->view->repack  = $repack;
 
@@ -83,7 +82,7 @@ class Repacks_Controller extends Local_Controller
             $this->view->changes = $repack->compare($release);
         }
 
-        if ($privs['view_history']) {
+        if ($repack->checkPrivilege('view_history')) {
             $this->view->logevents = ORM::factory('logevent')
                 ->findByUUID($repack->uuid);
         }
@@ -132,8 +131,8 @@ class Repacks_Controller extends Local_Controller
             return Event::run('system.403');
         }
 
-        $privs = $editable_rp->checkPrivileges();
-        if (!$privs['edit']) return Event::run('system.403');
+        if (!$editable_rp->checkPrivilege('edit'))
+            return Event::run('system.403');
        
         if ($editable_rp->id != $rp->id) {
             // Redirect to editable alternative.
@@ -226,8 +225,8 @@ class Repacks_Controller extends Local_Controller
         }
 
         // Is the user allowed to download it?
-        $privs = $repack->checkPrivileges();
-        if (!$privs['download']) return Event::run('system.403');
+        if ($repack->checkPrivilege('download')) 
+            return Event::run('system.403');
 
         // Build a full path to the downloadable file.
         $base_path = $repack->isRelease() ?
@@ -273,8 +272,8 @@ class Repacks_Controller extends Local_Controller
     public function release()
     {
         $repack = $this->_getRequestedRepack();
-        $privs = $repack->checkPrivileges();
-        if (!$privs['release']) return Event::run('system.403');
+        if (!$repack->checkPrivilege('release')) 
+            return Event::run('system.403');
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
@@ -291,8 +290,8 @@ class Repacks_Controller extends Local_Controller
     public function cancel()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['cancel']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('cancel')) 
+            return Event::run('system.403');
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
@@ -309,8 +308,8 @@ class Repacks_Controller extends Local_Controller
     public function approve()
     {
         $repack = $this->_getRequestedRepack();
-        $privs = $repack->checkPrivileges();
-        if (!$privs['approve']) return Event::run('system.403');
+        if (!$repack->checkPrivilege('approve')) 
+            return Event::run('system.403');
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
@@ -327,8 +326,8 @@ class Repacks_Controller extends Local_Controller
     public function reject()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['reject']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('reject')) 
+            return Event::run('system.403');
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
@@ -345,8 +344,8 @@ class Repacks_Controller extends Local_Controller
     public function revert()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['revert']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('revert')) 
+            return Event::run('system.403');
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {
@@ -363,8 +362,8 @@ class Repacks_Controller extends Local_Controller
     public function delete()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['delete']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('delete')) 
+            return Event::run('system.403');
 
         $this->view->repack = $rp;
 
@@ -433,8 +432,8 @@ class Repacks_Controller extends Local_Controller
     public function repackcfg()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['repackcfg']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('repackcfg')) 
+            return Event::run('system.403');
 
         $this->auto_render = false;
         header('Content-Type: text/plain');
@@ -447,8 +446,8 @@ class Repacks_Controller extends Local_Controller
     public function repacklog()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['repacklog']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('repacklog'))
+            return Event::run('system.403');
 
         $workspace = Kohana::config('repacks.workspace');
         $repack_name = "{$rp->profile->screen_name}_{$rp->short_name}";
@@ -464,8 +463,8 @@ class Repacks_Controller extends Local_Controller
     public function distributionini()
     {
         $rp = $this->_getRequestedRepack();
-        $privs = $rp->checkPrivileges();
-        if (!$privs['distributionini']) return Event::run('system.403');
+        if (!$rp->checkPrivilege('distributionini')) 
+            return Event::run('system.403');
 
         $this->auto_render = false;
         header('Content-Type: text/plain');

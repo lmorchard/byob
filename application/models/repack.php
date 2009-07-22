@@ -507,97 +507,99 @@ class Repack_Model extends ManagedORM
 
 
     /**
+     * Check multiple privileges, returning an array of indexed results.
+     */
+    public function checkPrivileges($privs, $profile_id=null)
+    {
+        $results = array();
+        foreach ($privs as $priv) {
+            $results[$priv] = $this->checkPrivilege($priv, $profile_id);
+        }
+        return $results;
+    }
+
+    /**
      * Run through possible privileges and assemble results.
      *
      * @TODO: Allow request for just one or two perms, optimization
      */
-    public function checkPrivileges($privileges=null,$profile_id=null)
+    public function checkPrivilege($priv,$profile_id=null)
     {
         if (null === $profile_id) {
             $profile_id = authprofiles::get_profile('id');
         }
         $own = $profile_id == $this->profile_id;
-        $perms = array(
 
-            'view' => 
-                authprofiles::is_allowed('repacks', 'view') ||
-                ($this->isRelease() &&
-                    authprofiles::is_allowed('repacks', 'view_released')) ||
-                (!$this->isRelease() && 
-                    authprofiles::is_allowed('repacks', 'view_unreleased')) ||
-                ($own && authprofiles::is_allowed('repacks', 'view_own')),
+        switch($priv) {
 
-            'view_history' =>
-                authprofiles::is_allowed('repacks', 'view_history') ||
-                ($own && authprofiles::is_allowed('repacks', 'view_own_history')),
+            case 'view':
+                return authprofiles::is_allowed('repacks', 'view') ||
+                    ($this->isRelease() &&
+                        authprofiles::is_allowed('repacks', 'view_released')) ||
+                    (!$this->isRelease() && 
+                        authprofiles::is_allowed('repacks', 'view_unreleased')) ||
+                    ($own && authprofiles::is_allowed('repacks', 'view_own'));
+
+            case 'view_history':
+                return authprofiles::is_allowed('repacks', 'view_history') ||
+                    ($own && authprofiles::is_allowed('repacks', 'view_own_history'));
                 
-            'edit' => 
-                (!$this->isLockedForChanges() && 
-                    authprofiles::is_allowed('repacks', 'edit')) ||
-                (!$this->isLockedForChanges() && $own && 
-                    authprofiles::is_allowed('repacks', 'edit_own')) ||
-                ($this->isLockedForChanges() &&
-                    authprofiles::is_allowed('repacks', 'edit_locked')),
+            case 'edit':
+                return (!$this->isLockedForChanges() && 
+                        authprofiles::is_allowed('repacks', 'edit')) ||
+                    (!$this->isLockedForChanges() && $own && 
+                        authprofiles::is_allowed('repacks', 'edit_own')) ||
+                    ($this->isLockedForChanges() &&
+                        authprofiles::is_allowed('repacks', 'edit_locked'));
 
-            'delete' => 
-                (!$this->isLockedForChanges() && 
-                    authprofiles::is_allowed('repacks', 'delete')) ||
-                (!$this->isLockedForChanges() && $own && 
-                    authprofiles::is_allowed('repacks', 'delete_own')) ||
-                ($this->isLockedForChanges() &&
-                authprofiles::is_allowed('repacks', 'delete_locked')),
+            case 'delete':
+                return (!$this->isLockedForChanges() && 
+                        authprofiles::is_allowed('repacks', 'delete')) ||
+                    (!$this->isLockedForChanges() && $own && 
+                        authprofiles::is_allowed('repacks', 'delete_own')) ||
+                    ($this->isLockedForChanges() &&
+                    authprofiles::is_allowed('repacks', 'delete_locked'));
 
-            'download' => 
-                authprofiles::is_allowed('repacks', 'download') ||
-                ($this->isRelease() &&
-                    authprofiles::is_allowed('repacks', 'download_released')) ||
-                (!$this->isRelease() && 
-                    authprofiles::is_allowed('repacks', 'download_unreleased')) ||
-                ($own && authprofiles::is_allowed('repacks', 'download_own')),
+            case 'download':
+                return authprofiles::is_allowed('repacks', 'download') ||
+                    ($this->isRelease() &&
+                        authprofiles::is_allowed('repacks', 'download_released')) ||
+                    (!$this->isRelease() && 
+                        authprofiles::is_allowed('repacks', 'download_unreleased')) ||
+                    ($own && authprofiles::is_allowed('repacks', 'download_own'));
 
-            'release' =>
-                authprofiles::is_allowed('repacks', 'release') ||
-                ($own && authprofiles::is_allowed('repacks', 'release_own')),
+            case 'release':
+                return authprofiles::is_allowed('repacks', 'release') ||
+                    ($own && authprofiles::is_allowed('repacks', 'release_own'));
 
-            'revert' =>
-                authprofiles::is_allowed('repacks', 'revert') ||
-                ($own && authprofiles::is_allowed('repacks', 'revert_own')),
+            case 'revert':
+                return authprofiles::is_allowed('repacks', 'revert') ||
+                    ($own && authprofiles::is_allowed('repacks', 'revert_own'));
+            case 'approve':
+                return authprofiles::is_allowed('repacks', 'approve') ||
+                    ($own && authprofiles::is_allowed('repacks', 'approve_own'));
+            case 'auto_approve':
+                return authprofiles::is_allowed('repacks', 'auto_approve') ||
+                    ($own && authprofiles::is_allowed('repacks', 'auto_approve_own'));
+            case 'reject':
+                return authprofiles::is_allowed('repacks', 'reject');
+            case 'cancel':
+                return authprofiles::is_allowed('repacks', 'cancel') ||
+                    ($own && authprofiles::is_allowed('repacks', 'cancel_own'));
+            case 'begin':
+                return authprofiles::is_allowed('repacks', 'begin');
+            case 'finish':
+                return authprofiles::is_allowed('repacks', 'finish');
+            case 'fail':
+                return authprofiles::is_allowed('repacks', 'fail');
+            case 'distributionini':
+                return authprofiles::is_allowed('repacks', 'distributionini');
+            case 'repackcfg':
+                return authprofiles::is_allowed('repacks', 'repackcfg');
+            case 'repacklog':
+                return authprofiles::is_allowed('repacks', 'repacklog');
 
-            'approve' => 
-                authprofiles::is_allowed('repacks', 'approve') ||
-                ($own && authprofiles::is_allowed('repacks', 'approve_own')),
-
-            'auto_approve' => 
-                authprofiles::is_allowed('repacks', 'auto_approve') ||
-                ($own && authprofiles::is_allowed('repacks', 'auto_approve_own')),
-
-            'reject' => 
-                authprofiles::is_allowed('repacks', 'reject'),
-
-            'cancel' => 
-                authprofiles::is_allowed('repacks', 'cancel') ||
-                ($own && authprofiles::is_allowed('repacks', 'cancel_own')),
-
-            'begin' =>
-                authprofiles::is_allowed('repacks', 'begin'),
-
-            'finish' =>
-                authprofiles::is_allowed('repacks', 'finish'),
-
-            'fail' =>
-                authprofiles::is_allowed('repacks', 'fail'),
-
-            'distributionini' =>
-                authprofiles::is_allowed('repacks', 'distributionini'),
-
-            'repackcfg' =>
-                authprofiles::is_allowed('repacks', 'repackcfg'),
-
-            'repacklog' =>
-                authprofiles::is_allowed('repacks', 'repacklog'),
-
-        );
-        return $perms;
+        };
     }
 
 
