@@ -1,6 +1,6 @@
 <?php
-$privs = $repack->checkPrivileges();
-$files = (!$privs['download']) ?  array() : $repack->files;
+$files = (!$repack->checkPrivilege('download')) ?
+    array() : $repack->files;
 ?>
 <table class="downloads">
     <?php if (empty($files)): ?>
