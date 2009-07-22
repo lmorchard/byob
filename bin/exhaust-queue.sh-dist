@@ -2,6 +2,8 @@
 #
 # Queue exhaustion script suitable for crontab / launchd execution.
 #
+# NOTE: the location of php on line 19 may need adjusting
+#
 PATH=/usr/local/bin:/bin:/sbin:/usr/bin:/usr/sbin:$PATH
 
 cd $(dirname $0)/..;

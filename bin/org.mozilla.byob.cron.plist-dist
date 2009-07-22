@@ -4,7 +4,8 @@ To deploy the queue as a scheduled job on OS X:
 1. Change the ProgramArguments value below to match the absolute path to the
        exhaust-queue.sh script
 2. Check if PATH needs adjusting in exhaust-queue.sh
-3. sudo launchctl load bin/org.mozilla.byob.cron.plist
+3. Adjust the location of php-cli in exhaust-queue.sh if needed
+4. sudo launchctl load bin/org.mozilla.byob.cron.plist
 -->
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
