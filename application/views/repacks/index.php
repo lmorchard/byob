@@ -9,7 +9,7 @@
                 "profiles/{$profile->screen_name}/browsers/create";
         ?>
         <form action="<?=$create_url?>" method="POST">
-            <button name="confirm" id="confirm" value="yes">create new browser</button>
+            Want to <button name="confirm" id="confirm" value="yes">create a new browser</button>?
         </form>
     </p>
 <?php endif ?>

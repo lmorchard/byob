@@ -15,14 +15,10 @@
 
     <p>
         <?php
-            $create_url = url::base() .
-            "profiles/".authprofiles::get_profile('screen_name').
-            "/browsers/create";
+            $profile_url = url::base() .
+                "profiles/".authprofiles::get_profile('screen_name');
         ?>
-        <form action="<?=$create_url?>" method="POST">
-            Want to
-            <button name="confirm" id="confirm" value="yes">create a browser</button>?
-        </form>
+        Want to <a href="<?=$profile_url?>">manage your browsers</a>?
     </p>
 
     <?php if (!empty($repacks)): ?>
