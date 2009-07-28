@@ -482,7 +482,9 @@ class Auth_Login_Model extends ORM
             ->where('login_name', $login_name)
             ->where('password', $this->encrypt_password($valid[$field]))
             ->count_records($this->table_name);
-        return !(0===$count);
+        if ($count < 1) {
+            $valid->add_error($field, 'invalid');
+        }
     }
 
     /**
