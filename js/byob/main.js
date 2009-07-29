@@ -44,8 +44,11 @@ BYOB_Main = function() {
          */
         init: function() {
 
+            $('.errors').effect('highlight', {color: '#ff9999'}, 4000, function() {
+            });
+
             // Highlight the notification, then remove after a bit.
-            $('.notification').effect('highlight', {}, 1000, function() {
+            $('.message').effect('highlight', {}, 3000, function() {
                 //var n = $(this);
                 //setTimeout(function() { n.hide('highlight') }, 2000);
             });
@@ -123,7 +126,13 @@ BYOB_Main = function() {
             $('.locales-add .add').click(function(ev) {
                 var choices = $('.locales-add select[name=locale_choices]');
                 var locale  = choices.val();
-                var name    = choices.find('option[value='+locale+']').text()
+
+                if ( $('.locales input[value='+locale+']').length > 0) {
+                    // Ignore attempts to add multiples of a locale.
+                    return false;
+                }
+
+                var name = choices.find('option[value='+locale+']').text()
 
                 $('.locales .template')
                     .clone().removeClass('template')
