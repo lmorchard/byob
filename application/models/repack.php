@@ -162,16 +162,12 @@ class Repack_Model extends ManagedORM
                 break;
             
             case 'locales':
-                $data->add_rules('locales', 'is_array');
+                $data->add_rules('locales', 'required', 'is_array');
                 $data->add_callbacks('locales', array($this, 'extractLocales'));
                 break;
 
             case 'platforms':
-                $data->add_rules('os', 'is_array');
-                if (empty($data['os'])) {
-                    // No operating systems selected is useless, so ignore the input.
-                    $data['os'] = $this->os;
-                }
+                $data->add_rules('os', 'required', 'is_array');
                 break;
 
             case 'firstrun':
@@ -273,6 +269,7 @@ class Repack_Model extends ManagedORM
 
             // Populate form from repack product locales.
             $valid[$field] = $this->locales;
+            $valid->add_error($field, 'need_locale');
 
         } else {
 

@@ -11,4 +11,12 @@ $lang = array(
         'default' =>
             'A title is required.',
     ),
+    'locales' => array(
+        'default' =>
+            'At least one locale is required'
+    ),
+    'os' => array(
+        'default' =>
+            'At least one OS platform is required'
+    ),
 );

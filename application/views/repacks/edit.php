@@ -23,15 +23,6 @@
     <input type="hidden" name="changed" id="changed" value="false" />
     <input type="hidden" name="next_section" id="next_section" value="<?=url::current()?>" />
 
-    <?php if (!empty(form::$errors)): ?>
-    <ul class="errors highlight">
-        <?php foreach (form::$errors as $field=>$error): ?>
-            <?php if (strpos($error, 'form_repacks_edit.bookmarks_') !== FALSE) continue; ?>
-            <li class="<?= html::specialchars($field) ?>"><?= html::specialchars($error) ?></li>
-        <?php endforeach ?>
-    </ul>
-    <?php endif ?>
-
     <ul class="tabs clearfix">
         <?php foreach ($sections as $name => $title): ?>
             <?php 
@@ -40,7 +31,9 @@
                 if ($name == $section) {
                     $classes[] = 'selected';
                 }
-                if (!empty($repack->changed_sections) && 
+                if (!empty(form::$errors) && $name == $section) {
+                    $classes[] = 'error';
+                } else if (!empty($repack->changed_sections) && 
                         in_array($name, $repack->changed_sections)) {
                     $classes[] = 'changed';
                 }
@@ -53,7 +46,17 @@
     </ul>
 
     <div class="summary">
-        <h4>Current browser summary:</h4>
+        <?php if (!empty(form::$errors)): ?>
+        <h4>Problems:</h4>
+        <ul class="errors highlight">
+            <?php foreach (form::$errors as $field=>$error): ?>
+                <?php if (strpos($error, 'form_repacks_edit.bookmarks_') !== FALSE) continue; ?>
+                <li class="<?= html::specialchars($field) ?>"><?= html::specialchars($error) ?></li>
+            <?php endforeach ?>
+        </ul>
+        <?php endif ?>
+
+        <h4>Current browser changes:</h4>
         <ul class="changed">
             <?php if (!empty($repack->changed_sections)) foreach ($repack->changed_sections as $changed): ?>
                 <li><?=$sections[$changed]?></li>

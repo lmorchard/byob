@@ -127,8 +127,8 @@ body {
 }
 #content form ul.errors {
     color: red;
-    padding: 1em 0 1em 2em;
     font-size: 0.85em;
+    padding: 0 0 1em 2em;
 }
 #content form ul.fields {
     list-style: none;
@@ -205,11 +205,22 @@ body {
 .ctrl_repacks_act_edit #content .tabs li.selected {
     background: #fff;
 }
+.ctrl_repacks_act_edit #content .tabs li.error a:after {
+    content: "!";
+    font-weight: bold;
+    color: #f33;
+    padding-left: 0.5em;
+    text-decoration: none;
+}
 .ctrl_repacks_act_edit #content .tabs li.changed a:after {
     content: "\2713";
     color: #383;
     padding-left: 0.5em;
     text-decoration: none;
+}
+.ctrl_repacks_act_edit #content ul.changed {
+    font-size: 0.85em;
+    padding: 0 0 1em 2em;
 }
 .ctrl_repacks_act_edit .tabs li a {
     padding: 0.25em 0.5em 0.5em 0.5em;
