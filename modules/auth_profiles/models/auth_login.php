@@ -223,6 +223,21 @@ class Auth_Login_Model extends ORM
     }
 
     /**
+     * Return the value and token for a pending email verification, if any.
+     *
+     * @return object Object with properties value and token.
+     */
+    public function get_email_verification()
+    {
+        $row = $this->db
+            ->select('value, token')
+            ->from($this->_table_name_email_verification_token)
+            ->where('login_id', $this->id)
+            ->get()->current();
+        return (empty($row)) ? null : $row;
+    }
+
+    /**
      * Change email for a login.
      * The email verification token, if any, is cleared as well.
      *

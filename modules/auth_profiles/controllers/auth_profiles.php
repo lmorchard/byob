@@ -206,6 +206,39 @@ class Auth_Profiles_Controller extends Local_Controller
     }
 
     /**
+     * Re-send an email verification
+     */
+    public function reverifyemail()
+    {
+        $params = Router::get_params(array(
+            'login_name' => null,
+        ));
+
+        $login = ORM::factory('login', $params['login_name']);
+        if (!$login->loaded) 
+            return Event::run('system.404');
+
+        $verify = $login->get_email_verification();
+        if (empty($verify))
+            return Event::run('system.404');
+
+        if ('post' == request::method()) {
+
+            email::send_view(
+                $verify->value,
+                'auth_profiles/register_email',
+                array(
+                    'email_verification_token' => $verify->token,
+                    'login_name' => $login->login_name
+                )
+            );
+            $this->view->email_sent = TRUE;
+        }
+
+        $this->view->login = $login;
+    }
+
+    /**
      * Complete verification of a new email address.
      */
     public function verifyemail()

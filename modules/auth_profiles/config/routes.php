@@ -5,7 +5,11 @@ $config['register'] = 'auth_profiles/register';
 $config['login'] =    'auth_profiles/login';
 $config['logout'] =   'auth_profiles/logout';
 
-$config['verifyemail']    = 'auth_profiles/verifyemail';
+$config['verifyemail'] = 
+    'auth_profiles/verifyemail';
+$config['reverifyemail/(.*)'] = 
+    'auth_profiles/reverifyemail/login_name/$1';
+
 $config['changepassword'] = 'auth_profiles/changepassword';
 $config['forgotpassword'] = 'auth_profiles/forgotpassword';
 
