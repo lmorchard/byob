@@ -14,8 +14,6 @@ $actions = array();
 
 if ($repack->isRelease()) { 
 
-    if ($privs['view'])
-        $actions['/'] = "View details";
     if ($privs['edit'])
         $actions[';edit'] = "Change details";
     if ($privs['revert'])
@@ -23,8 +21,6 @@ if ($repack->isRelease()) {
 
 } else { 
 
-    if ($privs['view']) 
-        $actions['/'] = "Preview details";
     if ($privs['edit'])
         $actions[';edit'] = "Continue editing";
     if ($privs['delete'])
