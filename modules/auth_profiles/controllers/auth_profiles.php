@@ -257,7 +257,7 @@ class Auth_Profiles_Controller extends Local_Controller
             $this->view->invalid_token = true;
             return;
         }
-        //$login->change_email($new_email);
+        $login->change_email($new_email);
 
         // TODO: Make auto-login on email verification configurable?
         $profile = $login->find_default_profile_for_login();
