@@ -8,6 +8,7 @@ Thumbs.db
 *.swp
 *.swo
 xfers/
+bin/exhaust-queue.sh
 application/cache/
 application/logs/
 application/tests/log/

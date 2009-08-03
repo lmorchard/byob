@@ -88,44 +88,6 @@ class Auth_Login_Model extends ORM
         return true;
     }
 
-
-    /**
-     * Create a new login and associated profile.
-     */
-    public function register_with_profile($data, $force_email_verified=false)
-    {
-        $profile_data = array(
-            'login_name' => $data['login_name'],
-            'email'      => ($force_email_verified) ? $data['email'] : '',
-            'created'    => gmdate('c', time())
-        );
-
-        $new_login = ORM::factory('login')->set($profile_data)->save();
-
-        $new_login->change_password($data['password']);
-
-        $profile_data['id'] = $new_login->id;
-
-        if (!$force_email_verified) {
-            $profile_data['new_email'] = $data['email'];
-            $profile_data['email_verification_token'] = 
-                $new_login->set_email_verification_token($data['email']);
-        }
-
-        $new_profile = ORM::factory('profile')->set($data)->save();
-
-        $new_login->add($new_profile);
-        $new_login->save();
-
-        $data = array(
-            'login'   => $new_login->as_array(),
-            'profile' => $new_profile->as_array()
-        );
-        Event::run('auth_profiles.registered', $data);
-
-        return arr::to_object($profile_data);
-    }
-
     /**
      * Find the default profile for this login, usually the first registered.
      * @TODO: Change point for future multiple profiles per login
@@ -306,38 +268,6 @@ class Auth_Login_Model extends ORM
         }
     }
 
-
-    /**
-     * Replace incoming data with registration validator and return whether 
-     * validation was successful.
-     *
-     * @param  array   Form data to validate
-     * @return boolean Validation success
-     */
-    public function validate_registration(&$data)
-    {
-        $profile_model = new Profile_Model();
-
-        $data = Validation::factory($data)
-            ->pre_filter('trim')
-            ->add_rules('login_name',       
-                'required', 'length[3,64]', 'valid::alpha_dash', 
-                array($this, 'is_login_name_available'))
-            ->add_rules('email', 
-                'required', 'length[3,255]', 'valid::email',
-                array($this, 'is_email_available'))
-            ->add_rules('email_confirm', 
-                'required', 'valid::email', 'matches[email]')
-            ->add_rules('password', 'required')
-            ->add_rules('password_confirm', 'required', 'matches[password]')
-            ->add_rules('screen_name',      
-                'required', 'length[3,64]', 'valid::alpha_dash', 
-                array($profile_model, 'is_screen_name_available'))
-            ->add_rules('full_name', 'required', 'valid::standard_text')
-            ->add_rules('captcha', 'required', 'Captcha::valid')
-            ;
-        return $data->validate();
-    }
 
     /**
      * Replace incoming data with login validator and return whether 

@@ -176,10 +176,8 @@ class Repack_Model extends ManagedORM
                 break;
 
             case 'bookmarks':
-                $data->add_callbacks('bookmarks_toolbar', 
-                    array($this, 'extractBookmarks'));
-                $data->add_callbacks('bookmarks_menu', 
-                    array($this, 'extractBookmarks'));
+                $data->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'));
+                $data->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'));
                 break;
 
             case 'addons':

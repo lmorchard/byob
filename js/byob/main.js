@@ -85,8 +85,8 @@ BYOB_Main = function() {
 
             });
 
-            $('form .organization').each(function() {
-                $this.wireUpHideShowOrgTypeOther($(this));
+            $('form .account').each(function() {
+                $this.wireUpHideShowOrg($(this));
             });
 
             return this;
@@ -96,7 +96,23 @@ BYOB_Main = function() {
          * Wire up the type (other) input field to appear when "other" is
          * selected in the associated drop down.
          */
-        wireUpHideShowOrgTypeOther: function(org_fieldset) {
+        wireUpHideShowOrg: function(org_fieldset) {
+
+            // Enable / disable organization fields on personal checkbox toggle.
+            var org_personal = org_fieldset.find('#is_personal');
+            var personal_cb = function(ev) {
+                var checked = ( $('#is_personal:checked').length > 0 );
+                $.each([ 'org_name', 'org_type', 'org_type_other' ], function() {
+                    if (checked) {
+                        $('#'+this).attr('disabled', true)
+                            .parent().removeClass('required');
+                    } else {
+                        $('#'+this).removeAttr('disabled');
+                        $('#'+this).parent().addClass('required');
+                    }
+                });
+            };
+            org_personal.each(personal_cb).change(personal_cb);
 
             var org_type_other = org_fieldset.find('#org_type_other');
 

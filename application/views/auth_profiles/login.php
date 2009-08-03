@@ -1,3 +1,5 @@
+<?php slot::set('head_title', 'login'); ?>
+<?php slot::set('crumbs', 'account login'); ?>
 <?php if (!empty($login_inactive)): ?>
     <p>Sorry, that login has been disabled.</p>
 <?php endif ?>

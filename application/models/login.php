@@ -122,41 +122,4 @@ class Login_Model extends Auth_Login_Model
         return $is_valid;
     }
 
-    /**
-     * Validate registration data
-     */
-    public function validate_registration(&$data)
-    {
-        // Force screen name to match login name.
-        if (isset($data['login_name']))
-            $data['screen_name'] = $data['login_name'];
-
-        $profile_model = new Profile_Model();
-
-        $data = Validation::factory($data)
-            ->pre_filter('trim')
-            ->add_rules('login_name',       
-                'required', 'length[3,64]', 'valid::alpha_dash', 
-                array($this, 'is_login_name_available'))
-            ->add_rules('email', 
-                'required', 'length[3,255]', 'valid::email',
-                array($this, 'is_email_available'))
-            ->add_rules('email_confirm', 
-                'required', 'valid::email', 'matches[email]')
-            ->add_rules('password', 'required')
-            ->add_rules('password_confirm', 'required', 'matches[password]')
-            ->add_rules('screen_name',      
-                'required', 'length[3,64]', 'valid::alpha_dash', 
-                array($profile_model, 'is_screen_name_available'))
-            ->add_rules('full_name', 'required', 'valid::standard_text')
-            ->add_rules('org_name', 'required')
-            ;
-
-        if ('post' == request::method() && !recaptcha::check()) {
-            $data->add_error('recaptcha', recaptcha::error());
-        }
-
-        return $data->validate();
-    }
-
 }

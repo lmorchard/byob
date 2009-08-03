@@ -121,6 +121,10 @@ class form extends form_Core
     {
         if (null == $params) $params = array();
 
+        $params_class = (isset($params['class'])) ?
+            $params['class'] : '';
+        unset($params['class']);
+
         if ('checkbox' == $type) {
             // For checkboxes, the checked attribute is the significant thing.
             $value = form::value($name, @$params['checked']);
@@ -137,9 +141,8 @@ class form extends form_Core
         } else {
 
             $classes = array($type);
-            if (!empty($params['class'])) {
-                $classes[] = $params['class'];
-                unset($params['class']);
+            if (!empty($params_class)) {
+                $classes[] = $params_class;
             }
 
             if ('checkbox' == $type) {
@@ -180,6 +183,8 @@ class form extends form_Core
             // List item classes consist of the name of the field type, along 
             // with 'error' if field present in $form::errors
             $classes = array($type);
+            if (!empty($params_class))
+                $classes[] = $params_class;
             if ('input' == $type)
                 $classes[] = isset($params['type']) ? $params['type'] : 'text';
             if (!empty(self::$errors) && array_key_exists($name, self::$errors))

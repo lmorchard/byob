@@ -2,16 +2,24 @@
 <?php slot::set('crumbs', 'home') ?>
 
 <?php if (!authprofiles::is_logged_in()): ?>
-
-    <h2>Welcome!</h2>
-
-    <p>To get started building your own browser, 
-    <a href="<?= url::base().'register' ?>">register</a> and 
-    <a href="<?= url::base().'login' ?>">login</a>!
-
+    <p>
+        Welcome to Mozilla's Build Your Own Browser (BYOB) web application, a 
+        web-based tool that allows you to lightly customize versions of Firefox 
+        that you'd like to distribute to other people. To get started, we require 
+        that you <a href="<?= url::base().'register' ?>">create an account</a> and 
+        <a href="<?= url::base().'login' ?>">login to the application</a>. 
+        All of the customized versions of Firefox you create with BYOB will be 
+        associated with, and accessible through, this account. Registration takes just 
+        a couple of minutes, requires information about you and the organization 
+        you represent, if applicable.
+    </p>
 <?php else: ?>
 
-    <h2>Welcome back!</h2>
+    <p>
+        Welcome back to Mozilla's Build Your Own Browser (BYOB) web application, a 
+        web-based tool that allows you to lightly customize versions of Firefox 
+        that you'd like to distribute to other people.
+    </p>
 
     <p>
         <?php

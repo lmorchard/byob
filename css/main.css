@@ -125,6 +125,11 @@ body {
     font-size: 0.75em;
     color: #666;
 }
+#content form fieldset .intro {
+    border-bottom: 1px solid #ccc;
+    padding-bottom: 1em;
+    margin: 0 0 1em 0;
+}
 #content form ul.errors {
     color: red;
     font-size: 0.85em;
@@ -144,14 +149,19 @@ body {
     width: 14ex;
     padding-top: 0.125em;
     font-size: 0.85em;
-    margin-right: 1ex;
+    margin-right: 1.5ex;
     text-align: right;
 }
 #content form ul.fields li.required label {
-    font-weight: bold;
 }
 #content form ul.fields li.required label:before {
     content: "*\00a0";
+    color: #f33;
+}
+#content form ul.fields li .required_note {
+}
+#content form ul.fields li .required_note span {
+    color: #f33;
 }
 #content form ul li p.notes {
     margin: 0 0 0 24ex;
@@ -163,8 +173,16 @@ body {
 #content form ul.fields li.error input {
     background-color: #ffeeee;
 }
-.ctrl_auth_act_register #content form ul.fields li label {
-    width: 18ex;
+.ctrl_auth_profiles_act_register #content form ul.fields li label {
+    width: 24ex;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li .notes {
+    margin: 0.5em 0 1em 30ex;
+    width: 40%;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li .recaptchatable #recaptcha_response_field {
+    position: inherit !important;
+    bottom: 0px !important;
 }
 #content form ul.fields li.text input, #content form ul.fields li.password input {
     width: 50ex;
@@ -477,4 +495,5 @@ body {
     display: block;
     text-align: center;
 }
+
 

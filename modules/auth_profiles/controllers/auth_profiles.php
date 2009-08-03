@@ -27,7 +27,8 @@ class Auth_Profiles_Controller extends Local_Controller
             }
         }
 
-        $this->login_model = new Login_Model();
+        $this->login_model   = new Login_Model();
+        $this->profile_model = new Profile_Model();
     }
 
     /**
@@ -62,32 +63,28 @@ class Auth_Profiles_Controller extends Local_Controller
     public function register()
     {
         $form_data = form::validate(
-            $this, $this->login_model, 
+            $this, $this->profile_model, 
             'validate_registration', 'form_errors_auth'
         );
         if (null===$form_data) return;
 
-        $new_login = $this->login_model
-            ->register_with_profile($form_data);
+        $new_profile = $this->profile_model
+            ->register_with_login($form_data);
 
-        if (!empty($new_login->email_verification_token)) {
+        if (!empty($new_profile->email_verification_token)) {
             email::send_view(
-                $new_login->new_email,
+                $new_profile->new_email,
                 'auth_profiles/register_email',
                 array(
                     'email_verification_token' => 
-                        $new_login->email_verification_token,
+                        $new_profile->email_verification_token,
                     'login_name' => 
-                        $new_login->login_name
+                        $new_profile->login_name
                 )
             );
         }
-        Session::instance()->set_flash(
-            'message', 
-            'Check your email to verify your address before login.'
-        );
-
-        return url::redirect('login');
+        $this->view->login_name = $new_profile->login_name;
+        $this->view->set_filename('auth_profiles/register_success');
     }
 
     /**
@@ -233,6 +230,8 @@ class Auth_Profiles_Controller extends Local_Controller
                 )
             );
             $this->view->email_sent = TRUE;
+            $this->view->login_name = $params['login_name'];
+            $this->view->set_filename('auth_profiles/register_success');
         }
 
         $this->view->login = $login;
@@ -243,6 +242,11 @@ class Auth_Profiles_Controller extends Local_Controller
      */
     public function verifyemail()
     {
+        if (false !== $this->input->get('success', false)) {
+            $this->view->valid_token = true;
+            return;
+        }
+        
         $token = ('post' == request::method()) ?
             $this->input->post('email_verification_token') :
             $this->input->get('email_verification_token');
@@ -253,21 +257,13 @@ class Auth_Profiles_Controller extends Local_Controller
             $this->view->invalid_token = true;
             return;
         }
-        $login->change_email($new_email);
+        //$login->change_email($new_email);
 
         // TODO: Make auto-login on email verification configurable?
-        if (!authprofiles::is_logged_in()) {
-
-            $profile = $login->find_default_profile_for_login();
-            $login->login();
-            authprofiles::login($login->login_name, $login, $profile);
-            Session::instance()->set_flash(
-                'message', 
-                'Email address verified. Welcome!'
-            );
-
-            return url::redirect('/home');
-        }
+        $profile = $login->find_default_profile_for_login();
+        $login->login();
+        authprofiles::login($login->login_name, $login, $profile);
+        url::redirect(url::current().'?success=true');
     }
 
 

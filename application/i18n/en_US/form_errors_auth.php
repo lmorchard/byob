@@ -40,6 +40,8 @@ $lang = array(
     'password' => array(
         'default'
             => 'Password is invalid.',
+        'length'
+            => 'Password must be at least 6 characters long.',
         'required' 
             => 'Password is required.'
     ),
@@ -50,6 +52,8 @@ $lang = array(
             => 'Password and confirmation must match.'
     ),
     'screen_name' => array(
+        'default'
+            => 'Screen name is not available.',
         'required'              
             => 'Screen name is required.',
         'length'                
@@ -59,11 +63,17 @@ $lang = array(
         'isScreenNameAvailable' 
             => 'Screen name is not available.',
     ),
-    'full_name' => array(
+    'first_name' => array(
         'required'      
-            => 'Full name is required',
+            => 'First name is required',
         'standard_text' 
-            => 'Full name must contain only alphanumeric characters'
+            => 'First name must contain only alphanumeric characters'
+    ),
+    'last_name' => array(
+        'required'      
+            => 'Last name is required',
+        'standard_text' 
+            => 'Last name must contain only alphanumeric characters'
     ),
     'org_name' => array(
         'required'      
@@ -98,5 +108,24 @@ $lang = array(
     'new_email_confirm' => array(
         'default' =>
             'A valid new email confirmation is required'
+    ),
+
+    'phone' => array( 
+        'default' => 'Phone number is required.' 
+    ),
+    'address_1' => array( 
+        'default' => 'Street address is required.' 
+    ),
+    'city' => array( 
+        'default' => 'City is required.' 
+    ),
+    'state' => array( 
+        'default' => 'State is required.' 
+    ),
+    'zip' => array( 
+        'default' => 'Zip is required.' 
+    ),
+    'country' => array( 
+        'default' => 'Country is required.' 
     ),
 );
