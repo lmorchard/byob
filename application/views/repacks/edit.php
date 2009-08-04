@@ -50,7 +50,6 @@
         <h4>Problems:</h4>
         <ul class="errors highlight">
             <?php foreach (form::$errors as $field=>$error): ?>
-                <?php if (strpos($error, 'form_repacks_edit.bookmarks_') !== FALSE) continue; ?>
                 <li class="error_<?= html::specialchars($field) ?>"><?= html::specialchars($error) ?></li>
             <?php endforeach ?>
         </ul>

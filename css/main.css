@@ -334,6 +334,8 @@ body {
     padding: 0 0 0 1em;
 }
 #content ul.bookmarks .bookmark {
+    display: inline-block;
+    width: 90%;
 }
 #content ul.bookmarks .bookmark table {
     float: left;
