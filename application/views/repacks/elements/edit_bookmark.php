@@ -2,7 +2,7 @@
 $type = isset($item['type']) ? $item['type'] : 'normal';
 $fields = Repack_Model::$type_fields[$type];
 ?>
-<li class="bookmark clearfix">
+<li class="bookmark clearfix <?=$prefix?>_item">
     <span class="type <?= $type ?>">
         <?= html::specialchars($type) ?>
         <input type="hidden" name="<?= "{$prefix}_type[{$idx}]" ?>" 

@@ -177,14 +177,39 @@ BYOB_Main = function() {
          */
         wireUpRepackBookmarks: function() {
 
+            // TODO: Put this somewhere more central.
+            var item_limits = {
+                'bookmarks_menu_item': 5,
+                'bookmarks_toolbar_item': 3
+            };
+
             // Set up drag and drop sorting for bookmarks
             $('.bookmarks').sortable();
 
             // Wire up add links to insert cloned new bookmarks
             $('.bookmark-add .add').click(function() {
+
+                // Clone a new bookmark from template.
                 var new_bm = $(this).next().find('li:first')
-                    .clone().removeClass('template')
-                    .appendTo($(this).parent().parent().prev())
+                    .clone().removeClass('template');
+
+                // Find the destination list relative to this link.
+                var dest_list = $(this).parent().parent().prev();
+
+                // Check and enforce bookmark limits.
+                var allow_add = true;
+                $.each(item_limits, function(name, limit) {
+                    if (new_bm.hasClass(name)) {
+                        var existing_items = dest_list.find('.'+name);
+                        if (existing_items.length >= limit) {
+                            allow_add = false;
+                        }
+                    }
+                });
+
+                // Only add the cloned item if allowed...
+                if (allow_add) new_bm.appendTo(dest_list);
+
                 return false;
             });
 
