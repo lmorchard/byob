@@ -1,6 +1,8 @@
 <?php
 /**
- *
+ * @package    BYOB
+ * @subpackage i18n
+ * @author     l.m.orchard <lorchard@mozilla.com>
  */
 $lang = array(
     'short_name' => array(
@@ -27,6 +29,15 @@ $lang = array(
         'default' =>
             'Problems in bookmark menu items.'
     ),
+    'addons_collection_url' => array(
+        'default' =>
+            'Invalid URL for addon collection'
+    ),
+    'persona_url' => array(
+        'default' =>
+            'Invalid URL for persona selection'
+    ),
+
 );
 
 // Since there are multiple fields for bookmarks, programmatically construct 
