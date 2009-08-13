@@ -164,7 +164,7 @@ body {
     color: #f33;
 }
 #content form ul li p.notes {
-    margin: 0 0 0 24ex;
+    margin: 0 0 0 20ex;
     font-size: 0.75em;
 }
 #content form ul.fields li.error label {

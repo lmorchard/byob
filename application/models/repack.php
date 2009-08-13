@@ -170,22 +170,20 @@ class Repack_Model extends ManagedORM
                 $data->add_rules('os', 'required', 'is_array');
                 break;
 
-            case 'firstrun':
-                $data->add_rules('firstrun_content', 'length[0,1000]');
-                $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
-                break;
-
             case 'bookmarks':
                 $data->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'));
                 $data->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'));
                 break;
 
-            case 'addons':
+            case 'collections':
                 $data->add_rules('addons', 'is_array');
                 $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
+                $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
                 break;
 
             case 'persona':
+                $data->add_rules('addons', 'is_array');
+                $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
                 $data->add_rules('persona_url', 'length[0,255]', 'url');
                 $data->add_callbacks('persona_url', array($this, 'personaExists'));
                 break;

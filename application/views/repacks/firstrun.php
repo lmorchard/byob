@@ -5,8 +5,6 @@
 
 <h2>Welcome to <?= html::specialchars($repack->title) ?></h2>
 
-<p><?=$repack->firstrun_content?></p>
-
 <h3>Suggested addons:</h3>
 
 <?php if (!empty($repack->collection_addons)): ?>

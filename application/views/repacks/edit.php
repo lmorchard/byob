@@ -1,12 +1,11 @@
 <?php
     $sections = array(
-        'general'   => 'General',
-        'locales'   => 'Locales',
-        'platforms' => 'Platforms',
-        'firstrun'  => 'First-run',
-        'bookmarks' => 'Bookmarks',
-        'addons'    => 'Addons',
-        'persona'   => 'Persona',
+        'general'     => 'General',
+        'locales'     => 'Locales',
+        'platforms'   => 'Platforms',
+        'persona'     => 'Personas',
+        'bookmarks'   => 'Bookmarks',
+        'collections' => 'Add-on Collections',
     );
     if (!isset($section) || !isset($sections[$section])) {
         $section = 'general';
@@ -58,6 +57,7 @@
         <h4>Current browser changes:</h4>
         <ul class="changed">
             <?php if (!empty($repack->changed_sections)) foreach ($repack->changed_sections as $changed): ?>
+                <?php if (!isset($sections[$changed])) continue ?>
                 <li><?=$sections[$changed]?></li>
             <?php endforeach ?>
         </ul>

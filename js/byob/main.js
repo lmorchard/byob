@@ -3,39 +3,6 @@
  */
 if ('undefined' == typeof(window.BYOB_Main)) window.BYOB_Main = {};
 
-(function($) {
-    $.fn.listbuilder = function(options) {
-        var root = $(this);
-
-        root.find('.add').click(function(ev) {
-            var choices = root.find('select.choices');
-            var choice  = choices.val();
-            var name    = choices.find('option[value='+choice+']').text()
-
-            root.find('.template')
-                .clone().removeClass('template')
-                .find('input').val(choice).end()
-                .find('span').text(name).end()
-                .appendTo(root.find('.list'));
-
-            $('#changed').val('true');
-
-            return false;
-        });
-
-        // Event delegation for delete links
-        root.find('.list').click(function(ev) {
-            var t = $(ev.target);
-            if (t.hasClass('delete')) {
-                $('#changed').val('true');
-                t.parent().remove();
-                return false;
-            }
-        });
-
-    }
-})(jQuery);
-
 BYOB_Main = function() {
     var $this = {
 
@@ -53,8 +20,6 @@ BYOB_Main = function() {
                 //setTimeout(function() { n.hide('highlight') }, 2000);
             });
 
-            $('.listbuilder').listbuilder();
-
             // Kill all the templates with invisible form fields.
             $('form').submit(function() {
                 $(this).find('.template').remove();    
@@ -64,24 +29,9 @@ BYOB_Main = function() {
                 // Wire up the UI for the repack editing page.
                 $this.wireUpRepackBookmarks();
                 $this.wireUpRepackLocales();
-
+                $this.wireUpWizardTabs();
+                $this.wireUpAddonDependent();
                 $('.save_buttons').hide();
-
-                $('input').add('textarea')
-                    .change(function() {
-                        $('#changed').val('true');
-                        return true;
-                    });
-
-                $('.tabs a').add('.section_nav a').click(function() {
-                    // Wire up nav tabs to submit the form after setting 
-                    // a hidden field with the name of the next section.
-                    var href = $(this).attr('href');
-                    var section = href.substr(href.indexOf('=')+1);
-                    $('#next_section').val(section);
-                    $('#wizard').submit();
-                    return false;
-                });
 
             });
 
@@ -224,7 +174,87 @@ BYOB_Main = function() {
 
         },
 
+       /**
+        * Wire up the submission tabs for the wizard
+        */
+       wireUpWizardTabs: function() {
+            $('input').add('textarea')
+                .change(function() {
+                    $('#changed').val('true');
+                    return true;
+                });
+
+            $('.tabs a').add('.section_nav a').click(function() {
+                // Wire up nav tabs to submit the form after setting 
+                // a hidden field with the name of the next section.
+                var href = $(this).attr('href');
+                var section = href.substr(href.indexOf('=')+1);
+                $('#next_section').val(section);
+                $('#wizard').submit();
+                return false;
+            });
+        },
+
+        /**
+         * Wire up hide/show for div dependent on the selection of an addon.
+         */
+        wireUpAddonDependent: function() {
+            var addons = $('.addon input[type=checkbox]');
+            $('.addon-dependent').each(function() {
+                var dep = $(this);
+                addons.each(function() {
+                    var check = $(this);
+                    if (dep.hasClass('addon-'+check.val())) {
+                        var cb = function(ev) {
+                            var checked = ( check.attr('checked') );
+                            if (checked) dep.show();
+                            else dep.hide();
+                        };
+                        check.each(cb).change(cb);
+                    }
+                });
+            });
+        },
+
         EOF:null
     };
     return $this;
 }().init();
+
+(function($) {
+    $.fn.listbuilder = function(options) {
+        var root = $(this);
+
+        root.find('.add').click(function(ev) {
+            var choices = root.find('select.choices');
+            var choice  = choices.val();
+            var name    = choices.find('option[value='+choice+']').text()
+
+            root.find('.template')
+                .clone().removeClass('template')
+                .find('input').val(choice).end()
+                .find('span').text(name).end()
+                .appendTo(root.find('.list'));
+
+            $('#changed').val('true');
+
+            return false;
+        });
+
+        // Event delegation for delete links
+        root.find('.list').click(function(ev) {
+            var t = $(ev.target);
+            if (t.hasClass('delete')) {
+                $('#changed').val('true');
+                t.parent().remove();
+                return false;
+            }
+        });
+
+    }
+})(jQuery);
+
+$(document).ready(function() { 
+    $('.listbuilder').listbuilder();
+});
+
