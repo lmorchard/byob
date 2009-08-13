@@ -23,8 +23,6 @@ if ($repack->isRelease()) {
 
     if ($privs['edit'])
         $actions[';edit'] = "Continue editing";
-    if ($privs['delete'])
-        $actions[';delete'] = "Abandon changes";
 
     if ($repack->isPendingApproval()) { 
 
@@ -38,6 +36,8 @@ if ($repack->isRelease()) {
     } else { 
 
         if (!$repack->isLockedForChanges()) { 
+            if ($privs['delete'])
+                $actions[';delete'] = "Abandon changes";
             if ($privs['release']) { 
                 $actions[';release'] = "Request release";
             } else { 
