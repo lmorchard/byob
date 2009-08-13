@@ -45,8 +45,7 @@ class Profile_Model extends Auth_Profile_Model
 
     public $search_column_names = array(
         'screen_name', 'first_name', 'last_name', 'org_name', 'modified',
-        'org_type', 'org_type_other', 'phone', 'fax',
-        'address_1', 'address_2', 'city', 'state', 'zip', 'country',
+        'is_personal', 'org_type', 'org_type_other',
     );
 
     // }}}
@@ -63,9 +62,13 @@ class Profile_Model extends Auth_Profile_Model
                 url::base() . 'profiles/' . $this->screen_name,
                 $this->screen_name
             ),
-            'full_name' => $this->full_name,
-            'org_name' => $this->org_name,
-            'modified' => $this->modified
+            'first_name'  => $this->first_name,
+            'last_name'   => $this->last_name,
+            'is_personal' => $this->is_personal,
+            'org_name'    => $this->org_name,
+            'org_type'    => $this->org_type,
+            'org_type_other' => $this->org_type_other,
+            'modified'    => $this->modified
         ); 
         return $vals;
     }

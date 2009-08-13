@@ -41,7 +41,7 @@
                             <?php if (is_array($h_val)): ?>
                                 <a href="<?=$h_val[0]?>"><?=$h_val[1]?></a>
                             <?php else: ?>
-                                <?=$h_val?>
+                                <?=$h_val?>&nbsp;
                             <?php endif ?>
                         </td>
                     <?php endforeach ?>
