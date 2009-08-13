@@ -34,22 +34,48 @@
 
 <?php
     echo form::build(url::current(), array('class'=>'details'), array(
-        form::fieldset('personal details', array('class'=>'profile'), array(
-            form::field('input',    'full_name', 'Full Name'),
-            form::field('input',    'phone',     'Phone'),
-            form::field('input',    'fax',       'Fax'),
-        )),
-        form::fieldset('organization details', array('class'=>'organization'), array(
-            form::field('input',    'org_name',    'Name'),
-            form::field('textarea', 'org_address', 'Address'),
-            form::field('dropdown', 'org_type',    'Type', array(
+        form::fieldset('Account details', array('class'=>'account'), array(
+            form::field('input',    'first_name',  'First Name', array('class'=>'required'), array(
+                'Your given name.'
+            )),
+            form::field('input',    'last_name',   'Last Name', array('class'=>'required'), array(
+                'Your surname.'
+            )),
+            form::field('checkbox', 'is_personal', 'Personal account?', array('value'=>'1'), array(
+                "Please check this box if you are using the versions of ",
+                "Firefox you create for personal use (i.e. sharing with ",
+                "friends and family, etc.)"
+            )),
+
+            form::field('dropdown', 'org_type',    'Organization Type', array(
                 'options' => array(
                     'corp'      => 'Corporation', 
                     'nonprofit' => 'Non-Profit', 
                     'other'     => 'Other',
-                )
+                ),
+                'class'=>'required'
             )),
-            form::field('input',    'org_type_other', 'Type (other)'),
+            form::field('input',    'org_type_other', '(other)'),
+            form::field('input',    'org_name',    'Organization Name', array('class'=>'required'), array(
+                "Please enter the full, legal name of the organization you represent here."
+            )),
+            form::field('input',    'phone',       'Phone', array('class'=>'required'), array(
+                'Your daytime contact number, with country code (US/Canada is "1").'
+            )),
+            form::field('input',    'fax',         'Fax', array(), array(
+                'Your fax number, with country code (US/Canada is "1")'
+            )),
+            form::field('input',    'website',     'Website', array(), array(
+                'Please provide the URL for your organizational or personal website.'
+            )),
+
+            form::field('input',    'address_1', 'Street Address 1', array('class'=>'required')),
+            form::field('input',    'address_2', 'Street Address 2'),
+            form::field('input',    'city',      'City', array('class'=>'required')),
+            View::factory('auth_profiles/elements/states')->render(),
+            form::field('input',    'zip',       'Zip / Postal Code', array('class'=>'required', 'class'=>'required'), array(
+            )),
+            View::factory('auth_profiles/elements/countries')->render(),
         )),
         (!$profile->checkPrivilege('edit_roles')) ? '' :
             form::fieldset('roles', array(), array( slot::get('roles') )),

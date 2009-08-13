@@ -173,9 +173,11 @@ body {
 #content form ul.fields li.error input {
     background-color: #ffeeee;
 }
+.ctrl_auth_profiles_act_editprofile #content form ul.fields li label,
 .ctrl_auth_profiles_act_register #content form ul.fields li label {
     width: 24ex;
 }
+.ctrl_auth_profiles_act_editprofile #content form ul.fields li .notes,
 .ctrl_auth_profiles_act_register #content form ul.fields li .notes {
     margin: 0.5em 0 1em 30ex;
     width: 40%;

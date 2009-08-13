@@ -133,6 +133,8 @@ class Profile_Model extends Auth_Profile_Model
             ;
         if (!isset($data['is_personal']) || $data['is_personal'] != 1) {
             $data->add_rules('org_name', 'required');
+        } else {
+            $data['is_personal'] = '1';
         }
 
         if ('post' == request::method() && !recaptcha::check()) {
@@ -149,9 +151,21 @@ class Profile_Model extends Auth_Profile_Model
     {
         $data = Validation::factory($data)
             ->pre_filter('trim')
-            ->add_rules('full_name', 'required', 'valid::standard_text')
-            ->add_rules('org_name', 'required')
+            ->add_rules('first_name', 'required', 'valid::standard_text')
+            ->add_rules('last_name', 'required')
+            ->add_rules('phone', 'required')
+            ->add_rules('website', 'url')
+            ->add_rules('address_1', 'required')
+            ->add_rules('city', 'required')
+            ->add_rules('state', 'required')
+            ->add_rules('zip', 'required')
+            ->add_rules('country', 'required')
             ;
+        if (!isset($data['is_personal']) || $data['is_personal'] != 1) {
+            $data->add_rules('org_name', 'required');
+        } else {
+            $data['is_personal'] = '1';
+        }
         return $this->validate($data, $save);
     }
 
