@@ -9,6 +9,10 @@ class Local_Controller extends Layout_Controller
     {
         parent::__construct();
 
+        $this->view->set_global(array(
+            'contact_URL' => Kohana::config('core.contact_URL')
+        ));
+
         // Set the global profile ID for log events during this request.
         Logevent_Model::setCurrentProfileID(
             authprofiles::get_profile('id')

@@ -1,4 +1,6 @@
 <?php defined('SYSPATH') OR die('No direct access allowed.');
+$config['contact_URL'] = 'http://buildyourownbrowser.com/contact/';
+
 /**
  * Base path of the web site. If this includes a domain, eg: localhost/kohana/
  * then a full URL will be used, eg: http://localhost/kohana/. If it only includes

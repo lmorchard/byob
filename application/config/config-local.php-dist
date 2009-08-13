@@ -6,6 +6,8 @@ $config['core.log_threshold'] = 0;
 $config['core.internal_cache'] = 120;
 $config['core.display_errors'] = FALSE;
 
+$config['core.contact_URL'] = 'http://buildyourownbrowser.com/contact/';
+
 $config['model.database'] = 'local';
 
 $config['database.local'] = array(
