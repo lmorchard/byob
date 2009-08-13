@@ -19,9 +19,20 @@
     </form>
 <?php endif ?>
 
+<?php /* Munge the errors to obscure what part of the login was invalid. */ ?>
+<?php if (!empty(form::$errors)): ?>
+    <?php slot::start('errors') ?>
+    <ul class="errors highlight">
+        <li>Invalid login.</li>
+    </ul>
+    <?php slot::end('errors') ?>
+<?php endif ?>
+<?php form::$errors = array(); ?>
+
 <?= 
 form::build('login', array('class'=>'login'), array(
     form::field('hidden', 'jump', ''),
+    slot::get('errors'),
     form::fieldset('login details', array('class'=>'login'), array(
         form::field('input',    'login_name',       'Login name'),
         form::field('password', 'password',         'Password'),
