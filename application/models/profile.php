@@ -134,10 +134,8 @@ class Profile_Model extends Auth_Profile_Model
             ->add_rules('zip', 'required')
             ->add_rules('country', 'required')
             ;
-        if (!isset($data['is_personal']) || $data['is_personal'] != 1) {
+        if ($data['is_personal'] != 1) {
             $data->add_rules('org_name', 'required');
-        } else {
-            $data['is_personal'] = '1';
         }
 
         if ('post' == request::method() && !recaptcha::check()) {
@@ -164,10 +162,8 @@ class Profile_Model extends Auth_Profile_Model
             ->add_rules('zip', 'required')
             ->add_rules('country', 'required')
             ;
-        if (!isset($data['is_personal']) || $data['is_personal'] != 1) {
+        if ($data['is_personal'] != 1) {
             $data->add_rules('org_name', 'required');
-        } else {
-            $data['is_personal'] = '1';
         }
         return $this->validate($data, $save);
     }

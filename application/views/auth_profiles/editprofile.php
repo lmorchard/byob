@@ -41,11 +41,17 @@
             form::field('input',    'last_name',   'Last Name', array('class'=>'required'), array(
                 'Your surname.'
             )),
-            form::field('checkbox', 'is_personal', 'Personal account?', array('value'=>'1'), array(
-                "Please check this box if you are using the versions of ",
-                "Firefox you create for personal use (i.e. sharing with ",
-                "friends and family, etc.)"
-            )),
+            form::field('radio', 'is_personal', 'Account type?',
+                array('options' => array(
+                    '1' => 'Personal',
+                    '0' => 'Organization'
+                )), 
+                array(
+                    "Please indicate whether you are using the versions of ",
+                    "Firefox you create for personal use (i.e. sharing with ",
+                    "friends and family, etc.) or on behalf of an organization."
+                )
+            ),
 
             form::field('dropdown', 'org_type',    'Organization Type', array(
                 'options' => array(

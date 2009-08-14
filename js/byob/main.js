@@ -49,9 +49,9 @@ BYOB_Main = function() {
         wireUpHideShowOrg: function(org_fieldset) {
 
             // Enable / disable organization fields on personal checkbox toggle.
-            var org_personal = org_fieldset.find('#is_personal');
+            var org_personal = org_fieldset.find('input[name=is_personal]');
             var personal_cb = function(ev) {
-                var checked = ( $('#is_personal:checked').length > 0 );
+                var checked = ( $('input[name=is_personal]:checked').val() == 1);
                 $.each([ 'org_name', 'org_type', 'org_type_other' ], function() {
                     if (checked) {
                         $('#'+this).attr('disabled', true)

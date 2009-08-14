@@ -1,6 +1,6 @@
 <?php slot::set('head_title', $head_title . ' :: ' . html::specialchars($repack->title)); ?>
 <?php slot::start('crumbs') ?>
-    <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: <?=$crumbs?>
+    <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->display_title) ?></a> :: <?=$crumbs?>
 <?php slot::end() ?>
 
 <?php if (!empty($repack)): ?>

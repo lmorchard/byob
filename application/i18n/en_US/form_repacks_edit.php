@@ -9,7 +9,7 @@ $lang = array(
         'default' => 
             'A short name consisting of letters and numbers is required',
     ),
-    'title' => array(
+    'user_title' => array(
         'default' =>
             'A title is required.',
     ),

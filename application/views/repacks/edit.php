@@ -13,9 +13,9 @@
     form::$data   = $form_data;
     form::$errors = isset($form_errors) ? $form_errors : array();
 ?>
-<?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->title)); ?>
+<?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->display_title)); ?>
 <?php slot::start('crumbs') ?>
-    <a href="<?= $repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: customize your browser
+    <a href="<?= $repack->url() ?>"><?= html::specialchars($repack->display_title) ?></a> :: customize your browser
 <?php slot::end() ?>
 
 <?= form::open(url::current() . '?section=' . $section , array('id'=>'wizard'), array()); ?>

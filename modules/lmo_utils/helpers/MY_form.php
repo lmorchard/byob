@@ -121,8 +121,7 @@ class form extends form_Core
     {
         if (null == $params) $params = array();
 
-        $params_class = (isset($params['class'])) ?
-            $params['class'] : '';
+        $params_class = (isset($params['class'])) ?  $params['class'] : '';
         unset($params['class']);
 
         if ('checkbox' == $type) {
@@ -168,6 +167,20 @@ class form extends form_Core
                     ), $params),
                     $options, $value, ''
                 );
+
+            } else if ('radio' == $type) {
+
+                // HACK: Keeps 'options' out of HTML attributes
+                $options = $params['options'];
+                unset($params['options']);
+
+                $out = array();
+                foreach ($options as $opt_value => $opt_label) {
+                    $out[] = form::radio($name, $opt_value, ($opt_value == $value));
+                    $out[] = '<span>' . html::specialchars($opt_label) . '</span>';
+                }
+
+                $field = '<span class="choices">'.join(' ', $out).'</span>';
 
             } else {
 

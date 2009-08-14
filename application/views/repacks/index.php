@@ -34,7 +34,7 @@
         <?php
             $main_flag = isset($repacks['released']) ?
                 'released' : 'unreleased';
-            $h_title = html::specialchars($repacks[$main_flag]->title);
+            $h_title = html::specialchars($repacks[$main_flag]->display_title);
             $h_url   = html::specialchars($repacks[$main_flag]->url);
         ?>
         <li>

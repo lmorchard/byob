@@ -158,6 +158,7 @@ class Repack_Model extends ManagedORM
         switch ($section) {
 
             case 'general':
+                $data->add_rules('user_title', 'required', 'length[1,255]');
                 $data->add_rules('description', 'length[0,1000]');
                 break;
             
@@ -920,7 +921,7 @@ class Repack_Model extends ManagedORM
                 url::base() . 'profiles/' . $this->profile->screen_name,
                 $this->profile->screen_name
             ),
-            'title'      => $this->title,
+            'title'      => $this->display_title,
             'state'      => $this->getStateName(),
             'modified'   => $this->modified
         ); 
@@ -1037,7 +1038,18 @@ class Repack_Model extends ManagedORM
             $this->attrs = json_decode($this->json_data, true);
         }
         if (empty($this->attrs)) $this->attrs = array();
-        $this->title = "Mozilla Firefox for {$this->profile->org_name}";
+        if ('1' == $this->profile->is_personal) {
+            $this->title = 
+                "Mozilla Firefox for {$this->user_title}";
+            $this->display_title = 
+                "Mozilla Firefox for {$this->user_title}";
+        } else {
+            $this->title = 
+                "Mozilla Firefox for {$this->profile->org_name}";
+            $this->display_title = 
+                "Mozilla Firefox for {$this->profile->org_name} ".
+                "({$this->user_title})";
+        }
         return $this;
     }
 

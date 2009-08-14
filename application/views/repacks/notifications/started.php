@@ -1,7 +1,7 @@
 From: admin@byob.mozilla.com
-Subject: [BYOB] Build started for <?=$repack->title?> 
+Subject: [BYOB] Build started for <?=$repack->display_title?> 
 
-The build process has been started for <?=$repack->title?>.
+The build process has been started for <?=$repack->display_title?>.
 
 <?=$repack->url() . "\n" ?>
 

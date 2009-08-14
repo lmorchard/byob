@@ -1,7 +1,7 @@
 From: admin@byob.mozilla.com
-Subject: [BYOB] Approval pending for <?=$repack->title?> 
+Subject: [BYOB] Approval pending for <?=$repack->display_title?> 
 
-A build pending approval for the browser <?=$repack->title?> is ready.
+A build pending approval for the browser <?=$repack->display_title?> is ready.
 
 <?=$repack->url() . "\n" ?>
 

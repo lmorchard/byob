@@ -143,6 +143,12 @@ body {
 #content form ul.fields li {
     margin-bottom: 0.25em;
 }
+#content form ul.fields li.radio .choices {
+    font-size: 0.90em;
+}
+#content form ul.fields li.radio .choices span {
+    padding-right: 1em;
+}
 #content form ul.fields li label {
     float: left;
     display: block;
