@@ -9,8 +9,14 @@ $column_title = (isset($model->table_column_titles) &&
 $h = html::escape_array(compact(
     'column_name', 'column_title', 'column_value', 'error_message'
 ));
+
+$classes = array();
+if ($is_error) 
+    $classes[] = 'error';
+if (empty($column_info['null']) || FALSE == $column_info['null'])
+    $classes[] = 'required';
 ?>
-<tr class="<?=$is_error?'error':''?>">
+<tr class="<?=join(' ', $classes)?>">
     <th><span><?=$h['column_title']?></span></th>
     <td>
         <?php if ($column_name == $model->primary_key): ?>

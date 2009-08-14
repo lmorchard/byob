@@ -87,3 +87,9 @@
     margin: 0;
     font-size: 0.8em;
 }
+.edit table tr.required th span:before {
+}
+.edit table tr.required th span:after {
+    content: " (required)";
+    font-weight: normal;
+}
