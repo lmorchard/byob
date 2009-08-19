@@ -24,8 +24,8 @@
 
                 <div id="header">
                     <div class="crumbs">
-                        <h1 class="title"><a href="<?=url::base()?>">mozilla byob</a></h1>
-                        <?= slot::get('crumbs') ?>&nbsp;
+                        <h1 class="title"><a href="<?=url::base()?>">build your own browser</a></h1>
+                        <!-- <?= slot::get('crumbs') ?>&nbsp; -->
                     </div>
                     <div class="sub">
                         <div class="auth">
@@ -34,28 +34,23 @@
                                     <li class="first"><a href="<?= url::base() . 'register' ?>">register</a></li>
                                     <li><a href="<?= url::base() . 'login' ?>">login</a></li>
                                 <?php else: ?>
-                                    <li class="first">logged in as <a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
+                                    <li class="first"><a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
-                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue</a> (<?=$approval_queue_count?>)</li>
+                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue (<?=$approval_queue_count?>)</a></li>
                                     <?php endif ?>
-                                    <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">settings</a></li>
+                                    <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">edit profile</a></li>
                                     <?php if (authprofiles::is_allowed('admin', 'index')): ?>
-                                        <li><a href="<?= url::base() . 'admin/' ?>">admin</a></li>
+                                        <li><a href="<?= url::base() . 'admin/' ?>">manage app</a></li>
                                     <?php endif ?>
                                     <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
                                 <?php endif; ?>
                             </ul>
                         </div>
-                        <?php if (authprofiles::is_allowed('search', 'search')): ?>
+                        <?php if (authprofiles::is_allowed('search', 'search_repacks')): ?>
                             <div class="search">
                                 <?=form::open('search', array('method'=>'get'))?>
+                                    <?=form::hidden('m', 'repack')?>
                                     <?=form::input('q', @$_GET['q'], ' size="30"') ?>
-                                    in <?=form::dropdown('m', array( 
-                                        //''=>'all', 
-                                        'repack'=>'browsers', 
-                                        'profile'=>'profiles'
-                                    ), @$_GET['m']) ?>
-                                    <input type="submit" value="search" />
                                 </form>
                             </div>
                         <?php endif ?>
@@ -82,6 +77,16 @@
         </div>
 
         <div id="footer">
+            <div class="content">
+                <div class="copyright">
+                    <p><strong>Copyright &copy; 2005 - 2009 Mozilla</strong></p>
+                    <p>All rights reserved</p>
+                </div>
+                <ul class="nav">
+                    <li class="first"><a href="#privacy">Privacy Policy</a></li>
+                    <li><a href="#legal">Legal Notices</a></li>
+                </ul>
+            </div>
         </div>
 
         <script type="text/javascript">
