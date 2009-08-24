@@ -42,7 +42,4 @@ foreach ($countries as $country) {
 }
 ?>
 <?= form::field('dropdown', 'country',   'Country', array('class'=>'required', 'options'=>$country_list), array(
-    "Please provide your current mailing address or, if you are ",
-    "representing an organization, your organization's mailing address ",
-    "here."
 ))?>

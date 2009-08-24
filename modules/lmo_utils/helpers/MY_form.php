@@ -79,7 +79,7 @@ class form extends form_Core
     {
         $out = array();
         if (!empty(self::$errors)) {
-            $out[] = '<ul class="errors highlight">';
+            $out[] = '<ul class="errors">';
             foreach (self::$errors as $field=>$error) {
                 $out[] = '<li class="'.html::specialchars($field, false).'">'.
                     html::specialchars($error, false).'</li>';

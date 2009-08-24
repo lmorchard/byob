@@ -32,7 +32,9 @@ a {
 a:hover {
     text-decoration: underline;
 }
-
+#content p {
+    line-height: 1.5em;
+}
 #footer {
     position: relative;
     /* negative value of footer height */
@@ -177,9 +179,9 @@ body {
 #content ul li {
 }
 #content form fieldset {
-    padding: 0.75em 1em; 
+    padding: 0.25em 1em; 
     margin: 0.25em;
-    border: 1px solid #aaa;
+    border: none;
 }
 #content form fieldset fieldset {
     padding: 0.25em; 
@@ -205,6 +207,9 @@ body {
     margin:  0;
 }
 #content form ul.fields li {
+/*
+    position: relative;
+*/
     margin-bottom: 0.25em;
 }
 #content form ul.fields li.radio .choices {
@@ -220,22 +225,34 @@ body {
     padding-top: 0.125em;
     font-size: 0.85em;
     margin-right: 1.5ex;
-    text-align: right;
+    text-align: left;
+}
+#content form ul.fields li label {
+    margin-left: 0em;
+}
+#content form ul.fields li label:after {
+    content: "\00a0*";
+    color: #5c92c4;
 }
 #content form ul.fields li.required label {
 }
-#content form ul.fields li.required label:before {
-    content: "*\00a0";
-    color: #f33;
+#content form ul.fields li.required label:after {
+    content: "";
+    margin-left: none;
 }
 #content form ul.fields li .required_note {
 }
 #content form ul.fields li .required_note span {
-    color: #f33;
+    color: #5c92c4;
+    font-size: 125%;
 }
 #content form ul li p.notes {
-    margin: 0 0 0 20ex;
-    font-size: 0.75em;
+    position: absolute;
+    font-size: 70%;
+    left: 560px;
+    width: 340px;
+    margin: -2.5em 0 0 0;
+    font-size: 0 0 0 0;
 }
 #content form ul.fields li.error label {
     color: #ff0000;
@@ -243,32 +260,28 @@ body {
 #content form ul.fields li.error input {
     background-color: #ffeeee;
 }
-.ctrl_auth_profiles_act_editprofile #content form ul.fields li label,
-.ctrl_auth_profiles_act_register #content form ul.fields li label {
-    width: 24ex;
-}
-.ctrl_auth_profiles_act_editprofile #content form ul.fields li .notes,
-.ctrl_auth_profiles_act_register #content form ul.fields li .notes {
-    margin: 0.5em 0 1em 30ex;
-    width: 40%;
-}
-.ctrl_auth_profiles_act_register #content form ul.fields li .recaptchatable #recaptcha_response_field {
-    position: inherit !important;
-    bottom: 0px !important;
-}
+
 #content form ul.fields li.text input, #content form ul.fields li.password input {
-    width: 50ex;
-    font-family: arial;
-    font-size: 0.85em;
-    padding: 0.125em;
+    background: #fff;
+    width: 40ex;
+    border: 1px solid #ccc;
+    font-family: Georgia;
+    font-size: 1em;
+    padding: 2px 0.25em;
 }
 #content form ul.fields li.textarea textarea {
+    background: #fff;
     width: 50ex;
     height: 15ex;
-    font-family: arial;
     font-size: 0.85em;
-    padding: 0.125em;
+    padding: 2px 0.125em;
 }
+
+#content form ul.fields li.text input:focus, #content form ul.fields li.password input:focus {
+    background: #daf0f7 url(../img/form-field-bg.jpg) repeat-x;
+}
+
+
 #content form fieldset.narrow-labels li label {
     width: 10ex;
 }
@@ -278,6 +291,73 @@ body {
     -webkit-border-radius: 5px;
     border-radius: 5px;
 }
+
+.ctrl_auth_profiles_act_register #content form.register {
+    width: 550px;
+}
+.ctrl_auth_profiles_act_register #content form.register .errors {
+    display: none;
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.login {
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.login legend {
+    color: #000;
+    font-size: 145%;
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.account legend {
+    color: #000;
+    font-size: 100%;
+    padding: 0 0 0.75em 0;
+}
+.ctrl_auth_profiles_act_register #content form.register .intro p {
+    font-size: 80%;
+    margin: 0 0 1em 0; 
+    padding: 0;
+}
+#content form ul.fields li.divider {
+    padding: 0 0 1em 0;
+    margin: 0 0 1em 0;
+    border-bottom: 1px solid #ccc;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label {
+
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label {
+    font-weight: bold;
+    width: 20ex;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label span {
+    font-weight: normal;
+}
+
+.ctrl_auth_profiles_act_editprofile #content form ul.fields li label {
+    width: 24ex;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li .recaptchatable #recaptcha_response_field {
+    position: inherit !important;
+    bottom: 0px !important;
+}
+
+.ctrl_auth_profiles_act_register #content form fieldset.finish {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid #ccc;
+}
+.ctrl_auth_profiles_act_register #content form fieldset.finish li.submit {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid #ccc;
+    height: 50px;
+}
+.ctrl_auth_profiles_act_register #content form fieldset.finish li.submit input {
+    position: absolute;
+    left: 450px;
+}
+
+.ctrl_auth_profiles_act_register #content form fieldset.finish legend {
+    display: none;
+}
+
 .ctrl_index_act_index #content .page_intro_content {
     background: transparent url(../img/home-page-intro-bg-strip.jpg) repeat top right;
     height: 320px;
@@ -474,7 +554,7 @@ body {
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status {
     float: right;
-    margin-right: 15px;
+    margin: 18px 15px 0 0 ;
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status span {
     display: block;
@@ -517,7 +597,7 @@ body {
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions {
     list-style: none;
-    margin: 0.125em 200px 0.5em 0;
+    margin: 0.125em 175px 0.5em 0;
     padding: 0 0 0 0;
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions li {
@@ -526,8 +606,10 @@ body {
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions li a {
     font-size: 75%;
+    width: 20ex;
+    text-align: center;
     display: block;
-    padding: 2px 4px;
+    padding: 4px 4px;
     background: #fff;
     border: 1px solid #4e849c;
     -moz-border-radius: 4px;

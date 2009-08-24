@@ -13,6 +13,10 @@
             'css/main.css', 
             // 'css/' . Router::$controller . '.css'
         ))?>
+        <!--[if IE]>
+        <?=html::stylesheet(array('css/ie.css'))?>
+        <![endif]-->
+
         <?= slot::get('head_end') ?>
     </head> 
 

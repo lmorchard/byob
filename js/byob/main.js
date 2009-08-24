@@ -11,8 +11,10 @@ BYOB_Main = function() {
          */
         init: function() {
 
+            /*
             $('.errors').effect('highlight', {color: '#ff9999'}, 4000, function() {
             });
+            */
 
             // Highlight the notification, then remove after a bit.
             $('.message').effect('highlight', {}, 3000, function() {

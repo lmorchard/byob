@@ -12,7 +12,10 @@ slot::start('login_details_intro');
     by an organization, you must use an email account using that organization's 
     domain name to ensure your submissions are approved.
     </p>
-    <p class="required_note"><span>*</span> = Required field</p>
+    <p class="required_note">
+        <strong>All fields are required</strong> 
+        except those marked with an asterisk <span>*</span>
+    </p>
 </div>
 <?php
 slot::end();
@@ -26,33 +29,32 @@ slot::start('account_details_intro');
     ways to contact you should the need arise. This information is used solely by 
     Mozilla, and will never be shared with or sold to anyone else.
     </p>
-    <p class="required_note"><span>*</span> = Required field</p>
 </div>
 <?php
 slot::end();
 
 echo form::build('register', array('class'=>'register'), array(
-    form::fieldset('Login Details', array('class'=>'login'), array(
+    form::fieldset('Register a new account', array('class'=>'login'), array(
         '<li>' . slot::get('login_details_intro') . '</li>',
-        form::field('input',    'login_name',       'Login name', array('class'=>'required'), array(
+        form::field('input',    'login_name',       'Login name', array('class'=>'divider login_name required'), array(
             "Enter the account name you will use to login to BYOB (4-12 ",
             "characters in length; alphanumeric, underscore, and hyphens only)"
         )),
         form::field('input',    'email',            'Email', array('class'=>'required'), array(
-        )),
-        form::field('input',    'email_confirm',    'Email (confirm)', array('class'=>'required'), array(
-            "Enter a vaild email address. Verification will be ",
+            "Verification will be ",
             "required before your account is activated. If you are ",
             "representing an organization, you must use an account with ",
             "that organization's domain name or your submissions may be ",
             "rejected."
         )),
-        form::field('password', 'password',         'Password', array('class'=>'required'), array(
+        form::field('input',    'email_confirm',    'Email <span>(confirm)</span>', array('class'=>'divider required'), array(
         )),
-        form::field('password', 'password_confirm', 'Password (confirm)', array('class'=>'required'), array(
-            "Enter your password here. Passwords must be a minimum ", 
+        form::field('password', 'password',         'Password', array('class'=>'password required'), array(
+            "Passwords must be a minimum ", 
             "of six characters in length. If you forget your password, reset ",
             "information will be sent to the email address above."
+        )),
+        form::field('password', 'password_confirm', 'Password <span>(confirm)</span>', array('class'=>'divider required'), array(
         )),
     )),
     form::fieldset('Account Details', array('class'=>'account'), array(
@@ -60,7 +62,7 @@ echo form::build('register', array('class'=>'register'), array(
         form::field('input',    'first_name',  'First Name', array('class'=>'required'), array(
             'Your given name.'
         )),
-        form::field('input',    'last_name',   'Last Name', array('class'=>'required'), array(
+        form::field('input',    'last_name',   'Last Name', array('class'=>'divider required'), array(
             'Your surname.'
         )),
 
@@ -85,21 +87,25 @@ echo form::build('register', array('class'=>'register'), array(
             'class'=>'required'
         )),
         form::field('input',    'org_type_other', '(other)'),
-        form::field('input',    'org_name',    'Organization Name', array('class'=>'required'), array(
+        form::field('input',    'org_name',    'Organization Name', array('class'=>'divider required'), array(
             "Please enter the full, legal name of the organization you represent here."
         )),
 
         form::field('input',    'phone',       'Phone', array('class'=>'required'), array(
             'Your daytime contact number, with country code (US/Canada is "1").'
         )),
-        form::field('input',    'fax',         'Fax', array(), array(
+        form::field('input',    'fax',         'Fax', array('class'=>'divider'), array(
             'Your fax number, with country code (US/Canada is "1")'
         )),
         form::field('input',    'website',     'Website', array(), array(
             'Please provide the URL for your organizational or personal website.'
         )),
 
-        form::field('input',    'address_1', 'Street Address 1', array('class'=>'required')),
+        form::field('input',    'address_1', 'Street Address 1', array('class'=>'required'),array(
+            "Please provide your current mailing address or, if you are ",
+            "representing an organization, your organization's mailing address ",
+            "here."
+        )),
         form::field('input',    'address_2', 'Street Address 2'),
         form::field('input',    'city',      'City', array('class'=>'required')),
         View::factory('auth_profiles/elements/states')->render(),
@@ -107,9 +113,9 @@ echo form::build('register', array('class'=>'register'), array(
         )),
         View::factory('auth_profiles/elements/countries')->render(),
     )),
-    form::fieldset('finish', array(), array(
+    form::fieldset('finish', array('class'=>'finish'), array(
         '<li class="required"><label for="recaptcha">Captcha</label><span>' . recaptcha::html() . '</span></li>',
-        form::field('submit', 'register', null, array('value'=>'Register')),
+        '<li class="required submit"><label class="hidden" for="register"/><input id="register" class="submit required" type="image" src="'.url::base().'/img/register-button.gif" alt="Register" name="register"/>',
     ))
 ));
 ?>
