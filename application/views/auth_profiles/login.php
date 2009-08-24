@@ -33,10 +33,10 @@
 form::build('login', array('class'=>'login'), array(
     form::field('hidden', 'jump', ''),
     slot::get('errors'),
-    form::fieldset('login details', array('class'=>'login'), array(
-        form::field('input',    'login_name',       'Login name'),
-        form::field('password', 'password',         'Password'),
-        form::field('submit',   'login',  null, array('value'=>'login')),
+    form::fieldset('Login', array('class'=>'login'), array(
+        form::field('input',    'login_name',       'Login name', array('class'=>'required')),
+        form::field('password', 'password',         'Password', array('class'=>'required')),
+        form::field('submit',   'login',  null, array('class'=>'required','value'=>'login')),
         html::anchor('/forgotpassword', 'Forgot password?'),
     ))
 )) 

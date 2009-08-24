@@ -11,10 +11,15 @@
     padding-bottom: 0.5em;
     margin-left: -0.5em;
 }
+.ctrl_repacks_act_edit #wizard .pane fieldset legend {
+    margin-left: -0.5em;
+}
 .ctrl_auth_profiles_act_register #content form.register fieldset.account legend {
     color: #000;
     font-size: 100%;
     padding: 0 0.5em 0.75em 0;
     margin-left: -0.5em;
 }
-
+.ctrl_repacks_act_edit #wizard .summary {
+    right: 21px;
+}

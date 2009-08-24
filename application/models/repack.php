@@ -59,11 +59,11 @@ class Repack_Model extends ManagedORM
     );
 
     public static $locale_choices = array(
-        'de' =>    'German',
-        'en-GB' => 'English (UK)',
         'en-US' => 'English (US)',
+        'en-GB' => 'English (UK)',
         'es-AR' => 'Spanish (Argentinia/Latin America)',
         'es-ES' => 'Spanish (Spain)',
+        'de' =>    'German',
         'fr' =>    'French',
         'ja' =>    'Japanese',
         'ru' =>    'Russian',
@@ -131,9 +131,6 @@ class Repack_Model extends ManagedORM
 
     public static $edit_sections = array(
         'general',
-        'locales',
-        'platforms',
-        'firstrun',
         'bookmarks',
         'addons',
         'persona',
@@ -160,15 +157,9 @@ class Repack_Model extends ManagedORM
             case 'general':
                 $data->add_rules('user_title', 'required', 'length[1,255]');
                 $data->add_rules('description', 'length[0,1000]');
-                break;
-            
-            case 'locales':
+                $data->add_rules('os', 'required', 'is_array');
                 $data->add_rules('locales', 'required', 'is_array');
                 $data->add_callbacks('locales', array($this, 'extractLocales'));
-                break;
-
-            case 'platforms':
-                $data->add_rules('os', 'required', 'is_array');
                 break;
 
             case 'bookmarks':
