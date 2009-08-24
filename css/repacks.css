@@ -1,0 +1,31 @@
+.ctrl_repacks #content .main_previews { 
+    padding: 0 0 20px 15px;
+}
+.ctrl_repacks #content .inprogress .main_previews { 
+    padding-left: 105px;
+}
+.ctrl_repacks #content .main_previews h4 {
+    font-size: 85%;
+    display: inline;
+}
+.ctrl_repacks #content .main_previews .previews {
+    display: inline;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    list-style: none;
+}
+.ctrl_repacks #content .main_previews .previews li {
+    display: inline;
+    font-size: 85%;
+    padding: 0 0 0 0.5em;
+}
+.ctrl_repacks #content .main_previews .previews li:before {
+    color: #333;
+    content: "\2219"; 
+    font-size: 130%;
+    padding: 0 0.5em 0 0;
+}
+.ctrl_repacks #content .main_previews .previews li.first:before {
+    content: "";
+    padding: 0 0 0 0;
+}

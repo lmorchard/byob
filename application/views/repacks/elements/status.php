@@ -3,18 +3,18 @@
  * Transform a repack's state into a text description.
  */
 $state_titles = array(
-    'new'        => 'Edit',
-    'edited'     => 'Edit',
-    'requested'  => 'Under review',
+    'new'        => null,
+    'edited'     => null,
+    'requested'  => 'Review requested',
     'pending'    => 'Under review',
     'approved'   => 'Download',
     'rejected'   => 'Changes requested',
-    'reverted'   => 'Edit',
-    'started'    => 'Under review',
-    'failed'     => 'Edit',
+    'reverted'   => null,
+    'started'    => 'Build started',
+    'failed'     => 'Build failed',
     'released'   => 'Download',
     'deleted'    => 'Deleted',
-    'cancelled'  => 'Edit',
+    'cancelled'  => null,
 );
 $state_name = $repack->getStateName();
 if (NULL == $state_name) $state_name = 'new';
@@ -31,5 +31,6 @@ $h = html::escape_array(array(
 <div class="status status-<?=$h['state']?>">
     <?php if (null !== $title): ?>
         <span><a href="<?=$h['url']?><?=('released'==$state_name)?'#download':''?>"><?=$h['title']?></a></span>
+        <h4>Current status</h4>
     <?php endif ?>
 </div>

@@ -2,17 +2,32 @@
 <?php slot::start('crumbs') ?>
     <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: view details
 <?php slot::end() ?>
+<?php
+    $h = html::escape_array(array_merge(
+        $repack->as_array(),
+        array(
+            'url'         => $repack->url(),
+            'modified'    => date('m/d/Y', strtotime($repack->modified)),
+            'screen_name' => $repack->profile->screen_name,
+        )
+    ));
+?>
 
-<?=View::factory('repacks/elements/details')
-    ->set('repack', $repack)->render()?>
-
-<div>
-    <h3>Status</h3>
+<div class="intro <?= ($repack->isRelease()) ? 'release' : 'inprogress' ?>">
     <?=View::factory('repacks/elements/status')
         ->set('repack', $repack)->render()?> 
+    <h2><?=$h['title']?></h2>
+    <div class="byline">
+        Created by 
+        <a href="<?=url::base()?>profiles/<?=$h['screen_name']?>"><?=$h['screen_name']?></a>
+        on <?=$h['modified']?>
+    </div>
+    <p class="description"><?=$h['description']?></p>
+    <?=View::factory('repacks/elements/actions')
+        ->set('repack', $repack)->render()?>
 </div>
 
-<?php if (!empty($changes)): ?>
+<?php if (false && !empty($changes)): ?>
 <div>
     <h3>Changes</h3>
     <?=View::factory('repacks/elements/changes')
@@ -20,20 +35,11 @@
 </div>
 <?php endif ?>
 
-<div>
-    <h3>Downloads</h3>
-    <?=View::factory('repacks/elements/downloads')
-        ->set('repack', $repack)->render()?> 
-</div>
-
-<div>
-    <h3>Actions</h3>
-    <?=View::factory('repacks/elements/actions')
-        ->set('repack', $repack)->render()?>
-</div>
+<?=View::factory('repacks/elements/downloads')
+    ->set('repack', $repack)->render()?> 
 
 <?php if (!empty($logevents)): ?>
-<div>
+<div id="history">
     <h3>History</h3>
     <?=View::factory('repacks/elements/history')
         ->set('logevents', $logevents)->render()?>

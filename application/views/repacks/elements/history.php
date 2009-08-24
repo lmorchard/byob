@@ -28,7 +28,7 @@
                  
             );
             $h = html::escape_array(array(
-                'when' => $event->created,
+                'when' => gmdate('m/d/Y h:i A', strtotime($event->created)),
                 'what' => $action_titles[$event->action],
                 'who'  => (null===$event->profile_id) ? 
                     null : $event->profile->screen_name,
@@ -41,13 +41,14 @@
                     null : $event->profile->screen_name,
             ));
         ?>
-        <li class="event">
-            <span class="summary">
-                <?=$h['when']?>: <?=$h['what']?> 
+        <li class="event clearfix">
+            <div class="when"><?=$h['when']?></div>
+            <p class="summary">
+                <?=$h['what']?> 
                 <?php if ($h['who']): ?>
                     by <a href="<?=url::base().'profiles/'.$u['who']?>"><?=$h['who']?></a>
                 <?php endif ?>
-            </span>
+            </p>
             <?php if ($h['why']): ?> 
                 <p class="comments"><?=$h['why']?></p>
             <?php endif ?>

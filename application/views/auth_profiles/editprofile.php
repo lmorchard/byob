@@ -84,9 +84,9 @@
             View::factory('auth_profiles/elements/countries')->render(),
         )),
         (!$profile->checkPrivilege('edit_roles')) ? '' :
-            form::fieldset('roles', array(), array( slot::get('roles') )),
-        form::fieldset('finish', array(), array(
-            form::field('submit', 'details', null, array('value'=>'Update')),
+            form::fieldset('Roles', array(), array( slot::get('roles') )),
+        form::fieldset('finish', array('class'=>'finish'), array(
+            form::field('submit', 'details', null, array('class'=>'required','value'=>'Update')),
         ))
     ));
 ?>

@@ -1,0 +1,57 @@
+/**
+ * Styles for profile registration
+ */
+.ctrl_auth_profiles_act_register #content form.register {
+    width: 550px;
+}
+.ctrl_auth_profiles_act_register #content form.register .errors {
+    display: none;
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.login {
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.login legend {
+    color: #000;
+    font-size: 145%;
+}
+.ctrl_auth_profiles_act_register #content form.register fieldset.account legend {
+    color: #000;
+    font-size: 100%;
+    padding: 0 0 0.75em 0;
+}
+.ctrl_auth_profiles_act_register #content form.register .intro p {
+    font-size: 80%;
+    margin: 0 0 1em 0; 
+    padding: 0;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label {
+
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label {
+    font-weight: bold;
+    width: 20ex;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li label span {
+    font-weight: normal;
+}
+
+
+.ctrl_auth_profiles_act_register #content form ul.fields li .recaptchatable #recaptcha_response_field {
+    position: inherit !important;
+    bottom: 0px !important;
+}
+
+.ctrl_auth_profiles_act_register #content form fieldset.finish {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid #ccc;
+}
+.ctrl_auth_profiles_act_register #content form fieldset.finish li.submit {
+    padding-top: 1em;
+    margin-top: 1em;
+    border-top: 1px solid #ccc;
+    height: 50px;
+}
+.ctrl_auth_profiles_act_register #content form fieldset.finish li.submit input {
+    position: absolute;
+    left: 450px;
+}

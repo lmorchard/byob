@@ -1,0 +1,111 @@
+/**
+ * Styles for home page.
+ */
+.ctrl_index_act_index #content .page_intro {
+    border: 5px solid #e7f5fa;
+    -moz-border-radius: 5px;
+    -webkit-border-radius: 5px;
+    border-radius: 5px;
+}
+.ctrl_index_act_index #content .page_intro_content {
+    background: transparent url(../img/home-page-intro-bg-strip.jpg) repeat top right;
+    height: 320px;
+    position:relative;        
+}
+.ctrl_index_act_index #content .page_intro_content h3 {
+    padding: 20px 0 0 21px;
+}
+.ctrl_index_act_index #content .page_intro_content h3 span {
+    display: block;
+    background: transparent url(../img/customize-firefox.gif) no-repeat top left;
+    height: 47px;
+    width: 440px;
+    text-indent:-460px;
+    overflow: hidden;
+}
+.ctrl_index_act_index #content .page_intro_content img.screenshot {
+    position: absolute;
+    bottom: 0px; right: 0px;
+}
+.ctrl_index_act_index #content .page_intro_content h4.get_started {
+    position: absolute;
+    bottom: 32px;
+    right: 455px;
+}
+.ctrl_index_act_index #content .page_intro_content h4.get_started a {
+    display: block;
+    background: transparent url(../img/get-started-button.gif) no-repeat top left;
+    height: 42px;
+    width: 155px;
+    text-indent:-155px;
+    overflow: hidden;
+}
+.ctrl_index_act_index #content .page_intro_content p {
+    margin:0 450px 0 0;
+    padding:12px 12px 0 21px;
+}
+.ctrl_index_act_index #content .recent_browsers {
+}
+.ctrl_index_act_index #content .recent_browsers .header {
+}
+.ctrl_index_act_index #content .recent_browsers .header h3 {
+    background: transparent url(../img/recently-created-browsers.gif) no-repeat top left;
+    height: 20px;
+    width: 231px;
+    text-indent:231px;
+    overflow: hidden;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers {
+    list-style: none;
+    margin: 0; padding: 0 14px 0 14px;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser {
+    margin: 0 0 0 0; 
+    padding: 0 0 21px 0;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 {
+    margin: 0 0 0 0; 
+    padding: 0 0 0 0;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 a {
+    text-decoration: none;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta {
+    margin: 0 0 0 0; 
+    padding: 0 0 0.5em 0;
+    font-size: 80%;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .byline {
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .byline a {
+    text-decoration: none;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .modified {
+    padding-left: 1em;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .description {
+    position: relative;
+    padding: 0 0 0 0;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h5.download {
+    float: right;
+    margin-top: -1em;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h5.download a {
+    text-decoration: none;
+    display: block;
+    background: transparent url(../img/download-button.gif) no-repeat top left;
+    height: 26px;
+    width: 92px;
+    text-indent:-92px;
+    overflow: hidden;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .description p {
+    margin: 0 110px 0 0; 
+    font-size: 90%;
+}
+.ctrl_index_act_index #content .recent_browsers .footer {
+}
+.ctrl_index_act_index #content .recent_browsers .header .inner {
+}
+

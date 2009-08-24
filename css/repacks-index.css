@@ -1,0 +1,156 @@
+.ctrl_repacks_act_index #content .intro h2 {
+    font-weight: normal;
+    font-size: 120%;
+    margin: 0 0 0 0.5em;
+    padding: 0;
+}
+.ctrl_repacks_act_index #content .white_box_sidebar {
+    width: 180px;
+}
+.ctrl_repacks_act_index #content .white_box_sidebar h3 {
+    font-size: 90%;
+    margin: 8px 0 12px 10px; 
+}
+.ctrl_repacks_act_index #content .white_box_sidebar h3 a {
+    color: #000;
+}
+.ctrl_repacks_act_index #content .white_box_sidebar ul.profile_actions {
+    list-style: none;
+    margin: 0 0 22px 10px; 
+    padding: 0;
+}
+.ctrl_repacks_act_index #content .white_box_sidebar ul.profile_actions li {
+    font-size: 80%;
+    padding: 0 0 0.25em 0;
+}
+.ctrl_repacks_act_index #content .white_box_sidebar ul.profile_actions li a {
+
+}
+.ctrl_repacks_act_index #content .white_box {
+    margin-right: 210px;
+}
+.ctrl_repacks_act_index #content .white_box .header {
+}
+.ctrl_repacks_act_index #content .white_box .header h3 {
+    font-weight: normal;
+    color: #26596d;
+}
+.ctrl_repacks_act_index #content .intro form {
+    margin: 0.75em 0 0 0.125em;
+    padding: 0;
+}
+.ctrl_repacks_act_index #content .intro form #confirm {
+    cursor: pointer;
+}
+.ctrl_repacks_act_index #content .browsers {
+    list-style: none;
+    margin: 0 0 14px 14px;
+    padding: 0 0 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser {
+    margin: 0 0 1.5em 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .title {
+    font-size: 120%;
+}
+.ctrl_repacks_act_index #content .browsers .browser .title a {
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch {
+    padding: 0.25em 0 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status {
+    float: right;
+    margin: -24px 15px 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status h4 {
+    display: none;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status span {
+    display: block;
+    border: 1px solid #ddd;
+    background-color: #ddd;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status span a {
+    display: block;
+    color: black;
+
+    font-size: 85%;
+    padding: 0.25em 1em;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status span a:hover {
+    text-decoration: none;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-released span {
+    border-color: #faea90;
+    background-color: #faea90;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-rejected span {
+    border-color: #c85a5a;
+    background-color: #c85a5a;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-rejected span a {
+    color: #fff;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .meta {
+    margin: 0.25em 0 0 0;
+    font-size: 80%;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .meta .kind {
+    font-weight: bold;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .meta .modified {
+    padding-left: 1em;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .main_actions {
+
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .main_actions h3 {
+    display: none;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .main_previews {
+    padding: 0 0 0.25em 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .main_previews h4 {
+    font-size: 85%;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .main_previews .previews {
+    font-size: 90%;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions {
+    list-style: none;
+    margin: 0.125em 175px 0.5em 0;
+    padding: 0 0 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions li {
+    float: left;
+    margin: 0.25em 0.25em 0 0;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions li a {
+    font-size: 75%;
+    width: 20ex;
+    text-align: center;
+    display: block;
+    padding: 4px 4px;
+    background: #fff;
+    border: 1px solid #4e849c;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background: #4e849c;
+    color: #fff;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .actions li a:hover {
+    text-decoration: none;
+    background: #fff;
+    color: #4e849c;
+}

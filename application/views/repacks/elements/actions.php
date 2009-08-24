@@ -11,6 +11,12 @@ $privs = $repack->checkPrivileges(array(
     'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
 ));
 $actions = array();
+$previews = array();
+
+/*
+if ($privs['view'])
+    $actions['/'] = "View details";
+ */
 
 if ($repack->isRelease()) { 
 
@@ -20,9 +26,6 @@ if ($repack->isRelease()) {
         $actions[';revert'] = "Take down release";
 
 } else { 
-
-    if ($privs['edit'])
-        $actions[';edit'] = "Continue editing";
 
     if ($repack->isPendingApproval()) { 
 
@@ -36,6 +39,8 @@ if ($repack->isRelease()) {
     } else { 
 
         if (!$repack->isLockedForChanges()) { 
+            if ($privs['edit'])
+                $actions[';edit'] = "Continue editing";
             if ($privs['delete'])
                 $actions[';delete'] = "Abandon changes";
             if ($privs['release']) { 
@@ -58,18 +63,39 @@ if ($repack->isRelease()) {
     } 
 }
 
-$actions['/firstrun'] = "Preview first-run page";
+$previews['/firstrun'] = "First-run page";
 
 if ($privs['distributionini']) 
-    $actions['/distribution.ini'] = "Preview distribution.ini";
+    $previews['/distribution.ini'] = "distribution.ini";
 if ($privs['repackcfg'])
-    $actions['/repack.cfg'] = "Preview repack.cfg";
+    $previews['/repack.cfg'] = "repack.cfg";
 if ($privs['repacklog'])
-    $actions['/repack.log'] = "View repack.log";
+    $previews['/repack.log'] = "repack.log";
 
 ?>
-<ul class="actions clearfix">
-    <?php foreach ($actions as $url=>$title): ?>
-        <li><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
-    <?php endforeach ?>
-</ul>
+<?php if (!empty($actions)): ?>
+<div class="main_actions">
+    <?php if ($repack->isRelease()): ?>
+        <h3>Current release</h3>
+    <?php else: ?>
+        <h3>In-progress changes to current release</h3>
+    <?php endif ?>
+    <ul class="actions clearfix">
+        <?php foreach ($actions as $url=>$title): ?>
+            <li><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
+        <?php endforeach ?>
+    </ul>
+</div>
+<?php endif ?>
+<?php if (!empty($previews)): ?>
+<div class="main_previews clearfix">
+    <h4>Preview:</h4>
+    <ul class="previews">
+        <?php $first = true; ?>
+        <?php foreach ($previews as $url=>$title): ?>
+            <li<?=($first)?' class="first"':''?>><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
+            <?php if ($first) $first = false; ?>
+        <?php endforeach ?>
+    </ul>
+</div>
+<?php endif ?>

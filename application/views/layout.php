@@ -1,6 +1,7 @@
 <?php
     $screen_name = authprofiles::get_profile('screen_name');
     $u_screen_name = rawurlencode($screen_name);
+    $page_id = Router::$controller . '_' . Router::$method;
 ?>
 <html> 
 
@@ -11,7 +12,8 @@
 
         <?=html::stylesheet(array(
             'css/main.css', 
-            // 'css/' . Router::$controller . '.css'
+            "css/".Router::$controller.".css",
+            "css/".Router::$controller."-".Router::$method.".css",
         ))?>
         <!--[if IE]>
         <?=html::stylesheet(array('css/ie.css'))?>
@@ -42,7 +44,9 @@
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
                                         <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue (<?=$approval_queue_count?>)</a></li>
                                     <?php endif ?>
-                                    <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">edit profile</a></li>
+                                    <!--
+                                        <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">edit profile</a></li>
+                                    -->
                                     <?php if (authprofiles::is_allowed('admin', 'index')): ?>
                                         <li><a href="<?= url::base() . 'admin/' ?>">manage app</a></li>
                                     <?php endif ?>

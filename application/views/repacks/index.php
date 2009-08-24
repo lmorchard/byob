@@ -23,10 +23,10 @@
 <div class="white_box_sidebar">
     <?php $settings_url = url::base() . "profiles/{$profile->screen_name}/settings/basics/"; ?>
     <h3><a href="<?=$settings_url?>">Account settings</a></h3>
-    <ul class="actions">
+    <ul class="profile_actions">
         <li><a href="<?=$settings_url . 'changepassword'?>">Change login password</a></li>
         <li><a href="<?=$settings_url . 'changeemail'?>">Change login email</a></li>
-        <li><a href="<?=$settings_url . 'changeemail'?>">Edit profile details</a></li>
+        <li><a href="<?=$settings_url . 'details'?>">Edit profile details</a></li>
     </ul>
 </div>
 <?php endif ?>
@@ -56,7 +56,7 @@
             ?>
             <li class="browser">
 
-                <h4 class="title"><a href="<?=$h_url?>"><?=$h_title?></a></h4>
+                <h4 class="title"><?=$h_title?></h4>
 
                 <ul class="branches">
 
@@ -78,7 +78,7 @@
                             <?=View::factory('repacks/elements/status')
                                 ->set('repack', $repack)->render()?> 
                             <div class="meta">
-                                <span class="kind"><?=$h['kind']?></span>
+                                <a href="<?=$repack->url()?>" class="kind"><?=$h['kind']?></a>
                                 <span class="modified">Last modified <em><?=$h['modified']?></em></span>
                             </div>
                             <?=View::factory('repacks/elements/actions')

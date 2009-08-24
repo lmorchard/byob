@@ -1,0 +1,11 @@
+/**
+ * Styles for profile editing
+ */
+.ctrl_auth_profiles_act_editprofile #content form.details fieldset legend {
+    color: #000000;
+    font-size: 145%;
+    padding: 0 0 0.25em 0;
+}
+.ctrl_auth_profiles_act_editprofile #content form ul.fields li label {
+    width: 24ex;
+}

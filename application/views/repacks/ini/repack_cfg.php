@@ -3,7 +3,11 @@ $r = $repack;
 $dist_id = "byob-{$r->profile->screen_name}-{$r->short_name}";
 $aus     = $dist_id;
 $version = $repack->version;
-$locales = join(' ', $repack->locales);
+$locales = $repack->locales;
+if (in_array('ja', $locales)) {
+    $locales[] = 'ja-JP-mac';
+}
+$locales = join(' ', $locales);
 
 $os = array(
     'linux' => 'false',
