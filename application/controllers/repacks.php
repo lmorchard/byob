@@ -230,7 +230,7 @@ class Repacks_Controller extends Local_Controller
         }
 
         // Is the user allowed to download it?
-        if ($repack->checkPrivilege('download')) 
+        if (!$repack->checkPrivilege('download')) 
             return Event::run('system.403');
 
         // Build a full path to the downloadable file.
