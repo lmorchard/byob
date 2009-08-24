@@ -1,39 +1,31 @@
 <div class="intro">
-    <p>You can choose for what locales your browser will be localized.</p>
-
-    <p>Based on your current browser's language preferences, some selections may
-    have already been provided.</p>
+    <p>
+        Mozilla Firefox has been localized 
+        <a target="_new" href="http://mozilla.com/firefox/all.html" 
+            title="All versions of Firefox">for many languages</a>, 
+        and it is our intent for BYOB to eventually support all of 
+        them. For this version of BYOB, you can specify up to ten (10) 
+        locales.
+    </p>
 </div>
 <div class="pane">
-    <div>
-        <?php
-            $locales = form::value('locales');
-            $locale_choices = Repack_Model::$locale_choices;
-        ?>
-        <ul class="locales">
-            <?php if (!empty($locales)) foreach ($locales as $locale): ?>
-                <li class="locale">
-                    <input type="hidden" name="locales[]" value="<?= html::specialchars($locale) ?>" />
-                    <a href="#" class="delete">[x]</a>
-                    <span>
-                        <?= html::specialchars( @$locale_choices[$locale] ) ?>
-                    </span>
-                </li>
-            <?php endforeach ?>
-            <li class="locale template">
-                <input type="hidden" name="locales[]" value="" />
-                <a href="#" class="delete">[x]</a>
-                <span></span>
-            </li>
-        </ul>
-        <div class="locales-add">
-            <select name="locale_choices">
-                <?php foreach ($locale_choices as $locale=>$label): ?>
-                    <option value="<?= html::specialchars($locale) ?>"><?= html::specialchars($label) ?></option>
-                <?php endforeach ?>
-            </select>
-            <a href="#" class="add">+ add locale</a>
-        </div>
 
+    <div>
+        <fieldset><legend>Locales</legend>
+
+            <?php
+                $locales = form::value('locales');
+                $locale_choices = Repack_Model::$locale_choices;
+            ?>
+            <ul class="repack-locale clearfix">
+                <?php foreach ($locale_choices as $locale=>$label): ?>
+                    <li>
+                        <?= form::checkbox("locales[]", $locale, in_array($locale, $locales)) ?>
+                        <?= html::specialchars($label) ?>
+                    </li>
+                <?php endforeach ?>
+            </ul>
+        </fieldset>
     </div>
+
 </div>

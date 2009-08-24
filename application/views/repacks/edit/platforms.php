@@ -1,16 +1,29 @@
 <div class="intro">
-    <p>You can choose the operating systems for which your browser
-    will be made available.</p>
+    <p>
+        Mozilla Firefox is available for the 
+        <a href="http://www.mozilla.com/firefox/system-requirements.html" 
+            target="_new"
+            title="Firefox System Requirements">Linux, Apple OSX, and
+             Windows</a> family of operating systems. BYOB will 
+        generate your customized version of Firefox for all three 
+        platforms by default, and we encourage making 
+        all platforms available to your target audience. 
+    </p>
+    <p>
+        If, however, you only want to distribute a version for a 
+        certain platform(s), you can deselect the platforms you don't 
+        need below, and they won't be generated when you submit your 
+        distribution for approval.
+    </p>
 </div>
 <div class="pane">
     <div>
+        <fieldset><legend>Platforms</legend>
 
-        <div>
             <?php
                 $osen = form::value('os');
                 if (empty($osen)) $osen = array();
             ?>
-            <label for="os[]">Operating Systems:</label>
             <ul class="repack-os">
                 <?php foreach (Repack_Model::$os_choices as $name=>$label): ?>
                     <li>
@@ -19,7 +32,6 @@
                     </li>
                 <?php endforeach ?>
             </ul>
-        </div>
-
+        </fieldset>
     </div>
 </div>

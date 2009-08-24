@@ -15,7 +15,10 @@ if (empty($addons_selected)) $addons_selected = array();
     ?>
     <li class="addon">
         <?= form::checkbox("addons[]", $addon->id, $selected) ?>
-        <img src="<?=$h['icon']?>" /> <?=$h['name']?>
+        <span class="title">
+            <img src="<?=$h['icon']?>" />
+            <span><?=$h['name']?></span>
+        </span>
         <p><?=$h['summary']?></p>
     </li>
 <?php endforeach ?></ul>

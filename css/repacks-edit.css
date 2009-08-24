@@ -117,7 +117,7 @@
 .ctrl_repacks_act_edit #wizard .section_content .intro {
     font-size: 0.85em;
     margin: 0 0 0 0;
-    padding: 1.25em 1.25em 1.25em 1.25em;
+    padding: 1em 1.25em 0.25em 1.25em;
     background: #edf5f9;
     color: #333;
     background: #edf5f9;
@@ -126,7 +126,7 @@
     border-radius-topright: 8px;
 }
 .ctrl_repacks_act_edit #wizard .section_content .intro p {
-    padding: 0 0 0 0;
+    padding: 0 0 1em 0;
     margin: 0 0 0 0;
 }
 .ctrl_repacks_act_edit #wizard .pane {
@@ -218,3 +218,26 @@
     display: none;
 }
 
+.ctrl_repacks_act_edit #wizard .pane fieldset ul.repack-addons {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 0 0 0 2em;
+}
+#content ul.repack-addons li.addon {
+    margin: 0 0 0 0;
+    padding: 1em 0 0 0;
+}
+#content ul.repack-addons li.addon input {
+    padding: 0.5em;
+}
+#content ul.repack-addons li.addon .title {
+    font-size: 120%;
+    font-weight: bold;
+    padding: 0 0 0 1em;
+}
+#content ul.repack-addons li.addon .title img {
+    padding: 0 0.5em 0 0;
+}
+#content ul.repack-addons li.addon p {
+    margin: 0.5em 0 1em 1em;
+}

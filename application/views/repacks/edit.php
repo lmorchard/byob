@@ -1,6 +1,8 @@
 <?php
     $sections = array(
         'general'     => 'General',
+        'locales'     => 'Locales',
+        'platforms'   => 'Platforms',
         'persona'     => 'Personas',
         'bookmarks'   => 'Bookmarks',
         'collections' => 'Add-On Collections',

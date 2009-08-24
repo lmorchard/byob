@@ -131,6 +131,8 @@ class Repack_Model extends ManagedORM
 
     public static $edit_sections = array(
         'general',
+        'locales',
+        'platforms',
         'bookmarks',
         'addons',
         'persona',
@@ -157,7 +159,13 @@ class Repack_Model extends ManagedORM
             case 'general':
                 $data->add_rules('user_title', 'required', 'length[1,255]');
                 $data->add_rules('description', 'length[0,1000]');
+                break;
+
+            case 'platforms':
                 $data->add_rules('os', 'required', 'is_array');
+                break;
+
+            case 'locales':
                 $data->add_rules('locales', 'required', 'is_array');
                 $data->add_callbacks('locales', array($this, 'extractLocales'));
                 break;
