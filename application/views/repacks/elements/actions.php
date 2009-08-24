@@ -68,7 +68,7 @@ if ($privs['repacklog'])
     $actions['/repack.log'] = "View repack.log";
 
 ?>
-<ul class="actions">
+<ul class="actions clearfix">
     <?php foreach ($actions as $url=>$title): ?>
         <li><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
     <?php endforeach ?>

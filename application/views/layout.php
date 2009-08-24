@@ -6,7 +6,7 @@
 
     <head>  
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-        <title>byob :: <?= slot::get('head_title') ?></title>
+        <title>build your own browser :: <?= slot::get('head_title') ?></title>
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
         <?=html::stylesheet(array(

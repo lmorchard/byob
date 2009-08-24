@@ -53,7 +53,7 @@
         width="160" height="280" /></a>
 </div>
 
-<div class="recent_browsers">
+<div class="recent_browsers white_box">
     <div class="header"><h3>Recently created browsers</h3></div>
 
     <ul class="browsers">
