@@ -80,12 +80,12 @@ class Repack_Model extends ManagedORM
         'normal' => array(
             'title'       => 'Title',
             'location'    => 'Website URL',
-            'description' => 'Description'
+            'description' => 'Description',
         ),
         'live' => array(
             'title'       => 'Title',
+            'feed'        => 'Feed URL',
             'location'    => 'Website URL',
-            'feed'        => 'Feed URL'
         )
     );
 
