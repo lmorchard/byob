@@ -1,17 +1,26 @@
 <?php
-$display = array(
-    //'short_name' => 'Short Name',
-    'display_title' => 'Title',
-    'description' => 'Description'
-);
+    $h = html::escape_array(array_merge(
+        $repack->as_array(),
+        array(
+            'url'         => $repack->url(),
+            'modified'    => date('m/d/Y', strtotime($repack->modified)),
+            'screen_name' => $repack->profile->screen_name,
+        )
+    ));
 ?>
-<div>
-    <h3>Details</h3>
-    <dl>
-        <?php foreach ($display as $name => $label): ?>
-            <?php if (empty($repack->{$name})) continue ?>
-            <dt><?= html::specialchars($label) ?></dt>
-                <dd><?= html::specialchars($repack->{$name}) ?></dd>
-        <?php endforeach ?>
-    </dl>
+
+<div class="details <?= ($repack->isRelease()) ? 'release' : 'inprogress' ?>">
+    <?=View::factory('repacks/elements/status')
+        ->set('repack', $repack)->render()?> 
+    <h2><?=$h['title']?></h2>
+    <div class="byline">
+        Created by 
+        <a href="<?=url::base()?>profiles/<?=$h['screen_name']?>"><?=$h['screen_name']?></a>
+        on <?=$h['modified']?>
+    </div>
+    <p class="description"><?=$h['description']?></p>
+    <?php if (!isset($hide_actions) || (!$hide_actions)): ?>
+        <?=View::factory('repacks/elements/actions')
+            ->set('repack', $repack)->render()?>
+    <?php endif ?>
 </div>

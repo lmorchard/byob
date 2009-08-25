@@ -86,8 +86,17 @@ a img {
 /* End hide from IE-mac */
 
 body {
-    font-family: arial; 
+    font-family: helvetica, arial; 
     background: #fff url(../img/bg.jpg) repeat-x;
+}
+
+#simplemodal-overlay {background-color:#000;}
+#simplemodal-container {
+    background-color: #333; 
+    border: none; 
+    padding: 0px;
+    width: 580px;
+    height: 550px;
 }
 
 #header { 
@@ -130,6 +139,7 @@ body {
 }
 #header .nav li:before {
     color: #fff;
+    font-size: 85%;
     content: "\2219"; 
 }
 #header .nav li a {
@@ -196,8 +206,8 @@ body {
     margin: 0.25em;
 }
 #content form fieldset legend {
-    font-size: 0.75em;
-    color: #666;
+    font-size: 145%;
+    color: #000;
 }
 #content form fieldset.finish legend {
     display: none;
@@ -390,91 +400,119 @@ body {
     font-size: 0.85em;
 }
 
-#content ul.bookmarks {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 1em;
+#content .details {
+    position: relative;
 }
-#content ul.bookmarks .bookmark {
-    display: inline-block;
-    width: 90%;
+#content .details,
+#content #downloads,
+#content #history {
+    margin-left: 21px;
+    margin-right: 200px;
 }
-#content ul.bookmarks .bookmark table {
-    float: left;
-    width: 92%;
+#content .details h2 {
+    font-size: 150%;
+    font-weight: normal;
+    margin: 0 0 0.125em 0;
+    padding: 0 0 0 0;
+}
+#content .details .main_actions {
+    border: 1px solid #ccc;
+    background: #fff;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+    padding: 8px 8px 8px 8px;
+    margin: 8px 0 8px 0;
+}
+#content .inprogress .main_actions {
+    border: 1px solid #fce440;
+    padding-left: 100px;
+    background: #f9f2c3 url(../img/repacks/actions-warning.gif) no-repeat 28px 10px;
+}
+#content .details .main_actions h3 {
     margin: 0 0 0 0;
+    padding: 0 4px 0 4px;
+    font-weight: bold;
+    font-size: 80%;
 }
-#content ul.bookmarks .bookmark table tr {
+#content .details .main_actions .actions {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 4px 4px 4px 4px;
 }
-#content ul.bookmarks .bookmark table tr th {
-    text-align: left;
-    padding-top: 0;
+#content .details .actions li {
+    float: left;
+    margin: 0.25em 0.25em 0 0;
 }
-#content ul.bookmarks .bookmark table tr th span {
+#content .details .actions li a {
+    font-size: 85%;
+    text-align: center;
     display: block;
-    padding: 0.125em 0.5em;
-    margin: 0 0.25em 0 0;
-    border-bottom: 1px solid #aaa;
-    font-size: 0.75em;
-    background-color: #ddd;
+    padding: 2px 6px;
+    background: #fff;
+    border: 1px solid #4e849c;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+    background: #4e849c;
+    color: #fff;
 }
-#content ul.bookmarks .bookmark table tr td {
-}
-#content ul.bookmarks .bookmark table tr td span {
-    display: block;
-    margin: 0 0.25em 0 0;
-}
-#content ul.bookmarks .bookmark table tr td span input {
-    width: 100%;
+#content .details .actions li a:hover {
+    text-decoration: none;
+    background: #fff;
+    color: #4e849c;
 }
 
-#content ul.bookmarks .bookmark span.type {
-    padding: 0;
-    margin: 0;
+#content .details .byline {
+}
+#content .details .byline a {
+    font-weight: bold;
+}
+#content .details p {
+    margin: 0.25em 0 0.25em 0;
+    padding: 0.25em 0 0.25em 0;
+    font-size: 0.90em;
+}
+#content .details .status {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+#content .details .status h4 {
+    font-size: 75%;
+    text-align: center;
+}
+#content .details .status span {
     display: block;
-    float: left;
-    width: 16px;
-    text-indent: 16px;
-    height: 16px;
-    overflow: hidden;
-    background: transparent url(../img/pageStarred.png) no-repeat top left;
+    font-size: 80%;
+    padding: 2px 10px 2px 10px;
+    border: 1px solid #333;
+    background-color: #ddd;
+    -moz-border-radius: 4px;
+    -webkit-border-radius: 4px;
+    border-radius: 4px;
+    white-space: nowrap;
+    text-align: center;
 }
-#content ul.bookmarks .bookmark span.normal {
-    background-image: url(../img/pageStarred.png);
+#content .details .status span a {
+    text-decoration: none;
 }
-#content ul.bookmarks .bookmark span.live {
-    background-image: url(../img/livemark-item.png);
+#content .details .status-released span {
+    border-color: #faea90;
+    background-color: #faea90;
 }
-#content ul.bookmarks .bookmark a.delete {
-    float: left;
-    display: block;
-    width: 16px;
-    text-indent: 16px;
-    height: 16px;
-    overflow: hidden;
-    background: transparent url(../img/Info.png) no-repeat top left;
+#content .details .status-released span a {
+    color: #000;
 }
-#content ul.bookmarks .bookmark table th span.error {
-    color: #ff0000;
-    background-color: #edd;
+#content .details .status-failed span,
+#content .details .status-rejected span {
+    border-color: #c85a5a;
+    background-color: #c85a5a;
 }
-#content ul.bookmarks table td span.error {
-}
-#content ul.bookmarks table td span.error input {
-    background-color: #ffeeee;
-}
-#content .bookmark-add {
-    margin: 0.75em 0;
-}
-#content .bookmark-add a.add {
-    padding-left: 18px;
-    background: transparent url(../img/../img/pageStarred.png) no-repeat top left;
-}
-#content .bookmark-add-normal a.add {
-    background-image: url(../img/pageStarred.png);
-}
-#content .bookmark-add-live a.add {
-    background-image: url(../img/livemark-item.png);
+#content .details .status-rejected span a,
+#content .details .status-failed span a {
+    color: #fff;
 }
 
 .search-results table {

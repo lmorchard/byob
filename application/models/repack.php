@@ -54,7 +54,7 @@ class Repack_Model extends ManagedORM
 
     public static $os_choices = array(
         'win'   => 'Windows',
-        'mac'   => 'Macintosh',
+        'mac'   => 'Mac OS X',
         'linux' => 'Linux'
     );
 

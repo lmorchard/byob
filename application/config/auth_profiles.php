@@ -33,7 +33,7 @@ $config['acls'] = $acls
     // Search privileges
     ->add(new Zend_Acl_Resource('search'))
     ->allow('guest', 'search', array(
-        'search_repacks'
+        'search_repack'
     ))
     ->allow('editor', 'search', array(
         'search', 'approvalqueue'

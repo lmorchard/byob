@@ -11,6 +11,7 @@
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
         <?=html::stylesheet(array(
+            'css/thickbox.css', 
             'css/main.css', 
             "css/".Router::$controller.".css",
             "css/".Router::$controller."-".Router::$method.".css",
@@ -26,8 +27,12 @@
             class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?>">
 
         <div id="wrap" class="<?= (slot::exists('sidebar') != '') ? 'with_sidebar' : '' ?>">
+            <?php if (slot::get('is_popup')): ?>
+                <div id="main" class="clearfix">
+                    <div class="popup"><?= $content ?></div>
+                </div>
+            <?php else: ?>
             <div id="main" class="clearfix">
-
                 <div id="header">
                     <div class="crumbs">
                         <h1 class="title"><a href="<?=url::base()?>">build your own browser</a></h1>
@@ -54,7 +59,8 @@
                                 <?php endif; ?>
                             </ul>
                         </div>
-                        <?php if (authprofiles::is_allowed('search', 'search_repacks')): ?>
+                        <?php if (authprofiles::is_allowed('search', 'search') || 
+                                  authprofiles::is_allowed('search', 'search_repack')): ?>
                             <div class="search">
                                 <?=form::open('search', array('method'=>'get'))?>
                                     <?=form::hidden('m', 'repack')?>
@@ -96,6 +102,7 @@
                 </ul>
             </div>
         </div>
+        <?php endif ?>
 
         <script type="text/javascript">
             if (typeof window.BYOB == 'undefined') window.BYOB = {};
@@ -112,9 +119,14 @@
             'js/jquery-1.3.2.min.js',
             'js/jquery-ui-1.7.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',
+            'js/jquery.simplemodal-1.3.min.js',
             'js/byob/main.js',
             //'js/byob/'.Router::$controller.'.js'
         ))?>
+
+        <script type="text/javascript">
+            var tb_pathToImage = "<?=url::base()?>img/loadingAnimation.gif";
+        </script>
 
         <?=slot::get('body_end')?>
     </body>

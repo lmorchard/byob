@@ -29,12 +29,12 @@ BYOB_Main = function() {
 
             $('.ctrl_repacks_act_edit').each(function() {
                 // Wire up the UI for the repack editing page.
+                $('.save_buttons').hide();
+                $this.wireUpSaveAndConfirm();
                 $this.wireUpRepackBookmarks();
                 $this.wireUpRepackLocales();
                 $this.wireUpWizardTabs();
                 $this.wireUpAddonDependent();
-                $('.save_buttons').hide();
-
             });
 
             $('form .account').each(function() {
@@ -42,6 +42,44 @@ BYOB_Main = function() {
             });
 
             return this;
+        },
+
+        /**
+         * Wire up the save and review button to work with a modal dialog.
+         *
+         * This is done by submitting the form to the server first, giving
+         * the app a chance to validate and save the current form data.
+         *
+         * If the data is not valid, the review dialog is not triggered and
+         * errors are displayed normally.
+         */
+        wireUpSaveAndConfirm: function() {
+            
+            // Set the show_review hidden field on the form.
+            $('#save-and-review').each(function(ev) {
+                $(this).click(function(ev) {
+                    $('#show_review').val('true');
+                    $('#wizard').submit();
+                    ev.preventDefault();
+                    return false;
+                });
+            });
+
+            // Present the modal dialog if the page has the trigger CSS class
+            // included by the server-side.  
+            $(document).ready(function() {
+                $('.show_review').each(function() {
+                    var width  = 580,
+                        height = 550,
+                        href   = $('#save-and-review').attr('href');
+                    $.modal(
+                        '<iframe style="border:0" scrolling="no" src="'+href+'"' +
+                            ' height="'+height+'" width="'+width+'">', 
+                        { overlayClose:true }
+                    );
+                });
+            });
+
         },
 
         /**

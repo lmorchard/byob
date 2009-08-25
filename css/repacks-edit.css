@@ -4,7 +4,7 @@
 .ctrl_repacks_act_edit #wizard {
     position: relative;
 }
-.ctrl_repacks_act_edit #wizard .section {
+.ctrl_repacks_act_edit #wizard div.section {
     margin-right: 245px;
     background: #fff;
     padding: 12px;
@@ -56,7 +56,7 @@
     text-transform: uppercase;
     white-space: nowrap;
     float: left;
-    font-size: 0.85em;
+    font-size: 0.75em;
     display: block;
     margin: 0 0 0 0;
     padding: 0.5em 0.75em 0em 0.75em;
@@ -96,7 +96,7 @@
     text-decoration: none;
 }
 .ctrl_repacks_act_edit #wizard .tabs li.changed a:after {
-    content: "\2713";
+    content: "\2714";
     color: #383;
     padding-left: 0.5em;
     text-decoration: none;
@@ -190,28 +190,28 @@
     border-radius-bottomright: 8px;
     font-size: 0.85em;
 }
-.ctrl_repacks_act_edit .prev_section {
+.ctrl_repacks_act_edit .section_nav .prev_section {
     float: left;
 }
-.ctrl_repacks_act_edit .prev_section a {
+.ctrl_repacks_act_edit .section_nav .prev_section a {
     display: block;
     padding-left: 21px;
     padding-bottom: 4px;
     background: transparent url(../img/repacks/arrow-prev.gif) no-repeat 0px 1px;
 }
-.ctrl_repacks_act_edit .prev_section a:hover {
+.ctrl_repacks_act_edit .section_nav .prev_section a:hover {
     text-decoration: none;
 }
-.ctrl_repacks_act_edit .next_section {
+.ctrl_repacks_act_edit .section_nav .next_section {
     float: right;
 }
-.ctrl_repacks_act_edit .next_section a {
+.ctrl_repacks_act_edit .section_nav .next_section a {
     display: block;
     padding-right: 21px;
     padding-bottom: 4px;
     background: transparent url(../img/repacks/arrow-next.gif) no-repeat right 2px;
 }
-.ctrl_repacks_act_edit .next_section a:hover {
+.ctrl_repacks_act_edit .section_nav .next_section a:hover {
     text-decoration: none;
 }
 .ctrl_repacks_act_edit .save_buttons {
@@ -240,4 +240,255 @@
 }
 #content ul.repack-addons li.addon p {
     margin: 0.5em 0 1em 1em;
+}
+
+.ctrl_repacks_act_edit #content ul.bookmarks {
+    list-style: none;
+    margin: 0;
+    padding: 0 0 0 1em;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark {
+    display: inline-block;
+    width: 90%;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table {
+    float: left;
+    width: 92%;
+    margin: 0 0 0 0;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr {
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr th {
+    text-align: left;
+    padding-top: 0;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr th span {
+    display: block;
+    padding: 0.125em 0.5em;
+    margin: 0 0.25em 0 0;
+    border-bottom: 1px solid #aaa;
+    font-size: 0.75em;
+    background-color: #ddd;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td {
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td span {
+    display: block;
+    margin: 0 0.25em 0 0;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td span input {
+    width: 100%;
+}
+
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.type {
+    padding: 0;
+    margin: 0;
+    display: block;
+    float: left;
+    width: 16px;
+    text-indent: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: transparent url(../img/pageStarred.png) no-repeat top left;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.normal {
+    background-image: url(../img/pageStarred.png);
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.live {
+    background-image: url(../img/livemark-item.png);
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark a.delete {
+    float: left;
+    display: block;
+    width: 16px;
+    text-indent: 16px;
+    height: 16px;
+    overflow: hidden;
+    background: transparent url(../img/Info.png) no-repeat top left;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table th span.error {
+    color: #ff0000;
+    background-color: #edd;
+}
+.ctrl_repacks_act_edit #content ul.bookmarks table td span.error {
+}
+.ctrl_repacks_act_edit #content ul.bookmarks table td span.error input {
+    background-color: #ffeeee;
+}
+.ctrl_repacks_act_edit #content .bookmark-add {
+    margin: 0.75em 0;
+}
+.ctrl_repacks_act_edit #content .bookmark-add a.add {
+    padding-left: 18px;
+    background: transparent url(../img/../img/pageStarred.png) no-repeat top left;
+}
+.ctrl_repacks_act_edit #content .bookmark-add-normal a.add {
+    background-image: url(../img/pageStarred.png);
+}
+.ctrl_repacks_act_edit #content .bookmark-add-live a.add {
+    background-image: url(../img/livemark-item.png);
+}
+.ctrl_repacks_act_edit .popup .header {
+    height: 550px;
+}
+.ctrl_repacks_act_edit .popup .header {
+    background: transparent url(../img/popup-title-bg.gif) repeat-x 0 0;
+    height: 37px;
+}
+.ctrl_repacks_act_edit .popup .header h2 {
+    color: #fff;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 37px;
+    padding: 0 0 0 15px;
+    margin: 0 0 0 0;
+}
+.ctrl_repacks_act_edit .popup .part {
+}
+.ctrl_repacks_act_edit .popup .content {
+    list-style: none;
+    padding: 15px 15px 0 15px;
+    overflow: auto;
+    width: 550px;
+    height: 460px;
+    margin: 0 0 0 0;
+    background: #fff;
+    color: #333;
+}
+.ctrl_repacks_act_edit .popup .content p {
+    font-size: 85%;
+    line-height: 1.75em;
+    margin: 0 0 0.75em 0;
+}
+.ctrl_repacks_act_edit .popup .sections {
+    list-style: none;
+    border-top: 1px solid #ccc;    
+}
+.ctrl_repacks_act_edit .popup .sections li.section {
+    padding: 0.5em 0 0.75em 0.5em;
+    border-bottom: 1px solid #ccc;    
+    font-size: 85%;
+}
+.ctrl_repacks_act_edit .popup .sections li.section h3 {
+    margin: 0.25em 0 0.75em 0;
+    font-size: 110%;
+}
+.ctrl_repacks_act_edit .popup .sections li.section h3 a {
+    font-size: 75%;
+    margin: 0 0 0 1em;
+}
+.ctrl_repacks_act_edit .popup .sections li.section h4 {
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.section ul {
+    margin: 0 0 0 2em;
+    list-style: square;
+}
+.ctrl_repacks_act_edit .popup .sections li.section ul li {
+    font-size: 85%;
+    padding: 0 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.locales {
+    float: left;
+    border-bottom: none;    
+}
+.ctrl_repacks_act_edit .popup .sections li.platforms {
+    float: left;
+    padding-left: 1em;
+    border-bottom: none;    
+}
+.ctrl_repacks_act_edit .popup .sections li.personas {
+    clear: both;
+    border-top: 1px solid #ccc;    
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks {
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks ul {
+    list-style: none;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    width: 200px;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark {
+    font-size: 85%;
+    margin: 0 0 0 0;
+    padding: 0 0 1em 0;
+    text-indent: 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks h4 {
+    font-weight: bold;
+    padding: 0 0 0.25em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .menu {
+    float: left;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .toolbar {
+    float: left;
+    padding-left: 1em;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark {
+    padding: 4px 0 0.25em 20px;
+    background: transparent url(../img/pageStarred.png) no-repeat top left;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .normal {
+    background-image: url(../img/pageStarred.png);
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .live {
+    background-image: url(../img/livemark-item.png);
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark .title {
+    display: block;
+    font-weight: bold;
+    padding: 0 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark .location {
+    display: block;
+    padding: 0 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark .feed {
+    display: block;
+    padding: 0 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark .description {
+    display: block;
+    padding: 0 0 0.5em 0;
+}
+
+.ctrl_repacks_act_edit .popup .nav {
+    width: 560px;
+    height: 40px;
+}
+.ctrl_repacks_act_edit .popup .nav .prev {
+    float: left;
+    padding: 12px 0 0 10px;
+}
+.ctrl_repacks_act_edit .popup .nav .prev a {
+    display: block;
+    font-size: 85%;
+    padding-left: 21px;
+    padding-bottom: 0px;
+    background: transparent url(../img/repacks/arrow-prev.gif) no-repeat 0px 0px;
+}
+.ctrl_repacks_act_edit .popup .nav .prev a:hover {
+    text-decoration: none;
+}
+.ctrl_repacks_act_edit .popup .nav .next {
+    float: right;
+    padding: 12px 0 0 0px;
+}
+.ctrl_repacks_act_edit .popup .nav .next a {
+    display: block;
+    font-size: 85%;
+    padding-right: 21px;
+    padding-bottom: 0px;
+    background: transparent url(../img/repacks/arrow-next.gif) no-repeat right 0px;
+}
+.ctrl_repacks_act_edit .popup .nav .next a:hover {
+    text-decoration: none;
+}
+.ctrl_repacks_act_edit .popup .nav .build {
+    float: right;
+    padding: 0 0 0 0px;
 }

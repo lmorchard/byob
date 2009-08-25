@@ -19,11 +19,6 @@ class Search_Controller extends Local_Controller
      */
     public function index()
     {
-        // Verify search privileges.
-        if (!authprofiles::is_allowed('search', 'search')) {
-            return Event::run('system.403');
-        }
-
         // Grab the pagination parameters from the URL.
         list($per_page, $page_num, $offset) = $this->_getPageParams();
 
@@ -42,6 +37,15 @@ class Search_Controller extends Local_Controller
         $models = $this->input->get('m');
         $models = (empty($models)) ?
             $this->searchable_models : explode(' ', $models);
+
+        // Verify search privileges.
+        if (!authprofiles::is_allowed('search', 'search')) {
+            foreach ($models as $model) {
+                if (!authprofiles::is_allowed('search', 'search_'.$model)) {
+                    return Event::run('system.403');
+                }
+            }
+        }
 
         // Iterate over known models and try to accumulate results...
         $results = array();

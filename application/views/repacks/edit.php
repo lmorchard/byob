@@ -5,22 +5,32 @@
         'platforms'   => 'Platforms',
         'persona'     => 'Personas',
         'bookmarks'   => 'Bookmarks',
-        'collections' => 'Add-On Collections',
+        'collections' => 'Collections',
+        'review'      => false,
     );
     if (!isset($section) || !isset($sections[$section])) {
         $section = 'general';
     }
     form::$data   = $form_data;
     form::$errors = isset($form_errors) ? $form_errors : array();
+
+    $classes = array();
+    if (empty(form::$errors) && 'true' == $show_review) {
+        $classes[] = 'show_review';
+    }
+
+    $section_editor = View::factory('repacks/edit/' . $section)->render();
 ?>
 <?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->display_title)); ?>
 <?php slot::start('crumbs') ?>
     <a href="<?= $repack->url() ?>"><?= html::specialchars($repack->display_title) ?></a> :: customize your browser
 <?php slot::end() ?>
 
-<?= form::open(url::current() . '?section=' . $section , array('id'=>'wizard'), array()); ?>
+<?= form::open(url::current() . '?section=' . $section , array('class'=>join(' ', $classes), 'id'=>'wizard'), array()); ?>
     <input type="hidden" name="changed" id="changed" value="false" />
-    <input type="hidden" name="next_section" id="next_section" value="<?=url::current()?>" />
+    <input type="hidden" name="show_review" id="show_review" value="false" />
+    <input type="hidden" name="next_section" id="next_section" value="<?=$section?>" />
+<?php if (!slot::get('is_popup')): ?>
 
     <div class="summary">
         <?php if (!empty(form::$errors)): ?>
@@ -45,7 +55,8 @@
                 <li class="changed_section"><h5>None yet.</h5></li>
             <?php endif ?>
         </ul>
-        <p class="submit"><input type="image" src="<?=url::base()?>/img/repacks/save-and-review.gif" name="review" value="save and review" /></p>
+        <p class="submit">
+            <a id="save-and-review" href="<?=url::base() . url::current()?>?section=review"><img src="<?=url::base()?>/img/repacks/save-and-review.gif" alt="Save and Review" /></a></p>
     </div>
 
     <div class="section">
@@ -54,6 +65,8 @@
             <?php $first = true ?>
             <?php foreach ($sections as $name => $title): ?>
                 <?php 
+                    if (false === $title) continue;
+
                     $url = url::base() . url::current() . '?section=' . $name;
                     $classes = array();
                     if (true === $first) {
@@ -78,7 +91,9 @@
         </ul>
 
         <div class="section_content">
-            <?=View::factory('repacks/edit/' . $section)->render()?>
+<?php endif ?>
+            <?=$section_editor?>
+<?php if (!slot::get('is_popup')): ?>
         </div>
 
         <div class="section_nav clearfix">
@@ -107,4 +122,5 @@
         <?= form::field('submit', 'done', null, array('value'=>'save and finish')) ?>
     </ul>
 
+<?php endif ?>
 <?= form::close() ?>

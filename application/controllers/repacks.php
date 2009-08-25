@@ -170,7 +170,8 @@ class Repacks_Controller extends Local_Controller
             'section'      => $section,
             'addons'       => $addons,
             'addons_by_id' => $addons_by_id,
-            'form_data'    => $form_data
+            'form_data'    => $form_data,
+            'show_review'  => $this->input->get('show_review', 'false')
         ));
 
         if ('post' != request::method()) {
@@ -204,6 +205,9 @@ class Repacks_Controller extends Local_Controller
                 return url::redirect($rp->url);
             } else if ($this->input->post('review', false)) {
                 return url::redirect($rp->url.';release');
+            } else if ('true' === $this->input->post('show_review', false)) {
+                return url::redirect($rp->url.';edit?show_review=true&section='.
+                    $this->input->post('next_section', $section));
             } else {
                 return url::redirect($rp->url.';edit?section='.
                     $this->input->post('next_section', $section));
