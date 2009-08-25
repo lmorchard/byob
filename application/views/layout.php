@@ -11,7 +11,6 @@
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
         <?=html::stylesheet(array(
-            'css/thickbox.css', 
             'css/main.css', 
             "css/".Router::$controller.".css",
             "css/".Router::$controller."-".Router::$method.".css",

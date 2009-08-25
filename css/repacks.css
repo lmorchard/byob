@@ -29,3 +29,24 @@
     content: "";
     padding: 0 0 0 0;
 }
+.ctrl_repacks #content .confirm .details {
+    padding-bottom: 1em;
+}
+.ctrl_repacks #content .confirm fieldset legend {
+    font-size: 130%;
+}
+.ctrl_repacks #content .confirm .preamble {
+    background: #fff;
+    font-family: serif;
+    border: 1px solid #ccc;
+    padding: 0.5em 1em 0.5em 1em;
+    margin: 0.5em 0 0.5em 0;
+}
+.ctrl_repacks #content .confirm .preamble h3 {
+    padding: 0.5em 0 0.25em 0;
+    font-family: helvetica, arial;
+}
+.ctrl_repacks #content .confirm .preamble li {
+    line-height: 1.5em;
+}
+
