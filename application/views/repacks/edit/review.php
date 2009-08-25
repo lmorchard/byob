@@ -82,18 +82,22 @@ $edit_base = $repack->url() . ';edit?section=';
                     <div class="<?=$kind?>">
                         <h4><?=ucfirst($kind)?></h4>
                         <ul>
-                        <?php foreach ($repack->{'bookmarks_'.$kind} as $idx=>$bookmark): ?>
-                        <li class="bookmark <?=$bookmark['type']?>">
-                                <span class="title"><?=html::specialchars($bookmark['title'])?></span>
-                                <?php if ('live' == $bookmark['type']): ?>
-                                    <a target="_new" class="feed" href="<?=html::specialchars($bookmark['feed'])?>"><?=html::specialchars($bookmark['feed'])?></a>
-                                    <a target="_new" class="location" href="<?=html::specialchars($bookmark['location'])?>"><?=html::specialchars($bookmark['location'])?></a>
-                                <?php else: ?>
-                                    <a target="_new" class="location" href="<?=html::specialchars($bookmark['location'])?>"><?=html::specialchars($bookmark['location'])?></a>
-                                    <span class="description"><?=html::specialchars($bookmark['description'])?></span>
-                                <?php endif ?>
-                            </li>
-                        <?php endforeach ?>
+                            <?php if (empty($repack->{'bookmarks_'.$kind})): ?>
+                                <li>None</li>
+                            <?php else: ?>
+                                <?php foreach ($repack->{'bookmarks_'.$kind} as $idx=>$bookmark): ?>
+                                    <li class="bookmark <?=$bookmark['type']?>">
+                                        <span class="title"><?=html::specialchars($bookmark['title'])?></span>
+                                        <?php if ('live' == $bookmark['type']): ?>
+                                            <a target="_new" class="feed" href="<?=html::specialchars($bookmark['feed'])?>"><?=html::specialchars($bookmark['feed'])?></a>
+                                            <a target="_new" class="location" href="<?=html::specialchars($bookmark['location'])?>"><?=html::specialchars($bookmark['location'])?></a>
+                                        <?php else: ?>
+                                            <a target="_new" class="location" href="<?=html::specialchars($bookmark['location'])?>"><?=html::specialchars($bookmark['location'])?></a>
+                                            <span class="description"><?=html::specialchars($bookmark['description'])?></span>
+                                        <?php endif ?>
+                                    </li>
+                                <?php endforeach ?>
+                            <?php endif ?>
                         </ul>
                     </div>
                 <?php endforeach ?>
