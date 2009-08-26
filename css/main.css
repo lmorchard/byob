@@ -293,7 +293,10 @@ body {
     background-color: #ffeeee;
 }
 
-#content form ul.fields li.text input, #content form ul.fields li.password input {
+#content form ul.fields li.text input, 
+#content form ul.fields li.password input,
+#content form ul.fields li.textarea textarea
+{
     background: #fff;
     width: 40ex;
     border: 1px solid #ccc;

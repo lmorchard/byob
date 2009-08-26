@@ -37,4 +37,6 @@ $config['admin/model/(.*)'] =
 $config['admin/(.*)'] = 
     'admin/$1';
 
+$config['contact']  = 'index/contact';
+
 $config['_default'] = 'index';

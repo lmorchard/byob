@@ -110,6 +110,7 @@
                 <ul class="nav">
                     <li class="first"><a href="#privacy">Privacy Policy</a></li>
                     <li><a href="#legal">Legal Notices</a></li>
+                    <li><a href="<?=url::base()?>contact">Contact us</a></li>
                 </ul>
             </div>
         </div>

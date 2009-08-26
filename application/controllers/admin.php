@@ -1,6 +1,10 @@
 <?php
 /**
+ * General admin controller
  *
+ * @package    BYOB
+ * @subpackage Controllers
+ * @author     l.m.orchard <lorchard@mozilla.com>
  */
 class Admin_Controller extends ORM_Manager_Controller
 {
