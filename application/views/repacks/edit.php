@@ -56,7 +56,7 @@
             <?php endif ?>
         </ul>
         <p class="submit">
-            <a id="save-and-review" href="<?=url::base() . url::current()?>?section=review"><img src="<?=url::base()?>/img/repacks/save-and-review.gif" alt="Save and Review" /></a></p>
+            <a id="save-and-review" href="<?=url::base() . url::current()?>?section=review"><img src="<?=url::base()?>img/save-and-review.gif" alt="Save and Review" /></a></p>
     </div>
 
     <div class="section">

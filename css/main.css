@@ -427,7 +427,7 @@ body {
 #content .inprogress .main_actions {
     border: 1px solid #fce440;
     padding-left: 100px;
-    background: #f9f2c3 url(../img/repacks/actions-warning.gif) no-repeat 28px 10px;
+    background: #f9f2c3 url(../img/actions-warning.gif) no-repeat 28px 10px;
 }
 #content .details .main_actions h3 {
     margin: 0 0 0 0;

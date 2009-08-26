@@ -61,7 +61,7 @@
     margin: 0 0 0 0;
     padding: 0.5em 0.75em 0em 0.75em;
     border-right: 1px solid #ddd;
-    background: #fff url(../img/repacks/tab-bg.gif) repeat-x 0px 1px;
+    background: #fff url(../img/tab-bg.gif) repeat-x 0px 1px;
 }
 .ctrl_repacks_act_edit #wizard .tabs li.first {
     border-left: 1px solid #ddd;
@@ -197,7 +197,7 @@
     display: block;
     padding-left: 21px;
     padding-bottom: 4px;
-    background: transparent url(../img/repacks/arrow-prev.gif) no-repeat 0px 1px;
+    background: transparent url(../img/arrow-prev.gif) no-repeat 0px 1px;
 }
 .ctrl_repacks_act_edit .section_nav .prev_section a:hover {
     text-decoration: none;
@@ -209,7 +209,7 @@
     display: block;
     padding-right: 21px;
     padding-bottom: 4px;
-    background: transparent url(../img/repacks/arrow-next.gif) no-repeat right 2px;
+    background: transparent url(../img/arrow-next.gif) no-repeat right 2px;
 }
 .ctrl_repacks_act_edit .section_nav .next_section a:hover {
     text-decoration: none;
@@ -469,7 +469,7 @@
     font-size: 85%;
     padding-left: 21px;
     padding-bottom: 0px;
-    background: transparent url(../img/repacks/arrow-prev.gif) no-repeat 0px 0px;
+    background: transparent url(../img/arrow-prev.gif) no-repeat 0px 0px;
 }
 .ctrl_repacks_act_edit .popup .nav .prev a:hover {
     text-decoration: none;
@@ -483,7 +483,7 @@
     font-size: 85%;
     padding-right: 21px;
     padding-bottom: 0px;
-    background: transparent url(../img/repacks/arrow-next.gif) no-repeat right 0px;
+    background: transparent url(../img/arrow-next.gif) no-repeat right 0px;
 }
 .ctrl_repacks_act_edit .popup .nav .next a:hover {
     text-decoration: none;

@@ -108,6 +108,6 @@ $edit_base = $repack->url() . ';edit?section=';
     </div>
     <div class="nav">
         <div class="prev"><a href="#part1">Previous</a></div>
-        <div class="build"><a target="_top" href="<?=$repack->url()?>;release"><img src="<?=url::base()?>img/repacks/build-this-browser.gif" /></a></div>
+        <div class="build"><a target="_top" href="<?=$repack->url()?>;release"><img src="<?=url::base()?>img/build-this-browser.gif" /></a></div>
     </div>
 </div>
