@@ -15,7 +15,7 @@
                 web-based tool that allows you to lightly customize versions of Firefox 
                 that you'd like to distribute to other people. To get started, we require 
                 that you <a href="<?= url::base().'register' ?>">create an account</a> and 
-                <a href="<?= url::base().'login' ?>">login to the application</a>. 
+                <a href="<?= url::base().'login' ?>" class="login_inline">login to the application</a>. 
                 All of the customized versions of Firefox you create with BYOB will be 
                 associated with, and accessible through, this account. Registration 
                 takes just a couple of minutes, requires information about you and 

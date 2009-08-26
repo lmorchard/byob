@@ -540,4 +540,121 @@ body {
     text-align: center;
 }
 
-
+.popup #content { 
+    margin: 0 0 0 0;
+}
+.popup #content form fieldset {
+    padding: 0;
+    margin: 0;
+}
+.popup #content form ul.fields li {
+    margin: 0 0 1em 0;
+}
+.popup #content form ul.fields li label {
+    float: none;
+    width: auto;
+}
+.popup #content .nav {
+    width: 560px;
+    height: 40px;
+}
+.popup #content #wizard .nav {
+    padding: 0;
+}
+.popup #content .nav .prev {
+    float: left;
+    padding: 12px 0 0 10px;
+}
+.popup #content .nav .prev a {
+    display: block;
+    font-size: 85%;
+    padding-left: 21px;
+    padding-bottom: 0px;
+    background: transparent url(../img/arrow-prev.gif) no-repeat 0px 0px;
+}
+.popup #content .nav .prev a:hover {
+    text-decoration: none;
+}
+.popup #content .nav .next {
+    float: right;
+    padding: 12px 0 0 0px;
+}
+.popup #content .nav .next a {
+    display: block;
+    font-size: 85%;
+    padding-right: 21px;
+    padding-bottom: 0px;
+    background: transparent url(../img/arrow-next.gif) no-repeat right 0px;
+}
+.popup #content .nav .next a:hover {
+    text-decoration: none;
+}
+.popup #content .nav .build {
+    float: right;
+    padding: 0 0 0 0px;
+}
+.popup #content .header {
+    height: 550px;
+}
+.popup #content .header {
+    background: transparent url(../img/popup-title-bg.gif) repeat-x 0 0;
+    height: 37px;
+}
+.popup #content .header h2 {
+    color: #fff;
+    font-size: 110%;
+    font-weight: normal;
+    line-height: 37px;
+    padding: 0 0 0 15px;
+    margin: 0 0 0 0;
+}
+.popup #content .part {
+}
+.popup #content .content {
+    list-style: none;
+    position: relative;
+    padding: 15px 15px 0 15px;
+    overflow: auto;
+    width: 550px;
+    height: 460px;
+    margin: 0 0 0 0;
+    background: #fff;
+    color: #333;
+}
+.popup #content .content p {
+    font-size: 85%;
+    line-height: 1.75em;
+    margin: 0 0 0.75em 0;
+}
+.popup #content .sections {
+    list-style: none;
+    border-top: 1px solid #ccc;    
+    padding: 0 0 0 0;
+}
+.popup #content .sections li.section {
+    padding: 0.5em 0 0.75em 0.5em;
+    border-bottom: 1px solid #ccc;    
+    font-size: 85%;
+}
+.popup #content .sections li.section h3 {
+    margin: 0.25em 0 0.75em 0;
+    font-size: 110%;
+}
+.popup #content .sections li.section h3 a {
+    font-size: 75%;
+    margin: 0 0 0 1em;
+}
+.popup #content .sections li.section h4 {
+    font-size: 100%;
+    font-weight: normal;
+    margin: 0 0 0.5em 0;
+}
+.popup #content .sections li.section ul {
+    margin: 0 0 0 2em;
+    padding: 0 0 0 0;
+    list-style: square;
+}
+.popup #content .sections li.section ul li {
+    font-size: 85%;
+    padding: 0 0 0.5em 0;
+}

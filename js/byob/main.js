@@ -41,6 +41,24 @@ BYOB_Main = function() {
                 $this.wireUpHideShowOrg($(this));
             });
 
+            $('.auth .login').add('.login_inline').click(function(ev) {
+                var width  = 528,
+                    height = 281,
+                    href   = $('.auth .login').attr('href') + 
+                        '?popup&jump=%2Flogin%3Fpopup%26gohome';
+                $.modal(
+                    '<iframe style="border:0" scrolling="no" src="'+href+'"' +
+                        ' height="'+height+'" width="'+width+'">', 
+                    {
+                        overlayClose:true,
+                        containerCss: { height: height, width: width }
+                    }
+                );
+                ev.preventDefault();
+            });
+
+            $('#ctrl_auth_profiles_act_login #login_name').focus();
+
             return this;
         },
 

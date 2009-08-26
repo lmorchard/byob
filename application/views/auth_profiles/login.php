@@ -1,5 +1,24 @@
 <?php slot::set('head_title', 'login'); ?>
 <?php slot::set('crumbs', 'account login'); ?>
+
+<?php 
+    $is_popup = (isset($_GET['popup']));
+    slot::set('is_popup', $is_popup);
+?>
+
+<?php if (isset($_GET['gohome'])): ?>
+    <script type="text/javascript">
+        window.top.location.href="<?=url::base()?>home";
+    </script>
+<?php else: ?>
+
+<?php if ($is_popup): ?>
+    <div class="header">
+        <h2>Log into your account</h2>
+    </div>
+    <div class="content">
+<?php endif ?>
+
 <?php if (!empty($login_inactive)): ?>
     <p>Sorry, that login has been disabled.</p>
 <?php endif ?>
@@ -19,25 +38,36 @@
     </form>
 <?php endif ?>
 
-<?php /* Munge the errors to obscure what part of the login was invalid. */ ?>
-<?php if (!empty(form::$errors)): ?>
-    <?php slot::start('errors') ?>
-    <ul class="errors highlight">
-        <li>Invalid login.</li>
+<?php 
+/* Munge the errors to obscure what part of the login was invalid. */
+$invalid =  (!empty(form::$errors));
+form::$errors = array();
+?>
+
+<?php slot::start('submit') ?>
+<li class="required submit">
+    <label class="hidden" for="login"/>
+    <ul class="other">
+        <li><a target="_top" href="<?=url::base()?>forgotpassword">Forgot your password?</a></li>
+        <li><a target="_top" href="<?=url::base()?>register">Need an account?</a></li>
     </ul>
-    <?php slot::end('errors') ?>
-<?php endif ?>
-<?php form::$errors = array(); ?>
+    <input id="login" class="submit required" type="image" 
+        src="<?=url::base()?>img/login-button.gif" alt="Login" name="login"/>
+</li>
+<?php slot::end() ?>
 
 <?= 
-form::build('login', array('class'=>'login'), array(
+form::build(url::base() . url::current(true), array('class'=>'login'), array(
     form::field('hidden', 'jump', ''),
-    slot::get('errors'),
-    form::fieldset('Login', array('class'=>'login'), array(
-        form::field('input',    'login_name',       'Login name', array('class'=>'required')),
-        form::field('password', 'password',         'Password', array('class'=>'required')),
-        form::field('submit',   'login',  null, array('class'=>'required','value'=>'login')),
-        html::anchor('/forgotpassword', 'Forgot password?'),
+    form::fieldset(null, array('class'=>'login'), array(
+        form::field('input',    'login_name',       'Username', array('class'=>'required' . ( $invalid ? ' error' : '') )),
+        form::field('password', 'password',         'Password', array('class'=>'required' . ( $invalid ? ' error' : '') )),
+        slot::get('submit')
     ))
 )) 
 ?>
+
+<?php if ($is_popup): ?>
+    </div>
+<?php endif ?>
+<?php endif ?>

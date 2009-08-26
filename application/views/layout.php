@@ -10,11 +10,23 @@
         <title>build your own browser :: <?= slot::get('head_title') ?></title>
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
-        <?=html::stylesheet(array(
-            'css/main.css', 
-            "css/".Router::$controller.".css",
-            "css/".Router::$controller."-".Router::$method.".css",
-        ))?>
+        <?php
+            $css = array('css/main.css');
+
+            // HACK: Include CSS files only if they exist.
+            // TODO: Replace this with config and minimization
+            $try = array(
+                "css/".Router::$controller.".css",
+                "css/".Router::$controller."-".Router::$method.".css",
+            );
+            foreach ($try as $url) {
+                if (is_file(APPPATH . '../' . $url)) {
+                    $css[] = $url;
+                }
+            }
+        ?>
+        <?=html::stylesheet($css)?>
+
         <!--[if IE]>
         <?=html::stylesheet(array('css/ie.css'))?>
         <![endif]-->
@@ -28,7 +40,7 @@
         <div id="wrap" class="<?= (slot::exists('sidebar') != '') ? 'with_sidebar' : '' ?>">
             <?php if (slot::get('is_popup')): ?>
                 <div id="main" class="clearfix">
-                    <div class="popup"><?= $content ?></div>
+                    <div class="popup"><div id="content"><?= $content ?></div></div>
                 </div>
             <?php else: ?>
             <div id="main" class="clearfix">
@@ -42,7 +54,7 @@
                             <ul class="nav">
                                 <?php if (!authprofiles::is_logged_in()): ?>
                                     <li class="first"><a href="<?= url::base() . 'register' ?>">register</a></li>
-                                    <li><a href="<?= url::base() . 'login' ?>">login</a></li>
+                                    <li><a class="login" href="<?= url::base() . 'login' ?>">login</a></li>
                                 <?php else: ?>
                                     <li class="first"><a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>

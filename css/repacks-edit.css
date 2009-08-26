@@ -328,73 +328,12 @@
 .ctrl_repacks_act_edit #content .bookmark-add-live a.add {
     background-image: url(../img/livemark-item.png);
 }
-.ctrl_repacks_act_edit .popup .header {
-    height: 550px;
-}
-.ctrl_repacks_act_edit .popup .header {
-    background: transparent url(../img/popup-title-bg.gif) repeat-x 0 0;
-    height: 37px;
-}
-.ctrl_repacks_act_edit .popup .header h2 {
-    color: #fff;
-    font-size: 110%;
-    font-weight: normal;
-    line-height: 37px;
-    padding: 0 0 0 15px;
-    margin: 0 0 0 0;
-}
-.ctrl_repacks_act_edit .popup .part {
-}
-.ctrl_repacks_act_edit .popup .content {
-    list-style: none;
-    padding: 15px 15px 0 15px;
-    overflow: auto;
-    width: 550px;
-    height: 460px;
-    margin: 0 0 0 0;
-    background: #fff;
-    color: #333;
-}
-.ctrl_repacks_act_edit .popup .content p {
-    font-size: 85%;
-    line-height: 1.75em;
-    margin: 0 0 0.75em 0;
-}
-.ctrl_repacks_act_edit .popup .sections {
-    list-style: none;
-    border-top: 1px solid #ccc;    
-}
-.ctrl_repacks_act_edit .popup .sections li.section {
-    padding: 0.5em 0 0.75em 0.5em;
-    border-bottom: 1px solid #ccc;    
-    font-size: 85%;
-}
-.ctrl_repacks_act_edit .popup .sections li.section h3 {
-    margin: 0.25em 0 0.75em 0;
-    font-size: 110%;
-}
-.ctrl_repacks_act_edit .popup .sections li.section h3 a {
-    font-size: 75%;
-    margin: 0 0 0 1em;
-}
-.ctrl_repacks_act_edit .popup .sections li.section h4 {
-    font-size: 100%;
-    font-weight: normal;
-    margin: 0 0 0.5em 0;
-}
-.ctrl_repacks_act_edit .popup .sections li.section ul {
-    margin: 0 0 0 2em;
-    list-style: square;
-}
-.ctrl_repacks_act_edit .popup .sections li.section ul li {
-    font-size: 85%;
-    padding: 0 0 0.5em 0;
-}
-.ctrl_repacks_act_edit .popup .sections li.locales {
+
+.ctrl_repacks_act_edit .popup #content .sections li.locales {
     float: left;
     border-bottom: none;    
 }
-.ctrl_repacks_act_edit .popup .sections li.platforms {
+.ctrl_repacks_act_edit .popup #content .sections li.platforms {
     float: left;
     padding-left: 1em;
     border-bottom: none;    
@@ -405,17 +344,17 @@
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks {
 }
-.ctrl_repacks_act_edit .popup .sections li.bookmarks ul {
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks ul {
     list-style: none;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
     width: 200px;
 }
-.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark {
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark {
     font-size: 85%;
     margin: 0 0 0 0;
-    padding: 0 0 1em 0;
-    text-indent: 0;
+    padding: 4px 0 0.25em 20px;
+    background: transparent url(../img/pageStarred.png) no-repeat top left;
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks h4 {
     font-weight: bold;
@@ -427,10 +366,6 @@
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .toolbar {
     float: left;
     padding-left: 1em;
-}
-.ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark {
-    padding: 4px 0 0.25em 20px;
-    background: transparent url(../img/pageStarred.png) no-repeat top left;
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .normal {
     background-image: url(../img/pageStarred.png);
@@ -454,41 +389,4 @@
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .bookmark .description {
     display: block;
     padding: 0 0 0.5em 0;
-}
-
-.ctrl_repacks_act_edit .popup .nav {
-    width: 560px;
-    height: 40px;
-}
-.ctrl_repacks_act_edit .popup .nav .prev {
-    float: left;
-    padding: 12px 0 0 10px;
-}
-.ctrl_repacks_act_edit .popup .nav .prev a {
-    display: block;
-    font-size: 85%;
-    padding-left: 21px;
-    padding-bottom: 0px;
-    background: transparent url(../img/arrow-prev.gif) no-repeat 0px 0px;
-}
-.ctrl_repacks_act_edit .popup .nav .prev a:hover {
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit .popup .nav .next {
-    float: right;
-    padding: 12px 0 0 0px;
-}
-.ctrl_repacks_act_edit .popup .nav .next a {
-    display: block;
-    font-size: 85%;
-    padding-right: 21px;
-    padding-bottom: 0px;
-    background: transparent url(../img/arrow-next.gif) no-repeat right 0px;
-}
-.ctrl_repacks_act_edit .popup .nav .next a:hover {
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit .popup .nav .build {
-    float: right;
-    padding: 0 0 0 0px;
 }

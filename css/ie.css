@@ -23,3 +23,6 @@
 .ctrl_repacks_act_edit #wizard .summary {
     right: 21px;
 }
+.ctrl_auth_profiles_act_login .popup #content form {
+    padding-top: 0px;
+}

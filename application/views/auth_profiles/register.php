@@ -115,7 +115,7 @@ echo form::build('register', array('class'=>'register'), array(
     )),
     form::fieldset('finish', array('class'=>'finish'), array(
         '<li class="required"><label for="recaptcha">Captcha</label><span>' . recaptcha::html() . '</span></li>',
-        '<li class="required submit"><label class="hidden" for="register"/><input id="register" class="submit required" type="image" src="'.url::base().'/img/register-button.gif" alt="Register" name="register"/>',
+        '<li class="required submit"><label class="hidden" for="register"/><input id="register" class="submit required" type="image" src="'.url::base().'img/register-button.gif" alt="Register" name="register"/>',
     ))
 ));
 ?>
