@@ -1,0 +1,53 @@
+/**
+ * Standalone styles for the first run pages
+ */
+#firstrun #main-feature.with-collection {
+    min-height: 186px;
+}
+#firstrun #collection {
+    position: relative;
+    height: 81px;
+    padding: 0;
+    margin: 15px 30px 15px 35px;
+    background: #c4dfea;
+    border: 1px solid #13accd;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+#firstrun #collection .logo {
+    position: absolute;
+    top: -18px;
+    left: 15px;
+}
+#firstrun #collection h4 {
+    color: #333;
+    padding: 6px 0 6px 130px;
+}
+#firstrun #collection p {
+    color: #333;
+    padding: 0 0 0 130px;
+    margin: 0 0 0 0;
+}
+#firstrun #collection .checkoutcollection {
+    position: absolute;
+    right: 20px;
+    top: 25px;
+    width: 160px;
+    background: #4e849c;
+    border: 1px solid #4e849c;
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    border-radius: 8px;
+}
+#firstrun #collection .checkoutcollection a {
+    font-family: helvetica, arial;
+    font-size: 95%;
+    display: block;
+    text-align: center;
+    padding: 0.5em;
+    color: #fff;
+}
+#firstrun #collection .checkoutcollection a:hover {
+    text-decoration: none;
+}

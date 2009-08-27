@@ -431,7 +431,7 @@ class Repacks_Controller extends Local_Controller
             'repack' => $rp
         ));
 
-        $this->layout->set_filename('layout-non-auth');
+        $this->layout = null;
     }
 
 
