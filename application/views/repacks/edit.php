@@ -108,10 +108,10 @@
 
                 $base_url = url::base() . url::current() . '?section=';
             ?>
-            <?php if (null !== $prev_name): ?>
+            <?php if (null !== $prev_name && false !== $sections[$prev_name]): ?>
                 <div class="prev_section"><a href="<?=$base_url.$prev_name?>">Previous</a></div>
             <?php endif ?>
-            <?php if (null !== $next_name): ?>
+            <?php if (null !== $next_name && false !== $sections[$next_name]): ?>
                 <div class="next_section"><a href="<?=$base_url.$next_name?>">Next</a></div>
             <?php endif ?>
         </div>
