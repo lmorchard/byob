@@ -6,7 +6,7 @@
 }
 #firstrun #collection {
     position: relative;
-    height: 81px;
+    min-height: 81px;
     padding: 0;
     margin: 15px 30px 15px 35px;
     background: #c4dfea;
@@ -26,8 +26,9 @@
 }
 #firstrun #collection p {
     color: #333;
-    padding: 0 0 0 130px;
-    margin: 0 0 0 0;
+    padding: 0 200px 0 130px;
+    margin: 0 0 0 2em;
+    text-indent: -2em;
 }
 #firstrun #collection .checkoutcollection {
     position: absolute;

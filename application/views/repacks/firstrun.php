@@ -79,7 +79,7 @@ if (gPlatform == 1) {
 if ($repack->profile->is_personal) {
     $org_name = $repack->profile->first_name . ' ' . $repack->profile->last_name;
 } else {
-    $org_name = $repack->org_name;
+    $org_name = $repack->profile->org_name;
 }
 $h = html::escape_array(array(
     'org_name' => $org_name,
