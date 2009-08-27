@@ -1,6 +1,7 @@
 <?php slot::set('head_title', 'registration successful'); ?>
 <h2>Registration successful</h2>
 
+<?php if (!isset($email_sent)): ?>
 <p>
     Your account has been created, but is not yet active. An email containing 
     information on how to activate your account has been sent to the address you 
@@ -18,6 +19,11 @@
 <p>
     You can also use the button below to re-send the account activation email:
 </p>
+<?php else: ?>
+<p>
+    The account activation email has been re-sent.
+</p>
+<?php endif ?>
 
 <form action="<?=url::base().'reverifyemail/'.urlencode($login_name)?>" method="POST">
     <input type="submit" value="Re-send Account Activation Information" />
