@@ -58,7 +58,8 @@
     padding: 0.25em 0.25em;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.os a {
-    padding: 0 0 0 20px;
+    padding: 0 0 0 22px;
+    line-height: 20px;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.win32 a {
     background: transparent url(http://www.mozilla.com/img/ico-win.png) no-repeat 0 0;

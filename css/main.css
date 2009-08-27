@@ -196,6 +196,10 @@ body {
 }
 #content ul li {
 }
+form input.hint {
+    color: #999;
+    font-style: italic;
+}
 #content form fieldset {
     padding: 0.25em 1em; 
     margin: 0.25em;

@@ -11,6 +11,8 @@ BYOB_Main = function() {
          */
         init: function() {
 
+            $('input[title],textarea[title]').inputHint();
+
             /*
             $('.errors').effect('highlight', {color: '#ff9999'}, 4000, function() {
             });
