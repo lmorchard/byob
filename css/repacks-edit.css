@@ -12,7 +12,6 @@
     -moz-border-radius: 8px;
     -webkit-border-radius: 8px;
     border-radius: 8px;
-
 }
 .ctrl_repacks_act_edit #wizard .summary {
     position: absolute;
@@ -56,7 +55,7 @@
     text-transform: uppercase;
     white-space: nowrap;
     float: left;
-    font-size: 0.75em;
+    font-size: 0.69em;
     display: block;
     margin: 0 0 0 0;
     padding: 0.5em 0.75em 0em 0.75em;

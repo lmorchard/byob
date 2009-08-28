@@ -9,7 +9,7 @@
 }
 .ctrl_index_act_index #content .page_intro_content {
     background: transparent url(../img/home-page-intro-bg-strip.jpg) repeat top right;
-    height: 320px;
+    height: 345px;
     position:relative;        
 }
 .ctrl_index_act_index #content .page_intro_content h3 {
@@ -43,6 +43,7 @@
 .ctrl_index_act_index #content .page_intro_content p {
     margin:0 450px 0 0;
     padding:12px 12px 0 21px;
+    font-size: 90%;
 }
 .ctrl_index_act_index #content .recent_browsers {
 }
