@@ -61,8 +61,16 @@ class Search_Controller extends Local_Controller
                 }
             }
 
-            $rows  = $model->limit($per_page, $offset)->find_all();
+            $db_rows = $model->limit($per_page, $offset)->find_all();
             $count = $model->count_last_query();
+
+            // Filter for only viewable items
+            $rows = array();
+            foreach ($db_rows as $row) {
+                if (method_exists($row, 'checkPrivilege') && 
+                        !$row->checkPrivilege('view')) continue;
+                $rows[] = $row;
+            }
 
             if ($count) {
 
