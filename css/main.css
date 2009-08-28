@@ -238,9 +238,7 @@ form input.hint {
     margin:  0;
 }
 #content form ul.fields li {
-    /*
     position: relative;
-     */
     margin-bottom: 0.25em;
 }
 #content form ul.fields li.divider {
@@ -293,7 +291,7 @@ form input.hint {
     font-size: 70%;
     left: 560px;
     width: 340px;
-    margin: -2.5em 0 0 0;
+    margin: -2.2em 0 0 0;
     font-size: 0 0 0 0;
 }
 #content form ul.fields li.error label {
