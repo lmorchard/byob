@@ -14,9 +14,7 @@ about=<?= $r->title . "\n" ?>
 
 [Preferences]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
-<?php if (!empty($r->firstrun_content)): ?>
 startup.homepage_welcome_url="<?= $r->releaseUrl() . '/firstrun' ?>"
-<?php endif ?>
 <?php if ($r->persona->loaded): ?>
 extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php endif ?>
