@@ -79,7 +79,9 @@ class Repacks_Controller extends Local_Controller
 
         $release = $repack->findRelease();
         if ($release && $release->id != $repack->id) {
-            $this->view->changes = $repack->compare($release);
+            if ($repack->checkPrivilege('view_changes')) {
+                $this->view->changes = $repack->compare($release);
+            }
         }
 
         if ($repack->checkPrivilege('view_history')) {

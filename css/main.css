@@ -416,6 +416,7 @@ form input.hint {
 }
 #content .details,
 #content #downloads,
+#content #changes,
 #content #history {
     margin-left: 21px;
     margin-right: 200px;

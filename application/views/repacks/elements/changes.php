@@ -12,23 +12,28 @@
         </tr>
     </thead>
     <tbody>
+        <?php $idx = 0; ?>
         <?php foreach ($changes as $name=>$diff): ?>
             <?php 
                 if (in_array($name, $ignored)) continue;
 
                 list($release, $change) = $diff;
 
-                if (!is_string($release)) $release = json_encode($release);
-                if (!is_string($change)) $change = json_encode($change);
+                if (!is_string($release)) {
+                    $release = str_replace('","', '", "', json_encode($release));
+                }
+                if (!is_string($change)) {
+                    $change = str_replace('","', '", "', json_encode($change));
+                }
 
                 $h = html::escape_array(compact(
                     'name','release','change'
                 ));
             ?>
-            <tr>
-                <td><?=$h['name']?></td>
-                <td><?=$h['release']?></td>
-                <td><?=$h['change']?></td>
+            <tr class="<?=(($idx++)%2)==0 ? 'even' : 'odd' ?>">
+                <td class="name"><?=$h['name']?></td>
+                <td class="release"><?=$h['release']?></td>
+                <td class="change"><?=$h['change']?></td>
             </tr>
         <?php endforeach ?>
     </tbody>

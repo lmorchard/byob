@@ -6,8 +6,8 @@
 <?=View::factory('repacks/elements/details')
     ->set('repack', $repack)->render()?> 
 
-<?php if (false && !empty($changes)): ?>
-<div>
+<?php if (!empty($changes)): ?>
+<div id="changes">
     <h3>Changes</h3>
     <?=View::factory('repacks/elements/changes')
         ->set('changes', $changes)->render()?> 

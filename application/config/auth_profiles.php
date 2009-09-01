@@ -53,14 +53,17 @@ $config['acls'] = $acls
         'view_released', 'download_released',
     ))
     ->allow('member', 'repacks', array(
-        'create', 'view_own', 'view_own_history', 'edit_own', 'delete_own', 
+        'create', 'view_own', 
+        'view_own_history', 'view_own_changes',
+        'edit_own', 'delete_own', 
         'release_own', 'revert_own', 'cancel_own',
     ))
     ->allow('trusted', 'repacks', array(
         'approve_own', 'auto_approve_own'
     ))
     ->allow('editor', 'repacks', array(
-        'view_unreleased', 'view_history', 'view_approval_queue',
+        'view_unreleased', 'view_history', 
+        'view_changes', 'view_approval_queue',
         'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 
         'download_unreleased',
