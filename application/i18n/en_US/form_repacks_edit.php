@@ -13,6 +13,10 @@ $lang = array(
         'default' =>
             'A title is required.',
     ),
+    'description' => array(
+        'length' =>
+            'Description must be no longer than 1000 characters'
+    ),
     'locales' => array(
         'default' =>
             'At least one locale is required'
