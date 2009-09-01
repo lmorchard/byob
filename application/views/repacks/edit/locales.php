@@ -15,6 +15,7 @@
 
             <?php
                 $locales = form::value('locales');
+                if (empty($locales)) $locales = array();
                 $locale_choices = Repack_Model::$locale_choices;
             ?>
             <ul class="repack-locale clearfix">
