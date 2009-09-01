@@ -9,7 +9,7 @@
         easy-to-install “skins” for Firefox that make changing the look of the browser 
         as easy as changing your shirt. They're a great way to uniquely identify your 
         version of Firefox, and further information can be found at the 
-        <a href="http://http://getpersonas.com/" 
+        <a href="http://getpersonas.com/" 
             target="_new"
             title="Personas for Firefox">getpersonas.com</a> 
         web site, and if you'd like to develop a Persona 
