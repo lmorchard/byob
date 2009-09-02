@@ -381,10 +381,9 @@ class Repacks_Controller extends Local_Controller
         if ('post' == request::method()) {
             if (isset($_POST['confirm']) ) {
                 $rp->delete();
-                Session::instance()->set_flash(
-                    'message', 'Browser deleted'
+                return url::redirect(
+                    "profiles/".authprofiles::get_profile('screen_name')
                 );
-                return url::redirect('');
             } else {
                 return url::redirect($rp->url);
             }

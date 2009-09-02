@@ -6,7 +6,7 @@
     </p>
 </div>
 <div class="pane">
-    <fieldset><legend>Add-on Collection URL:</legend>
+    <fieldset><legend>Add-ons Collection URL:</legend>
         <div>
             <?= form::input('addons_collection_url', form::value('addons_collection_url')) ?>
         </div>
