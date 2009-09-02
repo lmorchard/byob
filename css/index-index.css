@@ -29,7 +29,7 @@
 }
 .ctrl_index_act_index #content .page_intro_content h4.get_started {
     position: absolute;
-    bottom: 32px;
+    bottom: 14px;
     right: 455px;
 }
 .ctrl_index_act_index #content .page_intro_content h4.get_started a {
@@ -44,6 +44,14 @@
     margin:0 450px 0 0;
     padding:12px 12px 0 21px;
     font-size: 90%;
+    line-height: 1.45em;
+}
+.ctrl_index_act_index #content .page_intro_content ul {
+    padding: 6px 12px 12px 51px;
+}
+.ctrl_index_act_index #content .page_intro_content ul li {
+    font-size: 90%;
+    line-height: 1.45em;
 }
 .ctrl_index_act_index #content .recent_browsers {
 }

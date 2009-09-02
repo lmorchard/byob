@@ -9,41 +9,34 @@
             alt="Example Firefox screenshot"
             class="screenshot" width="444" height="307" />
 
-        <?php if (!authprofiles::is_logged_in()): ?>
-            <p>
-                Welcome to Mozilla's Build Your Own Browser (BYOB) web application, a 
-                web-based tool that allows you to lightly customize versions of Firefox 
-                that you'd like to distribute to other people. To get started, we require 
-                that you <a href="<?= url::base().'register' ?>">create an account</a> and 
-                <a href="<?= url::base().'login' ?>" class="login_inline">login to the application</a>. 
-                All of the customized versions of Firefox you create with BYOB will be 
-                associated with, and accessible through, this account. Registration 
-                takes just a couple of minutes, requires information about you and 
-                the organization you represent, if applicable.
-            </p>
-            
-            <h4 class="get_started">
-                <a href="<?= url::base().'register' ?>">Get Started!</a>
-            </h4>
-        <?php else: ?>
-            <p>
-                Welcome back to Mozilla's Build Your Own Browser (BYOB) web application, a 
-                web-based tool that allows you to lightly customize versions of Firefox 
-                that you'd like to distribute to other people.
-            </p>
+        <p>
+            Welcome to Build Your Own Browser (BYOB), the Mozilla web application that lets
+            you create and distribute customized versions of Firefox.
+        </p>
 
-            <p>
+        <p>
+            Customizations to you can make with BYOB include:
+        </p>
+
+        <ul>
+            <li>a browser skin/theme using a bundled Persona</li>
+            <li>pre-populated bookmarks and RSS feeds</li>
+            <li>links to a Collection of your recommended add-ons </li>
+            <li>multiple locales for Windows, OSX, and Linux</li>
+        </ul>
+
+        <h4 class="get_started">
+            <?php if (!authprofiles::is_logged_in()): ?>
                 <?php
                     $profile_url = url::base() .
                         "profiles/".authprofiles::get_profile('screen_name');
                 ?>
-                Want to <a href="<?=$profile_url?>">manage your browsers</a>?
-            </p>
-
-            <h4 class="get_started">
                 <a href="<?=$profile_url?>">Get Started!</a>
-            </h4>
-        <?php endif ?>
+            <?php else: ?>
+                <a href="<?= url::base().'register' ?>">Get Started!</a>
+            <?php endif ?>
+        </h4>
+
     </div>
 </div>
 
