@@ -1,5 +1,5 @@
 From: byob-notify-noreply@mozilla.com
-Subject: [BYOB] Release requested for <?=$repack->display_title?>
+Subject: [BYOB] Release requested for <?=$repack->display_title . "\n"?>
 
 Greetings,
 

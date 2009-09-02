@@ -1,5 +1,5 @@
 From: byob-notify-noreply@mozilla.com
-Subject: [BYOB] Release take down for <?=$repack->display_title?> 
+Subject: [BYOB] Release take down for <?=$repack->display_title . "\n" ?> 
 
 Greetings,
 

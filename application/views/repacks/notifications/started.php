@@ -1,5 +1,5 @@
 From: byob-notify-noreply@mozilla.com
-Subject: [BYOB] Build started for <?=$repack->display_title?> 
+Subject: [BYOB] Build started for <?=$repack->display_title . "\n"?> 
 
 Greetings,
 
