@@ -98,6 +98,9 @@
     float: right;
     margin-top: -1em;
 }
+.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser div.empty h5.download {
+    margin-top: -2.5em;
+}
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h5.download a {
     text-decoration: none;
     display: block;

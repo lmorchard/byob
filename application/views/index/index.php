@@ -81,7 +81,7 @@
                     </span>
                     <span class="modified"><?=$h['modified']?></span>
                 </p>
-                <div class="description">
+                <div class="description <?= empty($h['description']) ? 'empty' : '' ?>">
                     <h5 class="download"><a href="<?=$h['url']?>#download">Download</a></h5>
                     <p><?=$h['description']?></p>
                 </div>
