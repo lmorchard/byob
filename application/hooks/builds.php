@@ -191,7 +191,7 @@ class Mozilla_BYOB_RepackBuilds {
 
                 if (0 != $state) {
                     Kohana::log('error', "Failure in {$script} with state $state");
-                    $repack->failRelease("Failure in {$script} with state $state");
+                    $repack->failRelease();
                     return;
                 }
 
