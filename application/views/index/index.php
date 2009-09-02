@@ -16,7 +16,7 @@
         </p>
 
         <p>
-            Customizations to you can make with BYOB include:
+            Customizations you can make with BYOB include:
         </p>
 
         <ul>
