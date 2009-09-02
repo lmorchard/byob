@@ -10,8 +10,9 @@
             class="screenshot" width="444" height="307" />
 
         <p>
-            Welcome to Build Your Own Browser (BYOB), the Mozilla web application that lets
-            you create and distribute customized versions of Firefox.
+            Welcome to Build Your Own Browser (BYOB), the Mozilla web 
+            application that lets you create and distribute customized versions 
+            of Firefox.
         </p>
 
         <p>
@@ -19,9 +20,9 @@
         </p>
 
         <ul>
-            <li>a browser skin/theme using a bundled Persona</li>
+            <li>a browser skin/theme using a bundled <a target="_new" href="http://getpersonas.com">Persona</a></li>
             <li>pre-populated bookmarks and RSS feeds</li>
-            <li>links to a Collection of your recommended add-ons </li>
+            <li>links to a <a target="_new" href="https://addons.mozilla.org/en-US/firefox/collections/">Collection</a> of your recommended add-ons </li>
             <li>multiple locales for Windows, OSX, and Linux</li>
         </ul>
 
