@@ -48,6 +48,7 @@
 .ctrl_index_act_index #content .recent_browsers {
 }
 .ctrl_index_act_index #content .recent_browsers .header {
+    padding: 10px 14px 0px 14px;
 }
 .ctrl_index_act_index #content .recent_browsers .header h3 {
     background: transparent url(../img/recently-created-browsers.gif) no-repeat top left;
@@ -58,11 +59,16 @@
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers {
     list-style: none;
-    margin: 0; padding: 0 14px 0 14px;
+    margin: 0; padding: 0;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers .even {
+    background-color: #e9f7f7;
+}
+.ctrl_index_act_index #content .recent_browsers ul.browsers .odd {
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser {
     margin: 0 0 0 0; 
-    padding: 0 0 21px 0;
+    padding: 10px 14px 10px 14px;
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 {
     margin: 0 0 0 0; 

@@ -57,7 +57,7 @@
     <div class="header"><h3>Recently created browsers</h3></div>
 
     <ul class="browsers">
-        <?php foreach ($latest_repacks as $repack): ?>
+        <?php foreach ($latest_repacks as $idx=>$repack): ?>
             <?php
                 $h = html::escape_array(array(
                     'url'         => $repack->url,
@@ -72,7 +72,7 @@
                         url::base() . 'profiles/' . $repack->profile->screen_name,
                 ));
             ?>
-            <li class="browser">
+                <li class="browser <?= ($idx%2)==0 ? 'even' : 'odd' ?>">
                 <h4><a href="<?=$h['url']?>"><?=$h['title']?></a></h4>
                 <p class="meta">
                     <span class="byline">
