@@ -66,7 +66,10 @@ class Mozilla_BYOB_RepackNotifications {
         email::send_view(
             $recipients,
             'repacks/notifications/' . Event::$data['new_state'],
-            array_merge(Event::$data, array('repack' => $repack))
+            array_merge(Event::$data, array(
+                'repack'      => $repack,
+                'contact_URL' => Kohana::config('core.contact_URL')
+            ))
         );
 
     }
