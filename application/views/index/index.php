@@ -27,7 +27,7 @@
         </ul>
 
         <h4 class="get_started">
-            <?php if (!authprofiles::is_logged_in()): ?>
+            <?php if (authprofiles::is_logged_in()): ?>
                 <?php
                     $profile_url = url::base() .
                         "profiles/".authprofiles::get_profile('screen_name');
