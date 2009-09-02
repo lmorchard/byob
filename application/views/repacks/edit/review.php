@@ -67,12 +67,12 @@ $edit_base = $repack->url() . ';edit?section=';
 
             <li class="section collections">
                 <h3>Collections <a target="_top" href="<?=$edit_base?>collections">edit</a></h3>
-                <?php if (in_array('11950', $repack->addons)): ?>
-                    <p>Collection URL: <a href="<?=html::specialchars($repack->addons_collection_url)?>" target="_new"><?=html::specialchars($repack->addons_collection_url)?></a></p>
-                    <p><span style="color: green">&#x2714;</span> The Add-on Collector add-on will be installed.</p>
-                <?php else: ?>
-                    <p><span style="color: red">&#x2716;</span> The Add-on Collector add-on will be not installed.</p>
-                <?php endif ?>
+                <p>Collection URL:
+                    <?php if (empty($repack->addons_collection_url)): ?>
+                        None
+                    <?php else: ?>
+                        <a href="<?=html::specialchars($repack->addons_collection_url)?>" target="_new"><?=html::specialchars($repack->addons_collection_url)?></a></p>
+                    <?php endif ?>
             </li>
 
             <li class="section bookmarks clearfix">

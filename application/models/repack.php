@@ -176,8 +176,8 @@ class Repack_Model extends ManagedORM
                 break;
 
             case 'collections':
-                $data->add_rules('addons', 'is_array');
-                $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
+                // $data->add_rules('addons', 'is_array');
+                // $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
                 $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
                 break;
 
