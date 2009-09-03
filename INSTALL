@@ -15,7 +15,7 @@ however, only requires PHP 5+ and MySQL.
 * Create a new MySQL database using application/config/schema-mysql/current.sql
 
 * From recaptcha.net, get a public & private key for the domain name where the
-    site to be installed and hosted.
+    site will be installed and hosted.
 
 * In the application/config directory, copy config-local.php-dist to 
     config-local.php and edit the settings as necessary:
