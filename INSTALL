@@ -1,0 +1,44 @@
+Build Your Own Browser Installation
+===================================
+
+This version of BYOB assumes installation on a single OS X machine for full
+functionality, including building repacks.  The web application itself,
+however, only requires PHP 5+ and MySQL.
+
+* Ensure the following directories exist, and are writable by the web server:
+
+** application/cache
+** application/logs
+** downloads
+** workspace
+
+* Create a new MySQL database using application/config/schema-mysql/current.sql
+
+* From recaptcha.net, get a public & private key for the domain name where the
+    site to be installed and hosted.
+
+* In the application/config directory, copy config-local.php-dist to 
+    config-local.php and edit the settings as necessary:
+
+** The database.local structure should be given the MySQL credentials to 
+    access the database created in the previous step.
+** Change the recaptcha.* settings to reflect the domain, public key, and
+    private key data acquired from recaptcha.net
+** Change the email.* settings to reflect local email environment.
+*** Set email.driver to 'native' if PHP itself is setup to send email
+*** Set email.driver to 'smtp' and update email.options if an external SMTP
+    server is to be used.
+** Ensure core.display_errors is FALSE to prevent verbose error messages
+** Set core.log_threshold to 0 to prevent logging to application/logs
+** Change core.site_domain to the domain name of the web host, deleting the
+    code to guess the domain name for dev servers.
+
+* To enable the work queue for repack build management:
+
+** Ensure the CLI version of PHP5 is installed
+** Copy bin/exhaust-queue.sh-dist to bin/exhaust-queue.sh and edit the absolute
+    path to the php CLI executable.
+** Copy bin/org.mozilla.byob.cron.plist-dist to bin/org.mozilla.byob.cron.plist-dist
+    and edit the absolute path to the bin/exhaust-queue.sh script
+** Finally, to enable the periodic launchd task, run:
+*** sudo launchctl load bin/org.mozilla.byob.cron.plist
