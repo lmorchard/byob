@@ -252,7 +252,7 @@ class Repacks_Controller extends Local_Controller
         $ext_map = array(
             '.tar.bz2' => 'application/x-bzip2',
             '.dmg'     => 'application/x-apple-diskimage',
-            '.exe'     => 'application/x-msdownload',
+            '.exe'     => 'application/octet-stream',
         );
         $content_type = 'application/octet-stream';
         foreach ($ext_map as $ext=>$type) {
