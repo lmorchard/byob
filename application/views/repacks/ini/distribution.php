@@ -1,5 +1,6 @@
 <?php
 $r = $repack;
+$firstrun_url = str_replace("https://", "http://", $r->releaseUrl()) . '/firstrun';
 $dist_id = "byob-{$r->profile->screen_name}-{$r->short_name}";
 $partner_id = 'byob' . $r->profile->screen_name;
 ?>
@@ -14,7 +15,7 @@ about=<?= $r->title . "\n" ?>
 
 [Preferences]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
-startup.homepage_welcome_url="<?= $r->releaseUrl() . '/firstrun' ?>"
+startup.homepage_welcome_url="<?= $firstrun_url ?>"
 <?php if ($r->persona->loaded): ?>
 extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php endif ?>
