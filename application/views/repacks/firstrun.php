@@ -69,7 +69,7 @@ if (gPlatform == 1) {
     <!-- end #header -->
 
 
-    <div id="main-feature"<?= ($repack->addons_collection_url) ? ' class="with-collection"' : '' ?>
+    <div id="main-feature"<?= ($repack->addons_collection_url) ? ' class="with-collection"' : '' ?>>
     <h2><span>Welcome to</span> <img src="http://www.mozilla.com/en-US/img/tignish/firstrun/welcome-3-5.png" alt="Welcome to Firefox 3.5" id="main-title" /></h2>
     <p>Thanks for supporting <a href="http://www.mozilla.com/en-US/about/whatismozilla.html">Mozilla's mission</a> of encouraging openness, innovation and opportunity on the Web!</p>
 </div>
