@@ -11,10 +11,14 @@ class recaptcha_Core
      *
      * @return string HTML for recaptcha
      */
-    public static function html()
+    public static function html($error=NULL, $use_ssl=NULL)
     {
+        if (null === $use_ssl) {
+            // By default, set the use_ssl flag to match the current request.
+            $use_ssl = isset($_SERVER['HTTPS']);
+        }
         return recaptcha_get_html(
-            Kohana::config('recaptcha.public_key')
+            Kohana::config('recaptcha.public_key'), $error, $use_ssl
         );
     }
 
