@@ -603,7 +603,7 @@ class Validation_Core extends ArrayObject {
 						break;
 					}
 
-					call_user_func($callback, $this, $field);
+					call_user_func($callback, &$this, $field);
 				}
 			}
 		}

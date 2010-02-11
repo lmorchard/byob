@@ -36,9 +36,7 @@ class html extends html_Core
      */
     public static function escape_array($arr)
     {
-        return arr::map_recursive(
-            array(get_class(), 'inplace_specialchars'), $arr
-        );
+        return arr::map_recursive('html::specialchars', $arr);
     }
 
     /**
@@ -63,9 +61,7 @@ class html extends html_Core
      */
     public static function urlencode_array($arr)
     {
-        return arr::map_recursive(
-            array(get_class(), 'inplace_urlencode'), $arr
-        );
+        return arr::map_recursive('urlencode', $arr);
     }
 
     /**
