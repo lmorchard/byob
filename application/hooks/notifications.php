@@ -87,6 +87,11 @@ class Mozilla_BYOB_RepackNotifications {
         foreach ($watchers as $p)
             $watcher_emails[] = $p->find_default_login_for_profile()->email;
 
+        if (empty($watcher_emails)) {
+            // Abort if no watchers available.
+            return;
+        }
+
         $recipients = array(
             'to' => $watcher_emails
         );
