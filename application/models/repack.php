@@ -35,6 +35,7 @@ class Repack_Model extends ManagedORM
         'short_name'  => 'Short name',     
         'title'       => 'Title',
         'description' => 'Description',
+        'is_public'   => 'Is public?',
         'state'       => 'State',
         'created'     => 'Created',
         'modified'    => 'Modified',
@@ -45,7 +46,8 @@ class Repack_Model extends ManagedORM
     );
 
     public $list_column_names = array(
-        'id', 'profile_id', 'title', 'short_name', 'state', 'created', 'modified'
+        'id', 'profile_id', 'title', 'short_name', 'is_public', 'state',
+        'created', 'modified'
     );
 
     public $edit_column_names = array(
@@ -159,6 +161,7 @@ class Repack_Model extends ManagedORM
             case 'general':
                 $data->add_rules('user_title', 'required', 'length[1,255]');
                 $data->add_rules('description', 'length[0,1000]');
+                $data->add_rules('is_public', 'required');
                 break;
 
             case 'platforms':
@@ -527,11 +530,15 @@ class Repack_Model extends ManagedORM
 
             case 'view':
                 return authprofiles::is_allowed('repacks', 'view') ||
-                    ($this->isRelease() &&
+                    ($this->isPublic() && $this->isRelease() &&
                         authprofiles::is_allowed('repacks', 'view_released')) ||
-                    (!$this->isRelease() && 
+                    ($this->isPublic() && !$this->isRelease() &&
                         authprofiles::is_allowed('repacks', 'view_unreleased')) ||
-                    ($own && authprofiles::is_allowed('repacks', 'view_own'));
+                    (!$this->isPublic() &&
+                        authprofiles::is_allowed('repacks', 'view_private')) ||
+                    ($own &&
+                        authprofiles::is_allowed('repacks', 'view_own'))
+                    ;
 
             case 'view_changes':
                 return authprofiles::is_allowed('repacks', 'view_changes') ||
@@ -652,6 +659,16 @@ class Repack_Model extends ManagedORM
     public function isRelease()
     {
         return $this->state == self::$states['released'];
+    }
+
+    /**
+     * Determine whether this repack is public-viewable.
+     *
+     * @return boolean
+     */
+    public function isPublic()
+    {
+        return !!$this->is_public;
     }
 
     /**

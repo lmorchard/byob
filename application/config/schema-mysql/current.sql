@@ -263,6 +263,7 @@ CREATE TABLE `repacks` (
   `title` varchar(255) default NULL,
   `description` text,
   `state` int(11) default '0',
+  `is_public` tinyint(2) NOT NULL default '1',
   `json_data` text,
   PRIMARY KEY  (`id`),
   KEY `created_by` (`profile_id`)

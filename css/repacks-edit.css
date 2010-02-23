@@ -177,6 +177,15 @@
     float: left;
     width: 36ex;
 }
+.ctrl_repacks_act_edit #wizard .pane fieldset ul.choices {
+}
+.ctrl_repacks_act_edit #wizard .pane fieldset ul.choices li {
+    float: left;
+    margin-right: 1em;
+}
+.ctrl_repacks_act_edit #wizard .pane fieldset ul.choices li input {
+    width: auto;
+}
 .ctrl_repacks_act_edit .section_nav {
     padding: 0.5em 1.25em;
     margin: 0 0 0 0;
