@@ -496,10 +496,10 @@ class Repacks_Controller extends Local_Controller
             header('Content-Type: application/json');
             echo $rp->as_json();
         } else {
-            header('Content-Type: text/html');
+            header('Content-Type: text/plain');
             $arr = $rp->as_array();
             unset($arr['json_data']);
-            var_dump($arr);
+            var_export($arr);
         }
     }
 }
