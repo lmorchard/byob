@@ -30,69 +30,16 @@
                     (optional, max length 1000 characters):</p>
                 <?= form::textarea('description', form::value('description')) ?>
             </div>
+            <div class="public">
+                <p>Should this browser be included in public lists?</p>
+                <ul class="choices">
+                    <li><?= form::radio('is_public', '1',
+                        !!form::value('is_public')) ?> Yes</li>
+                    <li><?= form::radio('is_public', '0',
+                        !form::value('is_public')) ?> No</li>
+                </ul>
+            </div>
         </fieldset>
     </div>
-
-    <?php /*
-    <div>
-        <fieldset><legend>Locales</legend>
-            <p>
-                Mozilla Firefox has been localized 
-                <a target="_new" href="http://mozilla.com/firefox/all.html" 
-                    title="All versions of Firefox">for many languages</a>, 
-                and it is our intent for BYOB to eventually support all of 
-                them. For this version of BYOB, you can specify up to ten (10) 
-                locales.
-            </p>
-
-            <?php
-                $locales = form::value('locales');
-                $locale_choices = Repack_Model::$locale_choices;
-            ?>
-            <ul class="repack-locale clearfix">
-                <?php foreach ($locale_choices as $locale=>$label): ?>
-                    <li>
-                        <?= form::checkbox("locales[]", $locale, in_array($locale, $locales)) ?>
-                        <?= html::specialchars($label) ?>
-                    </li>
-                <?php endforeach ?>
-            </ul>
-        </fieldset>
-    </div>
-
-    <div>
-        <fieldset><legend>Platforms</legend>
-            <p>
-                Mozilla Firefox is available for the 
-                <a href="http://www.mozilla.com/firefox/system-requirements.html" 
-                    target="_new"
-                    title="Firefox System Requirements">Linux, Apple OSX, and
-                     Windows</a> family of operating systems. BYOB will 
-                generate your customized version of Firefox for all three 
-                platforms by default, and we encourage making 
-                all platforms available to your target audience. 
-            </p>
-            <p>
-                If, however, you only want to distribute a version for a 
-                certain platform(s), you can deselect the platforms you don't 
-                need below, and they won't be generated when you submit your 
-                distribution for approval.
-            </p>
-
-            <?php
-                $osen = form::value('os');
-                if (empty($osen)) $osen = array();
-            ?>
-            <ul class="repack-os">
-                <?php foreach (Repack_Model::$os_choices as $name=>$label): ?>
-                    <li>
-                        <?= form::checkbox("os[]", $name, in_array($name, $osen)) ?>
-                        <?= html::specialchars($label) ?>
-                    </li>
-                <?php endforeach ?>
-            </ul>
-        </fieldset>
-    </div>
-     */ ?>
 
 </div>
