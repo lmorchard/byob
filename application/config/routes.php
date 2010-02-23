@@ -18,6 +18,8 @@ $config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/repack.cfg'] =
     'repacks/repackcfg/screen_name/$1/short_name/$2/status/$3';
 $config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/distribution.ini'] =
     'repacks/distributionini/screen_name/$1/short_name/$2/status/$3';
+$config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/repack.json'] =
+    'repacks/repackjson/screen_name/$1/short_name/$2/status/$3';
 $config['profiles/([^/]+)/browsers/([^/]+)/?([^/]*)/downloads/(.*)'] =  
     'repacks/download/screen_name/$1/short_name/$2/status/$3/filename/$4';
 

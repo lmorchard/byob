@@ -481,4 +481,25 @@ class Repacks_Controller extends Local_Controller
         echo $rp->buildDistributionIni();
     }
 
+    /**
+     * Spew out the raw repack JSON data, or pretty-print PHP serialization.
+     */
+    public function repackjson()
+    {
+        $rp = $this->_getRequestedRepack();
+        if (!$rp->checkPrivilege('repackjson'))
+            return Event::run('system.403');
+
+        $this->auto_render = false;
+
+        if ('pretty' != $this->input->get('format')) {
+            header('Content-Type: application/json');
+            echo $rp->as_json();
+        } else {
+            header('Content-Type: text/html');
+            $arr = $rp->as_array();
+            unset($arr['json_data']);
+            var_dump($arr);
+        }
+    }
 }

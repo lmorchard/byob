@@ -602,6 +602,8 @@ class Repack_Model extends ManagedORM
                 return authprofiles::is_allowed('repacks', 'repackcfg');
             case 'repacklog':
                 return authprofiles::is_allowed('repacks', 'repacklog');
+            case 'repackjson':
+                return authprofiles::is_allowed('repacks', 'repackjson');
 
         };
     }
@@ -970,7 +972,7 @@ class Repack_Model extends ManagedORM
             $this->short_name = substr(base64_encode(time() + rand()), -14, 12);
         }
 
-        $this->json_data = json_encode($this->attrs);
+        $this->json_data = $this->as_json();
 
         parent::save();
 
@@ -1094,6 +1096,14 @@ class Repack_Model extends ManagedORM
     public function as_array()
     {
         return array_merge($this->attrs, parent::as_array());
+    }
+
+    /**
+     * Return all properties in JSON form.
+     */
+    public function as_json()
+    {
+        return json_encode($this->attrs);
     }
 
 }

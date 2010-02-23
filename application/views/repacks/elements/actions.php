@@ -9,6 +9,7 @@ $privs = $repack->checkPrivileges(array(
     'view', 'view_history', 'edit', 'delete', 'download', 'release',
     'revert', 'approve', 'auto_approve', 'reject', 'cancel', 'begin',
     'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
+    'repackjson'
 ));
 $actions = array();
 $previews = array();
@@ -71,6 +72,8 @@ if ($privs['repackcfg'])
     $previews['/repack.cfg'] = "repack.cfg";
 if ($privs['repacklog'])
     $previews['/repack.log'] = "repack.log";
+if ($privs['repackjson'])
+    $previews['/repack.json?format=pretty'] = "repack.json";
 
 ?>
 <?php if (!empty($actions)): ?>
