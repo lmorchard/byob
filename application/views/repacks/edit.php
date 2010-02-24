@@ -42,7 +42,7 @@
         </ul>
         <?php endif ?>
 
-        <h4>Current browser customizations</h4>
+        <h4>Sections changed this session</h4>
         <ul class="changed_sections">
             <?php if (!empty($repack->changed_sections)):?>
                 <?php foreach ($repack->changed_sections as $idx=>$changed): ?>
