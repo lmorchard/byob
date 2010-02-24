@@ -45,16 +45,33 @@ class Mozilla_BYOB_RepackNotifications {
         $repack = ORM::factory('repack')
             ->find(Event::$data['repack']['id']);
 
+        // Assemble watchers from all admins and editors.
+        // TODO: Make this a flag of some sort in the future?
         $watcher_emails = array();
         $watchers = ORM::factory('profile')
             ->find_all_by_role(array('admin', 'editor'));
         foreach ($watchers as $p)
             $watcher_emails[] = $p->find_default_login_for_profile()->email;
 
-        $recipients = array(
-            'to'  => $repack->profile->find_default_login_for_profile()->email,
-            'bcc' => $watcher_emails
-        );
+        // Decide whether to squelch notifications to the repack owner
+        $owner_id = $repack->profile->id;
+        $squelch_owner = 
+            // Refrain from informing repack owner about build failure,
+            // unless the owner is allowed to see failure.
+            ( 'failed' == Event::$data['new_state'] && 
+                !$repack->checkPrivilege('see_failed', $owner_id) )
+            ;
+
+        if ($squelch_owner) {
+            // Only send owner-squelched notifications to watchers
+            $recipients = array( 'to' => $watcher_emails );
+        } else {
+            // Inform the repack owner, as well as the watchers.
+            $recipients = array(
+                'to'  => $repack->profile->find_default_login_for_profile()->email,
+                'bcc' => $watcher_emails
+            );
+        }
 
         Kohana::log('debug',
             'Sending notifications on ' . 

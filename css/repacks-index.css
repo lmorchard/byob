@@ -65,7 +65,7 @@
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status {
     float: right;
-    margin: -24px 15px 0 0;
+    margin: 0px 15px 0 0;
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status h4 {
     display: none;
@@ -92,6 +92,14 @@
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-released span {
     border-color: #faea90;
     background-color: #faea90;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-failed span {
+    border-color: #c85a5a;
+    background-color: #c85a5a;
+    color: #fff;
+}
+.ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-failed span a {
+    color: #fff;
 }
 .ctrl_repacks_act_index #content .browsers .browser .branches .branch .status-rejected span {
     border-color: #c85a5a;

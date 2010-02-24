@@ -2,6 +2,10 @@
 /**
  * Transform a repack's state into a text description.
  */
+$privs = $repack->checkPrivileges(array(
+    'see_failed'
+));
+
 $state_titles = array(
     'new'        => null,
     'edited'     => null,
@@ -16,8 +20,14 @@ $state_titles = array(
     'deleted'    => 'Deleted',
     'cancelled'  => null,
 );
+
 $state_name = $repack->getStateName();
 if (NULL == $state_name) $state_name = 'new';
+if ('failed' == $state_name && !$privs['see_failed']) {
+    // If not allowed to see build failures, fake status as 'started'
+    $state_name = 'started';
+}
+
 $title = $state_titles[$state_name];
 $h = html::escape_array(array(
     'url'      => $repack->url(),
@@ -27,6 +37,7 @@ $h = html::escape_array(array(
     'kind'     => ($repack->isRelease()) ?
         'Current release' : 'In-progress changes',
 ));
+
 ?>
 <div class="status status-<?=$h['state']?>">
     <?php if (null !== $title): ?>

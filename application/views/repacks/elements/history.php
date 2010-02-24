@@ -1,6 +1,14 @@
+<?php
+$privs = $repack->checkPrivileges(array(
+    'see_failed'
+));
+?>
 <ul class="history">
     <?php foreach ($logevents as $event): ?>
-        <?php if ('modified' == $event->action) continue ?>
+        <?php 
+            if ('modified' == $event->action) continue;
+            if ('failed' == $event->action && !$privs['see_failed']) continue;
+        ?>
         <?php
             $action_titles = array(
                 'new'        => 'Created',
@@ -41,7 +49,7 @@
                     null : $event->profile->screen_name,
             ));
         ?>
-        <li class="event clearfix">
+            <li class="event event-<?=$event->action?> clearfix">
             <div class="when"><?=$h['when']?></div>
             <p class="summary">
                 <?=$h['what']?> 

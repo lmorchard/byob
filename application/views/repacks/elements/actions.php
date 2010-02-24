@@ -7,17 +7,13 @@ $h = html::escape_array(array_merge(
 ));
 $privs = $repack->checkPrivileges(array(
     'view', 'view_history', 'edit', 'delete', 'download', 'release',
+    'see_failed',
     'revert', 'approve', 'auto_approve', 'reject', 'cancel', 'begin',
     'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
     'repackjson'
 ));
 $actions = array();
 $previews = array();
-
-/*
-if ($privs['view'])
-    $actions['/'] = "View details";
- */
 
 if ($repack->isRelease()) { 
 
@@ -39,7 +35,12 @@ if ($repack->isRelease()) {
 
     } else { 
 
-        if (!$repack->isLockedForChanges()) { 
+        $locked_for_changes = 
+            ( ($repack->state == Repack_Model::$states['failed']) &&
+                !$privs['see_failed'] ) ||
+            $repack->isLockedForChanges();
+
+        if (!$locked_for_changes) { 
             if ($privs['edit'])
                 $actions[';edit'] = "Continue editing";
             if ($privs['delete'])

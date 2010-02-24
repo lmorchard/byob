@@ -540,6 +540,9 @@ class Repack_Model extends ManagedORM
                         authprofiles::is_allowed('repacks', 'view_own'))
                     ;
 
+            case 'see_failed':
+                return authprofiles::is_allowed('repacks', 'see_failed');
+
             case 'view_changes':
                 return authprofiles::is_allowed('repacks', 'view_changes') ||
                     ($own && authprofiles::is_allowed('repacks', 'view_own_changes'));

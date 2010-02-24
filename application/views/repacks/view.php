@@ -20,7 +20,9 @@
 <?php if (!empty($logevents)): ?>
 <div id="history">
     <h3>History</h3>
-    <?=View::factory('repacks/elements/history')
-        ->set('logevents', $logevents)->render()?>
+    <?= View::factory('repacks/elements/history')->set(array(
+        'logevents' => $logevents,
+        'repack'    => $repack
+    ))->render() ?>
 </div>
 <?php endif ?>

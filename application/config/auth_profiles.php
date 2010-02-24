@@ -38,8 +38,6 @@ $config['acls'] = $acls
     ->allow('editor', 'search', array(
         'search', 'approvalqueue'
     ))
-    // ->allow('member', 'search', array('search'))
-    // ->allow('guest', 'search', array('search'))
 
     // Profile privileges
     ->add(new Zend_Acl_Resource('profiles'))
@@ -63,7 +61,9 @@ $config['acls'] = $acls
     ))
     ->allow('editor', 'repacks', array(
         'view_unreleased', 'view_history', 
-        'view_changes', 'view_approval_queue',
+        'view_changes', 'view_approval_queue', 'view_private', 
+        'see_failed',
+        'distributionini', 'repackcfg', 'repacklog', 'repackjson',
         'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 
         'download_unreleased',
