@@ -109,7 +109,7 @@
         <div id="footer">
             <div class="content">
                 <div class="copyright">
-                    <p><strong>Copyright &copy; 2005 - 2009 Mozilla</strong></p>
+                    <p><strong>Copyright &copy; 2005 - 2010 Mozilla</strong></p>
                     <p>All rights reserved</p>
                 </div>
                 <ul class="nav">
