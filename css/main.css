@@ -79,7 +79,9 @@ a img {
     margin-left: 2em;
     text-decoration: none;
 }
-
+div.section {
+    margin: 1em 0.25em 1em 0.25em;
+}
 .clearfix:after {content: ".";
     display: block;
     height: 0;

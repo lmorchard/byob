@@ -44,6 +44,90 @@ class Admin_Controller extends ORM_Manager_Controller
     }
 
     /**
+     * Home page list of models
+     */
+    public function index()
+    {
+        parent::index();
+        $this->view_base = 'admin';
+    }
+
+    /**
+     * Schedule rebuilds of all repacks with latest product release
+     */
+    public function rebuild()
+    {
+        $this->view_base = 'admin';
+
+        $this->view->repack_count = ORM::factory('repack')
+            ->from('repacks')
+            ->where('state', Repack_Model::$states['released'])
+            ->count_records();
+
+        $this->view->results = array(
+            'rebuilding' => array(),
+            'pending'    => array(),
+            'locked'     => array()
+        );
+
+        if ('post' == request::method()) {
+
+            // Disable notifications for now, to prevent a flood of email
+            Kohana::config_set('repacks.enable_notifications', false);
+
+            // Iterate over all release repacks.
+            $repacks = ORM::factory('repack')
+                ->where('state', Repack_Model::$states['released'])
+                ->find_all();
+            foreach ($repacks as $repack) {
+
+                // If there are pending edits, skip the rebuild because it will 
+                // clobber those edits.
+                $pending_rp = ORM::factory('repack')
+                    ->where(array(
+                        'uuid'      => $repack->uuid,
+                        'state <>' => Repack_Model::$states['released'],
+                    ))->find();
+                if ($pending_rp->loaded) {
+                    Kohana::log('info', 
+                        'Skipping rebuild for ' .
+                        $repack->profile->screen_name . ' - ' . $repack->short_name .
+                        ' because pending edits exist.'
+                    );
+                    $this->view->results['pending'][] = $repack;
+                    continue;
+                }
+
+                // If an editable repack couldn't be acquired, there's probably 
+                // a build already in progress or some other condition 
+                // blocking rebuild
+                $editable_rp = $repack->findEditable();
+                if (!$editable_rp) {
+                    Kohana::log('info', 
+                        'Skipping rebuild for ' .
+                        $repack->profile->screen_name . ' - ' . $repack->short_name .
+                        ' because it is locked for changes.'
+                    );
+                    $this->view->results['locked'][] = $repack;
+                    continue;
+                }
+
+                // Finally, flag this as a rebuild and begin the release.
+                // The rebuild flag will trigger auto-approval once build has 
+                // finished.
+                $editable_rp->is_rebuild = true;
+                $editable_rp->save();
+                $editable_rp->requestRelease('Global rebuild initiated');
+
+                $this->view->results['rebuilding'][] = $repack;
+
+            }
+
+        }
+
+    }
+
+    /**
      * In reaction to a 403 Forbidden event, throw up a forbidden view.
      */
     public function show_403()
