@@ -16,6 +16,8 @@ class PHPUnit_Core
 		spl_autoload_register(array($this, 'auto_load'));
 		set_include_path(MODPATH.'phpunit/vendor' . PATH_SEPARATOR . get_include_path());
 
+		require_once 'PHPUnit/Framework.php';
+
 		$this->_config = Kohana::config('phpunit');
 
 		$this->_get_phpunit_options();
@@ -70,13 +72,7 @@ class PHPUnit_Core
 		
 		$this->_get_phpunit_options($config_group);
 		
-		require_once 'PHPUnit/Util/Filter.php';
-		require_once 'PHPUnit/Framework/TestSuite.php';
 		require_once 'PHPUnit/TextUI/TestRunner.php';
-
-		#require_once Kohana::find_file('vendor', 'PHPUnit/Util/Filter');
-		#require_once Kohana::find_file('vendor', 'PHPUnit/Framework/TestSuite');
-		#require_once Kohana::find_file('vendor', 'PHPUnit/TextUI/TestRunner');
 
 		$this->_whitelist();
 		$this->_blacklist();
@@ -120,8 +116,6 @@ class PHPUnit_Core
 			$end       = strpos($message, '"', $start);
 			$className = substr($message, $start, $end - $start);
 
-			require 'PHPUnit/Util/Skeleton/Test.php';
-			#require Kohana::find_file('vendor', 'PHPUnit/Util/Skeleton/Test');
 			$skeleton = new PHPUnit_Util_Skeleton_Test($className, $arguments['testFile']);
 
 			$result = $skeleton->generate(TRUE);
