@@ -25,6 +25,7 @@ class Repack_Model extends ManagedORM
         'locales'          => array('en-US'),
         'os'               => array('win','mac','linux'),
         'changed_sections' => array(),
+        'search_plugins'   => array(),
     ); 
 
     // Titles for named columns
@@ -185,7 +186,7 @@ class Repack_Model extends ManagedORM
                 $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
                 break;
 
-            case 'persona':
+            case 'addons':
                 $data->add_rules('addons', 'is_array');
                 $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
                 $data->add_rules('persona_url', 'length[0,255]', 'url');
@@ -223,7 +224,7 @@ class Repack_Model extends ManagedORM
     /**
      * Ensure all selected addons are known to the application.
      */
-    public function addonsAreKnown(&$valid, $field)
+    public function addonsAreKnown($valid, $field)
     {
         $addon_model = new Addon_Model();
         $chosen_ids = $valid[$field];
@@ -239,7 +240,7 @@ class Repack_Model extends ManagedORM
     /**
      * Ensure the persona indicated by URL exists.
      */
-    public function personaExists(&$valid, $field)
+    public function personaExists($valid, $field)
     {
         $persona_model = new Persona_Model();
         $persona = $persona_model->find_by_url($valid[$field]);
@@ -252,7 +253,7 @@ class Repack_Model extends ManagedORM
      * Extract selected locales from form data, accepting only locales that 
      * match valid product locales.
      */
-    public function extractLocales(&$valid, $field)
+    public function extractLocales($valid, $field)
     {
         if (empty($this->locales) && empty($valid[$field])) {
             // Detect locale from request if neither repack nor form offers locales.
@@ -314,7 +315,7 @@ class Repack_Model extends ManagedORM
     /**
      * Extract bookmarks from form data.
      */
-    public function extractBookmarks(&$valid, $prefix)
+    public function extractBookmarks($valid, $prefix)
     {
         if ('post' != request::method()) {
 
@@ -392,6 +393,53 @@ class Repack_Model extends ManagedORM
         if ($taken) {
             $valid->add_error($field, 'short_name_available');
         }
+    }
+
+
+    /**
+     * Add the XML for a search plugin to the repack.
+     *
+     * @param string $name Name for the plugin
+     * @param string $xml  XML source for the plugin
+	 * @chainable
+     */
+    public function addSearchPlugin($name, $xml) {
+        if (!isset($this->attrs['search_plugins']) || 
+                !is_array($this->attrs['search_plugins'])) {
+            $this->attrs['search_plugins'] = array();
+        }
+        $this->attrs['search_plugins'][$name] = $xml;
+        return $this;
+    }
+
+    /**
+     * Remove a named search plugin from the repack.
+     *
+     * @param string $name Name for the plugin
+     * @param string $xml  XML source for the plugin
+	 * @chainable
+     */
+    public function removeSearchPlugin($name) {
+        if (isset($this->attrs['search_plugins'][$name])) {
+            unset($this->attrs['search_plugins'][$name]);
+        }
+        return $this;
+    }
+
+    /**
+     * Fetch the set of search plugins as parsed Searchplugin model objects.
+     *
+     * @returns array
+     */
+    public function getSearchPlugins() {
+        $plugins = array();
+        if (!empty($this->attrs['search_plugins'])) {
+            foreach ($this->attrs['search_plugins'] as $name => $plugin_xml) {
+                $plugin = Model::factory('searchplugin')->loadFromXML($plugin_xml);
+                if ($plugin->loaded) $plugins[$name] = $plugin;
+            }
+        }
+        return $plugins;
     }
 
     
@@ -996,8 +1044,9 @@ class Repack_Model extends ManagedORM
      */
     public function __get($column)
     {
-        if ('url' == $column)
+        if ('url' == $column) {
             return $this->url();
+        }
         if ('version' == $column) {
             $time = $this->modified;
             if (empty($time)) $time = $this->created;
@@ -1014,10 +1063,17 @@ class Repack_Model extends ManagedORM
         if ('persona' == $column) {
             return Model::factory('persona')->find_by_url($this->persona_url);
         }
+        if ('search_plugins' == $column) {
+            return $this->getSearchPlugins();
+        }
 
         try {
             return parent::__get($column);
         } catch (Kohana_Exception $e) {
+            $msg = $e->getMessage();
+            if (FALSE === strpos($msg, 'property does not exist')) {
+                throw $e;
+            }
             if (array_key_exists($column, $this->attrs)) {
                 return $this->attrs[$column];
             } else {
@@ -1038,6 +1094,10 @@ class Repack_Model extends ManagedORM
         try {
             parent::__set($column, $value);
         } catch (Kohana_Exception $e) {
+            $msg = $e->getMessage();
+            if (FALSE === strpos($msg, 'property does not exist')) {
+                throw $e;
+            }
         }
         if ('json_data' != $column)
             $this->attrs[$column] = $value;

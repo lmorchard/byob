@@ -164,6 +164,17 @@ class Mozilla_BYOB_RepackBuilds {
                 }
             }
 
+            // Dump out the search plugins, if any.
+            $search_plugins = $repack->search_plugins;
+            if (!empty($search_plugins)) {
+                $sp_base_dir = "{$repack_dir}/distribution/searchplugins/common";
+                mkdir($sp_base_dir, 0775, true);
+                
+                foreach ($search_plugins as $fn => $plugin) {
+                    file_put_contents("{$sp_base_dir}/{$fn}", $plugin->asXML());
+                }
+            }
+
             if ($run_script) {
 
                 // Remember the original directory and change to the repack dir.

@@ -78,10 +78,22 @@ class Addon_Test extends PHPUnit_Framework_TestCase
             'https://addons.mozilla.org/en-US/firefox/collection/webdeveloper';
         $addons = Model::factory('addon')
             ->find_all_by_collection_url($collection_url);
-        $expected_ids = array(
-            '966', '5369', '539', '271', '590', '748', '684', '7943', '60', 
-            '1843', '3829', '2464',
-        );
+        // NOTE: This is bound to change often.
+        $expected_ids = 
+            array (
+              0 => '13661',
+              1 => '9924',
+              2 => '3863',
+              3 => '2108',
+              4 => '271',
+              5 => '590',
+              6 => '748',
+              7 => '684',
+              8 => '60',
+              9 => '1843',
+              10 => '2464',
+            )
+            ;
         $result_ids = array();
         foreach ($addons as $addon) {
             $result_ids[] = $addon->id;

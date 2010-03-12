@@ -3,8 +3,8 @@
         'general'     => 'General',
         'locales'     => 'Locales',
         'platforms'   => 'Platforms',
-        'persona'     => 'Personas',
         'bookmarks'   => 'Bookmarks',
+        'addons'      => 'Addons',
         'collections' => 'Collections',
         'review'      => false,
     );
@@ -59,7 +59,7 @@
             <a id="save-and-review" href="<?=url::base() . url::current()?>?section=review"><img src="<?=url::base()?>img/save-and-review.gif" alt="Save and Review" /></a></p>
     </div>
 
-    <div class="section">
+    <div class="section section-<?= $section ?>">
 
         <ul class="tabs clearfix">
             <?php $first = true ?>

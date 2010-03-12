@@ -22,7 +22,7 @@ app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
 <?php if ($firstrun_url): ?>
 startup.homepage_welcome_url="<?= $firstrun_url ?>"
 <?php endif ?>
-<?php if ($r->persona->loaded): ?>
+<?php if ($r->persona && $r->persona->loaded): ?>
 extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php endif ?>
 

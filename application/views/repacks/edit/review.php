@@ -37,13 +37,26 @@ $edit_base = $repack->url() . ';edit?section=';
             </li>
 
             <li class="section personas clearfix">
-                <h3>Personas <a target="_top" href="<?=$edit_base?>persona">edit</a></h3>
+                <h3>Personas <a target="_top" href="<?=$edit_base?>addons">edit</a></h3>
                 <?php if (in_array('10900', $repack->addons)): ?>
                     <p>Persona URL: <a href="<?=html::specialchars($repack->persona_url)?>" target="_new"><?=html::specialchars($repack->persona_url)?></a></p>
                     <p><span style="color: green">&#x2714;</span> The Personas add-on will be installed.</p>
                 <?php else: ?>
                     <p><span style="color: red">&#x2716;</span> The Personas add-on will be not installed.</p>
                 <?php endif ?>
+            </li>
+
+            <li class="section searchplugins clearfix">
+                <h3>Search Plugins <a target="_top" href="<?=$edit_base?>addons">edit</a></h3>
+                <ul>
+                    <?php if (empty($repack->search_plugins)): ?>
+                        <li>None.</li>
+                    <?php else: ?>
+                        <?php foreach ($repack->search_plugins as $plugin): ?>
+                            <li><?=html::specialchars($plugin->ShortName)?></li>
+                        <?php endforeach ?>
+                    <?php endif ?>
+                </ul>
             </li>
 
         <ul>

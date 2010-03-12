@@ -218,6 +218,92 @@ class Repacks_Controller extends Local_Controller
         }
     }
 
+    /**
+     * Handle the iframe/popup for search plugin upload / management
+     */
+    public function edit_searchplugins()
+    {
+        $rp = $this->_getRequestedRepack();
+
+        // Make sure there's an editable repack.
+        $editable_rp = $rp->findEditable();
+        if (!$editable_rp || !$editable_rp->checkPrivilege('edit')) 
+            return Event::run('system.403');
+
+        // If this repack is not the editable one, redirect to it.
+        if ($editable_rp->id != $rp->id) {
+            if (!$editable_rp->saved) {
+                $editable_rp->save();
+            }
+            if ($editable_rp->isLockedForChanges()) {
+                return url::redirect($editable_rp->url);
+            } else {
+                return url::redirect($editable_rp->url('edit_searchplugins'));
+            }
+        }
+
+        $errors = array();
+
+        if ('post' == request::method()) {
+
+            // Mark the "addons" section as changed if the repack gets saved 
+            if (!is_array($rp->changed_sections)) 
+                $rp->changed_sections = array();
+            if (!in_array('addons', $rp->changed_sections)) {
+                $changed = $rp->changed_sections;
+                array_push($changed, 'addons');
+                $rp->changed_sections = $changed;
+            }
+
+            // Check to see if this is an attempt to remove 
+            if ($name = $this->input->post('remove_name')) {
+                $rp->removeSearchPlugin($name)->save();
+                return url::redirect($rp->url('edit_searchplugins'));
+            }
+
+            // Check to see if this is an attempt to upload
+            if (!empty($_FILES['upload']['tmp_name'])) {
+                $sp_fn = $_FILES['upload']['tmp_name'];
+
+                if (count($rp->search_plugins) >= 3) {
+
+                    // Enforce the upload limit.
+                    $errors[] = 'Only up to 3 search plugins are allowed.';
+
+                } else if ('text/xml' != $_FILES['upload']['type']) {
+
+                    // Require text/xml type uploads
+                    $errors[] = 'Search plugins must be in XML format.';
+
+                } else {
+
+                    // Try accepting and parsing the uploaded data.
+                    // TODO: Enforce an upload size limit before parsing?
+                    $sp_xml = file_get_contents($sp_fn);
+                    $sp = Model::factory('searchplugin')->loadFromXML($sp_xml);
+
+                    if (!$sp->loaded) {
+                        // Couldn't load the XML, so complain.
+                        $errors[] = $sp->last_error;
+                    } else {
+                        // The data made it, so add the plugin and save the repack.
+                        $sp_name = basename($_FILES['upload']['name']);
+                        $rp->addSearchPlugin($sp_name, $sp_xml)->save();
+                        return url::redirect($rp->url('edit_searchplugins'));
+                    }
+
+                }
+            }
+
+        }
+
+        $this->view->set_global(array(
+            'repack' => $rp,
+            'errors' => $errors,
+        ));
+
+    }
+
 
     /**
      * Download a build of a repack.

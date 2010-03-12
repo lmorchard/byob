@@ -25,6 +25,8 @@ class Persona_Model extends Model
      */
     public function __construct()
     {
+        $this->loaded = false;
+
         parent::__construct();
     }
 
@@ -33,6 +35,8 @@ class Persona_Model extends Model
      */
     public function find($persona_id)
     {
+        if (empty($persona_id)) return $this;
+
         $cache = Cache::instance();
         $key = "persona-{$persona_id}";
         $json = $cache->get($key);
@@ -84,6 +88,7 @@ class Persona_Model extends Model
      */
     public function find_by_url($url)
     {
+        if (empty($url)) return $this;
         $persona_id = basename($url);
         return $this->find($persona_id);
     }

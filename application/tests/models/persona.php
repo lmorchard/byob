@@ -47,12 +47,12 @@ class Persona_Test extends PHPUnit_Framework_TestCase
         $p = Model::factory('persona')->find('34365');
 
         $this->assertTrue($p->loaded);
-        $this->assertEquals($p->id, '34365');
-        $this->assertEquals($p->url, 'http://www.getpersonas.com/persona/34365');
-        $this->assertEquals($p->name, "A Web Browser Renaissance");
+        $this->assertEquals('34365', $p->id);
+        $this->assertEquals('http://www.getpersonas.com/persona/34365', $p->url);
+        $this->assertEquals("A Web Browser Renaissance", $p->name);
 
         // DANGER: This will break if this persona is ever modified.
-        $this->assertEquals($p->json, '{"id":"34365","name":"A Web Browser Renaissance","accentcolor":"#f2d9b1","textcolor":"#000000","header":"6\/5\/34365\/ff35_header7.jpg","footer":"6\/5\/34365\/ff35_footer10.jpg"}');
+        //$this->assertEquals($p->json, '{"id":"34365","name":"A Web Browser Renaissance","accentcolor":"#f2d9b1","textcolor":"#000000","header":"6\/5\/34365\/ff35_header7.jpg","footer":"6\/5\/34365\/ff35_footer10.jpg"}');
     }
 
     /**
@@ -64,12 +64,12 @@ class Persona_Test extends PHPUnit_Framework_TestCase
             'http://www.getpersonas.com/persona/34365' 
         );
 
-        $this->assertEquals($p->id, '34365');
-        $this->assertEquals($p->url, 'http://www.getpersonas.com/persona/34365');
-        $this->assertEquals($p->name, "A Web Browser Renaissance");
+        $this->assertEquals('34365', $p->id);
+        $this->assertEquals('http://www.getpersonas.com/persona/34365', $p->url);
+        $this->assertEquals("A Web Browser Renaissance", $p->name);
 
         // DANGER: This will break if this persona is ever modified.
-        $this->assertEquals($p->json, '{"id":"34365","name":"A Web Browser Renaissance","accentcolor":"#f2d9b1","textcolor":"#000000","header":"6\/5\/34365\/ff35_header7.jpg","footer":"6\/5\/34365\/ff35_footer10.jpg"}');
+        //$this->assertEquals($p->json, '{"id":"34365","name":"A Web Browser Renaissance","accentcolor":"#f2d9b1","textcolor":"#000000","header":"6\/5\/34365\/ff35_header7.jpg","footer":"6\/5\/34365\/ff35_footer10.jpg"}');
     }
 
 }
