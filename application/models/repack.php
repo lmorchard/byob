@@ -243,8 +243,9 @@ class Repack_Model extends ManagedORM
     public function personaExists($valid, $field)
     {
         $persona_model = new Persona_Model();
-        $persona = $persona_model->find_by_url($valid[$field]);
-        if (!$persona->loaded) {
+        $url = $valid[$field];
+        $persona = $persona_model->find_by_url($url);
+        if (!empty($url) && !$persona->loaded) {
             $valid->add_error($field, 'unknown_persona');
         }
     }
