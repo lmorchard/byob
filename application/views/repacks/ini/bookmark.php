@@ -1,13 +1,8 @@
-<?php if ('live' == $bookmark['type']): ?>
-item.<?= $idx ?>.type=livemark
-item.<?= $idx ?>.title=<?= $bookmark['title'] . "\n" ?>
-item.<?= $idx ?>.siteLink=<?= $bookmark['location'] . "\n" ?>
-item.<?= $idx ?>.feedLink=<?= $bookmark['feed'] . "\n" ?>
-<?php else: ?>
-item.<?= $idx ?>.type=bookmark
-item.<?= $idx ?>.title=<?= $bookmark['title'] . "\n" ?>
-item.<?= $idx ?>.link=<?= $bookmark['location'] . "\n" ?>
-<?php if (!empty($bookmark['description'])): ?>
-item.<?= $idx ?>.description=<?= $bookmark['description'] . "\n" ?>
+<?php foreach (array('type', 'title', 'link', 'description', 'siteLink', 'feedLink') as $field_name): ?>
+<?php if (!empty($bookmark[$field_name])):?>
+item.<?=$idx?>.<?=$field_name?>=<?=$bookmark[$field_name]."\n"?>
 <?php endif ?>
+<?php endforeach ?>
+<?php if ('folder' == $bookmark['type'] && !empty($bookmark['items'])): ?>
+item.<?=$idx?>.folderId=<?=$bookmark['id']."\n"?>
 <?php endif ?>

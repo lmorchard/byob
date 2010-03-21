@@ -2,10 +2,13 @@
 /**
  * Configuration for auth profiles
  */
-$config['secret']       = 'c2Vzc2lvbl9pZHxzOjMyOiJkNmY5NTUw';
-$config['home_url']     = 'profiles/%1$s/';
-$config['cookie_name']  = 'byob_auth_profiles';
-$config['cookie_path']  = '/';
+$config['secret']          = 'c2Vzc2lvbl9pZHxzOjMyOiJkNmY5NTUw';
+$config['home_url']        = 'profiles/%1$s/';
+$config['cookie_name']     = 'byob_auth_profiles';
+$config['cookie_path']     = '/';
+$config['cookie_domain']   = '';
+$config['cookie_secure']   = false;
+$config['cookie_httponly'] = true;
 
 $config['base_anonymous_role'] = 'guest';
 $config['base_login_role']     = 'member';

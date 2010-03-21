@@ -61,7 +61,10 @@ class authprofiles_Core
             )),
             $user_name,
             time() + $duration,
-            Kohana::config('auth_profiles.cookie_path')
+            Kohana::config('auth_profiles.cookie_path'),
+            Kohana::config('auth_profiles.cookie_domain'),
+            Kohana::config('auth_profiles.cookie_secure'),
+            Kohana::config('auth_profiles.cookie_httponly')
         );
     }
 

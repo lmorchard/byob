@@ -133,10 +133,12 @@
         </script>
 
         <?=html::script(array(
-            'js/jquery-1.3.2.min.js',
-            'js/jquery-ui-1.7.custom.min.js',
+            'js/json2.js',
+            'js/jquery-1.4.2.min.js',
+            'js/jquery-ui-1.8rc3.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',
             'js/jquery.simplemodal-1.3.min.js',
+            'js/jquery.cloneTemplate.js',
             'js/jquery.input-hint.js',
             'js/byob/main.js',
             //'js/byob/'.Router::$controller.'.js'

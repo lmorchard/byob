@@ -2,7 +2,9 @@
 
 ## v1.1.0
 
+* Separate repack editor tabs into application-internal modules
 * Split LMO_Utils module up into individual bits, like plugindir
+* Make customization fully modular - eg. tabs are encapsulated mini-MVCs
 
 ## v1.2.0
 

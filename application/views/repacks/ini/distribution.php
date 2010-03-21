@@ -26,27 +26,15 @@ startup.homepage_welcome_url="<?= $firstrun_url ?>"
 extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php endif ?>
 
-<?php if (!empty($r->bookmarks_menu)): ?>
-[BookmarksMenu]
+<?php foreach (array('menu', 'toolbar') as $kind): ?>
+<?php if (!empty($r->bookmarks[$kind])): ?>
 <?php 
-foreach ($r->bookmarks_menu as $idx=>$bookmark) {
-    View::factory('repacks/ini/bookmark', array(
-        'idx' => $idx, 'bookmark' => $bookmark
-    ))->render(TRUE);
-}
+    View::factory('repacks/ini/bookmarks', array(
+        'set_id' => ucfirst($kind), 
+        'bookmarks' => $r->bookmarks[$kind]
+    ))->render(TRUE); 
 ?>
 <?php endif ?>
-
-<?php $r->bookmarks_toolbar = $r->bookmarks_toolbar; ?>
-<?php if (!empty($r->bookmarks_toolbar)): ?>
-[BookmarksToolbar]
-<?php 
-foreach ($r->bookmarks_toolbar as $idx=>$bookmark) {
-    View::factory('repacks/ini/bookmark', array(
-        'idx' => $idx, 'bookmark' => $bookmark
-    ))->render(TRUE);
-}
-?>
-<?php endif ?>
+<?php endforeach ?>
 
 # <? # do not edit this line, or add newlines after it ?>
