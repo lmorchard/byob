@@ -1,5 +1,11 @@
 # TODO
 
+## v1.0.7
+
+* Convert old-style bookmarks into new-style
+* Finish accepting new-style bookmarks
+* Build INI content from new-style bookmarks
+
 ## v1.1.0
 
 * Split LMO_Utils module up into individual bits, like plugindir
