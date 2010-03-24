@@ -289,27 +289,6 @@ class Repack_Model extends ManagedORM
     }
 
     /**
-     * Validate a bookmark extracted from form data.
-     */
-    public function validateBookmark(&$data)
-    {
-        $type = isset($data['type']) ? $data['type'] : 'normal';
-		$data = Validation::factory($data)
-			->pre_filter('trim')
-            ->add_rules('type', 'length[0,16]')
-            ->add_rules('title', 'required', 'length[3,255]')
-            ->add_rules('location', 'required', 'valid::url')
-            ;
-        if ('normal' == $type) {
-            $data->add_rules('description', 'length[0,1024]');
-        } else {
-            $data->add_rules('feed', 'required', 'url');
-        }
-        $is_valid = $data->validate();
-        return $is_valid;
-    }
-
-    /**
      * Extract bookmarks from form data.
      */
     public function extractBookmarks($valid, $field)
@@ -328,29 +307,38 @@ class Repack_Model extends ManagedORM
 
             $data = json_decode($valid['bookmarks_json'], true);
             if (!$data) {
-                return $valid->add_error($field, 'bookmarks_json_invalid');
+                return $valid->add_error($field, 'json_invalid');
             }
 
             $new_bookmarks = array();
-            $errors = array();
+            $all_valid = true;
 
             foreach (array('toolbar', 'menu') as $kind) {
-                $new_bookmarks[$kind] = array();
-
                 $items_in = $data[$kind];
                 if (empty($items_in)) {
-                    continue;
-                }
-                list($items_out, $errors_out) = 
-                    $this->acceptBookmarks($items_in);
-                $new_bookmarks[$kind] = $items_out;
-                if (!empty($errors_out)) {
-                    $errors += $errors_out;
+                    $new_bookmarks[$kind] = array();
+                } else {
+                    list($items, $sub_valid) = 
+                        $this->validateBookmarkSet($items_in);
+
+                    if (!$sub_valid) $all_valid = false;
+                    
+                    $new_bookmarks[$kind] = $items;
+
+                    if ('menu' === $kind && count($items) > 5) {
+                        $valid->add_error($field, 'too_many_menu');
+                    } else if ('toolbar' === $kind && count($items) > 3) {
+                        $valid->add_error($field, 'too_many_toolbar');
+                    }
                 }
             }
 
-            $this->bookmarks = $new_bookmarks;
+            if (!$all_valid) {
+                $valid->add_error($field, 'not_all_valid');
+            }
+
             $valid['bookmarks'] = $new_bookmarks;
+
         }
 
     }
@@ -358,35 +346,82 @@ class Repack_Model extends ManagedORM
     /**
      * Accept and validate a set of bookmark items, recursing into subfolders.
      */
-    public function acceptBookmarks($items_in) {
-        $expected_fields = array(
-            'id', 'type',
-            'title', 'link', 'description', 
-            'feedLink', 'siteLink'
-        );
-
-        $errors = array();
+    public function validateBookmarkSet($items_in) {
+        $all_valid = true;
         $items_out = array();
 
         foreach ($items_in as $item_in) {
-            $item_out = array();
 
-            foreach ($expected_fields as $field) {
-                if (empty($item_in[$field])) continue;
-                $item_out[$field] = $item_in[$field];
-            }
+            // Try validating a bookmark.
+            $is_valid = $this->validateBookmark($item_in);
+            if (!$is_valid) $all_valid = false;
 
-            if (!empty($item_in['type']) && 'folder' == $item_in['type'] && 
-                    !empty($item_in['items'])) {
-                list($sub_items_out, $sub_errors) =
-                    $this->acceptBookmarks($item_in['items']);
+            // Extract the filtered bookmark data and errors (if any).
+            $item_out = $item_in->as_array();
+            $errors   = $item_in->errors();
+
+            // Determine whether this is a folder, and if there are contents.
+            $is_folder = !empty($item_in['type']) && 
+                ('folder' == $item_in['type']);
+            $has_items = $is_folder && 
+                !empty($item_in['items']);
+
+            if ($is_folder && !$has_items) {
+                // If this is an empty folder, that's a problem.
+                $errors['items'] = 'empty';
+            } else if ($has_items) {
+                // Recursively process the items contained in folder.
+                list($sub_items_out, $sub_all_valid) =
+                    $this->validateBookmarkSet($item_in['items']);
+                if (!$sub_all_valid) {
+                    // If anything in contents had a problem, flag this folder 
+                    // with an error.
+                    $errors['items'] = 'invalid';
+                }
+                if (count($sub_items_out) > 10) {
+                    // There can only be up to 10 items in a folder.
+                    $errors['items'] = 'too_many';
+                }
+                // Assign the processed items as folder children.
                 $item_out['items'] = $sub_items_out;
             }
 
+            // Flag an error if anything in the above went awry.
+            if (!empty($errors)) $all_valid = false;
+
+            // Set errors for this item to false, or a list of errors.
+            $item_out['errors'] = (empty($errors)) ?
+                false : $errors;
+
+            // Push the current item into the list.
             $items_out[] = $item_out;
         }
 
-        return array($items_out, $errors);
+        return array($items_out, $all_valid);
+    }
+
+    /**
+     * Validate a bookmark extracted from form data.
+     */
+    public function validateBookmark(&$data)
+    {
+        $type = isset($data['type']) ? $data['type'] : 'bookmark';
+		$data = Validation::factory($data)
+			//->pre_filter('trim')
+            ->add_rules('title', 'trim', 'required', 'length[3,255]')
+            ;
+        if ('bookmark' == $type) {
+            $data
+                ->add_rules('description', 'trim', 'length[0,1024]')
+                ->add_rules('link', 'trim', 'required', 'valid::url');
+        } else if ('livemark' == $type) {
+            $data
+                ->add_rules('feedLink', 'trim', 'required', 'url')
+                ->add_rules('siteLink', 'trim', 'required', 'url');
+        } else {
+        }
+        $is_valid = $data->validate();
+        return $is_valid;
     }
 
     /**

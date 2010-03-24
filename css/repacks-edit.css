@@ -545,6 +545,18 @@
 }
 .section-bookmarks .bookmarks-editor ul.folders li.hover .subfolders .title {
 }
+#content .section-bookmarks .bookmarks-editor ul.folders li.has_errors .title {
+    color: #f33;
+    font-weight: bold;
+}
+#content .section-bookmarks .bookmarks-editor ul.folders li.has_errors .subfolders .title {
+    color: #000;
+    font-weight: normal;
+}
+#content .section-bookmarks .bookmarks-editor ul.folders .subfolders li.has_errors .title {
+    color: #f33;
+    font-weight: bold;
+}
 #content .section-bookmarks .bookmarks-editor ul.bookmarks {
     margin-left: 31ex;
     list-style-type: none;
@@ -567,6 +579,10 @@
 #content .section-bookmarks .bookmarks-editor ul.bookmarks li.selected {
     background-color: #785cb2;
     color: #fff;
+    font-weight: bold;
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.has_errors .title {
+    color: #f33;
     font-weight: bold;
 }
 .section-bookmarks .bookmarks-editor table.bookmarks {
@@ -662,5 +678,4 @@
 .ctrl_repacks_act_edit #bookmark_editor .livemark .field_link {
     display: none;
 }
-
 

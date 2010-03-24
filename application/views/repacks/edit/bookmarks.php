@@ -10,7 +10,7 @@
     </script>
 <?php slot::end() ?>
 <div class="intro">
-    <p>You can add up to 5 custom bookmarks to your browser's bookmark menu.</p>
+    <p>Add and organize default bookmarks.</p>
 </div>
 <div class="pane">
 
@@ -41,7 +41,21 @@
             <li class="new-bookmark"><a href="#">+ New Bookmark</a></li>
             <li class="delete-selected"><a href="#">x Delete Selected</a></li>
         </ul>
-    </div> 
+    </div>
+
+    <ul class="errors">
+    </ul>
+
+    <div class="instructions">
+        <h3>Notes:</h3>
+        <ul>
+            <li>The Bookmark Toolbar has a limit of 3 items.</li>
+            <li>The Bookmark Menu has a limit of 5 items.</li>
+            <li>Folders may be created in either the Bookmark Toolbar or Menu.</li>
+            <li>A folder may contain up to 10 items.</li>
+            <li>Creation of sub-folders within folders is not supported.</li>
+        </ul>
+    </div>
 
     <textarea id="bookmarks_json" name="bookmarks_json"></textarea>
 

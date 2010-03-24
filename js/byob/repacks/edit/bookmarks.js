@@ -76,11 +76,17 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                     par_el  = root_el.find('.subfolders');
 
                 par_el.find('li:not(.template)').remove();
-                    
+
+                root_el.removeClass('has_errors');
                 $.each(bookmarks, function (j, item) {
+                    if (!!item.errors) {
+                        root_el.addClass('has_errors');
+                    }
                     if ('folder' !== item.type) { return; }
                     tmpl_el.cloneTemplate({
                         '@id':    'fl-' + item.id,
+                        '@class': 'folder ' +
+                            ( (!!item.errors) ? ' has_errors' : '' ),
                         '.title': item.title
                     }).appendTo(par_el);
                 });
@@ -109,7 +115,8 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
             $.each(items, function (i, item) {
                 tmpl_el.cloneTemplate({
                     '@id':    item.id,
-                    '@class': 'bookmark type-' + item.type,
+                    '@class': 'bookmark type-' + item.type + 
+                        ( (!!item.errors) ? ' has_errors' : '' ),
                     '.title': item.title,
                     '.link':  item.link || item.feedLink
                 }).appendTo(bm_root_el);
@@ -499,13 +506,14 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                 if (name) { data[name] = el.val(); }
             });
 
+            /*
             if (!data.title)
                 errors.push('title'); 
             if ('bookmark' == data.type && !data.link)
                 errors.push('link'); 
             if ('livemark' == data.type && !data.feedLink)
                 errors.push('feedlink'); 
-
+            */
             bm_editor.removeClass('error');
             $.each(errors, function (i, error) {
                 bm_editor.find('.field_'+error).addClass('error');
