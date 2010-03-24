@@ -176,13 +176,10 @@ class Repack_Model extends ManagedORM
                 break;
 
             case 'bookmarks':
-                $data->add_callbacks('bookmarks_toolbar', array($this, 'extractBookmarks'));
-                $data->add_callbacks('bookmarks_menu', array($this, 'extractBookmarks'));
+                $data->add_callbacks('bookmarks', array($this, 'extractBookmarks'));
                 break;
 
             case 'collections':
-                // $data->add_rules('addons', 'is_array');
-                // $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
                 $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
                 break;
 
@@ -196,7 +193,6 @@ class Repack_Model extends ManagedORM
         }
 
         $is_valid = $data->validate();
-
 
         if (!$set) {
             foreach ($data->field_names() as $name) {
@@ -316,66 +312,150 @@ class Repack_Model extends ManagedORM
     /**
      * Extract bookmarks from form data.
      */
-    public function extractBookmarks($valid, $prefix)
+    public function extractBookmarks($valid, $field)
     {
+        // We switched to bookmark folders with Bug 538888, so make sure to 
+        // convert any older sets of bookmarks over before doing anything.
+        $this->convertOlderBookmarks();
+
         if ('post' != request::method()) {
 
             // If not a POST, just pass along the object property.
-            return $valid[$prefix] = $this->{$prefix};
+            $valid[$field] = $this->bookmarks;
+            return $valid[$field];
 
         } else {
 
+            $data = json_decode($valid['bookmarks_json'], true);
+            if (!$data) {
+                return $valid->add_error($field, 'bookmarks_json_invalid');
+            }
+
             $new_bookmarks = array();
+            $errors = array();
 
-            if (!empty($valid[$prefix . '_type'])) {
-                $types = $valid[$prefix . '_type'];
+            foreach (array('toolbar', 'menu') as $kind) {
+                $new_bookmarks[$kind] = array();
 
-                // Copy the bookmark data arrays from validator so 
-                // array_shift() works in the next loop
-                $bm_data = array();
-                foreach (self::$type_fields as $type=>$fields) {
-                    foreach ($fields as $name=>$label) {
-                        $n = "{$prefix}_{$name}";
-                        if (!empty($valid[$n]))
-                            $bm_data[$n] = $valid[$n];
-                    }
+                $items_in = $data[$kind];
+                if (empty($items_in)) {
+                    continue;
                 }
-
-                // Now, iterate through all the types listed in the form, which 
-                // also happens to correspond to the whole set of bookmarks in 
-                // form
-                foreach ($types as $idx => $type) {
-
-                    // Extract properties for the current bookmark from the form 
-                    // according to type.
-                    $bm = array('type'=>$type);
-                    $fields = self::$type_fields[$type];
-                    foreach ($fields as $name => $label) {
-                        $bm[$name] = array_shift($bm_data["{$prefix}_{$name}"]);
-                    }
-
-                    // Validate the bookmark and flag any errors.
-                    $is_valid = $this->validateBookmark($bm);
-                    if (!$is_valid) {
-                        foreach ($bm->errors() as $key => $val) {
-                            $valid->add_error("{$prefix}_{$key}[{$idx}]", $val);
-                        }
-                        $valid->add_error("{$prefix}", 'invalid');
-                    }
-
-                    // Add the extracted properties to the list of bookmarks.
-                    $new_bookmarks[] = $bm->as_array();
-
+                list($items_out, $errors_out) = 
+                    $this->acceptBookmarks($items_in);
+                $new_bookmarks[$kind] = $items_out;
+                if (!empty($errors_out)) {
+                    $errors += $errors_out;
                 }
-
             }
 
-            if (count($new_bookmarks) > self::$bookmark_limits[$prefix]) {
-                $valid->add_error("{$prefix}", 'limit');
-            }
-
-            return $valid[$prefix] = $new_bookmarks;
+            $this->bookmarks = $new_bookmarks;
+            $valid['bookmarks'] = $new_bookmarks;
         }
+
+    }
+
+    /**
+     * Accept and validate a set of bookmark items, recursing into subfolders.
+     */
+    public function acceptBookmarks($items_in) {
+        $expected_fields = array(
+            'id', 'type',
+            'title', 'link', 'description', 
+            'feedLink', 'siteLink'
+        );
+
+        $errors = array();
+        $items_out = array();
+
+        foreach ($items_in as $item_in) {
+            $item_out = array();
+
+            foreach ($expected_fields as $field) {
+                if (empty($item_in[$field])) continue;
+                $item_out[$field] = $item_in[$field];
+            }
+
+            if (!empty($item_in['type']) && 'folder' == $item_in['type'] && 
+                    !empty($item_in['items'])) {
+                list($sub_items_out, $sub_errors) =
+                    $this->acceptBookmarks($item_in['items']);
+                $item_out['items'] = $sub_items_out;
+            }
+
+            $items_out[] = $item_out;
+        }
+
+        return array($items_out, $errors);
+    }
+
+    /**
+     * There was once a simpler representation of bookmarks, replaced in Bug 538888 
+     * with a structure that accounted for folders.  This function converts the 
+     * old to new, if necessary.
+     */
+    public function convertOlderBookmarks()
+    {
+        // Map from old item types to new
+        $type_map = array(
+            'normal' => 'bookmark',
+            'live'   => 'livemark'
+        );
+
+        // Map from old item fields to new by type
+        $field_map = array(
+            'bookmark' => array(
+                'title'       => 'title',
+                'location'    => 'link',
+                'description' => 'description',
+            ),
+            'livemark' => array(
+                'title'       => 'title',
+                'feed'        => 'feedLink',
+                'location'    => 'siteLink'
+            )
+        );
+
+        // Iterate through both known sets of bookmarks.
+        $new_bookmarks = array();
+        foreach (array('toolbar', 'menu') as $kind) {
+            
+            // Check to see if there are bookmarks of this kind.
+            $old_bookmarks = $this->{"bookmarks_$kind"};
+            if (empty($old_bookmarks)) continue;
+
+            // Start accumulating new-format items for this set.
+            $new_bookmarks[$kind] = array();
+            foreach ($old_bookmarks as $item) {
+
+                // Convert to the new item type naming.
+                $type = isset($type_map[$item['type']]) ?
+                    $type_map[$item['type']] : 'bookmark';
+
+                // Start with an empty new bookmark
+                $new_bookmark = array( 'type' => $type );
+
+                // Run through the field map appropriate for this type of item, 
+                // copy the renamed fields over to the new bookmark.
+                foreach ($field_map[$type] as $old_name => $new_name) {
+                    if (!empty($item[$old_name]))
+                        $new_bookmark[$new_name] = $item[$old_name];
+                }
+
+                // Save the new bookmark item.
+                $new_bookmarks[$kind][] = $new_bookmark;
+            }
+
+            // Discard the old set of bookmarks.
+            unset($this->attrs["bookmarks_$kind"]);
+        }
+
+        // If we've accumulated any new bookmarks, save the data.
+        if (!empty($new_bookmarks)) {
+            $this->bookmarks = $new_bookmarks;
+            $this->save();
+        }
+
     }
 
     /**

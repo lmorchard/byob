@@ -136,7 +136,7 @@
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset.addon-dependent {
     padding: 0 0 0 0;
-    margin: -1.5em 0.5em 1.5em 2.5em;
+    margin: -0.5em 0.5em 1.5em 2.5em;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset legend {
     font-weight: bold;
@@ -255,6 +255,7 @@
     margin: 0.5em 0 1em 1em;
 }
 
+/*
 .ctrl_repacks_act_edit #content ul.bookmarks {
     list-style: none;
     margin: 0;
@@ -341,7 +342,7 @@
 .ctrl_repacks_act_edit #content .bookmark-add-live a.add {
     background-image: url(../img/livemark-item.png);
 }
-
+*/
 .ctrl_repacks_act_edit .popup #content .sections li.locales {
     float: left;
     border-bottom: none;    
@@ -471,3 +472,195 @@
     margin-left: 3.5em;
     font-style: italic;
 }
+
+.section-bookmarks .bookmarks-editor {
+    border: 1px solid #666;
+    background: #fff;
+    font-size: 0.9em;
+}
+#content .section-bookmarks .bookmarks-editor ul.folders {
+    float: left;
+    width: 28ex;
+    padding: 0.5em 0.5em 0.5em 1em;
+    text-indent: 0;
+    margin: 0;
+    list-style-type: none;
+    background-color: #dfe4ec;
+    border-right: 1px solid #333;
+    min-height: 225px;
+}
+.section-bookmarks .bookmarks-editor ul.folders .ui-sortable-placeholder.bookmark {
+    display: none;
+}
+.section-bookmarks .bookmarks-editor ul.folders .ui-sortable-placeholder.type-folder {
+    display: block;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder {
+    background: transparent url(../img/bookmark-icons/folder.png) no-repeat 4px 1px;
+    line-height: 18px;
+    margin: 0.125em 0 0.125em 0;
+    padding: 0 0 0 24px;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder-empty {
+    background: transparent;
+    padding: 0;
+    margin: 0;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder-toolbar {
+    background-image: url(../img/bookmark-icons/bookmarksToolbar.png);
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder-menu {
+    background-image: url(../img/bookmark-icons/bookmarksMenu.png);
+}
+.section-bookmarks .bookmarks-editor ul.folders li.root {
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder .title {
+    display: block;
+    padding: 2px 2px;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.selected .title {
+    background-color: #7b86a8;
+    font-weight: bold;
+    color: #fff;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.selected li.folder .title {
+    background-color: transparent;
+    color: #000;
+    font-weight: normal;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.even {
+    background-color: #eee;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.hover .title {
+    text-decoration: underline;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.hover li.folder .title {
+    border: none;
+    text-decoration: none;
+}
+#content .section-bookmarks .bookmarks-editor ul.folders .root .subfolders {
+    list-style-type: none;
+    margin: 0;
+    padding: 0 0 0.5em 0;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.hover .subfolders .title {
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks {
+    margin-left: 31ex;
+    list-style-type: none;
+    padding: 0.75em 0 0 0em;
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.bookmark {
+    margin: 0;
+    padding: 4px 0 4px 36px;
+    background: transparent url(../img/bookmark-icons/item.png) no-repeat 14px 2px;
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.type-bookmark {
+    background-image: url(../img/bookmark-icons/item.png);
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.type-livemark {
+    background-image: url(../img/bookmark-icons/livemarkItem.png);
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.type-folder {
+    background-image: url(../img/bookmark-icons/folder.png);
+}
+#content .section-bookmarks .bookmarks-editor ul.bookmarks li.selected {
+    background-color: #785cb2;
+    color: #fff;
+    font-weight: bold;
+}
+.section-bookmarks .bookmarks-editor table.bookmarks {
+    width: 100%;
+    border: 1px solid #333;
+}
+#content .section-bookmarks .bookmarks-editor ul.controls {
+    border-top: 1px solid #333;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.section-bookmarks .bookmarks-editor ul.controls li {
+    list-style-type: none;
+    float: left;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.section-bookmarks .bookmarks-editor ul.controls li.new-folder {
+    width: 31ex;
+}
+.section-bookmarks .bookmarks-editor ul.controls li a {
+    display: block;
+    padding: 0.5em 1em 0.5em 1em;
+}
+.section-bookmarks .bookmarks-editor ul.controls li a:hover {
+    text-decoration: none;
+    background-color: #666;
+    color: #fff;
+}
+.section-bookmarks #bookmarks_json {
+    display: none;
+}
+.ctrl_repacks_act_edit #bookmark_editor {
+    border: 1px solid #333;
+    width: 425px;
+    font-size: 0.85em;
+    display: none;
+    position: absolute;
+    background: #525252;
+    color: #fff;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields {
+    list-style-type: none;
+    margin: 0.75em;
+    padding: 0;
+    text-indent: 0;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li {
+    padding: 0.25em 0 0.25em 0;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li label {
+    float: left;
+    width: 12ex;
+    padding: 0 0 0 0;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.required label {
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.error label {
+    color: #f33;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.required label:after {
+    content: " *";
+    color: #f33;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li input.text {
+    width: 50ex;
+}
+.ctrl_repacks_act_edit #bookmark_editor .bookmark {
+}
+.ctrl_repacks_act_edit #bookmark_editor button.type_bookmark,
+.ctrl_repacks_act_edit #bookmark_editor button.type_livemark {
+    background: #ddd;
+    font-weight: bold;
+    color: #525252;
+    padding: 0.25em;
+    cursor: pointer;
+}
+.ctrl_repacks_act_edit #bookmark_editor .bookmark button.type_bookmark,
+.ctrl_repacks_act_edit #bookmark_editor .livemark button.type_livemark {
+    background: #fff;
+    font-weight: bold;
+    color: #333;
+}
+.ctrl_repacks_act_edit #bookmark_editor .bookmark .field_feedlink,
+.ctrl_repacks_act_edit #bookmark_editor .bookmark .field_sitelink {
+    display: none;
+}
+.ctrl_repacks_act_edit #bookmark_editor .livemark {
+}
+.ctrl_repacks_act_edit #bookmark_editor .bookmark {
+}
+.ctrl_repacks_act_edit #bookmark_editor .livemark .field_description,
+.ctrl_repacks_act_edit #bookmark_editor .livemark .field_link {
+    display: none;
+}
+
+

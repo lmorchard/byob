@@ -124,3 +124,4 @@
 
 <?php endif ?>
 <?= form::close() ?>
+<?=slot::get('after_form')?>
