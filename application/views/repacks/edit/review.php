@@ -38,7 +38,7 @@ $edit_base = $repack->url() . ';edit?section=';
 
             <li class="section personas clearfix">
                 <h3>Personas <a target="_top" href="<?=$edit_base?>addons">edit</a></h3>
-                <?php if (in_array('10900', $repack->addons)): ?>
+                <?php if ($repack->addons && in_array('10900', $repack->addons)): ?>
                     <p>Persona URL: <a href="<?=html::specialchars($repack->persona_url)?>" target="_new"><?=html::specialchars($repack->persona_url)?></a></p>
                     <p><span style="color: green">&#x2714;</span> The Personas add-on will be installed.</p>
                 <?php else: ?>
