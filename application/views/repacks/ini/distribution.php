@@ -31,7 +31,7 @@ extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php 
     View::factory('repacks/ini/bookmarks', array(
         'set_id' => ucfirst($kind), 
-        'bookmarks' => $r->bookmarks[$kind]
+        'bookmarks' => $r->bookmarks[$kind]['items']
     ))->render(TRUE); 
 ?>
 <?php endif ?>

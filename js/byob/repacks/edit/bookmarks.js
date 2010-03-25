@@ -1,13 +1,314 @@
 /**
  * BYOB bookmarks editor
  */
+/*jslint laxbreak: true */
 BYOB_Repacks_Edit_Bookmarks = (function () {
-    var $this = {
+
+    var $this = { };
+
+    /**
+     * Overall model for bookmarks, tracks all items.
+     */
+    $this.Model = {
+
+        // Map of items by ID.
+        items: {},
+
+        // Counter facilitating unique IDs.
+        last_id: 0,
+
+        /**
+         * Add an item to the root container, ensuring it has an ID.
+         */
+        add: function (item) {
+            if (!item.id) { item.set('id', this.genId()); }
+            this.items[item.id] = item;
+            return this;
+        },
+
+        /**
+         * Remove an item from the root container.
+         */
+        remove: function (item) {
+            delete this.items[item.id];
+        },
+
+        /**
+         * Find an item by ID.
+         */
+        find: function (id) {
+            return this.items[id];
+        },
+
+        /**
+         * Generate a unique ID.
+         */
+        genId: function () {
+            return 'bm-' + 
+                (new Date()).getTime() + '-' + 
+                (++(this.last_id));
+        },
+
+        /**
+         * Extract all the data from the container as plain objects.
+         */
+        extract: function () {
+            var out = {}, roots = [];
+            $.each(this.items, function (key, item) {
+                if ('folder' == item.type && !item.parent) {
+                    out[item.id] = item.extract();
+                }
+            });
+            return out;
+        },
+
+        EOF: null
+    };
+
+    /**
+     * Base class for all model items.
+     */
+    $this.Item = Class.extend({
+        type: 'item',
+        errors: false,
+        parent: null,
+        field_names: [ 'title', 'description' ],
+
+        /**
+         * Initialize this item from given object properties.
+         */
+        init: function (data) {
+            var self = this;
+            $.each(data, function(k,v) { self.set(k,v); });
+            this.model = $this.Model;
+            this.model.add(this);
+        },
+
+        /**
+         * Mutator, delegates to set_{name} functions if found.
+         */
+        set: function (k,v) {
+            return ('function' == typeof this['set_'+k]) ?
+                this['set_'+k](v) : this[k] = v;
+        },
+
+        /**
+         * Accessor, delegates to get_{name} functions if found.
+         */
+        get: function (k) {
+            return ('function' == typeof this['get_'+k]) ?
+                this['get_'+k]() : this[k];
+        },
+
+        /**
+         * Extract public fields into a plain data object.
+         */
+        extract: function () {
+            var self = this, 
+                out = { 
+                    id: this.id, 
+                    type: this.type 
+                };
+            $.each(self.field_names, function (idx, name) {
+                out[name] = self.get(name);
+            });
+            return out;
+        },
+
+        /**
+         * Index accessor, defers to current parent.
+         */
+        get_index: function () {
+            return this.parent.indexOf(this);
+        },
+
+        /**
+         * Remove this item from its parent.
+         */
+        deleteSelf: function () {
+            if (!this.parent) { return; }
+            this.parent.remove(this);
+            this.model.remove(this);
+        },
+
+        /**
+         * Move this item to a new parent.
+         */
+        moveTo: function (new_parent) {
+            if (!new_parent.isFolder()) { return false; }
+            if (new_parent == this.parent) { return false; }
+            if (new_parent.isFull()) { return false; }
+            if (this.parent) { this.parent.remove(this); }
+            new_parent.add(this);
+            return true;
+        },
+
+        /**
+         * Move this item before a given new sibling.
+         */
+        moveBefore: function (new_sibling) {
+            var new_parent = new_sibling.parent;
+            if (!new_parent.isFolder()) { return false; }
+            if (new_sibling == this) { return false; }
+            if (new_parent != this.parent && new_parent.isFull()) { 
+                return false; 
+            }
+            if (this.parent) {
+                this.parent.remove(this);
+            }
+            return new_sibling.parent.add(
+                this, new_sibling.get('index')
+            );
+        },
+
+        /**
+         * Move this item after a given new sibling.
+         */
+        moveAfter: function (new_sibling) {
+            var new_parent = new_sibling.parent;
+            if (!new_parent.isFolder()) { return false; }
+            if (new_sibling == this) { return false; }
+            if (new_parent != this.parent && new_parent.isFull()) { 
+                return false; 
+            }
+            if (this.parent) {
+                this.parent.remove(this);
+            }
+            return new_sibling.parent.add(
+                this, new_sibling.get('index') + 1
+            );
+        },
+
+        EOF:null
+    });
+
+    /**
+     * Basic bookmark item.
+     */
+    $this.Bookmark = $this.Item.extend({
+        type: 'bookmark',
+        field_names: [ 'title', 'link', 'description' ]
+    });
+    
+    /**
+     * Basic livemark item.
+     */
+    $this.Livemark = $this.Bookmark.extend({
+        type: 'livemark',
+        field_names: [ 'title', 'feedLink', 'siteLink' ]
+    });
+    
+    /**
+     * Basic folder item.
+     */
+    $this.Folder = $this.Item.extend({
+
+        type: 'folder',
+        field_names: [ 'title', 'description', 'items' ],
+
+        items: [],
+
+        type_map: {
+            'default':  'Bookmark',
+            'bookmark': 'Bookmark',
+            'livemark': 'Livemark',
+            'folder':   'Folder'
+        },
+
+        isFolder: function () { 
+            return true; 
+        },
+
+        allowsSubFolders: function () {
+            return false;
+        },
+
+        isFull: function () {
+            return this.items.length >= 10;
+        },
+
+        factory: function (item, add) {
+            var type = (item.type) ? item.type : 'default',
+                Cls = $this[this.type_map[type]];
+                obj = new Cls(item);
+            obj.parent = this;
+            if (add) { this.add(obj); }
+            return obj;
+        },
+
+        set_items: function (items) {
+            this.items = [];
+            for (var i=0, item; item = items[i]; i++) {
+                this.items.push(this.factory(item));
+            }
+            return this.items;
+        },
+
+        remove: function (item) {
+            var idx = this.items.indexOf(item);
+            item.parent = null;
+            return this.items.splice(idx, 1);
+        },
+
+        add: function (item, idx) {
+            item.parent = this;
+            if (0 === idx) {
+                this.items.unshift(item);
+            } else if (idx > 0) {
+                this.items.splice(idx, 0, item);
+            } else {
+                this.items.push(item);
+            }
+        },
+
+        indexOf: function (item) {
+            return this.items.indexOf(item);
+        },
+
+        extract: function () {
+            var out = this._super(), 
+                items_out = [];
+            for (var i=0, item; item = this.items[i]; i++) {
+                items_out.push(item.extract());
+            }
+            out.items = items_out;
+            return out;
+        },
+        
+        EOF:null
+    });
+
+    /**
+     * Toolbar bookmarks folder
+     */
+    $this.ToolbarFolder = $this.Folder.extend({
+        allowsSubFolders: function () {
+            return true;
+        },
+        isFull: function () {
+            return this.items.length >= 3;
+        },
+        EOF:null
+    });
+    
+    /**
+     * Menu bookmarks folder
+     */
+    $this.MenuFolder = $this.Folder.extend({
+        allowsSubFolders: function () {
+            return true;
+        },
+        isFull: function () {
+            return this.items.length >= 5;
+        },
+        EOF:null
+    });
+
+    $.extend($this, {
 
         // Is the editor ready yet?
         is_ready: false,
 
-        selected_items: null,
         selected_item: null,
         selected_folder: null,
 
@@ -20,7 +321,7 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
         /**
          * Package initialization
          */
-        init: function() {
+        init: function () {
             $(document).ready($this.ready);
             return $this;
         },
@@ -28,14 +329,12 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
         /**
          * Page ready
          */
-        ready: function() {
+        ready: function () {
             $this.is_ready = true;
 
             $this.editor = $('.bookmarks-editor');
             $this.editor_id = $this.editor.attr('id');
 
-            $this.injectIds();
-            
             $this.wireUpFolders();
             $this.wireUpBookmarks();
             $this.wireUpBookmarkEditor();
@@ -49,10 +348,20 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Accept bookmark data, presumably as part of page load.
          */
         loadData: function (data) {
-            $.each($this.bookmarks, function (name, items) {
-                $this.bookmarks[name] = (data[name]) ?
-                    data[name] : [];
-            });
+            if (data.menu) {
+                $this.Model.add(new $this.MenuFolder({
+                    id:    'editor1-menu',
+                    title: 'Bookmarks Menu',
+                    items: data.menu.items
+                }));
+            }
+            if (data.toolbar) {
+                $this.Model.add(new $this.ToolbarFolder({
+                    id:    'editor1-toolbar',
+                    title: 'Bookmarks Toolbar',
+                    items: data.toolbar.items
+                }));
+            }
             if ($this.is_ready) { $this.refresh(); }
         },
 
@@ -60,7 +369,13 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Update the bookmarks data form field for later submission.
          */
         updateBookmarksJSON: function() {
-            var data = JSON.stringify($this.bookmarks, null, ' ');
+            var extracted = $this.Model.extract(),
+                bookmarks = {
+                    toolbar: extracted['editor1-toolbar'],
+                    menu:    extracted['editor1-menu']
+                },
+                data = JSON.stringify(bookmarks, null, ' ');
+
             $('#bookmarks_json').val(data);
         },
 
@@ -69,19 +384,19 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          */
         updateFolders: function () {
 
-            $.each($this.bookmarks, function (root_name, bookmarks) {
+            $this.editor.find('.folders .root').each(function () {
                 
-                var root_el = $this.editor.find('.folders > .folder-' + root_name),
-                    tmpl_el = $this.editor.find('.folders > .folder.template'),
-                    par_el  = root_el.find('.subfolders');
+                var root_el   = $(this),
+                    root_id   = root_el.attr('id'),
+                    par_el    = root_el.find('.subfolders'),
+                    tmpl_el   = $this.editor.find('.folders > .folder.template'),
+                    bookmarks = $this.Model.find(root_id).get('items');
 
                 par_el.find('li:not(.template)').remove();
-
                 root_el.removeClass('has_errors');
+
                 $.each(bookmarks, function (j, item) {
-                    if (!!item.errors) {
-                        root_el.addClass('has_errors');
-                    }
+                    if (!!item.errors) { root_el.addClass('has_errors'); }
                     if ('folder' !== item.type) { return; }
                     tmpl_el.cloneTemplate({
                         '@id':    'fl-' + item.id,
@@ -100,14 +415,11 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Update the bookmark pane DOM with a list of bookmarks.
          */
         updateBookmarks: function (items) {
-            //var bm_root_el = $this.editor.find('.bookmarks tbody'),
             var bm_root_el = $this.editor.find('.bookmarks'),
                 tmpl_el    = $this.editor.find('.bookmark.template');
 
-            if (null == items) {
-                items = $this.selected_items;
-            } else {
-                $this.selected_items = items;
+            if (null === items) {
+                items = $this.selected_folder.items;
             }
 
             bm_root_el.find('li:not(.template)').remove();
@@ -123,6 +435,25 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
             });
 
             bm_root_el.sortable('refresh');
+
+            // Nothing selected on update of bookmarks, so disable delete button.
+            $this.editor.find('.delete-selected').addClass('disabled');
+            
+            // If the selected folder is full, turn off the new items buttons.
+            if ($this.selected_folder) {
+                if ($this.selected_folder.isFull()) {
+                    $this.editor.find('.new-bookmark').addClass('disabled');
+                    $this.editor.find('.new-folder').addClass('disabled');
+                } else {
+                    if ($this.selected_folder.allowsSubFolders()) {
+                        $this.editor.find('.new-folder').removeClass('disabled');
+                    } else {
+                        $this.editor.find('.new-folder').addClass('disabled');
+                    }
+                    $this.editor.find('.new-bookmark').removeClass('disabled');
+                }
+            }
+
         },
 
         /**
@@ -146,29 +477,26 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                 var target = $(ev.target);
                 if (target.hasClass('title')) { target = target.parent(); }
                 if (!target.hasClass('folder')) { return; }
+
                 $this.selectFolder(target.attr('id'));
             });
 
             // Wire up the root subfolder containers as sortables.
-            $.each($this.bookmarks, function (root_name) {
-                var folder = folders
-                    .find('.folder-'+root_name+' > .subfolders');
-                folder.sortable({
-                    appendTo: 'body',
-                    cursor:   'move',
-                    axis:     'y',
-                    items:    'li:not(.template)',
-                    stop:     $this.performFolderMove
-                });
+            folders.find('.root .subfolders').sortable({
+                appendTo: 'body',
+                cursor:   'move',
+                axis:     'y',
+                items:    'li:not(.template)',
+                stop:     $this.performFolderMove
             });
 
             // Connect all the root folder sortables to each other.
-            $.each($this.bookmarks, function (from_name) {
-                var from_id = '#'+$this.editor_id+' .folder-'+from_name+' > .subfolders',
+            folders.find('.root').each(function () {
+                var from_id = '#' + this.id + ' .subfolders',
                     to_ids = [];
-                $.each($this.bookmarks, function (to_name) {
-                    if (from_name === to_name) { return; }
-                    to_ids.push('#'+$this.editor_id+' .folder-'+to_name+' > .subfolders');
+                folders.find('.root').each(function () {
+                    var to_id = '#' + this.id + ' .subfolders';
+                    if (from_id != to_id) { to_ids.push(to_id); }
                 });
                 $(from_id).sortable('option', 'connectWith', to_ids);
             });
@@ -190,18 +518,16 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                     // Only pay attention to elements from bookmark pane.
                     if (ui.draggable.hasClass('folder')) { return; }
                     
-                    var bm_item = $this.findById(ui.draggable.attr('id')),
-                        parts   = $(this).parent().attr('id').split('-'),
-                        dest    = $this.bookmarks[parts[1]];
+                    var item = $this.Model.find(ui.draggable.attr('id')),
+                        dest = $this.Model.find($(this).parent().attr('id'));
 
-                    // Ignore an attempt to drop the item where it already is.
-                    if (-1 != dest.indexOf(bm_item.bookmark)) { return; }
+                    // Ignore an attempt to drop the item to own parent.
+                    if (item.parent == dest) { return; }
                     
+                    // HACK: Schedule the data model change and view refresh
+                    // until after jQuery UI has had a chance to finish up.
                     setTimeout(function () {
-                        // HACK: Schedule the data model change and view refresh
-                        // until after jQuery UI has had a chance to finish up.
-                        bm_item.parent.splice(bm_item.index, 1);
-                        dest.push(bm_item.bookmark);
+                        item.moveTo(dest);
                         $this.refresh();
                     }, 1);
                 }
@@ -213,25 +539,18 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Event handler to perform a folder move at the data model level.
          */
         performFolderMove: function (ev, ui) {
-            // Find the moved item, remove it from its context.
-            var bm_item = $this.findById(ui.item.attr('id').replace('fl-',''));
-            bm_item.parent.splice(bm_item.index, 1);
+            var bm_id   = ui.item.attr('id').replace('fl-',''),
+                bm_item = $this.Model.find(bm_id);
 
-            // Update the data model to reflect the change in DOM structure
-            var id, bm_dest = null;
             if ( id = ui.item.prev('li.folder').attr('id') ) {
                 // Use the previous DOM node as context for data model move.
-                bm_dest = $this.findById(id.replace('fl-',''));
-                bm_dest.parent.splice(bm_dest.index + 1, 0, bm_item.bookmark);
+                bm_item.moveAfter($this.Model.find(id.replace('fl-','')));
             } else if ( id = ui.item.next('li.folder').attr('id') ) {
                 // Use the next DOM node as context for data model move.
-                bm_dest = $this.findById(id.replace('fl-',''));
-                bm_dest.parent.splice(bm_dest.index, 0, bm_item.bookmark);
+                bm_item.moveBefore($this.Model.find(id.replace('fl-','')));
             } else {
                 // Node was dropped into previously empty list, so just push.
-                var parts = ui.item.parent().parent().attr('id')
-                    .replace('fl-','').split('-');
-                $this.bookmarks[parts[1]].unshift(bm_item.bookmark);
+                bm_item.moveTo(ui.item.parent().parent().attr('id').replace('fl-',''));
             }
 
             // Refresh selected folder and the serialized data.
@@ -258,9 +577,8 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
             // Connect the bookmark pane to all the folder sortables
             var from_id = '#'+$this.editor_id+' .bookmarks',
                 to_ids = [];
-            $.each($this.bookmarks, function (to_name) {
-                to_ids.push('#'+$this.editor_id+
-                    ' .folder-'+to_name+' > .subfolders');
+            $this.editor.find('.folders .root').each(function () {
+                to_ids.push('#' + this.id + ' .subfolders');
             });
             $(from_id).sortable('option', 'connectWith', to_ids);
 
@@ -274,11 +592,11 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
             if (!target.hasClass('bookmark')) { target = target.parent(); }
             if (!target.hasClass('bookmark')) { return; }
 
-            var bm_item = $this.findById(target.attr('id'));
-            $this.selected_item = bm_item;
+            $this.selected_item = $this.Model.find(target.attr('id'));
 
             target.parent().find('.bookmark').removeClass('selected');
             target.addClass('selected');
+            $this.editor.find('.delete-selected').removeClass('disabled');
 
             return false;
         },
@@ -291,11 +609,11 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
             if (!target.hasClass('bookmark')) { target = target.parent(); }
             if (!target.hasClass('bookmark')) { return; }
 
-            var bm_item = $this.findById(target.attr('id'));
-            if ('folder' === bm_item.bookmark.type) {
-                $this.summonFolderRename(bm_item.bookmark.id); 
+            var item = $this.Model.find(target.attr('id'));
+            if ('folder' === item.type) {
+                $this.summonFolderRename(item); 
             } else {
-                $this.summonBookmarkEditor(bm_item.bookmark); 
+                $this.summonBookmarkEditor(item); 
             }
 
             return false;
@@ -305,10 +623,8 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Update feedback in sortable lists while item being dragged.
          */
         updateItemFeedback: function (ev, ui) {
-            var bm_item = $this.findById(ui.item.attr('id'));
-            if ('folder' === bm_item.bookmark.type) {
-                // No-op
-            } else {
+            var item = $this.Model.find(ui.item.attr('id'));
+            if ('folder' !== item.type) {
                 ui.placeholder.prev('.folder').each(function () {
                     $this.editor.find('.hover').removeClass('hover');
                     $(this).addClass('hover');
@@ -327,49 +643,27 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
         performItemMove: function (ev, ui) {
             $this.editor.find('.hover').removeClass('hover');
 
-            // Find the data item for the dragged node.
-            var bm_item = $this.findById(ui.item.attr('id'));
-            bm_item.parent.splice(bm_item.index, 1);
+            var item = $this.Model.find(ui.item.attr('id'));
 
-            // Update the data model to reflect the change in DOM structure
-            var id, root_parent, bm_dest = null;
+            var id, root_parent, dest = null;
             if (id = ui.item.prev('.folder').attr('id')) {
-                // This is a drop after a folder in the folder pane...
-                ui.item.remove();
-                bm_dest = $this.findById(id.replace('fl-',''));
-                if ('folder' === bm_item.bookmark.type) {
-                    // Folder dropped after a folder in folder pane.
-                    bm_dest.parent.splice(bm_dest.index + 1, 0, bm_item.bookmark);
+                dest = $this.Model.find(id.replace('fl-',''));
+                if ('folder' === item.type) {
+                    item.moveAfter(dest);
                 } else {
-                    // Bookmark item dropped into a folder in folder pane.
-                    bm_dest.bookmark.items.push(bm_item.bookmark);
+                    item.moveTo(dest);
                 }
-
             } else if (id = ui.item.next('.folder').attr('id')) {
-                // This is a drop in front of a folder in the folder pane...
-                ui.item.remove();
-                bm_dest = $this.findById(id.replace('fl-',''));
-                if ('folder' === bm_item.bookmark.type) {
-                    // Folder dropped in front of a folder in folder pane.
-                    bm_dest.parent.splice(bm_dest.index, 0, bm_item.bookmark);
+                dest = $this.Model.find(id.replace('fl-',''));
+                if ('folder' === item.type) {
+                    item.moveBefore(dest);
                 } else {
-                    // Bookmark item dropped into a root folder in folder pane.
-                    bm_dest.parent.unshift(bm_item.bookmark);
+                    item.moveTo(dest);
                 }
-
             } else if ( id = ui.item.prev('.bookmark').attr('id') ) {
-                // This drop moves an item/folder after another item.
-                bm_dest = $this.findById(id);
-                bm_dest.parent.splice(bm_dest.index + 1, 0, bm_item.bookmark);
-
+                item.moveAfter($this.Model.find(id));
             } else if ( id = ui.item.next('.bookmark').attr('id') ) {
-                // This drop moves an item/folder before another item.
-                bm_dest = $this.findById(id);
-                bm_dest.parent.splice(bm_dest.index, 0, bm_item.bookmark);
-
-            } else {
-                // Seems not to be a valid drop, so restore the item.
-                bm_item.parent.splice(bm_item.index, 0, bm_item.bookmark);
+                item.moveBefore($this.Model.find(id));
             }
 
             $this.refresh();
@@ -380,31 +674,26 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * items.
          */
         selectFolder: function (folder_id) {
-            if (!folder_id) {
-                // If no folder ID supplied, use the last selected one.
-                folder_id = $this.selected_folder;
+            var folder = null;
+            if (folder_id) {
+                folder_id = folder_id.replace('fl-', '');
+                $this.selected_folder = folder = $this.Model.find(folder_id);
             } else {
-                // Remember the supplied folder ID as last selected.
-                $this.selected_folder = folder_id;
+                folder = $this.selected_folder;
             }
 
-            var folder_el = $('#'+folder_id), items;
-            if (folder_el.hasClass('root')) {
-                // HACK: If this is a root folder, find the root name from ID
-                // naming convention.
-                var id_parts = folder_id.split('-');
-                items = $this.bookmarks[id_parts[1]];
+            if (folder.parent) {
+                $this.editor.find('.new-folder').addClass('disabled');
             } else {
-                // Find the folder bookmark by ID, use its items.
-                items = $this.findById(folder_id.replace('fl-','')).bookmark.items || [];
+                $this.editor.find('.new-folder').removeClass('disabled');
             }
 
             // Deselect all folders, select this one.
             $this.editor.find('.folder').removeClass('selected');
-            folder_el.addClass('selected');
+            $('#' + (folder.parent ? 'fl-' : '') + folder.id).addClass('selected');
 
             // Update the bookmarks pane from this folder.
-            $this.updateBookmarks(items);
+            $this.updateBookmarks(folder.items);
         },
 
         /**
@@ -437,12 +726,13 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Attempt to delete the current selected item in bookmark pane.
          */
         deleteSelectedItem: function (ev) {
+            // Bail if this is disabled.
+            if ($(this).hasClass('disabled')) { return; }
+            // Bail if no item selected.
             if (!$this.selected_item) { return; }
 
-            var item = $this.selected_item; 
-            item.parent.splice(item.index, 1);
+            $this.selected_item.deleteSelf();
             $this.selected_item = null;
-
             $this.refresh();
 
             return false;
@@ -452,7 +742,9 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Summon the bookmark editor for new bookmark creation.
          */
         newBookmark: function (ev) {
-            $this.summonBookmarkEditor({});
+            // Bail if this is disabled.
+            if ($(this).hasClass('disabled')) { return; }
+            $this.summonBookmarkEditor();
             return false;
         },
 
@@ -466,9 +758,7 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                 l_h = new_bm_link.height(),
                 e_h = bm_editor.height();
 
-            if (!item.type) {
-                item.type = 'bookmark';
-            }
+            var item_type = (item) ? item.type : 'bookmark';
 
             bm_editor
                 .css({ 
@@ -476,19 +766,21 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                     top:  pos.top - e_h - 12 
                 })
                 .find('item_id').val('').end()
-                .find('form').attr('class', item.type).end()
+                .find('form').attr('class', item_type).end()
                 .find('.error').removeClass('error').end()
-                .find('input[name=type]').val(item.type).end()
+                .find('input[name=type]').val(item_type).end()
                 .find('input[type=hidden]').val('').end()
                 .find('input[type=text]').val('').end()
                 .show();
 
-            $.each(item, function(name, val) {
-                bm_editor.find('input[name='+name+']').val(val);
-            });
+            if (item) {
+                $.each(item.extract(), function(name, val) {
+                    bm_editor.find('input[name='+name+']').val(val);
+                });
+            }
 
             setTimeout(function () {
-                bm_editor.find('input[name=title]').focus().end()
+                bm_editor.find('input[name=title]').focus().end();
             }, 0.1);
         },
 
@@ -506,14 +798,14 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                 if (name) { data[name] = el.val(); }
             });
 
-            /*
+            // TODO: Fix validation
             if (!data.title)
                 errors.push('title'); 
             if ('bookmark' == data.type && !data.link)
                 errors.push('link'); 
             if ('livemark' == data.type && !data.feedLink)
                 errors.push('feedlink'); 
-            */
+
             bm_editor.removeClass('error');
             $.each(errors, function (i, error) {
                 bm_editor.find('.field_'+error).addClass('error');
@@ -521,35 +813,16 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
 
             if (errors.length > 0) { return; }
                 
-            var item = { 
-                id: data.id || $this.generateId(),
-                type: data.type,
-                title: data.title,
-                link: '',
-                feedLink: '',
-                siteLink: ''
-            };
-
-            if ('bookmark' == data.type) {
-                item.link = data.link;
-                item.description = data.description;
-            } else if ('livemark' == data.type) {
-                item.feedLink = data.feedLink;
-                item.siteLink = data.siteLink;
-            }
-
-            var orig_item = $this.findById(data.id);
-            if (!orig_item) {
-                $this.selected_items.push(item);
-            } else {
-                $.each(item, function (name, val) {
-                    orig_item.bookmark[name] = val;
+            if (data.id) {
+                var item = $this.Model.find(data.id);
+                $.each(data, function (name, val) {
+                    item.set(name, val);
                 });
+            } else {
+                $this.selected_folder.factory(data, true);
             }
 
-            $this.updateBookmarks();
-            $this.updateBookmarksJSON();
-            
+            $this.refresh();
             bm_editor.hide();
         },
 
@@ -557,29 +830,23 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          * Insert a new folder.
          */
         newFolder: function (ev) {
-            // Only allow new folders to be created in one of the roots.
-            if (!$('#'+$this.selected_folder).hasClass('root')) { 
-                return; 
-            }
 
-            var new_folder = {
-                id: $this.generateId(),
+            // Bail if this is disabled.
+            if ($(this).hasClass('disabled')) { return; }
+
+            var new_folder = new $this.Folder({
                 type: 'folder',
-                title: 'New Folder',
-                items: []
-            };
+                title: 'New Folder'
+            });
 
             if ($this.selected_item) {
-                // Insert the new folder after a selected item.
-                $this.selected_item.parent
-                    .splice($this.selected_item.index + 1, 0, new_folder);
-            } else if ($this.selected_items) {
-                // Append the new folder to the end of selected items.
-                $this.selected_items.push(new_folder);
+                new_folder.moveAfter($this.selected_item);
+            } else if ($this.selected_folder) {
+                new_folder.moveTo($this.selected_folder);
             }
 
             $this.refresh();
-            $this.summonFolderRename(new_folder.id);
+            $this.summonFolderRename(new_folder);
 
             return false;
         },
@@ -589,21 +856,20 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
          *
          * Only works for folders visible in the bookmark pane.
          */
-        summonFolderRename: function (fl_id) {
-            var folder_el = $('#'+fl_id),
+        summonFolderRename: function (folder_item) {
+            var folder_el  = $('#'+folder_item.id),
                 folder_pos = folder_el.offset(),
-                folder_item = $this.findById(fl_id),
-                editor = $('<input type="text" />');
+                editor     = $('<input type="text" />');
 
             var accept = function () {
-                folder_item.bookmark.title = editor.val();
+                folder_item.set('title', editor.val());
                 editor.remove();
                 $this.refresh();
-            }
+            };
 
             var reject = function () {
                 editor.remove();
-            }
+            };
 
             editor
                 .appendTo('body')
@@ -614,7 +880,7 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                     width:    '60ex',
                     zIndex:   1000
                 })
-                .val(folder_item.bookmark.title)
+                .val(folder_item.get('title'))
                 .select()
                 .focus()
                 .blur(accept)
@@ -626,82 +892,8 @@ BYOB_Repacks_Edit_Bookmarks = (function () {
                 });
         },
 
-        /**
-         * Generate a unique ID for a bookmark.
-         *
-         * @return string
-         */
-        generateId: function () {
-            return 'bm-' + (new Date()).getTime() + '-' + (++($this.last_id));
-        },
-        last_id: 0,
-
-        /**
-         * Inject unique IDs into all bookmarks.
-         *
-         * @return string
-         */
-        injectIds: function (bookmarks) {
-            if (!bookmarks) {
-                // If no list of bookmarks, iterate through root folders.
-                $.each($this.bookmarks, function (k,v) {
-                    $this.injectIds(v);
-                });
-            } else {
-                // Recursively inject IDs into each bookmark in the folder.
-                $.each(bookmarks, function (idx, bookmark) {
-                    if (!bookmark.id) {
-                        bookmark.id = $this.generateId();
-                    }
-                    if (bookmark.items) {
-                        $this.injectIds(bookmark.items);
-                    } else {
-                        if ('folder' == bookmark.type) {
-                            // HACK: If somehow this folder-type item doesn't
-                            // have an empty list already, give it one.
-                            bookmark.items = [];
-                        }
-                    }
-                });
-            }
-        },
-
-        /**
-         * Search recursively for a bookmark by ID with parent list context.
-         */
-        findById: function (id, bookmarks) {
-            if (!bookmarks) {
-                // No list of bookmarks, so start looking from root folders.
-                var rv = null;
-                $.each($this.bookmarks, function (root_name, bookmarks) {
-                    if (null !== rv)
-                        return; // Found a result, so stop looking.
-                    rv = $this.findById(id, bookmarks);
-                });
-                return rv;
-            } else {
-                // Got a list of bookmarks, so start searching through it.
-                var rv = null;
-                $.each(bookmarks, function (idx, bookmark) {
-                    if (null !== rv)
-                        return; // Found a result, so stop looking.
-                    if (bookmark.id == id) {
-                        // Found the bookmark, so build the result.
-                        rv = {
-                            bookmark: bookmark,
-                            parent:   bookmarks,
-                            index:    bookmarks.indexOf(bookmark)
-                        };
-                    } else if (bookmark.items) {
-                        // This bookmark has children, so try recursing.
-                        rv = $this.findById(id, bookmark.items);
-                    }
-                });
-                return rv;
-            }
-        },
-
         EOF:null
-    };
+    });
+
     return $this.init();
 }());

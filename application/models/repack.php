@@ -314,20 +314,22 @@ class Repack_Model extends ManagedORM
             $all_valid = true;
 
             foreach (array('toolbar', 'menu') as $kind) {
-                $items_in = $data[$kind];
-                if (empty($items_in)) {
-                    $new_bookmarks[$kind] = array();
+                $item_in = $data[$kind];
+                if (empty($item_in)) {
+                    $new_bookmarks[$kind] = array(
+                        'items' => array()
+                    );
                 } else {
-                    list($items, $sub_valid) = 
-                        $this->validateBookmarkSet($items_in);
+                    list($item, $sub_valid) = 
+                        $this->validateBookmarkSet($item_in);
 
                     if (!$sub_valid) $all_valid = false;
                     
-                    $new_bookmarks[$kind] = $items;
+                    $new_bookmarks[$kind] = $item;
 
-                    if ('menu' === $kind && count($items) > 5) {
+                    if ('menu' === $kind && count($item['items']) > 5) {
                         $valid->add_error($field, 'too_many_menu');
-                    } else if ('toolbar' === $kind && count($items) > 3) {
+                    } else if ('toolbar' === $kind && count($item['items']) > 3) {
                         $valid->add_error($field, 'too_many_toolbar');
                     }
                 }
@@ -346,8 +348,9 @@ class Repack_Model extends ManagedORM
     /**
      * Accept and validate a set of bookmark items, recursing into subfolders.
      */
-    public function validateBookmarkSet($items_in) {
+    public function validateBookmarkSet($item) {
         $all_valid = true;
+        $items_in  = $item['items'];
         $items_out = array();
 
         foreach ($items_in as $item_in) {
@@ -371,19 +374,21 @@ class Repack_Model extends ManagedORM
                 $errors['items'] = 'empty';
             } else if ($has_items) {
                 // Recursively process the items contained in folder.
-                list($sub_items_out, $sub_all_valid) =
-                    $this->validateBookmarkSet($item_in['items']);
+                list($sub_item, $sub_all_valid) =
+                    $this->validateBookmarkSet($item_in);
+
                 if (!$sub_all_valid) {
                     // If anything in contents had a problem, flag this folder 
                     // with an error.
                     $errors['items'] = 'invalid';
                 }
-                if (count($sub_items_out) > 10) {
+                if (count($sub_item['items']) > 10) {
                     // There can only be up to 10 items in a folder.
                     $errors['items'] = 'too_many';
                 }
+
                 // Assign the processed items as folder children.
-                $item_out['items'] = $sub_items_out;
+                $item_out = $sub_item->as_array();
             }
 
             // Flag an error if anything in the above went awry.
@@ -396,8 +401,9 @@ class Repack_Model extends ManagedORM
             // Push the current item into the list.
             $items_out[] = $item_out;
         }
+        $item['items'] = $items_out;
 
-        return array($items_out, $all_valid);
+        return array($item, $all_valid);
     }
 
     /**

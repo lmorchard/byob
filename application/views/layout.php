@@ -134,6 +134,7 @@
 
         <?=html::script(array(
             'js/json2.js',
+            'js/class.js',
             'js/jquery-1.4.2.min.js',
             'js/jquery-ui-1.8rc3.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',

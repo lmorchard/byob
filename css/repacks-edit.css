@@ -612,6 +612,13 @@
     background-color: #666;
     color: #fff;
 }
+.section-bookmarks .bookmarks-editor ul.controls li.disabled a,
+.section-bookmarks .bookmarks-editor ul.controls li.disabled a:hover {
+    text-decoration: none;
+    background-color: #fff;
+    color: #999;
+    cursor: default;
+}
 .section-bookmarks #bookmarks_json {
     display: none;
 }
@@ -678,4 +685,3 @@
 .ctrl_repacks_act_edit #bookmark_editor .livemark .field_link {
     display: none;
 }
-

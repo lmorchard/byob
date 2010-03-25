@@ -43,6 +43,8 @@
         </ul>
     </div>
 
+    <textarea id="bookmarks_json" name="bookmarks_json"></textarea>
+
     <ul class="errors">
     </ul>
 
@@ -52,12 +54,11 @@
             <li>The Bookmark Toolbar has a limit of 3 items.</li>
             <li>The Bookmark Menu has a limit of 5 items.</li>
             <li>Folders may be created in either the Bookmark Toolbar or Menu.</li>
+            <li>A folder must contain at least 1 item.</li>
             <li>A folder may contain up to 10 items.</li>
             <li>Creation of sub-folders within folders is not supported.</li>
         </ul>
     </div>
-
-    <textarea id="bookmarks_json" name="bookmarks_json"></textarea>
 
 </div>
 
