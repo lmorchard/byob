@@ -62,23 +62,19 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
         loadData: function (data) {
             $this.model = new BYOB_Repacks_Edit_Bookmarks_Model.Root();
 
-            if (data.menu) {
-                var obj = $this.model.add({
-                    type:  'menu',
-                    id:    'editor1-menu',
-                    title: 'Bookmarks Menu',
-                    items: data.menu.items
-                });
-            }
+            $this.model.add({
+                type:  'menu',
+                id:    'editor1-menu',
+                title: 'Bookmarks Menu',
+                items: data.menu.items || []
+            });
 
-            if (data.toolbar) {
-                $this.model.add({
-                    type:  'toolbar',
-                    id:    'editor1-toolbar',
-                    title: 'Bookmarks Toolbar',
-                    items: data.toolbar.items
-                });
-            }
+            $this.model.add({
+                type:  'toolbar',
+                id:    'editor1-toolbar',
+                title: 'Bookmarks Toolbar',
+                items: data.toolbar.items || []
+            });
 
             if ($this.is_ready) { $this.refresh(); }
         },

@@ -466,7 +466,7 @@ class Repack_Model extends ManagedORM
             if (empty($old_bookmarks)) continue;
 
             // Start accumulating new-format items for this set.
-            $new_bookmarks[$kind] = array();
+            $new_bookmarks[$kind] = array( 'items' => array() );
             foreach ($old_bookmarks as $item) {
 
                 // Convert to the new item type naming.
@@ -484,7 +484,7 @@ class Repack_Model extends ManagedORM
                 }
 
                 // Save the new bookmark item.
-                $new_bookmarks[$kind][] = $new_bookmark;
+                $new_bookmarks[$kind]['items'][] = $new_bookmark;
             }
 
             // Discard the old set of bookmarks.
