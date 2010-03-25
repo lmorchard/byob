@@ -3,10 +3,11 @@
 ?>
 <?php slot::start('body_end') ?>
     <?=html::script(array(
-        'js/byob/repacks/edit/bookmarks.js'
+        'js/byob/repacks/edit/bookmarks-model.js',
+        'js/byob/repacks/edit/bookmarks-ui.js'
     ))?>
     <script type="text/javascript">
-        BYOB_Repacks_Edit_Bookmarks.loadData(<?=$bookmarks_json?>);
+        BYOB_Repacks_Edit_Bookmarks_UI.loadData(<?=$bookmarks_json?>);
     </script>
 <?php slot::end() ?>
 <div class="intro">
@@ -17,16 +18,19 @@
     <div class="bookmarks-editor" id="editor1">
         <ul class="folders">
             <li id="editor1-toolbar" class="folder root folder-toolbar">
+                <span class="count-wrapper">(<span class="count">0</span>)</span>
                 <span class="title">Bookmark Toolbar</span>
                 <ul id="sub-toolbar" class="subfolders">
                 </ul>
             </li>
             <li id="editor1-menu" class="folder root folder-menu">
+                <span class="count-wrapper">(<span class="count">0</span>)</span>
                 <span class="title">Bookmark Menu</span>
                 <ul id="sub-menu" class="subfolders">
                 </ul>
             </li>
             <li class="folder template">
+                <span class="count-wrapper">(<span class="count">0</span>)</span>
                 <span class="title">subfolder</span>
             </li>
         </ul>
@@ -50,13 +54,13 @@
 
     <div class="instructions">
         <h3>Notes:</h3>
-        <ul>
-            <li>The Bookmark Toolbar has a limit of 3 items.</li>
-            <li>The Bookmark Menu has a limit of 5 items.</li>
-            <li>Folders may be created in either the Bookmark Toolbar or Menu.</li>
-            <li>A folder must contain at least 1 item.</li>
-            <li>A folder may contain up to 10 items.</li>
-            <li>Creation of sub-folders within folders is not supported.</li>
+        <ul class="notes">
+            <li class="toolbar-limit">The Bookmark Toolbar has a limit of 3 items.</li>
+            <li class="menu-limit">The Bookmark Menu has a limit of 5 items.</li>
+            <li class="folder-locations">Folders may be placed in either the Bookmark Toolbar or Menu.</li>
+            <li class="folder-no-subfolders">Creation of sub-folders within folders is not supported.</li>
+            <li class="folder-minimum">A folder must contain at least 1 item.</li>
+            <li class="folder-limit">A folder may contain up to 10 items.</li>
         </ul>
     </div>
 
@@ -89,7 +93,7 @@
                     <label for="feedLink">Feed URL</label>
                     <input class="text" type="text" name="feedLink" />
                 </li>
-                <li class="field_sitelink">
+                <li class="field_sitelink required">
                     <label for="siteLink">Site URL</label>
                     <input class="text" type="text" name="siteLink" />
                 </li>
@@ -98,7 +102,7 @@
                         <li class="error template">...</li>
                     </ul>
                 </li>
-                <li>
+                <li class="controls">
                     <button class="cancel">Cancel</button>
                     <button class="save">Save</button>
                 </li>

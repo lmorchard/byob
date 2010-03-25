@@ -475,8 +475,14 @@
 
 .section-bookmarks .bookmarks-editor {
     border: 1px solid #666;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 10px;
+    border-radius: 10px;
     background: #fff;
     font-size: 0.9em;
+}
+.section-bookmarks .notes li {
+    line-height: 1.75em;
 }
 #content .section-bookmarks .bookmarks-editor ul.folders {
     float: left;
@@ -487,6 +493,9 @@
     list-style-type: none;
     background-color: #dfe4ec;
     border-right: 1px solid #333;
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-top-left-radius: 10px;
     min-height: 225px;
 }
 .section-bookmarks .bookmarks-editor ul.folders .ui-sortable-placeholder.bookmark {
@@ -516,17 +525,29 @@
 }
 .section-bookmarks .bookmarks-editor ul.folders li.folder .title {
     display: block;
-    padding: 2px 2px;
+    padding: 2px 3ex 2px 2px;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.folder .count-wrapper {
+    float: right;
+    padding: 1px 3px 0 0;
+    line-height: 18px;
+    color: #666;
 }
 .section-bookmarks .bookmarks-editor ul.folders li.selected .title {
     background-color: #7b86a8;
     font-weight: bold;
     color: #fff;
 }
+.section-bookmarks .bookmarks-editor ul.folders li.selected .count-wrapper {
+    color: #fff;
+}
 .section-bookmarks .bookmarks-editor ul.folders li.selected li.folder .title {
     background-color: transparent;
     color: #000;
     font-weight: normal;
+}
+.section-bookmarks .bookmarks-editor ul.folders li.selected li.folder .count-wrapper {
+    color: #666;
 }
 .section-bookmarks .bookmarks-editor ul.folders li.even {
     background-color: #eee;
@@ -593,6 +614,9 @@
     border-top: 1px solid #333;
     margin: 0 0 0 0;
     padding: 0 0 0 0;
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-left-radius: 10px;
 }
 .section-bookmarks .bookmarks-editor ul.controls li {
     list-style-type: none;
@@ -602,6 +626,11 @@
 }
 .section-bookmarks .bookmarks-editor ul.controls li.new-folder {
     width: 31ex;
+}
+.section-bookmarks .bookmarks-editor ul.controls li.new-folder a:hover {
+    -webkit-border-bottom-left-radius: 10px;
+    -moz-border-radius-bottomleft: 10px;
+    border-bottom-left-radius: 10px;
 }
 .section-bookmarks .bookmarks-editor ul.controls li a {
     display: block;
@@ -615,15 +644,24 @@
 .section-bookmarks .bookmarks-editor ul.controls li.disabled a,
 .section-bookmarks .bookmarks-editor ul.controls li.disabled a:hover {
     text-decoration: none;
-    background-color: #fff;
+    background-color: transparent;
     color: #999;
     cursor: default;
 }
 .section-bookmarks #bookmarks_json {
     display: none;
+    /*
+    display: block;
+    width: 100%;
+    margin-top: 2em;
+    height: 300px;
+    */
 }
 .ctrl_repacks_act_edit #bookmark_editor {
     border: 1px solid #333;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
     width: 425px;
     font-size: 0.85em;
     display: none;
@@ -655,17 +693,20 @@
     color: #f33;
 }
 .ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li input.text {
-    width: 50ex;
+    width: 51ex;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark {
 }
 .ctrl_repacks_act_edit #bookmark_editor button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor button.type_livemark {
-    background: #ddd;
+    background: #aaa;
     font-weight: bold;
     color: #525252;
-    padding: 0.25em;
+    padding: 0.25em 0.5em;
     cursor: pointer;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor .livemark button.type_livemark {
@@ -685,3 +726,19 @@
 .ctrl_repacks_act_edit #bookmark_editor .livemark .field_link {
     display: none;
 }
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.controls {
+    float: right;
+    padding: 0em 1.5em 1em 0.5em;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.controls button {
+    background: #fff;
+    font-weight: bold;
+    color: #525252;
+    padding: 0.25em 0.5em;
+    cursor: pointer;
+    border-radius: 10px;
+    -moz-border-radius: 10px;
+    -webkit-border-radius: 10px;
+}
+
+
