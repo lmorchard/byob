@@ -112,6 +112,10 @@ class Mozilla_BYOB_RepackBuilds {
         $repack = ORM::factory('repack', Event::$data['repack']['id']);
         $repack->beginRelease();
 
+        // HACK: Since rebuilds might not have been edited (eg. is part of a 
+        // global rebuild), ensure older-format bookmarks have been converted.
+        $repack->convertOlderBookmarks();
+
         try {
 
             Kohana::log('info', 'Processing repack for ' .
