@@ -134,13 +134,13 @@ class Repack_Model extends ManagedORM
     );
 
     public static $edit_sections = array(
-        'general',
-        'locales',
-        'platforms',
-        'bookmarks',
-        'addons',
-        'persona',
-        'advanced',
+        'general'     => 'General',
+        'locales'     => 'Locales',
+        'platforms'   => 'Platforms',
+        'bookmarks'   => 'Bookmarks',
+        'addons'      => 'Addons',
+        'collections' => 'Collections',
+        'review'      => false,
     );
 
     // }}}
@@ -155,44 +155,48 @@ class Repack_Model extends ManagedORM
      */
     public function validateRepack(&$data, $set=true, $section='general')
     {
-		$data = Validation::factory($data)
-			->pre_filter('trim');
+        $editor = Mozilla_BYOB_EditorRegistry::findById($section);
+        if (null !== $editor) {
+            $is_valid = $editor->validate($data, $this);
+        } else {
+            // TODO: Refactor all the below into editor modules
 
-        switch ($section) {
+            $data = Validation::factory($data)->pre_filter('trim');
 
-            case 'general':
-                $data->add_rules('user_title', 'required', 'length[1,255]');
-                $data->add_rules('description', 'length[0,1000]');
-                $data->add_rules('is_public', 'required');
-                break;
+            switch ($section) {
 
-            case 'platforms':
-                $data->add_rules('os', 'required', 'is_array');
-                break;
+                case 'general':
+                    $data->add_rules('user_title', 'required', 'length[1,255]');
+                    $data->add_rules('description', 'length[0,1000]');
+                    $data->add_rules('is_public', 'required');
+                    break;
 
-            case 'locales':
-                $data->add_rules('locales', 'required', 'is_array');
-                $data->add_callbacks('locales', array($this, 'extractLocales'));
-                break;
+                case 'platforms':
+                    $data->add_rules('os', 'required', 'is_array');
+                    break;
 
-            case 'bookmarks':
-                $data->add_callbacks('bookmarks', array($this, 'extractBookmarks'));
-                break;
+                case 'locales':
+                    $data->add_rules('locales', 'required', 'is_array');
+                    $data->add_callbacks('locales', array($this, 'extractLocales'));
+                    break;
 
-            case 'collections':
-                $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
-                break;
+                case 'bookmarks':
+                    $data->add_callbacks('bookmarks', array($this, 'extractBookmarks'));
+                    break;
 
-            case 'addons':
-                $data->add_rules('addons', 'is_array');
-                $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
-                $data->add_rules('persona_url', 'length[0,255]', 'url');
-                $data->add_callbacks('persona_url', array($this, 'personaExists'));
-                break;
+                case 'collections':
+                    $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
+                    break;
 
+                case 'addons':
+                    $data->add_rules('addons', 'is_array');
+                    $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
+                    $data->add_rules('persona_url', 'length[0,255]', 'url');
+                    $data->add_callbacks('persona_url', array($this, 'personaExists'));
+                    break;
+            }
+            $is_valid = $data->validate();
         }
-
-        $is_valid = $data->validate();
 
         if (!$set) {
             foreach ($data->field_names() as $name) {
@@ -1082,27 +1086,43 @@ class Repack_Model extends ManagedORM
 
 
     /**
-     * Build and return a repack tools config INI source based on the 
+     * Build and return a distribution.ini source based on the 
      * properties of this instance.
+     *
+     * Allows filtering via the event BYOB.repack.buildDistributionIni
      */
     public function buildDistributionIni()
     {
-        $data = View::factory('repacks/ini/distribution')
-            ->set('repack', $this)
-            ->render();
-        return $data;
+        $output = View::factory('repacks/ini/distribution')
+            ->set('repack', $this)->render();
+
+        $ev_data = array(
+            'repack' => $this,
+            'output' => $output,
+        );
+        Event::run("BYOB.repack.buildDistributionIni", $ev_data);
+
+        return $ev_data['output'];
     }
 
     /**
      * Build and return a repack tools config INI source based on the 
      * properties of this instance.
+     *
+     * Allows filtering via the event BYOB.repack.buildRepackCfg
      */
     public function buildRepackCfg()
     {
-        $data = View::factory('repacks/ini/repack_cfg')
-            ->set('repack', $this)
-            ->render();
-        return $data;
+        $output = View::factory('repacks/ini/repack_cfg')
+            ->set('repack', $this)->render();
+
+        $ev_data = array(
+            'repack' => $this,
+            'output' => $output,
+        );
+        Event::run("BYOB.repack.buildRepackCfg", $ev_data);
+
+        return $ev_data['output'];
     }
 
 

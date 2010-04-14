@@ -170,6 +170,7 @@ class Repacks_Controller extends Local_Controller
         $this->view->set_global(array(
             'repack'       => $rp,
             'section'      => $section,
+            'editor'       => Mozilla_BYOB_EditorRegistry::findById($section),
             'addons'       => $addons,
             'addons_by_id' => $addons_by_id,
             'form_data'    => $form_data,

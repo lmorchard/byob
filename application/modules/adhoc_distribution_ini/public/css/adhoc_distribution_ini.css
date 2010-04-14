@@ -1,0 +1,22 @@
+/**
+ * CSS rules for adhoc_distribution_ini
+ */
+.ctrl_repacks_act_edit #wizard .section-adhoc_distribution_ini .section_content .adhoc_ini textarea#adhoc_ini {
+    height: 50ex;
+    width: 98%;
+    font-family: monospace;
+}
+.ctrl_repacks_act_edit #wizard .section-adhoc_distribution_ini .section_content .adhoc_ini input.submit {
+}
+.ctrl_repacks_act_edit #wizard .section-adhoc_distribution_ini .section_content .adhoc_ini_result {
+}
+.ctrl_repacks_act_edit #wizard .section-adhoc_distribution_ini .section_content .adhoc_ini_result div.result pre {
+    width: 575px;
+    background: #fff;
+}
+.ctrl_repacks_act_edit #wizard .section-adhoc_distribution_ini .section_content .adhoc_ini_result div.result pre {
+    padding: 0.25em;
+    border: 1px solid #ccc;
+    overflow: scroll;
+}
+

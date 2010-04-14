@@ -126,4 +126,7 @@ $config['modules'] = array
 
     MODPATH.'phpunit',
     MODPATH.'lmo_utils',
+
+    APPPATH.'modules/adhoc_distribution_ini',
+
 );

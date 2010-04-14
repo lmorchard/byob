@@ -1,13 +1,5 @@
 <?php
-    $sections = array(
-        'general'     => 'General',
-        'locales'     => 'Locales',
-        'platforms'   => 'Platforms',
-        'bookmarks'   => 'Bookmarks',
-        'addons'      => 'Addons',
-        'collections' => 'Collections',
-        'review'      => false,
-    );
+    $sections = Mozilla_BYOB_EditorRegistry::getSections();
     if (!isset($section) || !isset($sections[$section])) {
         $section = 'general';
     }
