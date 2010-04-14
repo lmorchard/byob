@@ -71,8 +71,21 @@ class Mozilla_BYOB_Editor_AdhocDistributionINI extends Mozilla_BYOB_Editor {
 
         }
 
+        // Sections with "Preferences" or "LocalizablePreferences" need to be 
+        // quoted for JS in Firefox
+        $sections = array_keys($merged_conf->toArray());
+        $quoted = array( 'Preferences' );
+        foreach ($sections as $section) {
+            if (strpos($section, 'LocalizablePreferences') !== false) {
+                $quoted[] = $section;
+            }
+        }
+
         // Render the merged INI and restore retained comments at the top
-        $writer = new Mozilla_BYOB_IniWriter(array('config' => $merged_conf));
+        $writer = new Mozilla_BYOB_IniWriter(array(
+            'config' => $merged_conf,
+            'quotedValueSectionNames' => $quoted
+        ));
         $merged_ini = implode("\n", $comments) . "\n\n" . $writer->render();
         return $merged_ini;
     }
@@ -87,8 +100,14 @@ class Mozilla_BYOB_Editor_AdhocDistributionINI extends Mozilla_BYOB_Editor {
         );
     }
 
-    // TODO: Get rid of these when PHP 5.3+ can be a requirement
+
+    /**
+     * TODO: Get rid of this when PHP 5.3+ can be a requirement
+     */
     public static function getInstance() { return parent::getInstance(get_class()); }
+    /**
+     * TODO: Get rid of this when PHP 5.3+ can be a requirement
+     */
     public static function register() { return parent::register(get_class()); }
 
 }

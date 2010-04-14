@@ -8,6 +8,16 @@
  */
 class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
 {
+    private $_current_section;
+    private $_quoted_value_section_names = array();
+
+    /**
+     * Set the names of sections that require quoted values
+     */
+    public function setQuotedValueSectionNames($sections)
+    {
+        return $this->_quoted_value_section_names = $sections;
+    }
 
     /**
      * Render a Zend_Config into a INI config string.
@@ -17,6 +27,8 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
      */
     public function render()
     {
+        $this->_current_section = '';
+
         $iniString   = '';
         $extends     = $this->_config->getExtends();
         $sectionName = $this->_config->getSectionName();
@@ -24,6 +36,7 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
         if($this->_renderWithoutSections == true) {
             $iniString .= $this->_addBranch($this->_config);
         } else if (is_string($sectionName)) {
+            $this->_current_section = $sectionName;
             $iniString .= '[' . $sectionName . ']' . "\n"
                        .  $this->_addBranch($this->_config)
                        .  "\n";
@@ -39,6 +52,7 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
                         $sectionName .= ' : ' . $extends[$sectionName];
                     }
 
+                    $this->_current_section = $sectionName;
                     $iniString .= '[' . $sectionName . ']' . "\n"
                                .  $this->_addBranch($data)
                                .  "\n";
@@ -87,10 +101,11 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
             return ($value ? 'true' : 'false');
         } elseif (is_integer($value) || is_float($value)) {
             return $value;
-        } else {
+        } elseif (in_array($this->_current_section, $this->_quoted_value_section_names)) {
             $value = str_replace('"', '\"', $value);
             return '"'.$value.'"';
-            //return $value;
+        } else {
+            return $value;
         }
     }
 
