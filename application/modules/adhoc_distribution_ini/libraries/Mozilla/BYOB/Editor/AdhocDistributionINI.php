@@ -20,6 +20,7 @@ class Mozilla_BYOB_Editor_AdhocDistributionINI extends Mozilla_BYOB_Editor {
      */
     public function isAllowed($repack)
     {
+        return $repack->checkPrivilege('edit_distribution_ini');
     }
 
     /**
@@ -29,7 +30,7 @@ class Mozilla_BYOB_Editor_AdhocDistributionINI extends Mozilla_BYOB_Editor {
     {
 		$data = Validation::factory($data)
             ->pre_filter('trim')
-            ->add_rules('adhoc_ini', 'length[0,32768]')
+            ->add_rules('adhoc_ini', 'length[0,999999]')
             ;
 
         if (!$data->validate()) return false;

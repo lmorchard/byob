@@ -1,5 +1,5 @@
 <?php
-    $sections = Mozilla_BYOB_EditorRegistry::getSections();
+    $sections = Mozilla_BYOB_EditorRegistry::getSections($repack);
     if (!isset($section) || !isset($sections[$section])) {
         $section = 'general';
     }

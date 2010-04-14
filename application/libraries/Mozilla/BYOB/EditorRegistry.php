@@ -33,7 +33,7 @@ class Mozilla_BYOB_EditorRegistry {
     /**
      * Get a list of all sections
      */
-    public static function getSections()
+    public static function getSections($repack)
     {
         $sections = array();
 
@@ -44,6 +44,7 @@ class Mozilla_BYOB_EditorRegistry {
         }
 
         foreach (self::$editors as $editor_id => $editor) {
+            if (!$editor->isAllowed($repack)) continue;
             $sections[$editor->id] = $editor->title;
         }
 

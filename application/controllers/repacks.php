@@ -133,9 +133,10 @@ class Repacks_Controller extends Local_Controller
             return Event::run('system.403');
         }
 
-        if (!$editable_rp->checkPrivilege('edit'))
+        if (!$editable_rp->checkPrivilege('edit')) {
             return Event::run('system.403');
-       
+        }
+
         if ($editable_rp->id != $rp->id) {
             // Redirect to editable alternative.
             if (!$editable_rp->saved) {
@@ -152,6 +153,11 @@ class Repacks_Controller extends Local_Controller
             return url::redirect($rp->url);
         }
 
+        $editor = Mozilla_BYOB_EditorRegistry::findById($section);
+        if ($editor && !$editor->isAllowed($rp)) {
+            return Event::run('system.403');
+        }
+       
         // Grab the form data, ensure UUID not changed.
         $form_data = $this->input->post();
         $form_data['uuid'] = $rp->uuid;
@@ -170,7 +176,7 @@ class Repacks_Controller extends Local_Controller
         $this->view->set_global(array(
             'repack'       => $rp,
             'section'      => $section,
-            'editor'       => Mozilla_BYOB_EditorRegistry::findById($section),
+            'editor'       => $editor,
             'addons'       => $addons,
             'addons_by_id' => $addons_by_id,
             'form_data'    => $form_data,

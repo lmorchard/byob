@@ -69,7 +69,8 @@ $config['acls'] = $acls
         'distributionini', 'repackcfg', 'repacklog', 'repackjson',
         'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 
-        'download_unreleased',
+        'download_unreleased', 
+        'edit_distribution_ini',
     ))
 
     // ORM Manager admin privileges

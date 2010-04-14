@@ -157,7 +157,11 @@ class Repack_Model extends ManagedORM
     {
         $editor = Mozilla_BYOB_EditorRegistry::findById($section);
         if (null !== $editor) {
-            $is_valid = $editor->validate($data, $this);
+            if (!$editor->isAllowed($this)) {
+                $is_valid = false;
+            } else {
+                $is_valid = $editor->validate($data, $this);
+            }
         } else {
             // TODO: Refactor all the below into editor modules
 
@@ -691,8 +695,6 @@ class Repack_Model extends ManagedORM
 
     /**
      * Run through possible privileges and assemble results.
-     *
-     * @TODO: Allow request for just one or two perms, optimization
      */
     public function checkPrivilege($priv,$profile_id=null)
     {
@@ -757,31 +759,21 @@ class Repack_Model extends ManagedORM
             case 'revert':
                 return authprofiles::is_allowed('repacks', 'revert') ||
                     ($own && authprofiles::is_allowed('repacks', 'revert_own'));
+
             case 'approve':
                 return authprofiles::is_allowed('repacks', 'approve') ||
                     ($own && authprofiles::is_allowed('repacks', 'approve_own'));
+            
             case 'auto_approve':
                 return authprofiles::is_allowed('repacks', 'auto_approve') ||
                     ($own && authprofiles::is_allowed('repacks', 'auto_approve_own'));
-            case 'reject':
-                return authprofiles::is_allowed('repacks', 'reject');
+            
             case 'cancel':
                 return authprofiles::is_allowed('repacks', 'cancel') ||
                     ($own && authprofiles::is_allowed('repacks', 'cancel_own'));
-            case 'begin':
-                return authprofiles::is_allowed('repacks', 'begin');
-            case 'finish':
-                return authprofiles::is_allowed('repacks', 'finish');
-            case 'fail':
-                return authprofiles::is_allowed('repacks', 'fail');
-            case 'distributionini':
-                return authprofiles::is_allowed('repacks', 'distributionini');
-            case 'repackcfg':
-                return authprofiles::is_allowed('repacks', 'repackcfg');
-            case 'repacklog':
-                return authprofiles::is_allowed('repacks', 'repacklog');
-            case 'repackjson':
-                return authprofiles::is_allowed('repacks', 'repackjson');
+
+            default:
+                return authprofiles::is_allowed('repacks', $priv);
 
         };
     }
