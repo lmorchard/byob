@@ -1,4 +1,4 @@
-From: l.m.orchard@gmail.com
+From: lorchard@mozilla.com
 Subject: Password recovery for <?=$login_name?>.
 
 Someone (possibly you) has triggered an attempt to recover the password for a 

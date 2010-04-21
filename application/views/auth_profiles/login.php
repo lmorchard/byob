@@ -29,7 +29,7 @@
     to use BYOB, you must first activate your account by following the instructions
     that were sent to the email address associated with that account. If you did
     not receive this email, please ensure any anti-spam methods will accept mail
-    from admin@byob.mozilla.com and use the 
+    from byob-notify-noreply@mozilla.com and use the 
     "Re-send Account Activation Information" button below. If
     you still do not receive the activation information, please contact us.
     </p>

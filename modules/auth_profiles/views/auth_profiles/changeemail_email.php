@@ -1,4 +1,4 @@
-From: l.m.orchard@gmail.com
+From: lorchard@mozilla.com
 Subject: Email address change for <?=$login_name?>.
 
 Someone (possibly you) has triggered an attempt to change the email address for 

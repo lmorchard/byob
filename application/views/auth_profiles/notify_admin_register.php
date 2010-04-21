@@ -1,4 +1,4 @@
-From: admin@byob.mozilla.com
+From: byob-notify-noreply@mozilla.com
 Subject: [BYOB] New user registration (<?=$login['login_name']?>)
 
 A new login named <?=$login['login_name']?> has been registered.
