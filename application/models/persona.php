@@ -32,8 +32,12 @@ class Persona_Model extends Model
 
     /**
      * Return persona details given an ID
+     * 
+     * @param   $persona_id
+     * @returns Persona_Model
+     * @chainable
      */
-    public function find($persona_id)
+    public function find_by_getpersonas_id($persona_id)
     {
         if (empty($persona_id)) return $this;
 
@@ -65,16 +69,36 @@ class Persona_Model extends Model
         if (empty($json)) {
             $this->loaded = false;
             return $this;
-        } 
+        } else {
+            $this->url = "http://www.getpersonas.com/persona/{$persona_id}";
+            return $this->load_json($json);
+        }
+    }
 
+    /**
+     * Populate this model object from a JSON string
+     *
+     * @param   string $json
+     * @returns Persona_Model
+     * @chainable
+     */
+    public function load_json($json)
+    {
         $persona_data = json_decode($json, true);
+        if (empty($persona_data)) {
+            $this->loaded = false;
+            return $this;
+        }
+
         foreach ($this->table_columns as $name=>$info) {
             if (isset($persona_data[$name])) {
                 $this->{$name} = $persona_data[$name];
             }
         }
 
-        $this->url    = "http://www.getpersonas.com/persona/{$persona_id}";
+        if (!empty($this->id)) {
+        }
+
         $this->json   = $json;
         $this->loaded = true;
 
@@ -82,15 +106,91 @@ class Persona_Model extends Model
     }
 
     /**
+     * Look for a persona by a getpersonas.com URL.
+     *
+     * @param   string $url
+     * @returns Persona_Model
+     * @chainable
+     */
+    public function find_by_getpersonas_url($url)
+    {
+        $persona_id = basename($url);
+        return $this->find_by_getpersonas_id($persona_id);
+    }
+
+    /**
+     * Look for a persona by addons.mozilla.org URL
+     *
+     * @param   string $url
+     * @returns Persona_Model
+     * @chainable
+     */
+    public function find_by_amo_url($url)
+    {
+        if (empty($url)) return $this;
+
+        $cache = Cache::instance();
+        $key   = "persona-amo-" . md5($url);
+        $json  = $cache->get($key);
+
+        if (!$json) {
+
+            $ch = curl_init();
+            curl_setopt_array($ch, array(
+                CURLOPT_URL => $url,
+                CURLOPT_FOLLOWLOCATION => true,
+                CURLOPT_RETURNTRANSFER => true,
+            ));
+            $html = curl_exec($ch);
+            if (200 != curl_getinfo($ch, CURLINFO_HTTP_CODE)) {
+                // Error, or persona not found.
+                $html = null;
+            }
+
+            if (!empty($html)) {
+                // HACK: This is some gnarly scraping to pick up a link with the 
+                // persona JSON embedded.
+                $doc = new DOMDocument();
+                $doc->strictErrorChecking = FALSE;
+                $doc->loadHTML($html);
+                $xml = simplexml_import_dom($doc);
+                $result = $xml->xpath('//a/@persona|@data-browsertheme');
+                while (list(,$node) = each($result)) {
+                    $json = (string)$node;
+                }
+            }
+
+            $cache->set($key, $json);
+        }
+
+        if (empty($json)) {
+            $this->loaded = false;
+            return $this;
+        } else {
+            $this->url = $url;
+            return $this->load_json($json);
+        }
+
+    }
+
+    /**
      * Return persona details given a URL
      *
-     * @return array
+     * @param   string $url
+     * @returns Persona_Model
+     * @chainable
      */
     public function find_by_url($url)
     {
         if (empty($url)) return $this;
-        $persona_id = basename($url);
-        return $this->find($persona_id);
+
+        if (false !== strpos($url, 'getpersonas.com/persona')) {
+            return $this->find_by_getpersonas_url($url);
+        } else if (false !== strpos($url, 'addons.mozilla.org')) {
+            return $this->find_by_amo_url($url);
+        } else {
+            return $this;
+        }
     }
 
 }
