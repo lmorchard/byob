@@ -61,6 +61,8 @@ class Mozilla_BYOB_RepackBuilds {
      */
     public static function deleteBuilds()
     {
+        LMO_Utils_EnvConfig::apply('buildqueue');
+
         $repack = ORM::factory('repack', Event::$data['repack']['id']);
 
         $base_paths = array(
@@ -89,6 +91,8 @@ class Mozilla_BYOB_RepackBuilds {
      */
     public static function releaseBuilds()
     {
+        LMO_Utils_EnvConfig::apply('buildqueue');
+
         $repack = ORM::factory('repack', Event::$data['repack']['id']);
 
         $src_path  = Kohana::config('repacks.downloads_private');
@@ -109,6 +113,8 @@ class Mozilla_BYOB_RepackBuilds {
      */
     public static function performBuild($run_script=true)
     {
+        LMO_Utils_EnvConfig::apply('buildqueue');
+
         $repack = ORM::factory('repack', Event::$data['repack']['id']);
         $repack->beginRelease();
 
