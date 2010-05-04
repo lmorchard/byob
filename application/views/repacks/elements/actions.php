@@ -56,7 +56,8 @@ if ($repack->isRelease()) {
             } 
         } 
 
-        if ($repack->state == Repack_Model::$states['started']) { 
+        if ($repack->state == Repack_Model::$states['requested'] 
+            || $repack->state == Repack_Model::$states['started']) { 
             if ($privs['fail']) 
                 $actions[';fail'] = "Force build failure state";
             if ($privs['finish'])

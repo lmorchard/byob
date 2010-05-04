@@ -117,7 +117,7 @@ class Repack_Model extends ManagedORM
     public static $transitions = array(
         'new'        => array('edited', 'requested', 'deleted',),
         'edited'     => array('requested', 'deleted',),
-        'requested'  => array('cancelled', 'started',),
+        'requested'  => array('cancelled', 'started', 'failed', 'pending'),
         'cancelled'  => array('edited', 'requested', 'deleted',),
         'started'    => array('failed', 'pending',),
         'failed'     => array('edited', 'requested', 'deleted',),
