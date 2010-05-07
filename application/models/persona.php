@@ -115,7 +115,9 @@ class Persona_Model extends Model
     public function find_by_getpersonas_url($url)
     {
         $persona_id = basename($url);
-        return $this->find_by_getpersonas_id($persona_id);
+        $p = $this->find_by_getpersonas_id($persona_id);
+        $p->url = $url;
+        return $p;
     }
 
     /**
@@ -184,7 +186,7 @@ class Persona_Model extends Model
     {
         if (empty($url)) return $this;
 
-        if (false !== strpos($url, 'getpersonas.com/persona')) {
+        if (false !== strpos($url, 'getpersonas.com')) {
             return $this->find_by_getpersonas_url($url);
         } else if (false !== strpos($url, 'addons.mozilla.org')) {
             return $this->find_by_amo_url($url);
