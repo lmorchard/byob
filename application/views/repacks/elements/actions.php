@@ -88,7 +88,7 @@ if ($privs['repackjson'])
     <?php endif ?>
     <ul class="actions clearfix">
         <?php foreach ($actions as $url=>$title): ?>
-            <li><a href="<?=$h['url'] . $url?>"><?=$title?></a></li>
+            <li><a class="button blue" href="<?=$h['url'] . $url?>"><?=$title?></a></li>
         <?php endforeach ?>
     </ul>
 </div>

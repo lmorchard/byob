@@ -29,28 +29,21 @@
 }
 .ctrl_index_act_index #content .page_intro_content h4.get_started {
     position: absolute;
-    bottom: 14px;
+    bottom: 25px;
     right: 455px;
-}
-.ctrl_index_act_index #content .page_intro_content h4.get_started a {
-    display: block;
-    background: transparent url(../img/get-started-button.gif) no-repeat top left;
-    height: 42px;
-    width: 155px;
-    text-indent:-155px;
-    overflow: hidden;
 }
 .ctrl_index_act_index #content .page_intro_content p {
     margin:0 450px 0 0;
     padding:12px 12px 0 21px;
-    font-size: 90%;
+    font-size: 110%;
     line-height: 1.45em;
 }
 .ctrl_index_act_index #content .page_intro_content ul {
     padding: 6px 12px 12px 51px;
 }
 .ctrl_index_act_index #content .page_intro_content ul li {
-    font-size: 90%;
+    font-size: 110%;
+    list-style: disc;
     line-height: 1.45em;
 }
 .ctrl_index_act_index #content .recent_browsers {
@@ -59,11 +52,10 @@
     padding: 10px 14px 0px 14px;
 }
 .ctrl_index_act_index #content .recent_browsers .header h3 {
-    background: transparent url(../img/recently-created-browsers.gif) no-repeat top left;
+    font-size: 150%;
+    color: #41576a;
     height: 20px;
-    width: 231px;
-    text-indent:231px;
-    overflow: hidden;
+    margin-bottom: 0.5em;
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers {
     list-style: none;
@@ -84,11 +76,12 @@
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 a {
     text-decoration: none;
+    font-size: 125%;
+    font-weight: bold;
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta {
     margin: 0 0 0 0; 
     padding: 0 0 0.5em 0;
-    font-size: 80%;
 }
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .byline {
 }
@@ -109,18 +102,9 @@
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser div.empty h5.download {
     margin-top: -2.5em;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h5.download a {
-    text-decoration: none;
-    display: block;
-    background: transparent url(../img/download-button.gif) no-repeat top left;
-    height: 26px;
-    width: 92px;
-    text-indent:-92px;
-    overflow: hidden;
-}
 .ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .description p {
     margin: 0 110px 0 0; 
-    font-size: 90%;
+    font-size: 110%;
 }
 .ctrl_index_act_index #content .recent_browsers .footer {
 }

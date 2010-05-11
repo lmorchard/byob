@@ -62,7 +62,7 @@ $edit_base = $repack->url() . ';edit?section=';
         <ul>
     </div>
     <div class="nav">
-        <div class="next"><a href="#part2">Next</a></div>
+        <div class="next button blue"><a href="#part2">Next  &nbsp;&raquo;</a></div>
     </div>
 </div>
 
@@ -120,7 +120,7 @@ $edit_base = $repack->url() . ';edit?section=';
         <ul>
     </div>
     <div class="nav">
-        <div class="prev"><a href="#part1">Previous</a></div>
-        <div class="build"><a target="_top" href="<?=$repack->url()?>;release"><img src="<?=url::base()?>img/build-this-browser.gif" /></a></div>
+        <div class="prev button blue"><a href="#part1">&laquo;&nbsp; Previous</a></div>
+        <div class="build button yellow"><a target="_top" href="<?=$repack->url()?>;release">Build this browser</a></div>
     </div>
 </div>

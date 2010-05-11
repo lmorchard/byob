@@ -189,7 +189,7 @@ BYOB_Main = function() {
                     return true;
                 });
 
-            $('.tabs a').add('.section_nav a').click(function() {
+            $('.tab-tabs a').add('.section_nav a').click(function() {
                 // Wire up nav tabs to submit the form after setting 
                 // a hidden field with the name of the next section.
                 var href = $(this).attr('href');

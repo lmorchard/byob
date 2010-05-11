@@ -41,7 +41,8 @@ $h = html::escape_array(array(
 ?>
 <div class="status status-<?=$h['state']?>">
     <?php if (null !== $title): ?>
-        <span><a href="<?=$h['url']?><?=('released'==$state_name)?'#download':''?>"><?=$h['title']?></a></span>
+        <?php $class = ('released' == $h['state']) ? 'button yellow' : ''; ?>
+        <span><a class="<?=$class?>" href="<?=$h['url']?><?=('released'==$state_name)?'#download':''?>"><?=$h['title']?></a></span>
         <h4>Current status</h4>
     <?php endif ?>
 </div>

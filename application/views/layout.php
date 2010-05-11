@@ -13,7 +13,10 @@
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
         <?php
-            $css = array('css/main.css');
+            $css = array(
+                'css/reset-min.css', 
+                'css/main.css',
+            );
 
             // HACK: Include CSS files only if they exist.
             // TODO: Replace this with config and minimization

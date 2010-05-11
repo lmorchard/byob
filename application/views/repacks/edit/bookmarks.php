@@ -74,8 +74,8 @@
             <ul class="editor_fields">
                 <li class="field_type">
                     <label for="type">Type</label>
-                    <button class="type_bookmark" name="type_bookmark">Bookmark</button>
-                    <button class="type_livemark" name="type_livemark">Livemark</button>
+                    <button class="button type_bookmark" name="type_bookmark">Bookmark</button>
+                    <button class="button type_livemark" name="type_livemark">Livemark</button>
                 </li>
                 <li class="field_title required">
                     <label for="title">Title</label>
@@ -103,8 +103,8 @@
                     </ul>
                 </li>
                 <li class="controls">
-                    <button class="cancel">Cancel</button>
-                    <button class="save">Save</button>
+                    <button class="button cancel">Cancel</button>
+                    <button class="button yellow save">Save</button>
                 </li>
             </ul>
         </form>

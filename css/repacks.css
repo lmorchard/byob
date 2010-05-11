@@ -1,11 +1,10 @@
 .ctrl_repacks #content .main_previews { 
-    padding: 0 0 20px 15px;
+    padding: 0.25em 0 20px 15px;
 }
 .ctrl_repacks #content .inprogress .main_previews { 
     padding-left: 105px;
 }
 .ctrl_repacks #content .main_previews h4 {
-    font-size: 85%;
     display: inline;
 }
 .ctrl_repacks #content .main_previews .previews {
@@ -16,7 +15,6 @@
 }
 .ctrl_repacks #content .main_previews .previews li {
     display: inline;
-    font-size: 85%;
     padding: 0 0 0 0.5em;
 }
 .ctrl_repacks #content .main_previews .previews li:before {

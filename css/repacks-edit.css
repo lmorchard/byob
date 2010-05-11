@@ -1,6 +1,149 @@
 /**
  * Styles for repack editor page.
  */
+
+.tab-set .tab-tabs {
+	padding: .75em 1em;
+	list-style: none;
+	border-top: 1px solid transparent;
+	border-bottom: 0px;
+	}
+	.tab-set .tab-tabs li {
+		display: inline;
+		}
+	.tab-set .tab-tabs a {
+		color: #808080;
+		background: #EDF4F9;
+		display: inline;
+		padding: .75em 1em;
+		border: 1px solid #c0c0c0;
+		border-bottom: 1px solid #c0c0c0;
+		margin-left: .25em;
+		-moz-border-radius: .25em .25em 0 0;
+		-moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+		}
+	.tab-set .tab-tabs li:first-child a {
+		margin-left: 0;
+		}
+	.tab-set .tab-tabs a:hover {
+		color: #333 !important;
+		}
+	.tab-set .tab-tabs li.selected a {
+		/* font-weight: bold; */
+		background: #fff;
+		color: #333;
+		border: 1px solid #c0c0c0;
+		border-bottom: 1px solid #fff;
+		position: relative;
+		z-index: 2;
+		-moz-box-shadow: none;
+		}
+	.tab-set .tab-tabs li.checked a {
+		color: #006000;
+		}
+		.tab-set .tab-tabs li.checked a:before {
+			content: '\02714  ';
+			}
+.tab-set .tab-content {
+	background: #fff;
+	border: 1px solid #c0c0c0;
+	position: relative;
+	z-index: 1;
+	-moz-border-radius: .5em;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+	}
+.tab-set .tab-header, .tab-set .intro {
+	padding: 1em;
+	border-bottom: 1px solid #c0c0c0;
+	}
+    .tab-set .tab-header, .tab-set .intro p {
+        font-size: 100%;
+    }
+
+.tab-set .tab-body, .tab-set .pane {
+	padding: 1em;
+    position: relative;
+	/* height: 10em; */
+	}
+.tab-set .tab-footer {
+	background: #edf4f9;
+	border-top: 1px solid #c0c0c0;
+	padding: .5em 1em;
+	overflow: auto;
+	-moz-border-radius: 0 0 .5em .5em;
+	}
+	.tab-set .tab-footer .float-left {
+		float: left;
+		}
+	.tab-set .tab-footer .float-right {
+		float: right;
+		}
+		
+		
+.editor {
+	overflow: visible;
+	}
+	.editor h2 {
+		margin: 0 0 0.5em 1em;
+		font-size: 24px;
+		font-weight: bold;
+		}
+	.editor .editor-content {
+		float: left;
+		width: 685px;
+		}
+	.editor .editor-changes {
+		float: right;
+		width: 215px;
+		margin-top: 2.5em;
+		}
+	.editor .editor-commit {
+		float: right;
+		clear: right;
+		width: 215px;
+		margin-top: 1em;
+		}
+
+.editor-changes {
+	border: 1px solid #c0c0c0;
+	background: #edf4f9;
+	padding: 1em;
+	-moz-border-radius: .5em;
+	-moz-box-sizing: border-box;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+	}
+	.editor-changes h3 {
+		font-weight: bold;
+		margin-bottom: 1em;
+		}
+	.editor-changes ul {
+		margin-left: 1em;
+		}
+	.editor-changes li {
+		margin: .5em 0;
+		color: #006000;
+		}
+		.editor-changes li:before {
+			content: '\02714';
+			margin-right: .5em;
+			}
+
+.editor-changes .errors {
+    margin-bottom: 1em;
+}
+.editor-changes .errors li {
+    color: #900;
+    margin-left: 1.25em;
+    text-indent: -1.25em;
+}
+.editor-changes .errors li:before {
+    content: '\02717';
+    font-size: 120%;
+    margin-right: .5em;
+}
+            
+
+            /*
 .ctrl_repacks_act_edit #wizard {
     position: relative;
 }
@@ -128,6 +271,7 @@
     padding: 0 0 1em 0;
     margin: 0 0 0 0;
 }
+*/
 .ctrl_repacks_act_edit #wizard .pane {
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset {
@@ -149,7 +293,7 @@
     font-size: 100%;
     height: 6em;
     padding: 0.5em;
-    width: 90%;
+    width: 625px;
     border: 1px solid #ccc;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset div input {
@@ -160,7 +304,9 @@
     padding: 0.5em;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset div input:focus, .ctrl_repacks_act_edit #wizard .pane fieldset div textarea:focus {
-    background: #daf0f7 url(../img/form-field-bg.jpg) repeat-x;
+    background: #ebf8fc;
+    background: -moz-linear-gradient(-90deg, #c6dcea, #e0f1f8 8px) no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(#c6dcea), color-stop(8px, #ddeeff), to(#e0f1f8)) no-repeat;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset p {
     padding: 0 0 0 0;
@@ -190,40 +336,7 @@
 .ctrl_repacks_act_edit #wizard .pane fieldset ul.choices li input {
     width: auto;
 }
-.ctrl_repacks_act_edit .section_nav {
-    padding: 0.5em 1.25em;
-    margin: 0 0 0 0;
-    background: #edf5f9;
-    -moz-border-radius-bottomleft: 8px;
-    -webkit-border-radius-bottomleft: 8px;
-    border-radius-bottomleft: 8px;
-    -moz-border-radius-bottomright: 8px;
-    -webkit-border-radius-bottomright: 8px;
-    border-radius-bottomright: 8px;
-    font-size: 0.85em;
-}
-.ctrl_repacks_act_edit .section_nav .prev_section {
-    float: left;
-}
-.ctrl_repacks_act_edit .section_nav .prev_section a {
-    display: block;
-    padding-left: 21px;
-    padding-bottom: 4px;
-    background: transparent url(../img/arrow-prev.gif) no-repeat 0px 1px;
-}
-.ctrl_repacks_act_edit .section_nav .prev_section a:hover {
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit .section_nav .next_section {
-    float: right;
-}
-.ctrl_repacks_act_edit .section_nav .next_section a {
-    display: block;
-    padding-right: 21px;
-    padding-bottom: 4px;
-    background: transparent url(../img/arrow-next.gif) no-repeat right 2px;
-}
-.ctrl_repacks_act_edit .section_nav .next_section a:hover {
+.ctrl_repacks_act_edit .section_nav a:hover {
     text-decoration: none;
 }
 .ctrl_repacks_act_edit .save_buttons {
@@ -255,94 +368,6 @@
     margin: 0.5em 0 1em 1em;
 }
 
-/*
-.ctrl_repacks_act_edit #content ul.bookmarks {
-    list-style: none;
-    margin: 0;
-    padding: 0 0 0 1em;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark {
-    display: inline-block;
-    width: 90%;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table {
-    float: left;
-    width: 92%;
-    margin: 0 0 0 0;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr {
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr th {
-    text-align: left;
-    padding-top: 0;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr th span {
-    display: block;
-    padding: 0.125em 0.5em;
-    margin: 0 0.25em 0 0;
-    border-bottom: 1px solid #aaa;
-    font-size: 0.75em;
-    background-color: #ddd;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td {
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td span {
-    display: block;
-    margin: 0 0.25em 0 0;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table tr td span input {
-    width: 100%;
-}
-
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.type {
-    padding: 0;
-    margin: 0;
-    display: block;
-    float: left;
-    width: 16px;
-    text-indent: 16px;
-    height: 16px;
-    overflow: hidden;
-    background: transparent url(../img/pageStarred.png) no-repeat top left;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.normal {
-    background-image: url(../img/pageStarred.png);
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark span.live {
-    background-image: url(../img/livemark-item.png);
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark a.delete {
-    float: left;
-    display: block;
-    width: 16px;
-    text-indent: 16px;
-    height: 16px;
-    overflow: hidden;
-    background: transparent url(../img/Info.png) no-repeat top left;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks .bookmark table th span.error {
-    color: #ff0000;
-    background-color: #edd;
-}
-.ctrl_repacks_act_edit #content ul.bookmarks table td span.error {
-}
-.ctrl_repacks_act_edit #content ul.bookmarks table td span.error input {
-    background-color: #ffeeee;
-}
-.ctrl_repacks_act_edit #content .bookmark-add {
-    margin: 0.75em 0;
-}
-.ctrl_repacks_act_edit #content .bookmark-add a.add {
-    padding-left: 18px;
-    background: transparent url(../img/../img/pageStarred.png) no-repeat top left;
-}
-.ctrl_repacks_act_edit #content .bookmark-add-normal a.add {
-    background-image: url(../img/pageStarred.png);
-}
-.ctrl_repacks_act_edit #content .bookmark-add-live a.add {
-    background-image: url(../img/livemark-item.png);
-}
-*/
 .ctrl_repacks_act_edit .popup #content .sections li.locales {
     float: left;
     border-bottom: none;    
@@ -365,7 +390,6 @@
     width: 200px;
 }
 .ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark {
-    font-size: 85%;
     margin: 0 0 0 0;
     padding: 4px 0 0.25em 20px;
     background: transparent url(../img/pageStarred.png) no-repeat top left;
@@ -375,11 +399,8 @@
     padding: 0 0 0.25em 0;
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .menu {
-    float: left;
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .toolbar {
-    float: left;
-    padding-left: 1em;
 }
 .ctrl_repacks_act_edit .popup .sections li.bookmarks .normal {
     background-image: url(../img/pageStarred.png);
@@ -650,14 +671,10 @@
 }
 .section-bookmarks #bookmarks_json {
     display: none;
-    /*
-    display: block;
-    width: 100%;
-    margin-top: 2em;
-    height: 300px;
-    */
 }
 .ctrl_repacks_act_edit #bookmark_editor {
+    opacity: 0.9;
+    z-index: 999;
     border: 1px solid #333;
     border-radius: 10px;
     -moz-border-radius: 10px;
@@ -699,19 +716,17 @@
 }
 .ctrl_repacks_act_edit #bookmark_editor button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor button.type_livemark {
-    background: #aaa;
     font-weight: bold;
     color: #525252;
     padding: 0.25em 0.5em;
     cursor: pointer;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+	background: -moz-linear-gradient(-90deg, #aaa, #666);
+    color: #ddd;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor .livemark button.type_livemark {
-    background: #fff;
     font-weight: bold;
+	background: -moz-linear-gradient(-90deg, #fff, #ccc);
     color: #333;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark .field_feedlink,
@@ -730,15 +745,17 @@
     float: right;
     padding: 0em 1.5em 1em 0.5em;
 }
-.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.controls button {
-    background: #fff;
-    font-weight: bold;
-    color: #525252;
-    padding: 0.25em 0.5em;
-    cursor: pointer;
-    border-radius: 10px;
-    -moz-border-radius: 10px;
-    -webkit-border-radius: 10px;
+.ctrl_repacks_act_edit .instructions {
+    padding: 1em;
 }
-
-
+.ctrl_repacks_act_edit .instructions h3 {
+    font-size: 125%;
+    font-weight: bold;
+    margin: 0.5em 0 0.5em 0;
+}
+.ctrl_repacks_act_edit .instructions ul.notes {
+    padding-left: 2em;
+}
+.ctrl_repacks_act_edit .instructions ul.notes li {
+    list-style: disc;
+}

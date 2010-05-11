@@ -13,9 +13,7 @@
 }
 .ctrl_auth_profiles_act_login #content form ul.fields label {
     text-align: left;
-}
-.ctrl_auth_profiles_act_login #content form ul.fields label {
-    font-size: 105%;
+    font-size: 125%;
 }
 .ctrl_auth_profiles_act_login #content form ul.fields li.text input,
 .ctrl_auth_profiles_act_login #content form ul.fields li.password input {
@@ -28,7 +26,7 @@
     padding-right: 1em;
 }
 .ctrl_auth_profiles_act_login #content ul.other li {
-    font-size: 80%;
+    font-size: 100%;
     margin: 0.25em 0 0.25em 0;
 }
 .ctrl_auth_profiles_act_login #content ul.other li:before {

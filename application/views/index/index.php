@@ -32,9 +32,9 @@
                     $profile_url = url::base() .
                         "profiles/".authprofiles::get_profile('screen_name');
                 ?>
-                <a href="<?=$profile_url?>">Get Started!</a>
+                <a class="button yellow large" href="<?=$profile_url?>">Get Started!</a>
             <?php else: ?>
-                <a href="<?= url::base().'register' ?>">Get Started!</a>
+                <a class="button yellow large" href="<?= url::base().'register' ?>">Get Started!</a>
             <?php endif ?>
         </h4>
 
@@ -76,7 +76,7 @@
                     <span class="modified"><?=$h['modified']?></span>
                 </p>
                 <div class="description <?= empty($h['description']) ? 'empty' : '' ?>">
-                    <h5 class="download"><a href="<?=$h['url']?>#download">Download</a></h5>
+                    <h5 class="download"><a class="button yellow" href="<?=$h['url']?>#download">Download</a></h5>
                     <p><?=$h['description']?></p>
                 </div>
             </li>

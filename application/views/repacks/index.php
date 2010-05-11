@@ -13,8 +13,7 @@
             $create_url = url::base() . "profiles/{$profile->screen_name}/browsers/create";
         ?>
         <form action="<?=$create_url?>" method="POST">
-            <input type="image" name="confirm" id="confirm" value="yes" 
-                src="<?=url::base()?>img/create-a-new-browser-button.gif" />
+            <button id="confirm" class="submit required button large yellow">Create a New Browser</button>
         </form>
     <?php endif ?>
 </div>
@@ -93,95 +92,4 @@
 
     </ul>
 
-    <?php /*
-    <ul class="browsers">
-
-        <?php if (empty($indexed_repacks)): ?>
-            <li>None yet.</li>
-        <?php endif ?>
-
-        <?php foreach ($indexed_repacks as $uuid=>$repacks): ?>
-            <?php
-                $primary_repack = null;
-                $primary_flag = null;
-                foreach (array('released', 'unreleased') as $key) {
-                    if (!empty($repacks[$key]) && 
-                            $repacks[$key]->checkPrivilege('view')) {
-                        $primary_flag = $key;
-                        $primary_repack = $repacks[$key];
-                        continue;
-                    }
-                }
-                if (empty($primary_repack)) continue;
-
-                $h = html::escape_array(array_merge(
-                    $primary_repack->as_array(),
-                    array( 
-                        'url' => 
-                            $primary_repack->url(),
-                        'modified' => 
-                            date('M d Y', strtotime($primary_repack->modified)),
-                    )
-                ));
-                $privs = $primary_repack->checkPrivileges(array(
-                    'view', 'view_history', 'edit', 'delete', 'download', 'release',
-                    'revert', 'approve', 'auto_approve', 'reject', 'cancel', 'begin',
-                    'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
-                ));
-
-            ?>
-            <li class="browser">
-                <?php
-                    $display_state = null;
-                    $state_name = $primary_repack->getStateName();
-                    if ($privs['edit']) {
-                        if (in_array($state_name, array('requested', 'pending', 'started', 'failed'))) {
-                            $display_state = 'under_review';
-                        } else if ('rejected' == $state_name) {
-                            $display_state = 'changes_requested';
-                        } else if ('released' == $state_name) {
-                            $display_state = 'download';
-                        }
-                    }
-                ?>
-
-                <?php if (true ||null !== $display_state): ?>
-                <div class="state"><?=$display_state . ' / ' . $state_name ?>
-                    </div>
-                <?php endif ?>
-
-                <div class="title">
-                    <h4><a href="<?=$h['url']?>"><?=$h['title']?></a></h4>
-                    <?php if ($privs['edit']): ?>
-                        <div class="edit"><a href="<?=$h['url']?>;edit">edit</a></div>
-                    <?php endif ?>
-                </div>
-
-                <div class="release_meta">
-                    <?php if (empty($repacks['released'])): ?>
-                        <span>No current release</span>
-                        <span>Last modified <?=$h['modified']?></span>
-                    <?php else: ?>
-                        <span>Released on <?=$h['modified']?></span> 
-                    <?php endif ?>
-                </div>
-
-                <?php if ($privs['release']): ?>
-                    <div class="release_actions">
-                        <?php if (!$primary_repack->isRelease() &&
-                                !$primary_repack->isLockedForChanges() &&
-                                !$primary_repack->isPendingApproval()): ?>
-                            <span class="release"><a href="<?=$h['url']?>;release">Request Release</a></span>
-                        <?php else: ?>
-                            <span class="no_release"><span>Request Release</span></span>
-                        <?php endif ?>
-                        <a class="firstrun" href="<?=$h['url']?>/firstrun">Preview first-run page</a>
-                    </div>
-                <?php endif ?>
-
-            </li>
-        <?php endforeach ?>
-
-    </ul>
-    */ ?>
 </div>
