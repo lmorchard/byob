@@ -95,7 +95,10 @@ div.section {
 
 body {
     font-family: helvetica, arial; 
-    background: #fff url(../img/bg.jpg) repeat-x;
+    color: #444;
+    background: #ebf8fc;
+    background: -moz-linear-gradient(-90deg, #cbedf6, #ffffff 50%) no-repeat;
+    background: -webkit-gradient(linear,left top, left bottom, from(#cbedf6), to(#ffffff)) no-repeat;
 }
 
 #simplemodal-overlay {background-color:#000;}
@@ -112,51 +115,83 @@ body {
     margin: 0 21px 18px 21px;
     padding: 0;
     position: relative; 
-    background: transparent url(../img/header-bg.gif) no-repeat top right;
+    background: #304a67;
+    background: -moz-linear-gradient(-90deg, #3b6988, #175478);
+    background: -webkit-gradient(linear,left top, left bottom, from(#3b6988), to(#175478));
+    -moz-border-radius: 0 0 0.25em 0.25em;
+    -webkit-border-bottom-left-radius: 0.25em;
+    -webkit-border-bottom-right-radius: 0.25em;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+    -webkit-box-shadow: 0 1px 2px rgba(0,0,0,.25);
 }
 #header .crumbs { 
     height: 56px;
-    background: transparent url(../img/header-bg-left.gif) no-repeat top left;
+}
+#header .site_title {
+    position: absolute;
+    left: 20px;
+    bottom: 10px;
+    font-size: 200%;
+    font-weight: bold;
+}
+#header .site_title a {
+    color: #fff;
+    text-decoration: none;
 }
 #header .title {
     position: absolute;
     left: 145px;
-    bottom: 12px;
-    font-size: 140%;
+    bottom: 13px;
+    font-size: 130%;
     font-weight: normal;
-    width: 220px;
     height: 23px;
-    overflow: hidden;
-    background: transparent url(../img/build-your-own-title.gif) no-repeat top left;
 }
 #header .title a {
     color: #fff;
-    padding-left: 220px;
     text-decoration: none;
 }
-#header .nav { 
+#header .auth {
+    height: 56px;
+    color: #fff; 
     position: absolute; 
-    bottom: 18px; 
-    right: 210px; 
+    bottom: 0px;
+    right: 210px;
+    padding: 0 14px 0 14px;
+    border-left: 1px solid #6b8ea5;
+    border-right: 1px solid #6b8ea5;
+}
+#header .auth .welcome {
+    font-size: 75%;
+    margin: 14px 0 4px 0;
+    color: #b6c8d3;
+}
+#header .auth .welcome .screen_name {
+    font-weight: bold;
+}
+#header .nav {
     list-style-type: none; 
     margin: 0; 
     padding: 0; 
+    text-indent: 0;
 }
 #header .nav li { 
-    float: left; 
+    float: left;
+    font-size: 75%;
+    padding: 0; 
+    text-indent: 0;
 }
 #header .nav li:before {
-    color: #fff;
-    font-size: 85%;
+    color: #b6c8d3;
+    margin: 0 4px 0 4px;
     content: "\2219"; 
 }
 #header .nav li a {
     color: white;
     text-decoration: none;
-    font-size: 85%;
-    margin: 0 1em 0 1em;
+    margin: 0;
 }
 #header .nav li.first:before {
+    margin: 0; 
     content: ""; 
 }
 #header .search { 
@@ -168,7 +203,7 @@ body {
     padding: 0; 
 }
 #header .search #q {
-    width: 170px;
+    width: 178px;
     padding: 2px 8px 2px 8px;
     border: 1px solid #ccc;
     -moz-border-radius: 8px;
@@ -206,7 +241,9 @@ body {
 }
 form input.hint {
     color: #999;
-    font-style: italic;
+}
+#content form {
+    margin: 0 0 0 0;
 }
 #content form fieldset {
     padding: 0.25em 1em; 
@@ -219,15 +256,17 @@ form input.hint {
 }
 #content form fieldset legend {
     font-size: 145%;
-    color: #000;
+    font-weight: bold;
+    color: #444;
+    margin: 0 0 0.5em 0;
 }
 #content form fieldset.finish legend {
     display: none;
 }
 #content form fieldset .intro {
-    border-bottom: 1px solid #ccc;
-    padding-bottom: 1em;
-    margin: 0 0 1em 0;
+    padding-bottom: 0.5em;
+    font-size: 105%;
+    margin: 0 0 0 0;
 }
 #content form ul.errors {
     color: red;
@@ -239,14 +278,31 @@ form input.hint {
     padding: 0;
     margin:  0;
 }
+#content form ul.fields li label {
+    float: left;
+    display: block;
+    width: 22ex;
+    padding-top: 0.5em;
+    font-size: 75%;
+    margin-right: 2ex;
+    text-align: right;
+    margin-left: 0em;
+}
 #content form ul.fields li {
     position: relative;
-    margin-bottom: 0.25em;
+    margin-bottom: 0.5em;
+}
+#content form ul li p.notes {
+    font-size: 70%;
+    margin: 0.5em 0 0 24ex;
+}
+#content form ul li.error p.notes {
+    color: #f00;
 }
 #content form ul.fields li.divider {
     padding: 0 0 1em 0;
     margin: 0 0 1em 0;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px dashed #ccc;
 }
 #content form select.dropdown {
     margin: 0.5em 0.5em 0.5em 0em;
@@ -260,22 +316,6 @@ form input.hint {
 #content form ul.fields li.radio .choices span {
     padding-right: 1em;
 }
-#content form ul.fields li label {
-    float: left;
-    display: block;
-    width: 22ex;
-    padding-top: 0.125em;
-    font-size: 0.85em;
-    margin-right: 1.5ex;
-    text-align: left;
-}
-#content form ul.fields li label {
-    margin-left: 0em;
-}
-#content form ul.fields li label:after {
-    content: "\00a0*";
-    color: #5c92c4;
-}
 #content form ul.fields li.required label {
 }
 #content form ul.fields li.required label:after {
@@ -288,19 +328,16 @@ form input.hint {
     color: #5c92c4;
     font-size: 125%;
 }
-#content form ul li p.notes {
-    position: absolute;
-    font-size: 70%;
-    left: 560px;
-    width: 340px;
-    margin: -2.2em 0 0 0;
-    font-size: 0 0 0 0;
+
+#content form ul.fields li.text input:focus, #content form ul.fields li.password input:focus {
+    background: #ebf8fc;
+    background: -moz-linear-gradient(-90deg, #c6dcea, #e0f1f8 25%) no-repeat;
+    background: -webkit-gradient(linear, left top, left bottom, from(#c6dcea), color-stop(25%, #ddeeff), to(#e0f1f8)) no-repeat;
 }
-#content form ul.fields li.error label {
-    color: #ff0000;
-}
-#content form ul.fields li.error input {
-    background-color: #ffeeee;
+
+
+#content form fieldset.narrow-labels li label {
+    width: 10ex;
 }
 
 #content form ul.fields li.text input, 
@@ -309,7 +346,7 @@ form input.hint {
 {
     background: #fff;
     width: 40ex;
-    border: 1px solid #ccc;
+    border: 1px solid #999;
     font-family: Georgia;
     font-size: 1em;
     padding: 2px 0.25em;
@@ -321,15 +358,17 @@ form input.hint {
     font-size: 0.85em;
     padding: 2px 0.125em;
 }
-
-#content form ul.fields li.text input:focus, #content form ul.fields li.password input:focus {
-    background: #daf0f7 url(../img/form-field-bg.jpg) repeat-x;
+#content form ul.fields li.error label {
+    color: #f00;
+}
+#content form ul.fields li.error input {
+    background-color: #fff;
+    border: 1px solid #ff0000;
+}
+#content form ul.fields li.error #recaptcha_widget_div #recaptcha_area .recaptchatable {
+    border: 1px solid #ff0000 !important;
 }
 
-
-#content form fieldset.narrow-labels li label {
-    width: 10ex;
-}
 #content .sidebar {
     float: right;
     margin: 14px 12px 0 0;
@@ -672,3 +711,53 @@ form input.hint {
     font-size: 85%;
     padding: 0 0 0.5em 0;
 }
+
+.button {
+	font-family: inherit;
+	font-size: 13px;
+	font-weight: bold;
+	padding: .25em .5em;
+	cursor: pointer;
+	border: 1px solid transparent;
+	text-decoration: none;
+	-moz-border-radius: .5em;
+	-webkit-border-radius: .5em;
+	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+	-webkit-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+	text-shadow: 0 -1px 1px rgba(0,0,0,.125);
+	}
+	.button:active {
+		-moz-box-shadow: inset 0 1px 2px rgba(0,0,0,.125);
+		}
+
+.button.large {
+	font-size: 16px;
+	padding: .5em 1em;
+}
+
+.button.yellow {
+	color: #333;
+	border-color: #f7d26d;
+	background: #f7d26d;
+	background: -moz-linear-gradient(-90deg, #fff0b5, #f7d26d);
+    background: -webkit-gradient(linear,left top, left bottom, from(#fff0b5), to(#f7d26d)) no-repeat;
+	}
+	
+.button.blue {
+	color: #fff;
+	border-color: #004462;
+	background: #005788;
+	background: -moz-linear-gradient(-90deg, #005788, #004462);
+    background: -webkit-gradient(linear,left top, left bottom, from(#005788), to(#004462)) no-repeat;
+	}
+	
+.button.link-like {
+	background: transparent;
+	border: 0;
+	color: #004462;
+	padding: .25em 0;
+	-moz-box-shadow: none;
+	}
+	.button.link-like:hover {
+		text-decoration: underline;
+	}

@@ -51,8 +51,7 @@ form::$errors = array();
         <li><a target="_top" href="<?=url::base()?>forgotpassword">Forgot your password?</a></li>
         <li><a target="_top" href="<?=url::base()?>register">Need an account?</a></li>
     </ul>
-    <input id="login" class="submit required" type="image" 
-        src="<?=url::base()?>img/login-button.gif" alt="Login" name="login"/>
+    <button id="login" class="submit required button large yellow">Login</button>
 </li>
 <?php slot::end() ?>
 
@@ -60,8 +59,12 @@ form::$errors = array();
 form::build(url::base() . url::current(true), array('class'=>'login'), array(
     form::field('hidden', 'jump', ''),
     form::fieldset(null, array('class'=>'login'), array(
-        form::field('input',    'login_name',       'Username', array('class'=>'required' . ( $invalid ? ' error' : '') )),
-        form::field('password', 'password',         'Password', array('class'=>'required' . ( $invalid ? ' error' : '') )),
+        form::field('input',    'login_name', 'Username', array(
+            'class'=>'required' . ( $invalid ? ' error' : '') 
+        )),
+        form::field('password', 'password', 'Password', array(
+            'class'=>'required' . ( $invalid ? ' error' : '') 
+        )),
         slot::get('submit')
     ))
 )) 

@@ -265,30 +265,32 @@ class form extends form_Core
         return $value;
     }
 
-	/**
-	 * Creates an HTML form input tag. Defaults to a text type.
-	 *
-	 * @param   string|array  input name or an array of HTML attributes
-	 * @param   string        input value, when using a name
-	 * @param   string        a string to be attached to the end of the attributes
-	 * @param   boolean       encode existing entities
-	 * @return  string
-	 */
-	public static function input($data, $value = '', $extra = '', $double_encode = TRUE )
-	{
-		if ( ! is_array($data))
-		{
-			$data = array('name' => $data);
-		}
+    /**
+     * Creates an HTML form input tag. Defaults to a text type.
+     *
+     * @param   string|array  input name or an array of HTML attributes
+     * @param   string        input value, when using a name
+     * @param   string        a string to be attached to the end of the attributes
+     * @param   boolean       encode existing entities
+     * @return  string
+     */
+    public static function input($data, $value = null, $extra = '', $double_encode = TRUE )
+    {
+        if (!is_array($data)) {
+            $data = array('name' => $data);
+        }
+        if (null === $value) {
+            $value = form::value($data['name'], @$params['value']);
+        }
 
-		// Type and value are required attributes
-		$data += array
-		(
-			'type'  => 'text',
-			'value' => $value
-		);
+        // Type and value are required attributes
+        $data += array
+        (
+            'type'  => 'text',
+            'value' => $value
+        );
 
-		return '<input'.form::attributes($data).' '.$extra.' />';
-	}
+        return '<input'.form::attributes($data).' '.$extra.' />';
+    }
 
 }

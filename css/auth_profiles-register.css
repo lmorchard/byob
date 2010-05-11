@@ -2,7 +2,8 @@
  * Styles for profile registration
  */
 .ctrl_auth_profiles_act_register #content form.register {
-    width: 550px;
+    margin: 2em 0 0 0;
+    width: 650px;
 }
 .ctrl_auth_profiles_act_register #content form.register .errors {
     display: none;
@@ -10,7 +11,6 @@
 .ctrl_auth_profiles_act_register #content form.register fieldset.login {
 }
 .ctrl_auth_profiles_act_register #content form.register fieldset.login legend {
-    color: #000;
     font-size: 145%;
 }
 .ctrl_auth_profiles_act_register #content form.register fieldset.account legend {
@@ -22,9 +22,6 @@
     font-size: 80%;
     margin: 0 0 1em 0; 
     padding: 0;
-}
-.ctrl_auth_profiles_act_register #content form ul.fields li label {
-
 }
 .ctrl_auth_profiles_act_register #content form ul.fields li label {
     font-weight: bold;
@@ -54,4 +51,69 @@
 .ctrl_auth_profiles_act_register #content form fieldset.finish li.submit input {
     position: absolute;
     left: 450px;
+}
+.ctrl_auth_profiles_act_register #content form ul.fields li.text.two_up input {
+    width: 19.75ex;
+}
+
+.ctrl_auth_profiles_act_register #content .password_strength_meter {
+    position: absolute;
+    right: 0px;
+    top: -2px;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter .meter {
+    display: block;
+    width: 140px;
+    height: 6px;
+    background: #ddd;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter .indicator {
+    display: block;
+    background: #0f0;
+    height: 6px;
+    width: 0%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter .label {
+    font-size: 90%;
+    color: #333;
+    display: none;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.default .label.default {
+    display: block;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.short .indicator {
+    background: #a00; width: 18%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.short .label.short {
+    display: block; color: #f00;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.bad .indicator {
+    background: #f80; width: 25%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.bad .label.bad {
+    display: block; color: #940;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.weak .indicator {
+    background: #f80; width: 33%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.weak .label.weak {
+    display: block; color: #940;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.good .indicator {
+    background: #0d0; width: 66%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.good .label.good {
+    display: block; color: #070;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.better .indicator {
+    background: #0d0; width: 75%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.better .label.better {
+    display: block; color: #070;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.strong .indicator {
+    background: #0d0; width: 100%;
+}
+.ctrl_auth_profiles_act_register #content .password_strength_meter.strong .label.strong {
+    display: block; color: #070;
 }

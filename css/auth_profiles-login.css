@@ -1,33 +1,36 @@
-.ctrl_auth_profiles_act_login .popup #content .header ,
-.ctrl_auth_profiles_act_login .popup #content .content {
+.ctrl_auth_profiles_act_login #content .header ,
+.ctrl_auth_profiles_act_login #content .content {
     width: 528px;
     padding: 0;
 }
-.ctrl_auth_profiles_act_login .popup #content form  {
+.ctrl_auth_profiles_act_login #content form  {
     padding: 12px;
 }
-.ctrl_auth_profiles_act_login .popup #content form fieldset {
+.ctrl_auth_profiles_act_login #content form fieldset {
 }
-.ctrl_auth_profiles_act_login .popup #content form fieldset legend {
+.ctrl_auth_profiles_act_login #content form fieldset legend {
     display: none;
 }
-.ctrl_auth_profiles_act_login .popup #content form ul.fields label {
+.ctrl_auth_profiles_act_login #content form ul.fields label {
+    text-align: left;
+}
+.ctrl_auth_profiles_act_login #content form ul.fields label {
     font-size: 105%;
 }
-.ctrl_auth_profiles_act_login .popup #content form ul.fields li.text input,
-.ctrl_auth_profiles_act_login .popup #content form ul.fields li.password input {
+.ctrl_auth_profiles_act_login #content form ul.fields li.text input,
+.ctrl_auth_profiles_act_login #content form ul.fields li.password input {
     width: 497px;
     font-size: 30px
 }
-.ctrl_auth_profiles_act_login .popup #content ul.other {
+.ctrl_auth_profiles_act_login #content ul.other {
     float: right;
     list-style: none;
     padding-right: 1em;
 }
-.ctrl_auth_profiles_act_login .popup #content ul.other li {
+.ctrl_auth_profiles_act_login #content ul.other li {
     font-size: 80%;
     margin: 0.25em 0 0.25em 0;
 }
-.ctrl_auth_profiles_act_login .popup #content ul.other li:before {
+.ctrl_auth_profiles_act_login #content ul.other li:before {
     content: "\00bb";
 }

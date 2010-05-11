@@ -117,8 +117,6 @@ class Profile_Model extends Auth_Profile_Model
             ->add_rules('email', 
                 'required', 'length[3,255]', 'valid::email',
                 array($login_model, 'is_email_available'))
-            ->add_rules('email_confirm', 
-                'required', 'valid::email', 'matches[email]')
             ->add_rules('password', 'length[6,255]', 'required')
             ->add_rules('password_confirm', 'required', 'matches[password]')
             ->add_rules('screen_name', 
@@ -126,17 +124,7 @@ class Profile_Model extends Auth_Profile_Model
                 array($this, 'is_screen_name_available'))
             ->add_rules('first_name', 'required', 'valid::standard_text')
             ->add_rules('last_name', 'required')
-            ->add_rules('phone', 'required')
-            ->add_rules('website', 'url')
-            ->add_rules('address_1', 'required')
-            ->add_rules('city', 'required')
-            ->add_rules('state', 'required')
-            ->add_rules('zip', 'required')
-            ->add_rules('country', 'required')
             ;
-        if ($data['is_personal'] != 1) {
-            $data->add_rules('org_name', 'required');
-        }
 
         if ('post' == request::method() && !recaptcha::check()) {
             $data->add_error('recaptcha', recaptcha::error());

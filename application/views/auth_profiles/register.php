@@ -1,121 +1,77 @@
-<?php slot::set('head_title', 'register'); ?>
-<?php slot::set('crumbs', 'register a new account'); ?>
-<?php
-slot::start('login_details_intro');
-?>
-<div class="intro">
-    <p>
-    This is your basic account information, and will be used to login to the Build 
-    Your Own Browser application. Your e-mail address will be used for account 
-    verification, status notifications, and password resets, and must be a valid 
-    address. If you are creating a customized version of Firefox for distribution 
-    by an organization, you must use an email account using that organization's 
-    domain name to ensure your submissions are approved.
-    </p>
-    <p class="required_note">
-        <strong>All fields are required</strong> 
-        except those marked with an asterisk <span>*</span>
-    </p>
-</div>
-<?php
-slot::end();
+<?php slot::set('head_title', 'Sign up'); ?>
+<?php slot::set('crumbs', 'Sign Up for a New Account'); ?>
 
-slot::start('account_details_intro');
-?>
+<script type="text/javascript">
+var RecaptchaOptions = {
+    theme: 'clean'
+};
+</script>
+
+<?php slot::start('body_end') ?>
+    <?=html::script(array(
+        'js/jquery.passwordStrengthMeter.js',
+    ))?>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('.fields li.use_password_meter').passwordStrengthMeter(); 
+        });
+    </script>
+<?php slot::end() ?>
+
+<?php slot::start('login_details_intro') ?>
 <div class="intro">
     <p>
-    We require information about you and, if applicable, the organization you 
-    represent. It helps us understand who is using BYOB, and to give us additional 
-    ways to contact you should the need arise. This information is used solely by 
-    Mozilla, and will never be shared with or sold to anyone else.
+        You are just a few moments away from creating your new browser.<br />
+        Please fill in <strong>every field</strong> below to sign up.
     </p>
 </div>
+<?php slot::end() ?>
+
+<?php slot::start('password_strength_meter') ?>
+    <span class="password_strength_meter default">
+        <span class="label default">Password Strength</span>
+        <span class="label short">Too short</span>
+        <span class="label bad weak">Weak password</span>
+        <span class="label good">Good password</span>
+        <span class="label better">Strong password</span>
+        <span class="label strong">Strong password</span>
+        <span class="meter"><span class="indicator">&nbsp;</span></span>
+    </span>
+<?php slot::end() ?>
+
 <?php
-slot::end();
+$name_error = 
+    !empty($form_errors['first_name']) ||
+    !empty($form_errors['last_name']);
+
+$captcha_error = 
+    !empty($form_errors['recaptcha']);
 
 echo form::build('register', array('class'=>'register'), array(
-    form::fieldset('Register a new account', array('class'=>'login'), array(
+    form::fieldset('Sign Up for a New Account', array('class'=>'login'), array(
         '<li>' . slot::get('login_details_intro') . '</li>',
-        form::field('input',    'login_name',       'Login name', array('class'=>'divider login_name required'), array(
-            "Enter the account name you will use to login to BYOB (4-12 ",
-            "characters in length; alphanumeric, underscore, and hyphens only)"
-        )),
-        form::field('input',    'email',            'Email', array('class'=>'required'), array(
-            "Verification will be ",
-            "required before your account is activated. If you are ",
-            "representing an organization, you must use an account with ",
-            "that organization's domain name or your submissions may be ",
-            "rejected."
-        )),
-        form::field('input',    'email_confirm',    'Email <span>(confirm)</span>', array('class'=>'divider required'), array(
-        )),
-        form::field('password', 'password',         'Password', array('class'=>'password required'), array(
-            "Passwords must be a minimum ", 
-            "of six characters in length. If you forget your password, reset ",
-            "information will be sent to the email address above."
-        )),
-        form::field('password', 'password_confirm', 'Password <span>(confirm)</span>', array('class'=>'divider required'), array(
-        )),
-    )),
-    form::fieldset('Account Details', array('class'=>'account'), array(
-        '<li>' . slot::get('account_details_intro') . '</li>',
-        form::field('input',    'first_name',  'First Name', array('class'=>'required'), array(
-            'Your given name.'
-        )),
-        form::field('input',    'last_name',   'Last Name', array('class'=>'divider required'), array(
-            'Your surname.'
-        )),
-
-        form::field('radio', 'is_personal', 'Account type?',
-            array('options' => array(
-                '1' => 'Personal',
-                '0' => 'Organization'
-            )), 
-            array(
-                "Please indicate whether you are using the versions of ",
-                "Firefox you create for personal use (i.e. sharing with ",
-                "friends and family, etc.) or on behalf of an organization."
-            )
+        array(
+            '<li class="input required text two_up '.($name_error ? 'error' : '').'">',
+                '<label for="first_name">Your name</label>',
+                form::input('first_name'),
+                form::input('last_name'),
+            '</li>',
         ),
-
-        form::field('dropdown', 'org_type',    'Organization Type', array(
-            'options' => array(
-                'corp'      => 'Corporation', 
-                'nonprofit' => 'Non-Profit', 
-                'other'     => 'Other',
-            ),
-            'class'=>'required'
+        form::field('input', 'email', 'Your email', array('class'=>'divider required'), array(
+            "We'll send an email to this address to complete the sign-up process."
         )),
-        form::field('input',    'org_type_other', '(other)'),
-        form::field('input',    'org_name',    'Organization Name', array('class'=>'divider required'), array(
-            "Please enter the full, legal name of the organization you represent here."
+        form::field('input', 'login_name', 'Your login name', array('class'=>'divider login_name required'), array(
+            "This is the name you will use to log in to your account.",
+            "Use 4 to 12 characters. Letters, numbers, hyphens, and underscores only."
         )),
-
-        form::field('input',    'phone',       'Phone', array('class'=>'required'), array(
-            'Your daytime contact number, with country code (US/Canada is "1").'
+        form::field('password', 'password', 'Your password', array('class'=>'password required use_password_meter'), array(
+            "Use 6 to 32 characters. Capitalization matters.",
+            slot::get('password_strength_meter') 
         )),
-        form::field('input',    'fax',         'Fax', array('class'=>'divider'), array(
-            'Your fax number, with country code (US/Canada is "1")'
+        form::field('password', 'password_confirm', 'Re-type password', array('class'=>'divider required'), array(
         )),
-        form::field('input',    'website',     'Website', array(), array(
-            'Please provide the URL for your organizational or personal website.'
-        )),
-
-        form::field('input',    'address_1', 'Street Address 1', array('class'=>'required'),array(
-            "Please provide your current mailing address or, if you are ",
-            "representing an organization, your organization's mailing address ",
-            "here."
-        )),
-        form::field('input',    'address_2', 'Street Address 2'),
-        form::field('input',    'city',      'City', array('class'=>'required')),
-        View::factory('auth_profiles/elements/states')->render(),
-        form::field('input',    'zip',       'Zip / Postal Code', array('class'=>'required', 'class'=>'required'), array(
-        )),
-        View::factory('auth_profiles/elements/countries')->render(),
-    )),
-    form::fieldset('finish', array('class'=>'finish'), array(
-        '<li class="required"><label for="recaptcha">Captcha</label><span>' . recaptcha::html() . '</span></li>',
-        '<li class="required submit"><label class="hidden" for="register"/><input id="register" class="submit required" type="image" src="'.url::base().'img/register-button.gif" alt="Register" name="register"/>',
+        '<li class="required '.($captcha_error ? 'error' : '').'"><label for="recaptcha">Are you human?</label><span>' . recaptcha::html() . '</span></li>',
+        '<li class="required submit"><label class="hidden" for="register">&nbsp;</label><button id="register" class="submit required button large yellow">Create a New Account</button>',
     ))
 ));
 ?>

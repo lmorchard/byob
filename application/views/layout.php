@@ -1,5 +1,7 @@
 <?php
     $screen_name = authprofiles::get_profile('screen_name');
+    if (empty($screen_name)) $screen_name = 'guest';
+    $e_screen_name = html::specialchars($screen_name);
     $u_screen_name = rawurlencode($screen_name);
     $page_id = Router::$controller . '_' . Router::$method;
 ?>
@@ -46,27 +48,31 @@
             <div id="main" class="clearfix">
                 <div id="header">
                     <div class="crumbs">
-                        <h1 class="title"><a href="<?=url::base()?>">build your own browser</a></h1>
+                        <h1 class="site_title"><a href="http://www.mozilla.com">mozilla</a></h1>
+                        <h2 class="title"><a href="<?=url::base()?>">build your own browser</a></h2>
                         <!-- <?= slot::get('crumbs') ?>&nbsp; -->
                     </div>
                     <div class="sub">
                         <div class="auth">
+                            <div class="welcome">
+                                Welcome, <span class="screen_name"><?= $e_screen_name ?></span>.
+                            </div>
                             <ul class="nav">
                                 <?php if (!authprofiles::is_logged_in()): ?>
-                                    <li class="first"><a href="<?= url::base() . 'register' ?>">register</a></li>
-                                    <li><a class="login" href="<?= url::base() . 'login' ?>">login</a></li>
+                                    <li class="first"><a href="<?= url::base() . 'register' ?>">Sign up</a></li>
+                                    <li><a class="login" href="<?= url::base() . 'login' ?>">Log in</a></li>
                                 <?php else: ?>
-                                    <li class="first"><a href="<?= url::base() . 'home' ?>"><?= html::specialchars($screen_name) ?></a></li>
+                                    <li class="first"><a href="<?= url::base() . 'home' ?>">My profile</a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
-                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">queue (<?=$approval_queue_count?>)</a></li>
+                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">Queue (<?=$approval_queue_count?>)</a></li>
                                     <?php endif ?>
                                     <!--
                                         <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">edit profile</a></li>
                                     -->
                                     <?php if (authprofiles::is_allowed('admin', 'index')): ?>
-                                        <li><a href="<?= url::base() . 'admin/' ?>">manage app</a></li>
+                                        <li><a href="<?= url::base() . 'admin/' ?>">Manage</a></li>
                                     <?php endif ?>
-                                    <li><a href="<?= url::base() . 'logout' ?>">logout</a></li>
+                                    <li><a href="<?= url::base() . 'logout' ?>">Log out</a></li>
                                 <?php endif; ?>
                             </ul>
                         </div>
@@ -79,7 +85,7 @@
                                         'name'  => 'q',
                                         'value' => @$_GET['q'],
                                         'size'  => '30', 
-                                        'title' => 'Search browsers'
+                                        'title' => 'Search Browsers'
                                     ))?>
                                 </form>
                             </div>
