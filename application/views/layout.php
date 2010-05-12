@@ -15,6 +15,7 @@
         <?php
             $css = array(
                 'css/reset-min.css', 
+                'css/smoothness/jquery-ui-1.8.1.custom.css',
                 'css/main.css',
             );
 
@@ -145,7 +146,7 @@
             'js/json2.js',
             'js/class.js',
             'js/jquery-1.4.2.min.js',
-            'js/jquery-ui-1.8rc3.custom.min.js',
+            'js/jquery-ui-1.8.1.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',
             'js/jquery.simplemodal-1.3.min.js',
             'js/jquery.cloneTemplate.js',

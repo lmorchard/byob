@@ -21,13 +21,11 @@
 }
 .ctrl_repacks_act_view table.changes thead tr th {
     text-align: left;
-    font-size: 0.85em;
     padding: 0.125em 0.5em;
 }
 .ctrl_repacks_act_view table.changes tbody tr {
 }
 .ctrl_repacks_act_view table.changes tbody tr td {
-    font-size: 0.85em;
     padding: 0.5em 0.75em 0.5em 0.75em;
     word-wrap: break-word;
 }
@@ -44,7 +42,6 @@
 .ctrl_repacks_act_view table.downloads thead tr th {
     text-align: left;
     padding: 0.5em 0.5em;
-    font-size: 85%;
 }
 .ctrl_repacks_act_view table.downloads thead tr th.empty {
 }
@@ -52,7 +49,6 @@
 }
 .ctrl_repacks_act_view table.downloads tbody tr td {
     padding: 0.5em 1em 0.5em 0.5em;
-    font-size: 85%;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.locale {
     padding-left: 2em;
@@ -90,7 +86,6 @@
     margin: 0 0 0 0;
 }
 .ctrl_repacks_act_view #history ul li.event .when {
-    font-size: 75%;
     font-weight: bold;
     float: left;
     width: 11ex;
@@ -99,12 +94,10 @@
     margin: 0 0 0 0;    
 }
 .ctrl_repacks_act_view #history ul li.event .summary {
-    font-size: 85%;
     padding: 0 0 0 0;
     margin: 0 0 0 13ex;    
 }
 .ctrl_repacks_act_view #history ul li.event .comments {
-    font-size: 85%;
     padding: 0 0 0 0;
     margin: 0 0 0 13ex;    
     color: #888;

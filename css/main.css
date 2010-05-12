@@ -48,6 +48,19 @@ a img {
 #content p {
     line-height: 1.5em;
 }
+#content h2  {
+    font-size: 175%;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+#content h3  {
+    font-size: 135%;
+    font-weight: bold;
+    margin-bottom: 0.5em;
+}
+#content th {
+    font-weight: bold;
+}
 #footer {
     position: relative;
     /* negative value of footer height */
@@ -274,7 +287,6 @@ form input.hint {
     margin-bottom: 0.5em;
 }
 #content form ul li p.notes {
-    font-size: 85%;
     margin: 0.5em 0 0 28ex;
 }
 #content form ul li.error p.notes {
@@ -292,7 +304,6 @@ form input.hint {
     margin: 0.5em 0.5em 0.5em 0em;
 }
 #content form ul.fields li.radio .choices {
-    font-size: 0.90em;
 }
 #content form ul.fields li.radio .choices span {
     padding-right: 1em;
@@ -336,7 +347,7 @@ form input.hint {
     background: #fff;
     width: 50ex;
     height: 15ex;
-    font-size: 0.85em;
+    font-size: 1.2em;
     padding: 2px 0.125em;
 }
 #content form ul.fields li.error label {
@@ -464,10 +475,10 @@ form input.hint {
     background: #f9f2c3 url(../img/actions-warning.gif) no-repeat 28px 10px;
 }
 #content .details .main_actions h3 {
+    font-size: 100%;
     margin: 0 0 0 0;
     padding: 0 4px 0 4px;
     font-weight: bold;
-    font-size: 80%;
 }
 #content .details .main_actions .actions {
     list-style: none;
@@ -487,7 +498,6 @@ form input.hint {
 #content .details p {
     margin: 0.25em 0 0.25em 0;
     padding: 0.25em 0 0.25em 0;
-    font-size: 0.90em;
 }
 #content .details .status {
     position: absolute;
@@ -495,12 +505,10 @@ form input.hint {
     right: 10px;
 }
 #content .details .status h4 {
-    font-size: 75%;
     text-align: center;
 }
 #content .details .status span {
     display: block;
-    font-size: 80%;
     padding: 2px 10px 2px 10px;
     border: 1px solid #333;
     background-color: #ddd;

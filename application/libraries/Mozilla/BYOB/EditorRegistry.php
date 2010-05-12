@@ -35,17 +35,20 @@ class Mozilla_BYOB_EditorRegistry {
      */
     public static function getSections($repack)
     {
-        $sections = array();
-
-        // TODO: Refactor away from this:
-        foreach (Repack_Model::$edit_sections as $n=>$l) {
-            if ('review' === $n) continue;
-            $sections[$n] = $l;
-        }
+        $sections = array(
+            'general' => 'General'
+        );
 
         foreach (self::$editors as $editor_id => $editor) {
             if (!$editor->isAllowed($repack)) continue;
             $sections[$editor->id] = $editor->title;
+        }
+        
+        // TODO: Refactor away from this:
+        foreach (Repack_Model::$edit_sections as $n=>$l) {
+            if ('review' === $n) continue;
+            if ('general' === $n) continue;
+            $sections[$n] = $l;
         }
 
         $sections['review'] = false;

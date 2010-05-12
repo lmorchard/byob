@@ -1,0 +1,45 @@
+#ctrl_repacks_act_edit .editor .pane .choices {
+    position: relative;
+    min-height: 275px;
+}
+#ctrl_repacks_act_edit .editor .pane .choices .locale-search-field {
+    margin: 0.75em 0 0 0;
+}
+#ctrl_repacks_act_edit .editor .pane .choices #locale_search {
+    -moz-border-radius: 8px 8px 8px 8px;
+    border: 1px solid #999;
+    padding: 2px 8px;
+    width: 50%;
+}
+#ctrl_repacks_act_edit .editor .pane .selections {
+    position: absolute;
+    top: 0px;
+    left: 66%;
+    /*left: 470px;*/
+    right: 0px;
+    bottom: 0px;
+    padding: 1em;
+    border-left: 1px solid #ccc;
+    background: #f9f9f9;
+    z-index: 999;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections {
+    margin: 0.5em 0 0 1.5em;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections li.selected-locale {
+    padding: 0.5 0 0.5em 0;
+    list-style-type: decimal;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections li.selected-locale .remove {
+    display: none;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections li.hover .name {
+    text-decoration: line-through;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections li.hover .remove {
+    display: inline;
+}
+#ctrl_repacks_act_edit .editor .pane ol.locale-selections li a.remove {
+    font-size: 80%;
+    margin: 0 0 0 0.5em;
+}

@@ -22,7 +22,7 @@ $edit_base = $repack->url() . ';edit?section=';
                 <h3>Locales <a target="_top" href="<?=$edit_base?>locales">edit</a></h3>
                 <ul>
                     <?php foreach ($repack->locales as $name): ?>
-                        <li><?=Repack_Model::$locale_choices[$name]?></li>
+                        <li><?=html::specialchars(locale_selection::$locale_details->getEnglishNameForLocale($name))?></li>
                     <?php endforeach ?>
                 </ul>
             </li>

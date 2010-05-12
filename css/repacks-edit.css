@@ -142,136 +142,6 @@
     margin-right: .5em;
 }
             
-
-            /*
-.ctrl_repacks_act_edit #wizard {
-    position: relative;
-}
-.ctrl_repacks_act_edit #wizard div.section {
-    margin-right: 245px;
-    background: #fff;
-    padding: 12px;
-    border: 1px solid #ccc;
-    -moz-border-radius: 8px;
-    -webkit-border-radius: 8px;
-    border-radius: 8px;
-}
-.ctrl_repacks_act_edit #wizard .summary {
-    position: absolute;
-    margin: 4px 0 4px 0;
-    padding: 10px 0 10px 0;
-    border-top: 1px solid #ccc;
-    border-bottom: 1px solid #ccc;
-    right: 0px;
-    width: 220px;
-}
-.ctrl_repacks_act_edit #wizard .summary h4 {
-    font-size: 85%;
-    font-weight: normal;
-    color: #444;
-}
-.ctrl_repacks_act_edit #wizard .summary p.submit {
-    margin: 0.75em 0 0 0;
-    padding: 0 0 0 0;
-}
-.ctrl_repacks_act_edit #wizard .summary .changed_sections {
-    list-style: none;
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-}
-.ctrl_repacks_act_edit #wizard .summary .changed_sections .changed_section {
-    font-weight: bold;
-    margin: 0.75em 0 0 0;
-}
-.ctrl_repacks_act_edit #wizard .summary .changed_sections .changed_section h5 {
-    font-size: 80%;
-    color: #444;
-    font-weight: bold;
-}
-.ctrl_repacks_act_edit #wizard .tabs {
-    margin: 0 0 0 0;
-    padding: 0 0 0 0;
-    text-indent: 0;
-    list-style: none;
-}
-.ctrl_repacks_act_edit #wizard .tabs li {
-    text-transform: uppercase;
-    white-space: nowrap;
-    float: left;
-    font-size: 0.69em;
-    display: block;
-    margin: 0 0 0 0;
-    padding: 0.5em 0.75em 0em 0.75em;
-    border-right: 1px solid #ddd;
-    background: #fff url(../img/tab-bg.gif) repeat-x 0px 1px;
-}
-.ctrl_repacks_act_edit #wizard .tabs li.first {
-    border-left: 1px solid #ddd;
-}
-.ctrl_repacks_act_edit #wizard .tabs li a {
-    color: #999;
-}
-.ctrl_repacks_act_edit #wizard .tabs li.selected {
-    border: none;
-    margin-left: -6px;
-    background: #edf5f9;
-    -moz-border-radius-topleft: 8px;
-    -webkit-border-top-left-radius: 8px;
-    -moz-border-radius-topright: 8px;
-    -webkit-border-top-right-radius: 8px;
-    border-radius-topleft: 8px;
-    border-radius-topright: 8px;
-    font-weight: bold;
-}
-.ctrl_repacks_act_edit #wizard .tabs li.first.selected {
-    margin-left: 0px;
-    border-left: none;
-}
-.ctrl_repacks_act_edit #wizard .tabs li.selected a {
-    color: black
-}
-.ctrl_repacks_act_edit #wizard .tabs li.error a:after {
-    content: "!";
-    font-weight: bold;
-    color: #f33;
-    padding-left: 0.5em;
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit #wizard .tabs li.changed a:after {
-    content: "\2714";
-    color: #383;
-    padding-left: 0.5em;
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit #wizard .tabs li a {
-    padding: 0.25em 0.5em 0.5em 0.5em;
-    display: block;
-    text-decoration: none;
-}
-.ctrl_repacks_act_edit #wizard .section_content {
-}
-.ctrl_repacks_act_edit #wizard .section_content .pane {
-    background: #f3f8fa;
-    padding: 1em;
-    font-size: 0.85em;
-    min-height: 275px;
-}
-.ctrl_repacks_act_edit #wizard .section_content .intro {
-    font-size: 0.85em;
-    margin: 0 0 0 0;
-    padding: 1em 1.25em 0.25em 1.25em;
-    background: #edf5f9;
-    color: #333;
-    background: #edf5f9;
-    -moz-border-radius-topright: 8px;
-    -webkit-border-top-right-radius: 8px;
-    border-radius-topright: 8px;
-}
-.ctrl_repacks_act_edit #wizard .section_content .intro p {
-    padding: 0 0 1em 0;
-    margin: 0 0 0 0;
-}
-*/
 .ctrl_repacks_act_edit #wizard .pane {
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset {
@@ -285,12 +155,11 @@
 .ctrl_repacks_act_edit #wizard .pane fieldset legend {
     font-weight: bold;
     font-size: 125%;
-    color: #000;
     margin: 0em 0em 0em 0em;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset div textarea {
     font-family: georgia;
-    font-size: 100%;
+    font-size: 1.2em;
     height: 6em;
     padding: 0.5em;
     width: 625px;
@@ -298,7 +167,7 @@
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset div input {
     font-family: georgia;
-    font-size: 100%;
+    font-size: 1.2em;
     width: 90%;
     border: 1px solid #ccc;
     padding: 0.5em;
@@ -500,7 +369,6 @@
     -moz-border-radius: 10px;
     border-radius: 10px;
     background: #fff;
-    font-size: 0.9em;
 }
 .section-bookmarks .notes li {
     line-height: 1.75em;

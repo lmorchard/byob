@@ -135,7 +135,6 @@ class Repack_Model extends ManagedORM
 
     public static $edit_sections = array(
         'general'     => 'General',
-        'locales'     => 'Locales',
         'platforms'   => 'Platforms',
         'bookmarks'   => 'Bookmarks',
         'addons'      => 'Addons',
@@ -177,11 +176,6 @@ class Repack_Model extends ManagedORM
 
                 case 'platforms':
                     $data->add_rules('os', 'required', 'is_array');
-                    break;
-
-                case 'locales':
-                    $data->add_rules('locales', 'required', 'is_array');
-                    $data->add_callbacks('locales', array($this, 'extractLocales'));
                     break;
 
                 case 'bookmarks':
@@ -252,48 +246,6 @@ class Repack_Model extends ManagedORM
         if (!empty($url) && !$persona->loaded) {
             $valid->add_error($field, 'unknown_persona');
         }
-    }
-
-    /**
-     * Extract selected locales from form data, accepting only locales that 
-     * match valid product locales.
-     */
-    public function extractLocales($valid, $field)
-    {
-        if (empty($this->locales) && empty($valid[$field])) {
-            // Detect locale from request if neither repack nor form offers locales.
-            $m = array();
-            preg_match_all(
-                '/[-a-z]{2,}/', 
-                strtolower(trim(@$_SERVER['HTTP_ACCEPT_LANGUAGE'])), 
-                $m
-            );
-            $valid[$field] = $m[0];
-        }
-
-        if (empty($valid[$field])) {
-
-            // Populate form from repack product locales.
-            $valid[$field] = $this->locales;
-            $valid->add_error($field, 'need_locale');
-
-        } else {
-
-            // Ensure that only locales appearing in the product locales are 
-            // accepted from form data into the repack.
-            $valid_locales = array();
-            $choices = array_map('strtolower', $valid[$field]); 
-            foreach (self::$locale_choices as $code=>$name) {
-                if (in_array(strtolower($code), $choices)) {
-                    $valid_locales[] = $code;
-                }
-            }
-
-            $valid[$field] = $valid_locales;
-
-        }
-
-        return $valid[$field];
     }
 
     /**
