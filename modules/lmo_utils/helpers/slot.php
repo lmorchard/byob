@@ -39,7 +39,7 @@ class slot_Core
         } else {
             $output = ob_get_contents();
             ob_end_clean();
-            self::set($key, $output);
+            self::append($key, $output);
             return $key;
         }
     }

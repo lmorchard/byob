@@ -8,7 +8,8 @@
  * @group      byob
  * @group      models
  * @group      models.byob
- * @group      models.byob.persona
+ * @group      models.byob.addon_management
+ * @group      models.byob.addon_management.persona
  */
 class Persona_Test extends PHPUnit_Framework_TestCase 
 {

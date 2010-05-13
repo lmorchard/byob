@@ -8,7 +8,8 @@
  * @group      byob
  * @group      models
  * @group      models.byob
- * @group      models.byob.searchplugin
+ * @group      models.byob.addon_management
+ * @group      models.byob.addon_management.searchplugin
  */
 class Searchplugin_Test extends PHPUnit_Framework_TestCase 
 {

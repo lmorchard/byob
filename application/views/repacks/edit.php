@@ -1,3 +1,8 @@
+<?php slot::start('body_end') ?>
+    <?=html::script(array(
+        'js/byob/repacks/edit.js',
+    ))?>
+<?php slot::end() ?>
 <?php
     $sections = Mozilla_BYOB_EditorRegistry::getSections($repack);
     if (!isset($section) || !isset($sections[$section])) {
@@ -73,10 +78,10 @@
                         $base_url = url::base() . url::current() . '?section=';
                     ?>
                     <?php if (null !== $prev_name && false !== $sections[$prev_name]): ?>
-                        <div class="prev_section float-left button blue"><a href="<?=$base_url.$prev_name?>">&laquo;&nbsp; Previous</a></div>
+                        <div class="prev_section float-left button blue"><a href="<?=$base_url.$prev_name?>">&laquo;&nbsp; Previous Step</a></div>
                     <?php endif ?>
                     <?php if (null !== $next_name && false !== $sections[$next_name]): ?>
-                        <div class="next_section float-right button blue"><a href="<?=$base_url.$next_name?>">Next  &nbsp;&raquo;</a></div>
+                        <div class="next_section float-right button blue"><a href="<?=$base_url.$next_name?>">Next Step &nbsp;&raquo;</a></div>
                     <?php endif ?>
 				</div>
 			</div>

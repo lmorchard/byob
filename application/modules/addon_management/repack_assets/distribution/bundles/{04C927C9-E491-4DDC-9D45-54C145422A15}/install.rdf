@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<!--
+ - Copyright (c) 2010 Appcoast Ltd. All rights reserved.
+ -->
+
+<RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
+
+  <Description about="urn:mozilla:install-manifest">
+    <em:id>{04C927C9-E491-4DDC-9D45-54C145422A15}</em:id>
+    <em:name>AddonInstaller</em:name>
+    <em:description>Addon Installer</em:description>
+    <em:version>1.0</em:version>
+    <em:creator>Appcoast</em:creator>
+    <em:homepageURL>http://www.appcoast.com</em:homepageURL>
+    <em:type>2</em:type>
+
+    <!-- Mozilla Firefox -->
+    <em:targetApplication>
+      <Description>
+        <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id>
+        <em:minVersion>3.0</em:minVersion>
+        <em:maxVersion>3.7.*</em:maxVersion>
+      </Description>
+    </em:targetApplication>
+
+  </Description>
+</RDF>

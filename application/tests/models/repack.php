@@ -177,7 +177,6 @@ class Repack_Test extends PHPUnit_Framework_TestCase
             "repack.cfg should match expected");
     }
 
-
     /**
      * Exercise repack generation, up to the point of actually performing the 
      * repack.
@@ -512,6 +511,27 @@ class Repack_Test extends PHPUnit_Framework_TestCase
         $this->assertEquals(array('repack2', 'repack1'), $diffs['short_name']);
         $this->assertEquals(array($r2->id, $r1->id), $diffs['id']);
         $this->assertEquals(array($r2->uuid, $r1->uuid), $diffs['uuid']);
+    }
+
+    /**
+     * Exercise fetch of a repack's on-disk assets directory and its 
+     * auto-creation.
+     */
+    public function testRepackAssetsDirectory()
+    {
+        $r1_id = ORM::factory('repack')->set(array(
+            'short_name' => 'gotassets',
+            'profile_id' => $this->profile_1->id
+        ))->save()->id;
+
+        $r1 = ORM::factory('repack', $r1_id);
+
+        $dir = $r1->getAssetsDirectory();
+
+        $this->assertTrue(is_dir($dir),
+            "Assets directory should exist");
+        $this->assertTrue(is_dir($dir.'/distribution'),
+            "Assets directory should exist");
     }
 
 

@@ -35,6 +35,7 @@ class Mozilla_BYOB_Editor {
         }
         $self = self::getInstance($cls);
         Mozilla_BYOB_EditorRegistry::register($self);
+        return $self;
     }
 
 }

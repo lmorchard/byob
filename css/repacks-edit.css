@@ -7,6 +7,7 @@
 	list-style: none;
 	border-top: 1px solid transparent;
 	border-bottom: 0px;
+    white-space: nowrap;
 	}
 	.tab-set .tab-tabs li {
 		display: inline;
@@ -53,7 +54,7 @@
 	-moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
 	}
 .tab-set .tab-header, .tab-set .intro {
-	padding: 1em;
+	padding: 1em 1.25em 1em 1.25em;
 	border-bottom: 1px solid #c0c0c0;
 	}
     .tab-set .tab-header, .tab-set .intro p {
@@ -61,7 +62,7 @@
     }
 
 .tab-set .tab-body, .tab-set .pane {
-	padding: 1em;
+	padding: 1.5em 1.25em;
     position: relative;
 	/* height: 10em; */
 	}
@@ -91,16 +92,17 @@
 	.editor .editor-content {
 		float: left;
 		width: 690px;
+        padding-bottom: 2em;
 		}
 	.editor .editor-changes {
 		float: right;
-		width: 215px;
+		width: 210px;
 		margin-top: 2.5em;
 		}
 	.editor .editor-commit {
 		float: right;
 		clear: right;
-		width: 215px;
+		width: 210px;
 		margin-top: 1em;
 		}
 
@@ -152,7 +154,7 @@
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset {
     padding: 0 0 0 0;
-    margin: 0em 0.5em 1em 0.5em;
+    margin: 0 0 1em 0;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset.addon-dependent {
     padding: 0 0 0 0;
@@ -160,7 +162,7 @@
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset legend {
     font-weight: bold;
-    font-size: 125%;
+    font-size: 100%;
     margin: 0em 0em 0em 0em;
 }
 .ctrl_repacks_act_edit #wizard .pane fieldset div textarea {

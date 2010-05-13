@@ -41,7 +41,7 @@
     </head> 
 
     <body id="<?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?>" 
-            class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?>">
+    class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?> <?=slot::get('body_class')?>">
 
         <div id="wrap" class="<?= (slot::exists('sidebar') != '') ? 'with_sidebar' : '' ?>">
             <?php if (slot::get('is_popup')): ?>

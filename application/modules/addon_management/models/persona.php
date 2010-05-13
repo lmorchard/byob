@@ -12,10 +12,16 @@ class Persona_Model extends Model
         'url'         => array('type' => 'string'),
         'json'        => array('type' => 'string'),
         'name'        => array('type' => 'string'), 
+        'description' => array('type' => 'string'), 
+        'author'      => array('type' => 'string'), 
         'accentcolor' => array('type' => 'string'), 
         'textcolor'   => array('type' => 'string'), 
         'header'      => array('type' => 'string'), 
-        'footer'      => array('type' => 'string')
+        'headerURL'   => array('type' => 'string'), 
+        'footer'      => array('type' => 'string'),
+        'footerURL'   => array('type' => 'string'),
+        'iconURL'     => array('type' => 'string'),
+        'previewURL'  => array('type' => 'string'),
     );
 
     // }}}
@@ -91,9 +97,8 @@ class Persona_Model extends Model
         }
 
         foreach ($this->table_columns as $name=>$info) {
-            if (isset($persona_data[$name])) {
-                $this->{$name} = $persona_data[$name];
-            }
+            $this->{$name} = isset($persona_data[$name]) ? 
+                $persona_data[$name] : null;
         }
 
         if (!empty($this->id)) {
@@ -169,8 +174,9 @@ class Persona_Model extends Model
             $this->loaded = false;
             return $this;
         } else {
+            $this->load_json($json);
             $this->url = $url;
-            return $this->load_json($json);
+            return $this;
         }
 
     }

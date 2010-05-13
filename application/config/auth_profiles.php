@@ -59,6 +59,7 @@ $config['acls'] = $acls
         'edit_own', 'delete_own', 
         'release_own', 'revert_own', 'cancel_own',
         'locale_selection',
+        'addon_management',
     ))
     ->allow('trusted', 'repacks', array(
         'approve_own', 'auto_approve_own'

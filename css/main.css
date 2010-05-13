@@ -692,6 +692,11 @@ a:hover.button,
 	padding: .5em 1em;
 }
 
+.button.grey {
+	border-color: #999;
+	}
+    .button.grey a { }
+
 .button.yellow {
 	color: #333;
 	border-color: #f7d26d;

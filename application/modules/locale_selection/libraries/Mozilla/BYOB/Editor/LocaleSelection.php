@@ -84,10 +84,11 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
      * TODO: Get rid of this when PHP 5.3+ can be a requirement
      */
     public static function getInstance() { return parent::getInstance(get_class()); }
-        /**
-         * TODO: Get rid of this when PHP 5.3+ can be a requirement
-         */
-        public static function register() { return parent::register(get_class()); }
+
+    /**
+     * TODO: Get rid of this when PHP 5.3+ can be a requirement
+     */
+    public static function register() { return parent::register(get_class()); }
 
 }
 

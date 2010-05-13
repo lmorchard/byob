@@ -43,3 +43,17 @@ $config['email.options'] = array(
 $config['recaptcha.domain_name'] = 'localhost';
 $config['recaptcha.public_key']  = 'foo';
 $config['recaptcha.private_key'] = 'foo';
+
+$config['addon_management.collections_username'] =
+    'SOME_USERNAME_HERE';
+$config['addon_management.collections_password'] =
+    'SOME_PASSWORD';
+
+$config['addon_management.collection_popular_name'] =
+    'BYOB Popular Extensions';
+$config['addon_management.collection_searchengines_name'] =
+    'BYOB Search Engines';
+$config['addon_management.collection_personas_name'] =
+    'BYOB Personas';
+$config['addon_management.collection_themes_name'] =
+    'BYOB Themes';

@@ -94,7 +94,7 @@ class Mozilla_BYOB_Editor_AdhocDistributionINI extends Mozilla_BYOB_Editor {
     /**
      * Event handler to filter generated distribution.ini through INI overlay
      */
-    public function filterDistributionIni()
+    public static function filterDistributionIni()
     {
         Event::$data['output'] = self::getInstance()->performOverlay(
             Event::$data['repack'], Event::$data['output']

@@ -122,21 +122,23 @@ class Mozilla_BYOB_RepackBuilds {
         // global rebuild), ensure older-format bookmarks have been converted.
         $repack->convertOlderBookmarks();
 
+        $ev_data = array(
+            'repack' => $repack
+        );
+
         try {
+
+            Event::run('BYOB.builds.perform.start', $ev_data);
 
             Kohana::log('info', 'Processing repack for ' .
                 $repack->profile->screen_name . ' - ' . $repack->short_name);
             Kohana::log_save();
 
             $workspace = Kohana::config('repacks.workspace');
-            $script    = Kohana::config('repacks.repack_script');
-
-            $downloads_private = 
-                Kohana::config('repacks.downloads_private');
 
             // Clean up and make the repack directory.
-            $repack_dir =
-                "$workspace/partners/{$repack->profile->screen_name}_{$repack->short_name}";
+            $repack_dir = "$workspace/partners/".
+                "{$repack->profile->screen_name}_{$repack->short_name}";
             if (is_dir($repack_dir)) {
                 self::rmdirRecurse($repack_dir);
             }
@@ -145,47 +147,26 @@ class Mozilla_BYOB_RepackBuilds {
             Kohana::log('debug', "Repack directory at {$repack_dir}");
             Kohana::log_save();
 
+            $ev_data['repack_dir'] = $repack_dir;
+
+            Event::run('BYOB.builds.perform.beforeConfig', $ev_data);
+
             // Generate the repack configs.
             file_put_contents("$repack_dir/repack.cfg",
                 $repack->buildRepackCfg());
             file_put_contents("$repack_dir/distribution/distribution.ini",
                 $repack->buildDistributionIni());
 
-            // Check for selected addons...
-            if (!empty($repack->addons)) {
+            Event::run('BYOB.builds.perform.afterConfig', $ev_data);
 
-                // Create the directory for this repack's addons
-                mkdir("$repack_dir/extensions", 0775, true);
+            $repack_assets_dir = $repack->getAssetsDirectory();
+            self::recurseCopy($repack_assets_dir, $repack_dir);
 
-                $addon_model = new Addon_Model();
-                foreach ($repack->addons as $addon_id) {
-
-                    // Look for selected addons, skip any that are unknown.
-                    $addon = $addon_model->find($addon_id);
-                    if (!$addon) continue;
-
-                    // Update the addon files and copy them into the repack.
-                    $addon_dir = $addon->updateFiles();
-                    self::recurseCopy(
-                        $addon_dir, 
-                        "{$repack_dir}/extensions/{$addon->guid}"
-                    );
-
-                }
-            }
-
-            // Dump out the search plugins, if any.
-            $search_plugins = $repack->search_plugins;
-            if (!empty($search_plugins)) {
-                $sp_base_dir = "{$repack_dir}/distribution/searchplugins/common";
-                mkdir($sp_base_dir, 0775, true);
-                
-                foreach ($search_plugins as $fn => $plugin) {
-                    file_put_contents("{$sp_base_dir}/{$fn}", $plugin->asXML());
-                }
-            }
+            Event::run('BYOB.builds.perform.beforeBuild', $ev_data);
 
             if ($run_script) {
+
+                $script = Kohana::config('repacks.repack_script');
 
                 // Remember the original directory and change to the repack dir.
                 $origdir = getcwd();
@@ -230,6 +211,8 @@ class Mozilla_BYOB_RepackBuilds {
                 $repack->save();
 
                 // Move the repacks to the private downloads area
+                $downloads_private = 
+                    Kohana::config('repacks.downloads_private');
                 $dest = "{$downloads_private}/{$repack_name}";
                 if (is_dir($dest)) self::rmdirRecurse($dest);
                 $cmd = rename($src, $dest);
@@ -239,13 +222,18 @@ class Mozilla_BYOB_RepackBuilds {
 
             }
 
+            Event::run('BYOB.builds.perform.afterBuild', $ev_data);
+
             Kohana::log('info', 'Finished repack for ' . 
                 $repack->profile->screen_name . ' - ' . $repack->short_name);
             Kohana::log_save();
 
             $repack->finishRelease();
 
+            Event::run('BYOB.builds.perform.afterRelease', $ev_data);
+
         } catch (Exception $e) {
+            Event::run('BYOB.builds.perform.failure', $ev_data);
             $repack->failRelease($e->getMessage());
         }
     }

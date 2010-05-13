@@ -1,0 +1,334 @@
+#ctrl_repacks_act_edit .editor .pane-addon-management {
+    background: #f9f9f9;
+    padding: 1em;
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections {
+    position: absolute;
+    top: 0px;
+    left: 470px;
+    right: 0px;
+    bottom: 0px;
+    padding: 1em 0.5em;
+    border-left: 1px solid #fff;
+    background: #f9f9f9;
+    z-index: 999;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections legend {
+    font-size: 100%;
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices {
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs {
+    height: 25px;
+    margin: 0 0 0 -1em;
+    border-bottom: 1px solid #c0c0c0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li {
+    display: inline;
+    position: relative;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li.selected:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    bottom: -12px;
+    width: 0px; height: 0px;
+    background: transparent;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 6px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li.selected a:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -6px;
+    bottom: -12px;
+    width: 0px; height: 0px;
+    background: transparent;
+    border-color: transparent transparent #999 transparent;
+    border-style: solid;
+    border-width: 7px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li a {
+    display: inline;
+    padding: .75em 1.25em;
+    margin-left: 0em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li.selected a {
+    color: #000; font-weight: bold;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li a:hover {
+    text-decoration: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-set ul.sub-tabs li.selected a:hover {
+    text-decoration: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-content {
+    background: #fff;
+    border-right: 1px solid #c0c0c0;
+    margin: 0 205px -1em -1em;
+    padding: 1.75em 1em 0.75em 1.25em;
+    min-height: 300px;
+    display: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-content.selected {
+    display: block;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices {
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-content  {
+    height: 350px;
+    overflow: auto;
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-content fieldset {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .sub-tab-content fieldset legend {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices #tab-extensions {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices #tab-extensions fieldset {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices #tab-extensions .upload {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices  .upload iframe {
+    border: none;
+    width: 100%;
+    height: 50px;
+    margin: 0; padding: 0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices fieldset.divider {
+    border-bottom: 1px dotted #666;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices input.persona_url {
+    width: 100%;
+}
+
+.repack_upload_iframe {
+    margin: 0;
+    background: #fff;
+    min-width: 0;
+    /*width: 425px;*/
+}
+.repack_upload_iframe ul.errors {
+    padding: 0.25em 0.5em;
+    margin: 0.5em 0.5em;
+    width: 400px;
+    border: 1px dotted #f00;
+    background-color: #fee;
+}
+.repack_upload_iframe ul.errors .error {
+    list-style: disc;
+    margin: 0.5em 0.25em 0.5em 2em;
+    color: #f33;
+}
+.repack_upload_iframe #wrap {
+    min-width: 0;
+}
+.repack_upload_iframe #main {
+    margin: 0;
+    width: auto;
+}
+.repack_upload_iframe #content {
+}
+fieldset.divider {
+    border-bottom: 1px dotted #666;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+.repack_upload_iframe #content .upload_form {
+    border-bottom: 1px dotted #666;
+    padding-bottom: 1em;
+    margin-bottom: 1em;
+}
+.repack_upload_iframe #content form {
+}
+.repack_upload_iframe #content form fieldset {
+}
+.repack_upload_iframe #content form fieldset legend {
+    font-size:100%;
+    font-weight:bold;
+    margin:0;
+}
+.pretty_upload {
+    position: relative;
+    float: left;
+}
+.pretty_upload .fake_upload {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    z-index: 1;
+}
+.repack_upload_iframe input.upload {
+    width: 50ex;
+}
+.repack_upload_iframe .pretty_upload .fake_upload .text {
+    width: 38ex;
+}
+
+.pretty_upload .fake_upload button {
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+}
+.pretty_upload input.hidden {
+    position: relative;
+    text-align: right;
+    -moz-opacity:0 ;
+    filter:alpha(opacity: 0);
+    opacity: 0;
+    z-index: 2;
+}
+.repack_upload_iframe .upload_form .uploads {
+    margin: 1em 0 0 2em;
+}
+.repack_upload_iframe .upload_form .uploads li {
+    list-style: disc;
+    margin: 0.5em 0 0.5em 0;
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions {
+}
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li input.checkbox {
+    float: left;
+    margin: 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li label.icon {
+    float: left;
+    margin: 0em 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li .meta {
+    margin: 1.25em 1em 1.25em 6em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li .meta .name {
+    font-weight: bold;
+    padding-right: 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li .meta .learn {
+    padding-left: 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .extensions li .meta .summary {
+    display: inline;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li {
+    float: left;
+    width: 45%;
+    margin: 0 0 1em 0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li input.checkbox {
+    float: left;
+    margin: 0.125em 0.25em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li label.icon {
+    float: left;
+    margin: 0em 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li .meta {
+    display: block;
+    margin: 0.25em 0 0 3.75em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li .meta .name {
+    font-weight: normal;
+    padding-right: 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li .meta .learn {
+    padding-left: 0.5em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li .meta .summary {
+    display: inline;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li {
+    float: left;
+    width: 140px;
+    margin: 0 0 1em 0.25em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li input {
+    float: left;
+    display: block;
+    margin: 1em 0.5em 0 0.25em;    
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label {
+    float: left;
+    display: block;
+    width: 110px;
+    height: 40px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label.none {
+    line-height: 36px;
+    height: 36px;
+    text-align: center;
+    border: 1px solid #aaa;
+    color: #999;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label img {
+    width: 110px;
+}
+
+
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes {
+    margin: 0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li {
+    float: left;
+    width: 48.5%;
+    height: 150px;
+    margin: 0 0 1.5em 0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li.none {
+    float: none;
+    clear: both;
+    width: 100%;
+    height: auto;
+    margin: 0 0 1.5em 0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li input {
+    float: left;
+    display: block;
+    margin: 0 0.5em 0 0.25em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li.none label {
+    display: block;
+    margin: 0 0 0.5em 25px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li label.meta {
+    display: block;
+    margin: 0 1em 0.5em 25px;
+    line-height: 1.25em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li label.meta a {
+    font-size: 90%;
+    margin-left: 0.25em;
+    white-space: nowrap;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li label.icon {
+    margin: 0 0 0 25px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li label.icon img {
+    width: 150px;
+    border: 1px solid #ccc;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .themes li label.icon a {
+    font-size: 90%;
+    display: block;
+    margin: 0.25em 0 0 25px;
+    white-space: nowrap;
+}

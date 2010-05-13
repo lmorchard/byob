@@ -128,6 +128,7 @@ $config['modules'] = array
     MODPATH.'lmo_utils',
 
     APPPATH.'modules/adhoc_distribution_ini',
+    APPPATH.'modules/addon_management',
     APPPATH.'modules/locale_selection',
 
 );

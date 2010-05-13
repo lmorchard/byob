@@ -137,7 +137,6 @@ class Repack_Model extends ManagedORM
         'general'     => 'General',
         'platforms'   => 'Platforms',
         'bookmarks'   => 'Bookmarks',
-        'addons'      => 'Addons',
         'collections' => 'Collections',
         'review'      => false,
     );
@@ -159,7 +158,7 @@ class Repack_Model extends ManagedORM
             if (!$editor->isAllowed($this)) {
                 $is_valid = false;
             } else {
-                $is_valid = $editor->validate($data, $this);
+                $is_valid = $editor->validate($data, $this, $set);
             }
         } else {
             // TODO: Refactor all the below into editor modules
@@ -186,12 +185,6 @@ class Repack_Model extends ManagedORM
                     $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
                     break;
 
-                case 'addons':
-                    $data->add_rules('addons', 'is_array');
-                    $data->add_callbacks('addons', array($this, 'addonsAreKnown'));
-                    $data->add_rules('persona_url', 'length[0,255]', 'url');
-                    $data->add_callbacks('persona_url', array($this, 'personaExists'));
-                    break;
             }
             $is_valid = $data->validate();
         }
@@ -201,18 +194,9 @@ class Repack_Model extends ManagedORM
                 $data[$name] = $this->{$name};
             }
         } elseif ($is_valid && $set) {
-            
             foreach ($data->field_names() as $name) {
                 $this->{$name} = $data[$name];
             }
-
-            // HACK: If there's a Persona URL supplied, ensure that
-            // the Personas add-on is selected for install.
-            if (!empty($this->persona_url) == $section && 
-                    !in_array('10900', $this->addons)) {
-                $this->addons = array_merge(array('10900'), $this->addons);
-            }
-
         }
 
         return $is_valid;
@@ -220,33 +204,19 @@ class Repack_Model extends ManagedORM
 
 
     /**
-     * Ensure all selected addons are known to the application.
+     * Return the path to this repack's assets in the filesystem.
      */
-    public function addonsAreKnown($valid, $field)
+    public function getAssetsDirectory()
     {
-        $addon_model = new Addon_Model();
-        $chosen_ids = $valid[$field];
-        foreach ($chosen_ids as $id) {
-            $addon = $addon_model->find($id);
-            if (!$addon) {
-                $valid->add_error($field, 'unknown_addon');
-                break;
-            }
+        $base_dir = Kohana::config('repacks.assets');
+        $assets_dir = "$base_dir/".
+            "{$this->profile->screen_name}_{$this->short_name}";
+        if (!is_dir($assets_dir)) {
+            mkdir("$assets_dir/distribution", 0775, true);
         }
+        return $assets_dir;
     }
 
-    /**
-     * Ensure the persona indicated by URL exists.
-     */
-    public function personaExists($valid, $field)
-    {
-        $persona_model = new Persona_Model();
-        $url = $valid[$field];
-        $persona = $persona_model->find_by_url($url);
-        if (!empty($url) && !$persona->loaded) {
-            $valid->add_error($field, 'unknown_persona');
-        }
-    }
 
     /**
      * Extract bookmarks from form data.
@@ -459,6 +429,7 @@ class Repack_Model extends ManagedORM
 
     }
 
+
     /**
      * Validation callback that checks to see if the given short name is taken 
      * any repack other than the one being validated.
@@ -475,53 +446,6 @@ class Repack_Model extends ManagedORM
         if ($taken) {
             $valid->add_error($field, 'short_name_available');
         }
-    }
-
-
-    /**
-     * Add the XML for a search plugin to the repack.
-     *
-     * @param string $name Name for the plugin
-     * @param string $xml  XML source for the plugin
-	 * @chainable
-     */
-    public function addSearchPlugin($name, $xml) {
-        if (!isset($this->attrs['search_plugins']) || 
-                !is_array($this->attrs['search_plugins'])) {
-            $this->attrs['search_plugins'] = array();
-        }
-        $this->attrs['search_plugins'][$name] = $xml;
-        return $this;
-    }
-
-    /**
-     * Remove a named search plugin from the repack.
-     *
-     * @param string $name Name for the plugin
-     * @param string $xml  XML source for the plugin
-	 * @chainable
-     */
-    public function removeSearchPlugin($name) {
-        if (isset($this->attrs['search_plugins'][$name])) {
-            unset($this->attrs['search_plugins'][$name]);
-        }
-        return $this;
-    }
-
-    /**
-     * Fetch the set of search plugins as parsed Searchplugin model objects.
-     *
-     * @returns array
-     */
-    public function getSearchPlugins() {
-        $plugins = array();
-        if (!empty($this->attrs['search_plugins'])) {
-            foreach ($this->attrs['search_plugins'] as $name => $plugin_xml) {
-                $plugin = Model::factory('searchplugin')->loadFromXML($plugin_xml);
-                if ($plugin->loaded) $plugins[$name] = $plugin;
-            }
-        }
-        return $plugins;
     }
 
     
@@ -1138,20 +1062,6 @@ class Repack_Model extends ManagedORM
             if (empty($time)) $time = $this->created;
             return gmdate('odmHis',strtotime($time));
         }
-        if ('collection_addons' == $column) {
-            if (empty($this->addons_collection_url)) {
-                return array();
-            } else {
-                return Model::factory('addon')
-                    ->find_all_by_collection_url($this->addons_collection_url);
-            }
-        }
-        if ('persona' == $column) {
-            return Model::factory('persona')->find_by_url($this->persona_url);
-        }
-        if ('search_plugins' == $column) {
-            return $this->getSearchPlugins();
-        }
 
         try {
             return parent::__get($column);
@@ -1196,9 +1106,6 @@ class Repack_Model extends ManagedORM
      * @return  boolean
      */
     public function __isset($column) {
-        if ('collection_addons' == $column) {
-            return isset($this->addons_collection_url);
-        }
         return isset($this->attrs[$column]) ? true : parent::__isset($column);
     }
 

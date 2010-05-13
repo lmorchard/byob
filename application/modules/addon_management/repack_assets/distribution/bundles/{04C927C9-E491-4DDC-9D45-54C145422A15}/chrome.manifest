@@ -1,0 +1,18 @@
+##
+# Copyright (c) 2010 Appcoast Ltd. All rights reserved.
+##
+
+content   addoninstaller                 jar:chrome/addoninstaller.jar!/content/
+locale    addoninstaller     en-US       jar:chrome/addoninstaller.jar!/locale/en-US/
+skin      addoninstaller     classic/1.0 jar:chrome/addoninstaller.jar!/skin/all/
+
+# OS-specific.
+skin      addoninstaller-os  classic/1.0 jar:chrome/addoninstaller.jar!/skin/unix/
+skin      addoninstaller-os  classic/1.0 jar:chrome/addoninstaller.jar!/skin/winxp/     os=WINNT
+skin      addoninstaller-os  classic/1.0 jar:chrome/addoninstaller.jar!/skin/winvista/  os=WINNT osversion>=6
+skin      addoninstaller-os  classic/1.0 jar:chrome/addoninstaller.jar!/skin/mac/       os=Darwin
+
+# Resources.
+resource  addoninstaller     resources/
+
+overlay chrome://browser/content/browser.xul  chrome://addoninstaller/content/overlay.xul

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/">
+	<ShortName>Thottbot</ShortName>
+	<Description>Thottbot - World of Warcraft Database</Description>
+	<Url type="text/html" method="get" template="http://thottbot.com/?s={searchTerms}"/>
+	<Url type="application/x-suggestions+json" method="GET" template="http://thottbot.com/?suggest={searchTerms}"/>
+	<Image width="16" height="16">http://i.thottbot.com/Thottbot.ico</Image>
+	<SearchForm>http://thottbot.com/</SearchForm>
+</OpenSearchDescription>

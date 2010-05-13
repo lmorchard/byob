@@ -31,3 +31,20 @@ $config['email.options'] = array(
     'port'       => '465',
     'encryption' => 'tls'
 );
+
+$config['repacks.enable_notifications'] = false;
+
+$config['addon_management.collections_username'] =
+    'SOME_USERNAME_HERE';
+$config['addon_management.collections_password'] =
+    'SOME_PASSWORD_HERE';
+
+// Define the names of collections for testing here.
+$config['addon_management.collection_popular_name'] =
+    'BYOB Popular Extensions (dev)';
+$config['addon_management.collection_searchengines_name'] =
+    'BYOB Search Engines (dev)';
+$config['addon_management.collection_personas_name'] =
+    'BYOB Personas (dev)';
+$config['addon_management.collection_themes_name'] =
+    'BYOB Themes (dev)';

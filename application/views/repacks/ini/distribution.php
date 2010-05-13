@@ -9,7 +9,7 @@ $dist_id = "byob-{$r->profile->screen_name}-{$r->short_name}";
 $partner_id = 'byob' . $r->profile->screen_name;
 ?>
 ; Partner distribution.ini file for "<?= $r->title ?>"
-; Author email: <?= $r->profile->logins[0]->email . "\n" ?>
+; Author email: <?= @$r->profile->logins[0]->email . "\n" ?>
 ; UUID: <?= $r->uuid . "\n" ?>
 
 [Global]
