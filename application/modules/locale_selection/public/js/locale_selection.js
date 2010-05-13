@@ -5,6 +5,8 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
 
     var $this = {
 
+        MAX_LOCALES: 10,
+
         labels: [],
         codes_by_label: {},
 
@@ -78,15 +80,22 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
                     }
                 });
 
+            // If the maximum number of locales has been selected, disable choices.
+            var selected = 
+                $('.locale-selections li:not(.template) input[type=hidden]');
+            if (selected.length >= $this.MAX_LOCALES)
+                $('.choices input').attr('disabled', true);
+
         },
 
         /**
          * Select a locale by code and label.
          */
         select_locale: function (locale, label) {
-            // Ensure no more than 10 locales are selected.
-            var selected = $('.locale-selections li:not(.template) input[type=hidden]');
-            if (selected.length >= 10) return false;
+            // Ensure no more than max locales are selected.
+            var selected = 
+                $('.locale-selections li:not(.template) input[type=hidden]');
+            if (selected.length >= $this.MAX_LOCALES) return false;
 
             // Don't add a new item for a locale already present.
             var existing = $('.locale-selections input[value='+locale+']');
@@ -100,6 +109,11 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
                 '.name': label, 
                 'input @value': locale 
             }).appendTo('.locale-selections');
+
+            if (selected.length + 1 >= $this.MAX_LOCALES) {
+                $('.choices input').attr('disabled', true);
+            }
+
             return true;
         },
 
@@ -111,6 +125,7 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
                 .parent().remove();
             $('.popular-locales input[value='+locale+']')
                 .attr('checked', false);
+            $('.choices input').attr('disabled', false);
             return true;
         },
 
