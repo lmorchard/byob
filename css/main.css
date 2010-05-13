@@ -276,7 +276,7 @@ form input.hint {
 #content form ul.fields li label {
     float: left;
     display: block;
-    width: 22ex;
+    width: 140px;
     padding-top: 0.5em;
     margin-right: 2ex;
     text-align: right;
@@ -287,7 +287,8 @@ form input.hint {
     margin-bottom: 0.5em;
 }
 #content form ul li p.notes {
-    margin: 0.5em 0 0 28ex;
+    font-size: 85%;
+    margin: 0.125em 0 0 155px;
 }
 #content form ul li.error p.notes {
     color: #f00;
@@ -295,7 +296,7 @@ form input.hint {
 #content form ul.fields li.divider {
     padding: 0 0 1em 0;
     margin: 0 0 1em 0;
-    border-bottom: 1px dashed #ccc;
+    border-bottom: 1px dotted #ccc;
 }
 #content form select.dropdown {
     margin: 0.5em 0.5em 0.5em 0em;
@@ -322,9 +323,7 @@ form input.hint {
 }
 
 #content form ul.fields li.text input:focus, #content form ul.fields li.password input:focus {
-    background: #ebf8fc;
-    background: -moz-linear-gradient(-90deg, #c6dcea, #e0f1f8 8px) no-repeat;
-    background: -webkit-gradient(linear, left top, left bottom, from(#c6dcea), color-stop(8px, #ddeeff), to(#e0f1f8)) no-repeat;
+    background: #fff; -moz-box-shadow: 0 0 3px #004463;
 }
 
 

@@ -3,7 +3,7 @@
 
 <script type="text/javascript">
 var RecaptchaOptions = {
-    theme: 'clean'
+    theme: 'white'
 };
 </script>
 
@@ -53,8 +53,8 @@ echo form::build('register', array('class'=>'register'), array(
         array(
             '<li class="input required text two_up '.($name_error ? 'error' : '').'">',
                 '<label for="first_name">Your name</label>',
-                form::input('first_name'),
-                form::input('last_name'),
+                form::input(array('name'=>'first_name', 'title'=>'First name')),
+                form::input(array('name'=>'last_name', 'title'=>'Last name')),
             '</li>',
         ),
         form::field('input', 'email', 'Your email', array('class'=>'divider required'), array(

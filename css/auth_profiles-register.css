@@ -2,7 +2,7 @@
  * Styles for profile registration
  */
 .ctrl_auth_profiles_act_register #content form.register {
-    margin: 2em 0 0 0;
+    margin: 2em 0 2em 0;
     width: 650px;
 }
 .ctrl_auth_profiles_act_register #content form.register .errors {
@@ -15,17 +15,14 @@
 }
 .ctrl_auth_profiles_act_register #content form.register fieldset.account legend {
     color: #000;
-    font-size: 100%;
     padding: 0 0 0.75em 0;
 }
 .ctrl_auth_profiles_act_register #content form.register .intro p {
-    font-size: 80%;
     margin: 0 0 1em 0; 
     padding: 0;
 }
 .ctrl_auth_profiles_act_register #content form ul.fields li label {
     font-weight: bold;
-    width: 20ex;
 }
 .ctrl_auth_profiles_act_register #content form ul.fields li label span {
     font-weight: normal;
