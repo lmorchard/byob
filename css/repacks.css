@@ -36,6 +36,7 @@
 .ctrl_repacks #content .confirm .preamble {
     background: #fff;
     font-family: serif;
+    font-size: 115%;
     border: 1px solid #ccc;
     padding: 0.5em 1em 0.5em 1em;
     margin: 0.5em 0 0.5em 0;
@@ -46,5 +47,7 @@
 }
 .ctrl_repacks #content .confirm .preamble li {
     line-height: 1.5em;
+    list-style: disc;
+    margin-left: 2em;
 }
 

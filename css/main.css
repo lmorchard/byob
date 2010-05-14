@@ -475,7 +475,7 @@ form input.hint {
 }
 #content .details .main_actions h3 {
     font-size: 100%;
-    margin: 0 0 0 0;
+    margin: 0 0 1em 0;
     padding: 0 4px 0 4px;
     font-weight: bold;
 }

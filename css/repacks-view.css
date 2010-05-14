@@ -35,7 +35,7 @@
 
 .ctrl_repacks_act_view table.downloads {
     width: 100%;
-    padding: 0 0 1.75em 0;
+    margin: 0 0 1.75em 0;
 }
 .ctrl_repacks_act_view table.downloads thead tr {
 }
