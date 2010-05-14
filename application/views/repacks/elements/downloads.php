@@ -1,5 +1,5 @@
 <?php
-$locale_choices = Repack_Model::$locale_choices;
+$locale_choices = locale_selection::get_all_locales();
 $files = (!$repack->checkPrivilege('download')) ?
     array() : $repack->files;
 ?>
@@ -58,7 +58,7 @@ $files = (!$repack->checkPrivilege('download')) ?
             <?php if ('ja-JP-mac' == $locale) continue; ?>
             <tr class="<?= ($idx % 2) == 0 ? 'even' : 'odd' ?>">
                 <td class="locale">
-                    <?=html::specialchars($locale_choices[$locale])?>
+                    <?=html::specialchars($locale_choices[$locale]['English'])?>
                 </td>
                 <td class="version">
                     <?=html::specialchars($repack->product->version)?>
