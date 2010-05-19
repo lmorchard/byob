@@ -58,11 +58,13 @@ $selected_persona_url_hash = md5($selected_persona_url);
 
             <div class="sub-tab-content selected" id="tab-extensions">
 
-                <fieldset class="upload">
-                    <iframe id="tab-extensions-upload" 
-                        src="<?=$repack->url()?>/addons;upload_extension"
-                        scrolling="no"></iframe>
-                </fieldset>
+                <?php if ($repack->checkPrivilege('addon_management_xpi_upload')): ?>
+                    <fieldset class="upload">
+                        <iframe id="tab-extensions-upload" 
+                            src="<?=$repack->url()?>/addons;upload_extension"
+                            scrolling="no"></iframe>
+                    </fieldset>
+                <?php endif ?>
 
                 <fieldset><legend>Choose from these popular add-ons:</legend>
                     <ul class="extensions"><?php foreach ($popular_extensions as $id=>$addon): ?>

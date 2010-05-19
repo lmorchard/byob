@@ -26,6 +26,8 @@ class Addonmanagement_Controller extends Local_Controller
         $rp = $this->_getRequestedRepack();
         if (!$rp->checkPrivilege('edit')) 
             return Event::run('system.403');
+        if (!$rp->checkPrivilege('addon_management_xpi_upload')) 
+            return Event::run('system.403');
 
         $xpi_dir = $rp->getAssetsDirectory() . "/distribution/extensions";
         if (!is_dir($xpi_dir)) mkdir($xpi_dir, 0775, true);
