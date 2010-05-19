@@ -42,7 +42,11 @@ $selected_persona_url_hash = md5($selected_persona_url);
 
     <div class="selections">
         <fieldset><legend>Selected add-ons:</legend>
-            <ul class="locale-selections clearfix">
+            <ul class="addon-selections clearfix">
+                <li class="template" data-selection-index="">
+                    <span class="name"></span>
+                    <a href="#" class="remove">Remove</a>
+                </li>
             </ul>
         </fieldset>
     </div>
@@ -72,6 +76,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                             $e = html::escape_array(array(
                                 'id'        => $addon->id,
                                 'icon'      => $addon->icon,
+                                'version'   => $addon->version,
                                 'name'      => $addon->name,
                                 'summary'   => $addon->summary,
                                 'thumbnail' => $addon->thumbnail,
@@ -88,7 +93,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                                     width="32" height="32" />
                             </label>
                             <div class="meta">
-                                <span class="name"><?=$e['name']?></span>
+                            <span class="name"><?=$e['name']?> <?=$e['version']?></span>
                                 <p class="summary"><?=$e['summary']?></p>
                                 <a target="new" href="<?=$e['learnmore']?>" class="learn">Learn more...</a>
                             </div>
@@ -141,7 +146,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
 
                 <fieldset><legend>Choose from these popular Personas:</legend>
                     <ul class="personas">
-                        <li>
+                        <li class="none">
                             <input type="radio" name="persona_url_hash" value="" 
                                 id="persona_id_none" 
                                 <?=empty($selected_persona_url)?'checked="checked"':''?> />
@@ -165,6 +170,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                                     <?=($selected)?'checked="checked"':''?> />
                                 <label for="persona_id_<?=$url_hash?>">
                                     <img src="<?=$e['previewURL']?>" alt="<?=$e['name']?>" />
+                                    <span class="name"><?=$e['name']?></span>
                                 </label>
                             </li>
                         <?php endforeach ?></ul>

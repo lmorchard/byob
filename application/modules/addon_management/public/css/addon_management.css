@@ -9,13 +9,34 @@
     left: 470px;
     right: 0px;
     bottom: 0px;
-    padding: 1em 0.5em;
+    padding: 1em 1em 1em 1em;
     border-left: 1px solid #fff;
     background: #f9f9f9;
     z-index: 999;
+    overflow: auto;
 }
-#ctrl_repacks_act_edit .editor .pane-addon-management .selections legend {
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li {
+    margin-bottom: 0.75em;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li.divider {
+    padding-top: 0.75em;
+    border-top: 1px dotted #666;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li .remove {
+    display: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management-addon-management .selections legend {
     font-size: 100%;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li.hover .name {
+    text-decoration: line-through;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li.hover .remove {
+    display: inline;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .selections li a.remove {
+    font-size: 80%;
+    margin: 0 0 0 0.5em;
 }
 
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices {
@@ -282,6 +303,9 @@ fieldset.divider {
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label img {
     width: 110px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label .name {
+    visibility: hidden;
 }
 
 

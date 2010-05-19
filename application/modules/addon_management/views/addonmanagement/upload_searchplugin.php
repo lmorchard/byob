@@ -59,7 +59,7 @@
                         'summary'   => $plugin->Description,
                     ));
                 ?>
-                <li class="uploads">
+                <li class="searchengine">
                     <label class="icon" for="searchplugin_ids-<?=$idx?>">
                         <img src="<?=$e['icon']?>" alt="<?=$e['name']?>" 
                             width="16" height="16" />
