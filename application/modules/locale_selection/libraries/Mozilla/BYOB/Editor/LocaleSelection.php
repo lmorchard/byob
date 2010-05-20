@@ -14,6 +14,8 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     public $view_name = 'repacks/edit/locale_selection';
     /** }}} */
 
+    public $repack = null;
+
     /**
      * Determine whether the current user has permission to access this 
      * editor.
@@ -28,13 +30,21 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
      */
     public function validate(&$data, $repack)
     {
+        $this->repack = $repack;
+
         $data = Validation::factory($data)
             ->pre_filter('trim');
 
-        $data->add_rules('locales', 'required', 'is_array');
         $data->add_callbacks('locales', array($this, 'extractLocales'));
 
-        return true;
+        $is_valid = $data->validate();
+
+        if (count($data['locales']) == 0) {
+            $is_valid = false;
+            $data->add_error('locales', 'required');
+        }
+
+        return $is_valid;
     }
 
     /**
@@ -43,7 +53,7 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
      */
     public function extractLocales($valid, $field)
     {
-        if (empty($this->locales) && empty($valid[$field])) {
+        if (empty($this->repack->locales) && empty($valid[$field])) {
             // Detect locale from request if neither repack nor form offers locales.
             $m = array();
             preg_match_all(
@@ -57,7 +67,7 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
         if (empty($valid[$field])) {
 
             // Populate form from repack product locales.
-            $valid[$field] = $this->locales;
+            $valid[$field] = $this->repack->locales;
             $valid->add_error($field, 'need_locale');
 
         } else {
@@ -66,7 +76,8 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
             // accepted from form data into the repack.
             $valid_locales = array();
             $choices = array_map('strtolower', $valid[$field]); 
-            foreach (self::$locale_choices as $code=>$name) {
+            $available_locales = locale_selection::get_available_locale_codes();
+            foreach ($available_locales as $code) {
                 if (in_array(strtolower($code), $choices)) {
                     $valid_locales[] = $code;
                 }
@@ -74,6 +85,10 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
 
             $valid[$field] = $valid_locales;
 
+        }
+
+        if (empty($valid[$field])) {
+            $valid[$field] = array();
         }
 
         return $valid[$field];
