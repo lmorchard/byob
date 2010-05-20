@@ -64,6 +64,7 @@
         </script>
 
         <?=html::script(array(
+            'js/sugar-arrays-min.js',
             'js/jquery-1.3.2.min.js',
             'js/jquery-ui-1.7.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',

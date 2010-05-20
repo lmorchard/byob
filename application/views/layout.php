@@ -146,6 +146,7 @@
         <?=html::script(array(
             'js/json2.js',
             'js/class.js',
+            'js/sugar-arrays-min.js',
             'js/jquery-1.4.2.min.js',
             'js/jquery-ui-1.8.1.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',

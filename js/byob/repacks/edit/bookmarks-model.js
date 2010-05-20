@@ -167,9 +167,9 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
          * Validate a URL for data entry
          */
         validateURL: function (url) {
-            var parsed = $this.parseUri(url);
+            var parsed = $this.parseUri(url),
                 allowed_protos = [ 'http', 'https', 'ftp' ],
-                is_ok = 
+                is_ok =
                     parsed.host && 
                     (-1 !== allowed_protos.indexOf(parsed.protocol));
             return is_ok;
