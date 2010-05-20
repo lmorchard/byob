@@ -92,7 +92,6 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
             var target = $('input#locale_search'),
                 label = target.val(),
                 locale = $this.codes_by_label[label];
-            console.log("LOCALE " + label);
             if (locale) {
                 $this.select_locale(locale, label);
             }
