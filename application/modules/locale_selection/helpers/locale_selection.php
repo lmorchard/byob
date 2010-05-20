@@ -16,6 +16,9 @@ class locale_selection_core {
     /** Locale details instance */
     public static $locale_details = null;
 
+    /** Newest product record, listing available locales */
+    public static $latest_product = null;
+
     /** 
      * Pre-selected popular locales.
      *
@@ -35,6 +38,28 @@ class locale_selection_core {
     }
 
     /**
+     * Look up the most recent product for repacks.
+     */
+    public static function get_latest_product()
+    {
+        if (null == self::$latest_product) {
+            self::$latest_product = ORM::factory('product')
+                ->orderby('created','DESC')
+                ->limit(1)
+                ->find();
+        }
+        return self::$latest_product;
+    }
+
+    /**
+     * Get a list of the locale codes available for the latest product.
+     */
+    public static function get_available_locale_codes()
+    {
+        return explode(' ', self::get_latest_product()->locales); 
+    }
+
+    /**
      * Assemble a list of popular locales.
      *
      * TODO: Move this into config?
@@ -49,11 +74,16 @@ class locale_selection_core {
     }
 
     /**
-     * Return the list of all known locales
+     * Return the list of all available locales
      */
     public static function get_all_locales()
     {
-        return self::$locale_details->getLanguageArraySortedByEnglishName();
+        $avail_locales = self::get_available_locale_codes();
+        $locales = array();
+        foreach ($avail_locales as $locale) {
+            $locales[$locale] = self::$locale_details->languages[$locale];
+        }
+        return $locales;
     }
 
     /**
@@ -75,7 +105,8 @@ class locale_selection_core {
      */
     public static function count()
     {
-        return count(self::$locale_details->languages);
+        $avail_locales = self::get_available_locale_codes();
+        return count($avail_locales);
     }
 
 }
