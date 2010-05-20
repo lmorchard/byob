@@ -195,7 +195,9 @@ class Repack_Model extends ManagedORM
             }
         } elseif ($is_valid && $set) {
             foreach ($data->field_names() as $name) {
-                $this->{$name} = $data[$name];
+                if (isset($data[$name])) {
+                    $this->{$name} = $data[$name];
+                }
             }
         }
 
