@@ -39,9 +39,6 @@ class Addonmanagement_Controller extends Local_Controller
             if (empty($_FILES['xpi_upload']['tmp_name'])) {
                 $errors[] = 'No XPI upload available';
             }
-            if ('application/x-xpinstall' !== $_FILES['xpi_upload']['type']) {
-                $errors[] = 'XPI upload must be of type application/x-xpinstall';
-            }
 
             $xpi_fn = $_FILES['xpi_upload']['tmp_name'];
             $xpi_name = basename($_FILES['xpi_upload']['name']);
@@ -108,9 +105,6 @@ class Addonmanagement_Controller extends Local_Controller
         if ('post' == request::method()) {
 
             if (empty($_FILES['sp_upload']['tmp_name'])) {
-                $errors[] = 'Search plugin upload must be of type text/xml';
-            }
-            if ('text/xml' !== $_FILES['sp_upload']['type']) {
                 $errors[] = 'Search plugin upload must be of type text/xml';
             }
 

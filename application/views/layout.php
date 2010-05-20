@@ -8,6 +8,7 @@
 <html> 
 
     <head>  
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
         <title>build your own browser :: <?= slot::get('head_title') ?></title>
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
