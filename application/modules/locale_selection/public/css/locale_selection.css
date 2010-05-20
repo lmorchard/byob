@@ -5,6 +5,9 @@
 #ctrl_repacks_act_edit .editor .pane .choices .locale-search-field {
     margin: 0.75em 0 0 0;
 }
+#ctrl_repacks_act_edit .editor .pane .choices .locale-search-field .add {
+    font-size: 1.2em;
+}
 #ctrl_repacks_act_edit .editor .pane .choices #locale_search {
     -moz-border-radius: 8px 8px 8px 8px;
     border: 1px solid #999;

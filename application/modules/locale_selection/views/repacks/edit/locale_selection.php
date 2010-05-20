@@ -76,6 +76,7 @@ if (empty($locales)) $locales = array();
             <div class="locale-search-field">
                 <input type="text" id="locale_search" name="locale_search" size="40"
                     title="Enter all or part of a locale's name" />
+                <span class="button blue add">Add</span>
             </div>
         </fieldset>
 

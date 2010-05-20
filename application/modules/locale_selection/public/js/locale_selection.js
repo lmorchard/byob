@@ -68,17 +68,14 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
                     source: $this.labels
                 })
                 .bind('keypress', function (ev) {
-                    var target = $(ev.target);
                     if (13 == ev.keyCode) {
-                        var label = target.val(),
-                            locale = $this.codes_by_label[label];
-                        if (locale) {
-                            $this.select_locale(locale, label);
-                        }
-                        target.val('');
+                        $this.commitLocaleSearch();
                         return false;
                     }
                 });
+
+            $('.locale-search-field .add')
+                .click($this.commitLocaleSearch);
 
             // If the maximum number of locales has been selected, disable choices.
             var selected = 
@@ -86,6 +83,21 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
             if (selected.length >= $this.MAX_LOCALES)
                 $('.choices input').attr('disabled', true);
 
+        },
+
+        /**
+         * Use the current contents of locale search to add a locale.
+         */
+        commitLocaleSearch: function () {
+            var target = $('input#locale_search'),
+                label = target.val(),
+                locale = $this.codes_by_label[label];
+            console.log("LOCALE " + label);
+            if (locale) {
+                $this.select_locale(locale, label);
+            }
+            target.val('');
+            return false;
         },
 
         /**
