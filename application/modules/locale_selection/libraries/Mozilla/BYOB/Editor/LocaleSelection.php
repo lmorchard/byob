@@ -11,7 +11,10 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     /** {{{ Object properties */
     public $id        = 'locale_selection';
     public $title     = 'Locales';
-    public $view_name = 'repacks/edit/locale_selection';
+    public $view_name = 
+        'repacks/edit/edit_locale_selection';
+    public $review_view_name = 
+        'repacks/edit/review_locale_selection';
     /** }}} */
 
     public $repack = null;
@@ -106,4 +109,3 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     public static function register() { return parent::register(get_class()); }
 
 }
-

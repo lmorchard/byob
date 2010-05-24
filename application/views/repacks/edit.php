@@ -16,7 +16,9 @@
         $classes[] = 'show_review';
     }
 
-    $section_editor = View::factory('repacks/edit/' . $section)->render();
+    $section_editor_name = !empty($editor->view_name) ? 
+        $editor->view_name : 'repacks/edit/' . $section;
+    $section_editor = View::factory($section_editor_name)->render();
 ?>
 <?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->display_title)); ?>
 <?php slot::start('crumbs') ?>

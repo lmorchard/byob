@@ -11,7 +11,10 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
     /** {{{ Object properties */
     public $id        = 'addon_management';
     public $title     = 'Addons';
-    public $view_name = 'repacks/edit/addon_management';
+    public $view_name = 
+        'repacks/edit/edit_addon_management';
+    public $review_view_name = 
+        'repacks/edit/review_addon_management';
     
     public $assets_dir = '';
     /** }}} */
@@ -127,6 +130,82 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
         }
 
         return $is_valid;
+    }
+
+    /**
+     * Render the review section for addons.
+     */
+    public function renderReviewSection()
+    {
+        $repack = Event::$data['repack'];
+        $assets_dir = $repack->getAssetsDirectory();
+        
+        $extensions = array();
+        $search_plugins = array();
+        $persona = null;
+        $theme = null;
+
+        if (!empty($repack->managed_addons)) {
+            $managed_addons = $repack->managed_addons;
+
+            $xpi_dir = $assets_dir . "/distribution/extensions";
+            if (is_dir($xpi_dir)) {
+                $xpi_files = glob("{$xpi_dir}/*.xpi");
+                foreach ($xpi_files as $xpi_fn) {
+                    $extension = Model::factory('addon')->find_by_xpi_file($xpi_fn);
+                    if ($extension->loaded) $extensions[] = $extension;
+                }
+            }
+
+            foreach ($managed_addons['extension_ids'] as $id) {
+                $extension = Model::factory('addon')->find($id);
+                if ($extension->loaded) $extensions[] = $extension;
+            }
+
+            $sp_dir = $assets_dir . "/distribution/searchplugins/common";
+            if (is_dir($sp_dir)) {
+                $sp_files = glob("{$sp_dir}/*.xml");
+                foreach ($sp_files as $fn) {
+                    $xml = file_get_contents($fn);
+                    $plugin = Model::factory('searchplugin')->loadFromXML($xml);
+                    $plugin->filename = basename($fn);
+                    $search_plugins[] = $plugin;
+                }
+            }
+
+            if (!empty($managed_addons['search_plugin_filenames'])) {
+                $popular_searchplugins = 
+                    addon_management::get_popular_searchplugins();
+                foreach ($managed_addons['search_plugin_filenames'] as $fn) {
+                    if (empty($popular_searchplugins[$fn])) continue;
+                    $search_plugins[] = $popular_searchplugins[$fn];
+                }
+            }
+
+            if (!empty($managed_addons['persona_url'])) {
+                $persona = Model::factory('persona')
+                    ->find_by_url($managed_addons['persona_url']);
+                if (!$persona->loaded) $persona = null;
+            }
+
+            if (!empty($managed_addons['theme_id'])) {
+                $theme = Model::factory('addon')->find($managed_addons['theme_id']);
+                if (!$theme->loaded) $theme = null;
+            }
+
+        }
+
+        slot::append(
+            'BYOB.repack.edit.review.sections',
+            View::factory($this->review_view_name, array_merge(
+                Event::$data, array(
+                    'extensions' => $extensions,
+                    'search_plugins' => $search_plugins,
+                    'persona' => $persona,
+                    'theme' => $theme,
+                )
+            ))
+        );
     }
 
     /**

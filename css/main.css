@@ -582,9 +582,9 @@ form input.hint {
     height: 40px;
 }
 .popup #content #wizard .nav {
-    padding: 0;
+    padding: 0.5em 0 0 0;
     width: 580px;
-    background: #fff;
+    background: #eee;
 }
 .popup #content .nav .prev {
     float: left;
@@ -636,7 +636,7 @@ form input.hint {
 .popup #content .sections li.section {
     padding: 0.5em 0 0.75em 0.5em;
     border-bottom: 1px solid #ccc;    
-    font-size: 85%;
+    font-size: 100%;
 }
 .popup #content .sections li.section h3 {
     margin: 0.25em 0 0.75em 0;
@@ -658,7 +658,6 @@ form input.hint {
     list-style: square;
 }
 .popup #content .sections li.section ul li {
-    font-size: 110%;
     padding: 0 0 0.5em 0;
     list-style: square;
 }

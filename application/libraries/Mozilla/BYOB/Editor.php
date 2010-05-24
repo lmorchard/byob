@@ -8,7 +8,25 @@
  */
 class Mozilla_BYOB_Editor {
 
+    public $id        = 'change_me';
+    public $title     = 'Change Me';
+    public $view_name = null;
+    public $review_view_name = null;
+
     private static $_instances = array();
+
+    /**
+     * If set, render this module's review view and shove the result into the 
+     * appropriate slot.
+     */
+    public function renderReviewSection()
+    {
+        if (empty($this->review_view_name)) return;
+        slot::append(
+            'BYOB.repack.edit.review.sections',
+            View::factory($this->review_view_name, Event::$data)
+        );
+    }
 
     /**
      * @param string $classname
@@ -35,6 +53,14 @@ class Mozilla_BYOB_Editor {
         }
         $self = self::getInstance($cls);
         Mozilla_BYOB_EditorRegistry::register($self);
+
+        if (!empty($self->review_view_name)) {
+            // If the review view is supplied, register the handler to render 
+            // it when it's time.
+            Event::add('BYOB.repack.edit.review.renderSections',
+                array($self, 'renderReviewSection'));
+        }
+
         return $self;
     }
 
