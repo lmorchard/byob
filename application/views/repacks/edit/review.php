@@ -7,8 +7,18 @@ $edit_base = $repack->url() . ';edit?section=';
         <h2>Review and Confirm:</h2>
     </div>
     <div class="content">
-        <p>Please review your customizations detailed below before 
-        submitting your browser for build and approval:</p>
+        <?php if (!$repack->isCustomized()): ?>
+            <p class="warning">
+                You haven't performed any customizations to this browser
+                beyond the default settings.  Please do so before submitting
+                a request to build this browser.
+            </p>
+        <?php else: ?>
+            <p>
+                Please review your customizations detailed below before 
+                submitting your browser for build and approval:
+            </p>
+        <?php endif ?>
 
         <ul class="sections">
 
@@ -39,10 +49,14 @@ $edit_base = $repack->url() . ';edit?section=';
             <li class="section bookmarks clearfix">
                 <h3>Bookmarks <a target="_top" href="<?=$edit_base?>bookmarks">edit</a></h3>
                 <ul>
-                    <?php $bookmarks = $repack->bookmarks; ?>
+                    <?php 
+                        $bookmarks = $repack->bookmarks; 
+                        $none = true;
+                    ?>
                     <?php foreach (array('toolbar', 'menu') as $kind): ?>
                         <?php if (!empty($bookmarks[$kind])): ?>
                             <?php 
+                                $none = false;
                                 $bookmarks[$kind]['type'] = 'folder';
                                 View::factory('repacks/edit/review_bookmarks', array(
                                     'bookmark' => $bookmarks[$kind]
@@ -50,6 +64,9 @@ $edit_base = $repack->url() . ';edit?section=';
                             ?>
                         <?php endif ?>
                     <?php endforeach ?>
+                    <?php if ($none): ?>
+                        <li class="empty">None.</li>
+                    <?php endif ?>
                 </ul>
             </li>
 
@@ -67,6 +84,8 @@ $edit_base = $repack->url() . ';edit?section=';
     </div>
     <div class="nav">
         <div class="prev button blue"><a class="popup_cancel" href="#">&laquo;&nbsp; Cancel</a></div>
-        <div class="build button yellow"><a target="_top" href="<?=$repack->url()?>;release">Build this browser</a></div>
+        <?php if ($repack->isCustomized()): ?>
+            <div class="build button yellow"><a target="_top" href="<?=$repack->url()?>;release">Build this browser</a></div>
+        <?php endif ?>
     </div>
 </div>

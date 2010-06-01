@@ -210,7 +210,7 @@ class Repacks_Controller extends Local_Controller
             // This was a valid POST, so save the modified repack.
             $rp->save();
 
-            if ($this->input->post('done', false)) {
+            if ('true' == $this->input->post('done', false)) {
                 return url::redirect($rp->url);
             } else if ($this->input->post('review', false)) {
                 return url::redirect($rp->url.';release');
@@ -291,6 +291,10 @@ class Repacks_Controller extends Local_Controller
         $repack = $this->_getRequestedRepack();
         if (!$repack->checkPrivilege('release')) 
             return Event::run('system.403');
+
+        if (!$repack->isCustomized()) {
+            return url::redirect($repack->url.';edit?show_review=true&section=general');
+        }
 
         if ('post' == request::method()) {
             if (isset($_POST['confirm'])) {

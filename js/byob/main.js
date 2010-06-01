@@ -25,7 +25,7 @@ BYOB_Main = function() {
             $('.ctrl_repacks_act_edit').each(function() {
                 // Wire up the UI for the repack editing page.
                 $('.save_buttons').hide();
-                $this.wireUpSaveAndConfirm();
+                $this.wireUpSaveButtons();
                 $this.wireUpWizardTabs();
             });
 
@@ -63,12 +63,22 @@ BYOB_Main = function() {
          * If the data is not valid, the review dialog is not triggered and
          * errors are displayed normally.
          */
-        wireUpSaveAndConfirm: function() {
+        wireUpSaveButtons: function() {
             
             // Set the show_review hidden field on the form.
             $('#save-and-review').each(function(ev) {
                 $(this).click(function(ev) {
                     $('#show_review').val('true');
+                    $('#wizard').submit();
+                    ev.preventDefault();
+                    return false;
+                });
+            });
+
+            // Set the show_review hidden field on the form.
+            $('#save-and-close').each(function(ev) {
+                $(this).click(function(ev) {
+                    $('#done').val('true');
                     $('#wizard').submit();
                     ev.preventDefault();
                     return false;

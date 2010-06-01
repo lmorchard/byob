@@ -28,6 +28,7 @@
 <?= form::open(url::current() . '?section=' . $section , array('class'=>join(' ', $classes), 'id'=>'wizard'), array()); ?>
     <input type="hidden" name="changed" id="changed" value="false" />
     <input type="hidden" name="show_review" id="show_review" value="false" />
+    <input type="hidden" name="done" id="done" value="false" />
     <input type="hidden" name="next_section" id="next_section" value="<?=$section?>" />
 
 <?php if (!slot::get('is_popup')): ?>
@@ -116,11 +117,8 @@
 	</div>
 
 	<div class="editor-commit">
-		<button id="save-and-review" class="button yellow large" href="<?=url::base() . url::current()?>?section=review">Save and Review</button>
-        <ul class="save_buttons">
-            <?= form::field('submit', 'save', null, array('value'=>'save and edit')) ?>
-            <?= form::field('submit', 'done', null, array('value'=>'save and finish')) ?>
-        </ul>
+		<button id="save-and-review" class="button yellow large"  href="<?=url::base() . url::current()?>?section=review">Review and Build</button>
+		<button id="save-and-close" class="button blue large">Save and Close</button>
 	</div>
 
 </div>

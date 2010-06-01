@@ -217,6 +217,11 @@
 .ctrl_repacks_act_edit .save_buttons {
     display: none;
 }
+.ctrl_repacks_act_edit #save-and-review,
+.ctrl_repacks_act_edit #save-and-close {
+    width: 21ex;
+    margin-bottom: 0.75em;
+}
 
 .ctrl_repacks_act_edit #wizard .pane fieldset ul.repack-addons {
     list-style: none;
@@ -243,7 +248,16 @@
     margin: 0.5em 0 1em 1em;
 }
 
-.ctrl_repacks_act_edit .popup #content .sections li.bookmarks ul {
+.ctrl_repacks_act_edit .popup #content p.warning {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    margin: 0 0 8px 0;
+    padding: 8px 8px 8px 100px;
+    background: url("../img/actions-warning.gif") no-repeat scroll 28px 10px #F9F2C3;
+    border: 1px solid #FCE440;
+}
+
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .folder ul {
     margin: 0 0 0 0.25em;
 }
 .ctrl_repacks_act_edit .popup #content .sections li.bookmarks .folder {
@@ -252,7 +266,7 @@
     padding: 4px 0 0.25em 28px;
     background: url("../img/bookmark-icons/folder.png") no-repeat scroll 4px 1px transparent;
 }
-.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .empty {
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .folder .empty {
     list-style: none;
     color: #666;
     font-style: italic;

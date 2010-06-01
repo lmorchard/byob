@@ -756,6 +756,25 @@ class Repack_Model extends ManagedORM
         );
     }
 
+    /**
+     * Check whether this repack has had customizations beyond the basic name 
+     * and description.
+     *
+     * @return boolean
+     */
+    public function isCustomized()
+    {
+        if (empty($this->changed_sections)) { 
+            // Empty changed sections is uncustomized.
+            return false;
+        }
+        if (count($this->changed_sections) == 1 && 'general' == $this->changed_sections[0]) {
+            // If 'general' is the only changed section, it's uncustomized.
+            return false;
+        }
+        return true;
+    }
+
 
     /**
      * Change the state of this repack.

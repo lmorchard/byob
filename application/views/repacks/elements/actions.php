@@ -45,7 +45,7 @@ if ($repack->isRelease()) {
                 $actions[';edit'] = "Continue editing";
             if ($privs['delete'])
                 $actions[';delete'] = "Abandon changes";
-            if ($privs['release']) { 
+            if ($privs['release'] && $repack->isCustomized()) { 
                 $actions[';release'] = "Request release";
             } else { 
                 if ($repack->state == Repack_Model::$states['requested']) { 
