@@ -4,6 +4,15 @@ RewriteEngine On
 # Installation directory
 RewriteBase /
 
+# block hotlinking to .woff and .eof files
+# bug 540859
+RewriteCond "%{HTTP_HOST}_%{HTTP_REFERER}" "!\.?([^\.]+\.[^\.]+?)_https?://.*\1/.*$"
+RewriteRule \.(woff|eot)$ - [F,NC,L]
+
+<FilesMatch "\.(woff|eot)$">
+    Header append vary "Referer"
+</FilesMatch>
+
 # Allow the public directory in a module to be served up
 RewriteRule ^modules/.*/public - [L]
 RewriteRule ^application/modules/.*/public - [L]

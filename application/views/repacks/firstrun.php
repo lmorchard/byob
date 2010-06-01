@@ -5,32 +5,29 @@
     <title>Welcome to Firefox</title>
     <script type="text/javascript" src="http://www.mozilla.com/js/util.js"></script>
     <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/includes/yui/2.5.1/reset-fonts-grids/reset-fonts-grids.css" />
-    <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/style/tignish/template.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/style/tignish/content.css" media="screen" />
-
+    <link rel="stylesheet" type="text/css" href="http://mozcom-cdn.mozilla.net/style/tignish/template.css" media="screen" />
     <script type="text/javascript" src="http://www.mozilla.com/includes/yui/2.5.1/yahoo-dom-event/yahoo-dom-event.js"></script>
-    <script type="text/javascript" src="http://www.mozilla.com/includes/yui/2.5.1/container/container_core-min.js"></script>
-    <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/style/tignish/portal-page.css" media="screen" />
-        <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/style/tignish/firstrun-page-3-5.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="http://www.mozilla.com/style/tignish/video-player.css" media="screen" />
-    <script type="text/javascript" src="http://www.mozilla.com/includes/yui/2.5.1/utilities/utilities.js"></script>
-    <script type="text/javascript" src="http://www.mozilla.com/js/mozilla-video-tools.js"></script>
 
-    <script type="text/javascript">
-    // <![CDATA[
-        Mozilla.VideoPlayer.close_text = 'Close';
-        Mozilla.VideoScaler.close_text = 'Close';
-    // ]]>
-    </script>
+    <script type="text/javascript" src="http://www.mozilla.com/includes/yui/2.5.1/container/container_core-min.js"></script>
+        <style type="text/css">
+        /* MetaWebPro font family licensed from fontshop.com. WOFF-FTW! */
+        /*
+        @font-face { font-family: 'MetaWebPro-Book'; src: url('<?=url::base()?>img/fonts/MetaWebPro-Book.woff') format('woff'); }
+        @font-face { font-family: 'MetaWebPro-Bold'; src: url('<?=url::base()?>img/fonts/MetaWebPro-Bold.woff') format('woff'); }
+        */
+    </style>
+    <link rel="stylesheet" type="text/css" href="http://mozcom-cdn.mozilla.net/style/firefox/3.6/firstrun-page.css" media="screen" />
+    <script type="text/javascript" src="http://mozcom-cdn.mozilla.net/js/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="http://mozcom-cdn.mozilla.net/includes/yui/2.5.1/animation/animation-min.js"></script>
+    <script type="text/javascript" src="http://mozcom-cdn.mozilla.net/js/mozilla-expanders.js"></script>
+
+    <script type="text/javascript" src="http://mozcom-cdn.mozilla.net/js/mozilla-input-placeholder.js"></script>
 
     <link rel="stylesheet" type="text/css" href="<?=url::base()?>css/firstrun.css" media="screen" />
 
 </head>
 
 <body id="firstrun" class=" locale-en-US portal-page">
-<!-- SiteCatalyst Reporting -->
-<script type="text/javascript">s_account="mozillacom";</script>
- <script src="http://www.mozilla.com/js/s_code.js" type="text/javascript"></script>
 <script type="text/javascript">// <![CDATA[
 if (document.body.className == '') {
     document.body.className = 'js';
@@ -51,124 +48,194 @@ if (gPlatform == 1) {
 <div id="wrapper">
 
 <div id="doc">
+<script type="text/javascript">// <![CDATA[
+    // Add a class to the body tag to alternate promo features
+        var class_options = new Array( 
+            <?php if ($repack->addons_collection_url): ?>
+                "default"
+            <?php else: ?>
+                "default", "stumbleupon", "thunderbird", "reminderfox", "rockyourfirefox" 
+            <?php endif ?>
+        );
 
-    <div id="nav-access">
-        <a href="#nav-main">skip to navigation</a>
-        <a href="#switch">switch language</a>
-    </div>
+    if (Math.random) {
+        var choice = Math.floor(Math.random() * (class_options.length));
 
-    <!-- start #header -->
-    <div id="header">
+        // Just in case javascript gets carried away...
+        choice = ( (choice < class_options.length)  && choice >= 0) ? choice : 0;
 
-        <div>
-        <h1><a href="http://www.mozilla.com/en-US/" title="Back to home page"><img src="http://www.mozilla.com/img/tignish/template/mozilla-logo.png" height="56" width="145" alt="Mozilla" /></a></h1>
-        <a href="http://www.mozilla.com/en-US/" id="return">Visit Mozilla.com</a>
-        </div>
-        <hr class="hide" />
-    </div>
-    <!-- end #header -->
+		if (document.body.className == '') {
+			document.body.className = class_options[choice];
+		} else {
+			document.body.className += ' '+class_options[choice];
+		}
+    }
+// ]]></script>
 
+<div id="main-feature">
+    <h2><img src="http://www.mozilla.com/img/firefox/3.6/firstrun/title.png" alt="Firefox 3.6" id="title-logo" /></h2>
 
-    <div id="main-feature"<?= ($repack->addons_collection_url) ? ' class="with-collection"' : '' ?>>
-    <h2><span>Welcome to</span> <img src="http://www.mozilla.com/en-US/img/tignish/firstrun/welcome-3-5.png" alt="Welcome to Firefox 3.5" id="main-title" /></h2>
-    <p>Thanks for supporting <a href="http://www.mozilla.com/en-US/about/whatismozilla.html">Mozilla's mission</a> of encouraging openness, innovation and opportunity on the Web!</p>
+    <p>Thanks for supporting <a href="http://www.mozilla.com/en-US/about/whatismozilla.html">Mozilla’s mission</a> of encouraging openness, innovation and opportunity on the Web!</p>
 </div>
-
-<?php if ($repack->addons_collection_url): ?>
-<?php
-if ($repack->profile->is_personal) {
-    $org_name = $repack->profile->first_name . ' ' . $repack->profile->last_name;
-} else {
-    $org_name = $repack->profile->org_name;
-}
-$h = html::escape_array(array(
-    'org_name' => $org_name,
-    'url'      => $repack->addons_collection_url
-));
-?>
-<div id="collection">
-    <img class="logo" src="https://addons.mozilla.org/img/amo2009/illustrations/logo-collections-100x125.png" />
-    <h4>Your customized collection of addons</h4>
-    <p>
-        <strong><?=$h['org_name']?></strong> has recommended some
-        add-ons for you to install. 
-        <a href="<?=$h['url']?>">Check them out &raquo;</a>
-    </p>
-    <p>
-        What are add-ons? Add-ons extend and add features to Firefox.
-        <a href="https://addons.mozilla.org/">Find out more &raquo;</a>
-    </p>
-    <div class="checkoutcollection"><a href="<?=$h['url']?>">Check out the collection &raquo;</a></div>
-</div>
-<?php endif ?>
 
 <div id="main-content">
-<div id="sub-features">
-    <div class="sub-feature" id="open-video">
 
-        <div class="mozilla-video-scaler">
-            <div class="mozilla-video-control">
-                 <video id="video" src="http://www.dailymotion.com/cdn/OGG-320x240/video/x9euyb?key=a99e7056808342ad0868b4decfe811c814044ec"></video>
+    <div id="personas" class="expander expander-first expander-default-open expander-group-1">
+    	<h3 class="expander-header">Choose Your Persona</h3>
+    	<div class="expander-content">
+
+			<iframe
+				src="http://www.getpersonas.com/en-US/external/mozilla/firstrun.php?ver=2"
+				width="480"
+				height="125">
+				</iframe>
+			<p id="try">Roll over to try, click to apply</p>
+			<ul id="personas-link" class="link"><li><a href="http://www.getpersonas.com/gallery?source=moz.com_firstrun">See all 60,000+</a></li></ul>
+    	</div>
+	</div>
+
+    <div id="addons" class="expander expander-group-1">
+    	<h3 class="expander-header">More ways to personalize</h3>
+
+    	<div class="expander-content">
+			<p>Add-ons are easy-to-install extras that help personalize your Firefox. Here are a few of our favorites:</p>
+			<ul id="addons-list">
+				<li>
+					<div>
+						<h4><a href="https://addons.mozilla.org/en-US/firefox/addon/2677/?src=fxfirstrun" class="icon">
+							<img src="https://addons.mozilla.org/en-US/firefox/images/addon_icon/2677/1235159442" alt="Morning Coffee icon" />
+							Morning Coffee</a></h4>
+
+						<p>Keeps track of daily routine websites in tabs...</p>
+						<span title="Rated 5 out of 5 stars" class="stars stars-5">Rated 5 out of 5 stars</span>
+					</div>
+					<a class="button" href="https://addons.mozilla.org/en-US/firefox/addon/2677/?src=fxfirstrun">Add to Firefox</a>
+				</li>
+				<li>
+					<div>
+
+						<h4><a href="https://addons.mozilla.org/en-US/firefox/addon/11377/?src=fxfirstrun" class="icon">
+							<img src="https://addons.mozilla.org/en-US/firefox/images/addon_icon/11377/1270005648" alt="InvisibleHand icon" />
+							InvisibleHand</a></h4>
+						<p>Shows a notification when a better price is available...</p>
+						<span title="Rated 4 out of 5 stars" class="stars stars-4">Rated 4 out of 5 stars</span>
+					</div>
+					<a class="button" href="https://addons.mozilla.org/en-US/firefox/addon/11377/?src=fxfirstrun">Add to Firefox</a>
+
+				</li>
+				<li>
+					<div>
+						<h4><a href="https://addons.mozilla.org/en-US/firefox/addon/1146/?src=fxfirstrun" class="icon">
+							<img src="https://addons.mozilla.org/en-US/firefox/images/addon_icon/1146/1269548420" alt="Screengrab icon" />
+							Screengrab</a></h4>
+						<p>Screengrab! saves webpages as images...</p>
+						<span title="Rated 4 out of 5 stars" class="stars stars-5">Rated 5 out of 5 stars</span>
+
+					</div>
+					<a class="button" href="https://addons.mozilla.org/en-US/firefox/addon/1146/?src=fxfirstrun">Add to Firefox</a>
+				</li>
+			</ul>
+			<ul id="addons-link" class="link"><li><a href="https://addons.mozilla.org/en-US/firefox/?src=fxfirstrun">Browse More Add-ons</a></li></ul>
+    	</div>
+	</div>
+
+    <div id="support" class="expander expander-last expander-group-1">
+    	<h3 class="expander-header">Need help?</h3>
+    	<div class="expander-content">
+			<p>Search our support pages for answers and advice about using Firefox.</p>
+			<form action="http://support.mozilla.com/search.php">
+				<input type="hidden" name="where" value="all" />
+				<input type="hidden" name="locale" value="en-US" />
+				<input id="fsearch-new" name="q" type="text" value="" placeholder="Search" /><input class="btn-large" id="searchsubmit-new" type="submit" name="sa" value="" title="Search" />
+
+			</form>
+			<ul id="support-link" class="link"><li><a href="http://support.mozilla.com/">Visit our Support website</a></li></ul>
+    	</div>
+	</div>
+
+</div>
+
+<div id="sidebar">
+
+    <div class="sub-feature" id="connect">
+        <h3>Stay Connected</h3>
+
+        <ul class="link">
+            <li id="connect-twitter"><a href="http://twitter.com/firefox">Follow us on Twitter</a></li>
+            <li id="connect-facebook"><a href="http://www.facebook.com/Firefox">Become a Fan on Facebook</a></li>
+            <li id="connect-blog"><a href="http://blog.mozilla.com/">Read our Blog</a></li>
+        </ul>
+    </div>
+
+    <div class="sub-feature" id="personalize">
+
+        <?php if ($repack->addons_collection_url): ?>
+            <?php
+            $h = html::escape_array(array(
+                'collection_url' => $repack->addons_collection_url
+            ));
+            ?>
+            <div id="default">
+                <h3>More Ways to Personalize</h3>
+                <p>Adapt Firefox to the way you browse with this collection of suggested add-ons.</p>
+                <ul class="link"><li><a href="<?= $h['collection_url'] ?>">Explore Add-ons</a></li></ul>
             </div>
-        </div>
-        <h3>Watch This!</h3>
-        <p>Firefox 3.5 is the first browser to support open video formats, allowing movies to become part of today’s dynamic web pages without requiring a plug-in. Go ahead – give it a try.</p>
+        <?php else: ?>
+            <div id="default">
+                <h3>More Ways to Personalize</h3>
+                <p>Adapt Firefox to the way you browse with 1,000s of free add-ons.</p>
+                <ul class="link"><li><a href="https://addons.mozilla.org/en-US/firefox/?src=fxfirstrun">Explore Add-ons</a></li></ul>
+            </div>
+            <div id="personalize-stumbleupon">
+                <h3>StumbleUpon Firefox Add-on</h3>
 
-<div id="thanks">This video brought to you by <a href="http://openvideo.dailymotion.com/">Dailymotion</a>, proud supporters of open video.</div>
-    </div>
-    <div class="sub-feature" id="sumo">
-        <h3>Need Help?</h3>
-        <p class="first">Our Support site has plenty of answers, plus a live chat feature to guide you through any tricky spots.</p>
-        <p><a href="http://support.mozilla.com/" class="blocklevel">Visit Firefox Support</a></p>
+                <p>Explore the web like never before.</p>
+                <ul class="link"><li><a href="http://www.mozilla.com/en-US/firefox/3.6/stumbleupon/">Install StumbleUpon Add-on</a></li></ul>
+            </div>
+            <div id="personalize-thunderbird">
+                <h3>New Thunderbird 3</h3>
+                <p>Fast, flexible, and secure email program</p>
+                <ul class="link"><li><a href="http://getthunderbird.com/">Download Thunderbird</a></li></ul>
 
+            </div>
+            <div id="personalize-reminderfox">
+                <h3>ReminderFox Firefox Add-on</h3>
+                <p>ReminderFox remembers things so that you don’t have to!</p>
+                <ul class="link"><li><a href="http://www.mozilla.com/en-US/firefox/3.6/reminderfox/">Install ReminderFox Add-on</a></li></ul>
+            </div>
+            <div id="personalize-rockyourfirefox">
+
+                <h3><a href="http://www.rockyourfirefox.com/"><img src="http://www.mozilla.com/img/firefox/3.6/firstrun/rockyourfirefox/title.png" alt="Rock Your Firefox" /></a></h3>
+                <p>Discover new add-ons to brighten your day.</p>
+                <ul class="link"><li><a href="http://www.rockyourfirefox.com/">View Featured Add-ons</a></li></ul>
+            </div>
+        <?php endif ?>
     </div>
-    <div class="sub-feature" id="addons">
-        <h3>Time to Get Personal</h3>
-        <p class="first">There are thousands of totally free ways to customize your Firefox to fit exactly what you like to do online.</p>
-        <p><a href="https://addons.mozilla.org" class="blocklevel">Explore Add-ons</a></p>
-    </div>
-    <div class="clear"></div>
 
 </div>
 
-<p id="follow">Stay connected with Firefox on <a href="http://twitter.com/firefox">Twitter</a> and <a href="http://www.facebook.com/Firefox">Facebook</a></p>
-
-</div>
-
-
-
-        
 
     </div><!-- end #doc -->
+
     </div><!-- end #wrapper -->
 
-    <!-- start #footer -->
-    <div id="footer">
-    <div id="footer-contents">
-    <div id="copyright">
-        <p><strong>Copyright &#169; 2005&#8211;2009 Mozilla.</strong> All rights reserved.</p>
-
-        <p id="footer-links"><a href="http://www.mozilla.com/en-US/privacy-policy.html">Privacy Policy</a> &nbsp;|&nbsp;
-        <a href="http://www.mozilla.com/en-US/about/legal.html">Legal Notices</a></p>
-    </div>
-    </div>
-    </div>
-
-    <!-- end #footer -->
-
-    <script type="text/javascript">
-    /* <![CDATA[ */
-        var re_whatsnew = new RegExp('whatsnew');
-        if ( !re_whatsnew.test(location.pathname)
-                || (new Date()).getSeconds() < 15 ) {
-            var s_code=s.t();if(s_code)document.write(s_code);
-        }
-    /* ]]> */
-    </script>
-    <!-- end SiteCatalyst code version: H.14 -->
-    <script src="http://www.mozilla.com/js/__utm.js" type="text/javascript"></script>
-    <script src="http://www.mozilla.com/js/track.js" type="text/javascript"></script>
+<!--
+    <script type="text/javascript" src="http://www.mozilla.com/includes/min/min.js?g=js_stats"></script>
+<script type="text/javascript">
+//<![CDATA[
+var _tag=new WebTrends({"dcsid":"dcst2y3n900000gohmphe66rf_3o6x","rate":5,"fpcdom":"mozilla.com"});
+_tag.dcsGetId();
+//]]>
+</script>
+<script type="text/javascript">
+//<![CDATA[
+_tag.dcsCollect();
+//]]>
+</script>
+<noscript>
+<div><img alt="DCSIMG" id="DCSIMG" width="1" height="1" src="http://statse.webtrendslive.com/dcso6de4r0000082npfcmh4rf_4b1e/njs.gif?dcsuri=/nojavascript&amp;WT.js=No&amp;WT.tv=8.6.2"/></div>
+</noscript>
     
-
+-->
 </body>
 </html>
