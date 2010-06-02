@@ -183,7 +183,8 @@ class Repack_Model extends ManagedORM
 
                 case 'collections':
                     $data->add_rules('addons_collection_url', 'length[0,255]', 'url');
-                    break;
+                    $data->add_rules('addons_collection_url', 
+                        array($this, 'isValidCollectionURL'));
 
             }
             $is_valid = $data->validate();
@@ -448,6 +449,20 @@ class Repack_Model extends ManagedORM
         if ($taken) {
             $valid->add_error($field, 'short_name_available');
         }
+    }
+
+    /**
+     * Determine whether a given URL is a valid AMO collection.
+     */
+    public function isValidCollectionURL($url)
+    {
+        if (empty($url)) {
+            return true;
+        }
+        if (preg_match('/https?:\/\/addons.mozilla.org\/(.*)collection\/(.*)$/', $url)) {
+            return true;
+        }
+        return false;
     }
 
     
