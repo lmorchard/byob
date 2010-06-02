@@ -51,6 +51,9 @@ form::$errors = array();
         <li><a target="_top" href="<?=url::base()?>forgotpassword">Forgot your password?</a></li>
         <li><a target="_top" href="<?=url::base()?>register">Need an account?</a></li>
     </ul>
+    <?php if ($is_popup): ?>
+        <button id="cancel" class="popup_cancel button large blue">Cancel</button>
+    <?php endif ?>
     <button id="login" class="submit required button large yellow">Login</button>
 </li>
 <?php slot::end() ?>
