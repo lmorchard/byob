@@ -11,10 +11,8 @@
     <script type="text/javascript" src="http://www.mozilla.com/includes/yui/2.5.1/container/container_core-min.js"></script>
         <style type="text/css">
         /* MetaWebPro font family licensed from fontshop.com. WOFF-FTW! */
-        /*
         @font-face { font-family: 'MetaWebPro-Book'; src: url('<?=url::base()?>img/fonts/MetaWebPro-Book.woff') format('woff'); }
         @font-face { font-family: 'MetaWebPro-Bold'; src: url('<?=url::base()?>img/fonts/MetaWebPro-Bold.woff') format('woff'); }
-        */
     </style>
     <link rel="stylesheet" type="text/css" href="http://mozcom-cdn.mozilla.net/style/firefox/3.6/firstrun-page.css" media="screen" />
     <script type="text/javascript" src="http://mozcom-cdn.mozilla.net/js/jquery/jquery.min.js"></script>
