@@ -24,18 +24,25 @@
 <?php endif ?>
 
 <?php if (!empty($no_verified_email)): ?>
-    <p>
-    The account you are attempting to login with has not been activated. In order
-    to use BYOB, you must first activate your account by following the instructions
-    that were sent to the email address associated with that account. If you did
-    not receive this email, please ensure any anti-spam methods will accept mail
-    from byob-notify-noreply@mozilla.com and use the 
-    "Re-send Account Activation Information" button below. If
-    you still do not receive the activation information, please contact us.
-    </p>
-    <form action="<?=url::base().'reverifyemail/'.urlencode($_POST['login_name'])?>" method="POST">
-        <input type="submit" value="Re-send Account Activation Information" />
-    </form>
+    <script type="text/javascript">
+        window.top.location.href="<?=url::base()?>login?show_reverify=<?=urlencode($_POST['login_name'])?>";
+    </script>
+<?php endif ?>
+<?php if (!empty($_GET['show_reverify'])): ?>
+    <div class="warning">
+        <p>
+            The account you are attempting to login with has not been activated. In order
+            to use BYOB, you must first activate your account by following the instructions
+            that were sent to the email address associated with that account. If you did
+            not receive this email, please ensure any anti-spam methods will accept mail
+            from byob-notify-noreply@mozilla.com and use the 
+            "Re-send Account Activation Information" button below. If
+            you still do not receive the activation information, please contact us.
+        </p>
+        <form action="<?=url::base().'reverifyemail/'.urlencode($_GET['show_reverify'])?>" method="POST">
+            <button class="button blue large" type="submit">Re-send Account Activation Information</button>
+        </form>
+    </div>
 <?php endif ?>
 
 <?php 

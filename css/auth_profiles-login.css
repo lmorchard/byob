@@ -5,6 +5,10 @@
 }
 .ctrl_auth_profiles_act_login #content form  {
     padding: 12px;
+    width: 700px;
+}
+.ctrl_auth_profiles_act_login .popup #content form  {
+    width: auto;
 }
 .ctrl_auth_profiles_act_login #content form fieldset {
 }
@@ -32,3 +36,12 @@
 .ctrl_auth_profiles_act_login #content ul.other li:before {
     content: "\00bb";
 }
+.ctrl_auth_profiles_act_login #content div.warning {
+    -moz-border-radius: 8px;
+    -webkit-border-radius: 8px;
+    margin: 0 0 8px 0;
+    padding: 8px 8px 8px 100px;
+    background: url("../img/actions-warning.gif") no-repeat scroll 28px 10px #F9F2C3;
+    border: 1px solid #FCE440;
+}
+
