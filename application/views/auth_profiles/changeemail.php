@@ -7,8 +7,9 @@
     <?= 
     form::build(null, array('class'=>'changeemail'), array(
         form::fieldset('Change email', null, array(
+            form::field('input', 'current_email', 'Current email address', array('value'=>authprofiles::get_login('email'), 'disabled'=>'true')),
             form::field('input', 'new_email', 'New email address', array('class'=>'required')),
-            form::field('submit', 'change', null, array('class'=>'required','value'=>'change email'))
+            form::field('submit_button', 'change', null, array('button_params'=>array('class'=>'button yellow required'),'value'=>'Change email'))
         ))
     )) 
     ?>

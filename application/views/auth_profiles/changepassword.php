@@ -21,7 +21,7 @@
                 form::field('password', 'old_password', 'Old password', array('class'=>'required')) : '',
             form::field('password', 'new_password', 'New password', array('class'=>'required')),
             form::field('password', 'new_password_confirm', 'New password (confirm)', array('class'=>'required')),
-            form::field('submit', 'change', null, array('class'=>'required','value'=>'Change password'))
+            form::field('submit_button', 'change', null, array('button_params'=>array('class'=>'button yellow required'),'class'=>'required','value'=>'Change password'))
         ))
     )) 
     ?>

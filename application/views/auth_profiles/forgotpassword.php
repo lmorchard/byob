@@ -9,7 +9,7 @@
             "<p>Supply either of these pieces of information to recover your password:</p>",
             form::field('input', 'login_name', 'login name', array('class'=>'required')),
             form::field('input', 'email', 'email address', array('class'=>'required')),
-            form::field('submit', 'forgot', null, array('class'=>'required','value'=>'forgot password'))
+            form::field('submit_button', 'forgot', null, array('button_params'=>array('class'=>'button yellow required'),'class'=>'required','value'=>'Forgot password'))
         ))
     )) 
     ?>

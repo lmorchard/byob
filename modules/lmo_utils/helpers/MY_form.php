@@ -154,6 +154,21 @@ class form extends form_Core
                     @$params['value'], $value, false
                 );
 
+            } else if ('submit_button' == $type) {
+
+                $content = $params['value'];
+                unset($params['value']);
+
+                $button_params = isset($params['button_params']) ?
+                    $params['button_params'] : array();
+                unset($params['button_params']);
+
+                $field = join(array(
+                    '<button', html::attributes($button_params) ,'>',
+                    html::specialchars($content),
+                    '</button>'
+                ));
+
             } else if ('dropdown' == $type || 'select' == $type) {
 
                 // HACK: Keeps 'options' out of HTML attributes
@@ -187,7 +202,10 @@ class form extends form_Core
                 // Dynamic dispatch to other form::* static helpers.
                 $field = call_user_func(
                     array('form', $type), 
-                    array('name' => $name, 'class' => join(' ', $classes)),
+                    array_merge(array(
+                        'name' => $name, 
+                        'class' => join(' ', $classes)
+                    ), $params),
                     $value, '', false
                 );
 

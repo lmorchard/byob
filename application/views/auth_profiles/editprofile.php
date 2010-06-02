@@ -86,7 +86,7 @@
         (!$profile->checkPrivilege('edit_roles')) ? '' :
             form::fieldset('Roles', array(), array( slot::get('roles') )),
         form::fieldset('finish', array('class'=>'finish'), array(
-            form::field('submit', 'details', null, array('class'=>'required','value'=>'Update')),
+            form::field('submit_button', 'details', null, array('button_params'=>array('class'=>'button yellow required'),'class'=>'required','value'=>'Update')),
         ))
     ));
 ?>

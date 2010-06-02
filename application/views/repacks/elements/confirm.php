@@ -24,8 +24,8 @@
                 <textarea name="comments" id="comments" cols="50" rows="7"></textarea>
             <p>
                 Are you sure?
-                <button name="confirm" id="confirm" value="yes">yes</button>  /  
-                <button name="cancel" id="cancel" value="no">no</button> 
+                <button class="button yellow large" name="confirm" id="confirm" value="yes">Yes, confirm.</button>  
+                <button class="button blue large" name="cancel" id="cancel" value="no">No, cancel.</button> 
             </p>
         </fieldset>
     </form>
