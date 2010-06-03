@@ -65,13 +65,13 @@
     line-height: 20px;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.win32 a {
-    background: transparent url(http://www.mozilla.com/img/ico-win.png) no-repeat 0 0;
+    background: transparent url(../img/ico-win.png) no-repeat 0 0;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.mac a {
-    background: transparent url(http://www.mozilla.com/img/ico-osx-uni.png) no-repeat 0 0;
+    background: transparent url(../img/ico-osx-uni.png) no-repeat 0 0;
 }
 .ctrl_repacks_act_view table.downloads tbody tr td.linux a {
-    background: transparent url(http://www.mozilla.com/img/ico-tux.png) no-repeat 0 0;
+    background: transparent url(../img/ico-tux.png) no-repeat 0 0;
 }
 
 .ctrl_repacks_act_view #history ul {

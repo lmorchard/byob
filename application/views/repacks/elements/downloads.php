@@ -56,6 +56,7 @@ $files = (!$repack->checkPrivilege('download')) ?
         <?php $idx = 0; ?>
         <?php foreach ($downloads as $locale=>$files): ?>
             <?php if ('ja-JP-mac' == $locale) continue; ?>
+            <?php if ('ja' == $locale) continue; ?>
             <tr class="<?= ($idx % 2) == 0 ? 'even' : 'odd' ?>">
                 <td class="locale">
                     <?=html::specialchars($locale_choices[$locale]['English'])?>
