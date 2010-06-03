@@ -1,3 +1,73 @@
 /**
  * Standalone styles for the first run pages
  */
+#infobar {
+    z-index: 999;
+    background: #555;
+    background: -moz-linear-gradient(-90deg, #666, #333) no-repeat;
+    color: #fff;
+    position: absolute;
+    left: 0; right: 0;
+    border-top: #777 1px solid;
+    border-bottom: #333 1px solid;
+    height: 30px;
+    font-family: sans-serif, Arial;
+    font-weight: bold;
+    font-size: 12px;
+}
+#infobar .message,
+#infobar .message:hover {
+    display: block;
+    position: absolute;
+    color: #fff;
+    text-decoration: none;
+    top: 6px;
+    left: 8px;
+}
+#infobar .message:before {
+    display: block;
+    float: left;
+    content: "i";
+    color: #555;
+    background: #fff;
+    width: 15px;
+    font-size: 13px;
+    font-weight: bold;
+    margin: -1px 7px 0 0;
+    -moz-border-radius: 13px;
+}
+#infobar .action {
+    display: block;
+    background: #fff;
+    background: -moz-linear-gradient(-90deg, #fff, #ccc) no-repeat;
+    -moz-box-shadow: 0 1px 2px #666999;
+    color: #000;
+    position: absolute;
+    top: 5px;
+    right: 26px;
+    border: #333 1px solid;
+    -moz-border-radius: 10px;
+    font-size: 11.75px;
+    font-weight: normal;
+    padding: 1px 1em 1px 1em;
+    text-decoration: none;
+}
+#infobar .close {
+    display: block;
+    width: 12px;
+    height: 10px;
+    -moz-border-radius: 12px;
+    background: #333;
+    -moz-box-shadow: 0 1px 0px #aaa;
+    text-shadow: 0 -1px 0px #aaa;
+    color: #555;
+    position: absolute;
+    top: 6px;
+    right: 6px;
+    border: #444 1px solid;
+    font-family: sans-serif;
+    font-size: 12px;
+    font-weight: normal;
+    text-decoration: none;
+    padding: 0 0 2px 0; margin: 0px;
+}

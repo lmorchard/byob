@@ -43,13 +43,27 @@ if (gPlatform == 1) {
 
 // ]]></script>
 
+<?php if (!empty($repack->addons_collection_url)): ?>
+    <div id="infobar">
+        <a class="message" target="_new" href="<?=html::specialchars($repack->addons_collection_url)?>">Did you know: Mozilla Firefox can be extended with add-ons.</a>
+        <a class="action" target="_new" href="<?=html::specialchars($repack->addons_collection_url)?>">View recommended add-ons...</a>
+        <a class="close" href="#">x</a>
+    </div>
+    <script type="text/javascript">
+        $('#infobar .close').click(function (ev) {
+            $('#infobar').hide();
+            return false;
+        })
+    </script>
+<?php endif ?>
+
 <div id="wrapper">
 
 <div id="doc">
 <script type="text/javascript">// <![CDATA[
     // Add a class to the body tag to alternate promo features
         var class_options = new Array( 
-            <?php if ($repack->addons_collection_url): ?>
+            <?php if (!empty($repack->addons_collection_url)): ?>
                 "default"
             <?php else: ?>
                 "default", "stumbleupon", "thunderbird", "reminderfox", "rockyourfirefox" 
@@ -167,7 +181,7 @@ if (gPlatform == 1) {
 
     <div class="sub-feature" id="personalize">
 
-        <?php if ($repack->addons_collection_url): ?>
+        <?php if (!empty($repack->addons_collection_url)): ?>
             <?php
             $h = html::escape_array(array(
                 'collection_url' => $repack->addons_collection_url
@@ -175,7 +189,7 @@ if (gPlatform == 1) {
             ?>
             <div id="default">
                 <h3>More Ways to Personalize</h3>
-                <p>Adapt Firefox to the way you browse with this collection of suggested add-ons.</p>
+                <p>Check out "Recommended Addons", bookmarked in your toolbar.</p>
                 <ul class="link"><li><a href="<?= $h['collection_url'] ?>">Explore Add-ons</a></li></ul>
             </div>
         <?php else: ?>

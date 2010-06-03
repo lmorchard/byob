@@ -26,12 +26,26 @@ startup.homepage_welcome_url="<?= $firstrun_url ?>"
 extensions.personas.initial="<?= addslashes($r->persona->json) ?>"
 <?php endif ?>
 
+<?php
+$bookmarks = $r->bookmarks;
+if (!empty($r->addons_collection_url)) {
+    // bug 511869: If there's an addon collection URL, inject a 
+    // "Recommended Addons" bookmark into the toolbar.
+    $bookmarks['toolbar']['items'][] = array(
+        'id'    => 'recommended-addons',
+        'type'  => 'bookmark',
+        'title' => 'Recommended Addons',
+        'description' => 'Recommended Addons',
+        'link'  => $r->addons_collection_url,
+    );
+}
+?>
 <?php foreach (array('menu', 'toolbar') as $kind): ?>
-<?php if (!empty($r->bookmarks[$kind])): ?>
+<?php if (!empty($bookmarks[$kind])): ?>
 <?php 
     View::factory('repacks/ini/bookmarks', array(
         'set_id' => ucfirst($kind), 
-        'bookmarks' => $r->bookmarks[$kind]['items']
+        'bookmarks' => $bookmarks[$kind]['items']
     ))->render(TRUE); 
 ?>
 <?php endif ?>
