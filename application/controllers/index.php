@@ -29,7 +29,9 @@ class Index_Controller extends Local_Controller
         $this->view->latest_repacks = ORM::factory('repack')
             ->whereReleased()
             ->where('is_public', '1')
-            ->find_all(10);
+            ->orderby('modified', 'desc')
+            ->find_all(10)
+            ;
     }
 
     /**

@@ -284,6 +284,44 @@ class Repacks_Controller extends Local_Controller
 
 
     /**
+     * Reveal a repack in public views.
+     */
+    public function makepublic()
+    {
+        $repack = $this->_getRequestedRepack();
+        if (!$repack->checkPrivilege('makepublic')) 
+            return Event::run('system.403');
+
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $repack->is_public = true;
+                $repack->save();
+            }
+            return url::redirect($repack->url);
+        }
+        $this->view->repack = $repack;
+    }
+
+    /**
+     * Hide a repack from public views.
+     */
+    public function makeprivate()
+    {
+        $repack = $this->_getRequestedRepack();
+        if (!$repack->checkPrivilege('makeprivate')) 
+            return Event::run('system.403');
+
+        if ('post' == request::method()) {
+            if (isset($_POST['confirm'])) {
+                $repack->is_public = false;
+                $repack->save();
+            }
+            return url::redirect($repack->url);
+        }
+        $this->view->repack = $repack;
+    }
+
+    /**
      * Request a new browser release
      */
     public function release()

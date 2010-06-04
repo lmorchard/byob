@@ -7,7 +7,7 @@ $h = html::escape_array(array_merge(
 ));
 $privs = $repack->checkPrivileges(array(
     'view', 'view_history', 'edit', 'delete', 'download', 'release',
-    'see_failed',
+    'see_failed', 'makepublic', 'makeprivate',
     'revert', 'approve', 'auto_approve', 'reject', 'cancel', 'begin',
     'finish', 'fail', 'distributionini', 'repackcfg', 'repacklog',
     'repackjson'
@@ -21,6 +21,10 @@ if ($repack->isRelease()) {
         $actions[';edit'] = "Change details";
     if ($privs['revert'])
         $actions[';revert'] = "Take down release";
+    if ($privs['makepublic'] && !$repack->is_public)
+        $actions[';makepublic'] = "Show in public lists";
+    if ($privs['makeprivate'] && $repack->is_public)
+        $actions[';makeprivate'] = "Hide from public lists";
 
 } else { 
 

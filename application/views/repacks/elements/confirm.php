@@ -18,12 +18,11 @@
                     <?=slot::get('preamble')?>
                 </div>
             <?php endif ?>
-            <p>
-                Comments:
-            </p>
+            <?php if (!isset($comments) || !!$comments): ?>
+                <p>Comments:</p>
                 <textarea name="comments" id="comments" cols="50" rows="7"></textarea>
+            <?php endif ?>
             <p>
-                Are you sure?
                 <button class="button yellow large" name="confirm" id="confirm" value="yes">Yes, confirm.</button>  
                 <button class="button blue large" name="cancel" id="cancel" value="no">No, cancel.</button> 
             </p>

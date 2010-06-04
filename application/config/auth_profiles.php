@@ -58,6 +58,7 @@ $config['acls'] = $acls
         'view_own_history', 'view_own_changes',
         'edit_own', 'delete_own', 
         'release_own', 'revert_own', 'cancel_own',
+        'makepublic_own', 'makeprivate_own',
         'locale_selection',
         'addon_management', 
     ))
@@ -71,6 +72,7 @@ $config['acls'] = $acls
         'distributionini', 'repackcfg', 'repacklog', 'repackjson',
         'edit', 'delete', 'release', 
         'revert', 'approve', 'reject', 
+        'makepublic', 'makeprivate',
         'download_unreleased', 
         'edit_distribution_ini',
         'addon_management_xpi_upload'

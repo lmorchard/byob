@@ -665,6 +665,14 @@ class Repack_Model extends ManagedORM
                 return authprofiles::is_allowed('repacks', 'cancel') ||
                     ($own && authprofiles::is_allowed('repacks', 'cancel_own'));
 
+            case 'makepublic':
+                return authprofiles::is_allowed('repacks', 'makepublic') ||
+                    ($own && authprofiles::is_allowed('repacks', 'makepublic_own'));
+
+            case 'makeprivate':
+                return authprofiles::is_allowed('repacks', 'makeprivate') ||
+                    ($own && authprofiles::is_allowed('repacks', 'makeprivate_own'));
+
             default:
                 return authprofiles::is_allowed('repacks', $priv);
 
