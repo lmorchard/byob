@@ -23,7 +23,7 @@
                 top.jQuery('iframe#tab-extensions-upload').height(f_height);
         };
         window.adjustHeight();
-        if (top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane)
+        if (top.BYOB_Repacks_Edit_AddonManagement && top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane)
             top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane();
         //$(document).ready(window.adjustHeight);
     </script>
