@@ -167,18 +167,10 @@ class Repacks_Controller extends Local_Controller
             $form_data, ('post' == request::method()), $section
         );
 
-        $addons = Model::factory('addon')->find_all();
-        $addons_by_id = array();
-        foreach ($addons as $addon) {
-            $addons_by_id[$addon->id] = $addon;
-        }
-
         $this->view->set_global(array(
             'repack'       => $rp,
             'section'      => $section,
             'editor'       => $editor,
-            'addons'       => $addons,
-            'addons_by_id' => $addons_by_id,
             'form_data'    => $form_data,
             'show_review'  => $this->input->get('show_review', 'false')
         ));

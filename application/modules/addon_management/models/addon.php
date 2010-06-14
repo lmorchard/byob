@@ -50,20 +50,6 @@ class Addon_Model extends Model
             Kohana::config('addon_management.collections_password');
     }
 
-    /**
-     * Return all known addons.
-     *
-     * @return array
-     */
-    public function find_all()
-    {
-        $addons = array();
-        foreach ($this->_known as $id=>$details) {
-            $addons[] = $this->find($id);
-        }
-        return $addons;
-    }
-
     /** 
      * Fetch a set of addons by collection name (using API)
      *

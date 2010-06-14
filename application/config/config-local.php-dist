@@ -44,16 +44,29 @@ $config['recaptcha.domain_name'] = 'localhost';
 $config['recaptcha.public_key']  = 'foo';
 $config['recaptcha.private_key'] = 'foo';
 
-$config['addon_management.collections_username'] =
-    'SOME_USERNAME_HERE';
-$config['addon_management.collections_password'] =
-    'SOME_PASSWORD';
+$config['addon_management.popular_extension_ids'] = array(
+    '13661',
+    '9924',
+    '3863',
+    '2108',
+    '271',
+    '590',
+    '748',
+    '684',
+    '60',
+    '1843',
+    '2464',
+);
 
-$config['addon_management.collection_popular_name'] =
-    'BYOB Popular Extensions';
-$config['addon_management.collection_searchengines_name'] =
-    'BYOB Search Engines';
-$config['addon_management.collection_personas_name'] =
-    'BYOB Personas';
-$config['addon_management.collection_themes_name'] =
-    'BYOB Themes';
+// See: https://addons.mozilla.org/en-US/firefox/personas/
+$config['addon_management.popular_personas_urls'] = array(
+    'https://addons.mozilla.org/en-US/firefox/persona/29974',
+    'https://addons.mozilla.org/en-US/firefox/persona/15114',
+    'https://addons.mozilla.org/en-US/firefox/persona/15131',
+    'https://addons.mozilla.org/en-US/firefox/persona/61916',
+    'https://addons.mozilla.org/en-US/firefox/persona/17848',
+    'https://addons.mozilla.org/en-US/firefox/persona/94252',
+);
+
+$config['addon_management.popular_theme_ids'] = array(
+);
