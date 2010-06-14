@@ -62,7 +62,7 @@
                         'filename'  => $plugin->filename
                     ));
                 ?>
-                <li class="searchengine">
+                <li class="searchengine"><a href="#" class="remove_link">
                     <label class="icon" for="searchplugin_ids-<?=$idx?>">
                         <img src="<?=$e['icon']?>" alt="<?=$e['name']?>" 
                             width="16" height="16" />
@@ -76,7 +76,7 @@
                             <button name="submit" class="remove">Remove</button>
                         </form>
                     </label>
-                </li>
+                </a></li>
             <?php endforeach ?>
         </ul>
     <?php endif ?>

@@ -45,18 +45,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
          * Set up the list of uploads in iframes for hover and removal.
          */
         wireUpUploads: function () {
-            $('.upload_form ul.uploads')
-                // Mouseover should reveal the hover hints on items.
-                .bind('mouseover', function (ev) {
-                    var target = $(ev.target);
-                    if (target.hasClass('name')) {
-                        target = target.parent();
-                    }
-                    if (/li/i.test(target.attr('tagName'))) {
-                        $('ul.uploads li').removeClass('hover');
-                        target.addClass('hover');
-                    }
-                })
+            $('.upload_form ul.uploads');
         },
 
         /**

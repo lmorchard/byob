@@ -53,7 +53,7 @@
     <?php if (!empty($extensions)): ?>
         <ul class="uploads">
             <?php foreach ($extensions as $extension): ?>
-                <li class="xpi">
+                <li class="xpi"><a href="#" class="remove_link">
                     <span class="name"><?= html::specialchars($extension->name) ?></span>
                     <span class="version"><?= html::specialchars($extension->version) ?></span>
                     <form class="delete" method="POST" enctype="multipart/form-data">
@@ -62,7 +62,7 @@
                             value="<?= html::specialchars(basename($extension->xpi_fn)) ?>" />
                         <button name="submit" class="remove">Remove</button>
                     </form>
-                </li>
+                </a></li>
             <?php endforeach ?>
         </ul>
     <?php endif ?>

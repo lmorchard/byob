@@ -373,8 +373,15 @@ fieldset.divider {
     list-style: disc;
     margin: 0.5em 0 0.5em 0;
 }
-.repack_upload_iframe .upload_form .uploads li.hover .name,
-.repack_upload_iframe .upload_form .uploads li.hover .version {
+.repack_upload_iframe .upload_form .uploads li a {
+    color: #333;
+}
+.repack_upload_iframe .upload_form .uploads li a:hover {
+    text-decoration: none;
+    color: #333;
+}
+.repack_upload_iframe .upload_form .uploads li a:hover .name,
+.repack_upload_iframe .upload_form .uploads li a:hover .version {
     text-decoration: line-through;
 }
 .repack_upload_iframe form.delete {
@@ -392,6 +399,6 @@ fieldset.divider {
     cursor: pointer;
     visibility: hidden;
 }
-.repack_upload_iframe .hover form.delete button.remove {
+.repack_upload_iframe li a:hover form.delete button.remove {
     visibility: visible;
 }
