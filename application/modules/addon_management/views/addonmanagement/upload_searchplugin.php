@@ -23,6 +23,8 @@
                 top.jQuery('iframe#tab-searchplugins-upload').height(f_height);
         };
         window.adjustHeight();
+        if (top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane)
+            top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane();
         //$(document).ready(window.adjustHeight);
     </script>
 <?php slot::end() ?>
@@ -53,10 +55,11 @@
             <?php foreach ($search_plugins as $idx=>$plugin): ?>
                 <?php
                     $e = html::escape_array(array(
-                        'id'        =>$idx,
+                        'id'        => $idx,
                         'icon'      => $plugin->getIconUrl(),
                         'name'      => $plugin->ShortName,
                         'summary'   => $plugin->Description,
+                        'filename'  => $plugin->filename
                     ));
                 ?>
                 <li class="searchengine">
@@ -66,6 +69,12 @@
                     </label>
                     <label class="meta" for="searchplugin_ids-<?=$idx?>">
                         <span class="name"><?=$e['name']?></span>
+                        <form  class="delete" method="POST" enctype="multipart/form-data">
+                            <input type="hidden" name="method" value="delete" />
+                            <input type="hidden" name="searchplugin_fn" 
+                                value="<?= $e['filename'] ?>" />
+                            <button name="submit" class="remove">Remove</button>
+                        </form>
                     </label>
                 </li>
             <?php endforeach ?>

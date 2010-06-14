@@ -34,7 +34,18 @@ class Addonmanagement_Controller extends Local_Controller
 
         $errors = array();
 
-        if ('post' == request::method()) {
+        if ('delete' == $this->input->post('method')) {
+
+            $delete_xpi_fn = $this->input->post('xpi_fn');
+            $xpi_files = glob("{$xpi_dir}/*.xpi");
+            foreach ($xpi_files as $xpi_fn) {
+                if (basename($xpi_fn) == $delete_xpi_fn) {
+                    unlink($xpi_fn);
+                    break;
+                }
+            }
+
+        } else if ('post' == request::method()) {
 
             if (empty($_FILES['xpi_upload']['tmp_name'])) {
                 $errors[] = 'No XPI upload available';
@@ -102,7 +113,18 @@ class Addonmanagement_Controller extends Local_Controller
 
         $errors = array();
 
-        if ('post' == request::method()) {
+        if ('delete' == $this->input->post('method')) {
+
+            $delete_fn = $this->input->post('searchplugin_fn');
+            $sp_files = glob("{$sp_dir}/*.xml");
+            foreach ($sp_files as $sp_fn) {
+                if (basename($sp_fn) == $delete_fn) {
+                    unlink($sp_fn);
+                    break;
+                }
+            }
+
+        } else if ('post' == request::method()) {
 
             if (empty($_FILES['sp_upload']['tmp_name'])) {
                 $errors[] = 'Search plugin upload must be of type text/xml';
@@ -143,6 +165,7 @@ class Addonmanagement_Controller extends Local_Controller
         foreach ($sp_files as $fn) {
             $xml = file_get_contents($fn);
             $plugin = Model::factory('searchplugin')->loadFromXML($xml);
+            $plugin->filename = basename($fn);
             $search_plugins[] = $plugin;
         }
 

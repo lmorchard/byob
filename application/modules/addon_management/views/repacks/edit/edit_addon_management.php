@@ -94,7 +94,8 @@ $selected_persona_url_hash = md5($selected_persona_url);
                                     width="32" height="32" />
                             </label>
                             <div class="meta">
-                            <span class="name"><?=$e['name']?> <?=$e['version']?></span>
+                                <span class="name"><?=$e['name']?></span>
+                                <span class="version"><?=$e['version']?></span>
                                 <p class="summary"><?=$e['summary']?></p>
                                 <a target="new" href="<?=$e['learnmore']?>" class="learn">Learn more...</a>
                             </div>

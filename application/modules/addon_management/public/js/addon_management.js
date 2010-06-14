@@ -29,6 +29,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
          */
         onready: function () {
 
+            $this.wireUpUploads();
             $this.wireUpSelectionsPane();
             $this.updateSelectionsPane();
             $this.setupPrettyUploads();
@@ -38,6 +39,24 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
             $('.personas li input').click(function () {
                 $('.persona_url').val('');
             });
+        },
+
+        /**
+         * Set up the list of uploads in iframes for hover and removal.
+         */
+        wireUpUploads: function () {
+            $('.upload_form ul.uploads')
+                // Mouseover should reveal the hover hints on items.
+                .bind('mouseover', function (ev) {
+                    var target = $(ev.target);
+                    if (target.hasClass('name')) {
+                        target = target.parent();
+                    }
+                    if (/li/i.test(target.attr('tagName'))) {
+                        $('ul.uploads li').removeClass('hover');
+                        target.addClass('hover');
+                    }
+                })
         },
 
         /**
@@ -108,21 +127,48 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
         },
 
         /**
-         * Remove the given selection by reversing the choice in the UI.
+         * Remove the given selection as appropriate to its particular type.
          */
         removeSelection: function (item) {
             var idx = item.attr('data-selection-index'),
                 choice = $this._selections_map[idx];
 
             if (item.hasClass('theme')) {
+
+                // Click the no-theme selection.
                 $('#theme_id_none').click();
+
             } else if (item.hasClass('persona')) {
+
+                // Click the no-persona selection.
                 $('#persona_id_none').click();
+
             } else if (item.hasClass('extensionUpload')) {
+
+                // HACK: Temporarily switch to extensions tab, submit form 
+                // to delete the extension, switch back to the original tab.
+                // Leaving the iframe hidden seems to prevent form submission.
+                var old = $('ul.sub-tabs li.selected a');
+                $('ul.sub-tabs li a[href=#tab-extensions]').click();
+                choice.find('form.delete button').click();
+                old.click();
+
             } else if (item.hasClass('searchpluginUpload')) {
+
+                // HACK: Temporarily switch to search engines tab, submit form
+                // to delete the extension, switch back to the original tab.
+                // Leaving the iframe hidden seems to prevent form submission.
+                var old = $('ul.sub-tabs li.selected a');
+                $('ul.sub-tabs li a[href=#tab-searchengines]').click();
+                choice.find('form.delete button').click();
+                old.click();
+
             } else {
-                choice.find('input:checkbox')
-                    .attr('checked', false);
+
+                // All other add-on types can be de-selected by un-checking 
+                // the appropriate element.
+                choice.find('input:checkbox').attr('checked', false);
+
             }
 
             $this.updateSelectionsPane();
@@ -147,7 +193,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     tmpl.cloneTemplate({
                         '@class': 'extensionUpload',
                         '@data-selection-index': $this._selections_map.length - 1,
-                        '.name': item.text()
+                        '.name': item.find('.name').text()
                     }).appendTo(list);
                 });
 
@@ -169,7 +215,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     tmpl.cloneTemplate({
                         '@class': 'searchpluginUpload',
                         '@data-selection-index': $this._selections_map.length - 1,
-                        '.name': item.text()
+                        '.name': item.find('.name').text()
                     }).appendTo(list);
                 });
 

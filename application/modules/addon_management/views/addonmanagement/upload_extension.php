@@ -23,6 +23,8 @@
                 top.jQuery('iframe#tab-extensions-upload').height(f_height);
         };
         window.adjustHeight();
+        if (top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane)
+            top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane();
         //$(document).ready(window.adjustHeight);
     </script>
 <?php slot::end() ?>
@@ -52,9 +54,14 @@
         <ul class="uploads">
             <?php foreach ($extensions as $extension): ?>
                 <li class="xpi">
-                    <?= html::specialchars($extension->name) ?>
-                    <?= html::specialchars($extension->version) ?>
-                    <!-- (<?= html::specialchars(basename($extension->xpi_fn)) ?>) -->
+                    <span class="name"><?= html::specialchars($extension->name) ?></span>
+                    <span class="version"><?= html::specialchars($extension->version) ?></span>
+                    <form class="delete" method="POST" enctype="multipart/form-data">
+                        <input type="hidden" name="method" value="delete" />
+                        <input type="hidden" name="xpi_fn" 
+                            value="<?= html::specialchars(basename($extension->xpi_fn)) ?>" />
+                        <button name="submit" class="remove">Remove</button>
+                    </form>
                 </li>
             <?php endforeach ?>
         </ul>
