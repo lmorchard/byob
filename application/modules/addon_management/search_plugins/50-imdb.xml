@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <!-- Created by Mycroft Project on Fri, 13 Oct 2006 02:20:02 GMT -->
+  <ShortName>IMDb</ShortName>
+  <Description>IMDb - The Internet Movie Database</Description>
+  <Url type="text/html" method="get" template="http://www.imdb.com/find?s=all&amp;q={searchTerms}"/>
+  <Image width="16" height="16">http://mycroft.mozdev.org/updateos.php/id0/IMDb.ico</Image>
+  <InputEncoding>ISO-8859-1</InputEncoding>
+  <moz:SearchForm>http://www.imdb.com/Find</moz:SearchForm>
+  <moz:UpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/IMDb.xml</moz:UpdateUrl>
+  <moz:IconUpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/IMDb.ico</moz:IconUpdateUrl>
+  <moz:UpdateInterval>7</moz:UpdateInterval>
+</OpenSearchDescription>

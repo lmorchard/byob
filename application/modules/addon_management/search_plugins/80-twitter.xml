@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <!-- Created on Wed, 16 Jul 2008 00:28:39 GMT -->
+  <ShortName>Twitter</ShortName>
+  <Description>Search in Twitter</Description>
+  <Url type="text/html" method="get" template="http://search.twitter.com/search?q={searchTerms}"/>
+  <Image width="16" height="16">http://mycroft.mozdev.org/updateos.php/id0/twittersearch.ico</Image>
+  <Developer>Paranoideo</Developer>
+  <InputEncoding>UTF-8</InputEncoding>
+  <moz:SearchForm>http://search.twitter.com/</moz:SearchForm>
+  <moz:UpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/twittersearch.xml</moz:UpdateUrl>
+  <moz:IconUpdateUrl>http://mycroft.mozdev.org/updateos.php/id0/twittersearch.ico</moz:IconUpdateUrl>
+  <moz:UpdateInterval>7</moz:UpdateInterval>
+</OpenSearchDescription>
