@@ -44,8 +44,9 @@ $selected_persona_url_hash = md5($selected_persona_url);
         <fieldset><legend>Selected add-ons:</legend>
             <ul class="addon-selections clearfix">
                 <li class="template" data-selection-index="">
-                    <span class="name"></span>
-                    <a href="#" class="remove">Remove</a>
+                    <a href="#" class="remove_link">
+                        <span class="name"></span><span class="remove">Remove</a>
+                    </a>
                 </li>
             </ul>
         </fieldset>

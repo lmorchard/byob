@@ -94,21 +94,12 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 .click($this.updateSelectionsPane);
 
             $('.selections')
-                // Mouseover should reveal the hover hints on items.
-                .bind('mouseover', function (ev) {
-                    var target = $(ev.target);
-                    if (target.hasClass('name')) {
-                        target = target.parent();
-                    }
-                    if (/li/i.test(target.attr('tagName'))) {
-                        $('.selections li').removeClass('hover');
-                        target.addClass('hover');
-                    }
-                })
-                // Click on the remove link should trigger removal.
+                // Delegated click on the remove link should trigger removal.
                 .bind('click', function (ev) {
                     var target = $(ev.target);
-                    if (target.hasClass('remove')) {
+                    if (target.parent().hasClass('remove_link'))
+                        target = target.parent();
+                    if (target.hasClass('remove_link')) {
                         var item = target.parent();
                         $this.removeSelection(item);
                     }
