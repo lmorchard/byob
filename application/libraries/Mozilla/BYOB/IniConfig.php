@@ -31,6 +31,57 @@ class Mozilla_BYOB_IniConfig extends Zend_Config_Ini
     }
 
     /**
+     * Given an original INI, overlay a second on top of it
+     *
+     * @param   string|array $ini1 Original INI string or config array
+     * @param   string|array $ini2 Overlay INI string or config array
+     * @returns string
+     */
+    public static function mergeINIs($ini1, $ini2) {
+
+        $merged_conf = new Zend_Config(array(), true);
+
+        // Start merging the INIs, retaining comments for a header.
+        $comments = array();
+        foreach (array($ini1, $ini2) as $ini) {
+            if (is_array($ini)) {
+                $conf = new Zend_Config($ini, true);
+            } elseif (is_string($ini)) {
+                // Split up the lines of this INI and retain comments.
+                $lines = preg_split('/\n\r?/', $ini);
+                foreach ($lines as $line) {
+                    if (substr($line, 0, 1) == ';') { $comments[] = $line; }
+                }
+                // Parse the INI and merge into the accumlator conf
+                $conf = Mozilla_BYOB_IniConfig::fromString($ini);
+            } else {
+                $conf = null;
+            }
+            if (!empty($conf)) {
+                $merged_conf->merge($conf);
+            }
+        }
+
+        // Sections with "Preferences" or "LocalizablePreferences" need to be 
+        // quoted for JS in Firefox
+        $sections = array_keys($merged_conf->toArray());
+        $quoted = array( 'Preferences' );
+        foreach ($sections as $section) {
+            if (strpos($section, 'LocalizablePreferences') !== false) {
+                $quoted[] = $section;
+            }
+        }
+
+        // Render the merged INI and restore retained comments at the top
+        $writer = new Mozilla_BYOB_IniWriter(array(
+            'config' => $merged_conf,
+            'quotedValueSectionNames' => $quoted
+        ));
+        $merged_ini = implode("\n", $comments) . "\n\n" . $writer->render();
+        return $merged_ini;
+    }
+
+    /**
      * Load the INI file from disk using a liberal PHP-based parser.
      * 
      * @param string $filename

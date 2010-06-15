@@ -17,6 +17,7 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
         'repacks/edit/review_addon_management';
     
     public $assets_dir = '';
+    public $personas_extension_id = '10900';
     /** }}} */
 
     /**
@@ -28,10 +29,15 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
 
         Event::add('BYOB.builds.perform.afterConfig',
             array($self, 'prepareBuild'));
+        Event::add('BYOB.repack.buildDistributionIni',
+            array($self, 'filterDistributionIni'));
 
         // TODO: Move this into config?
         $self->assets_dir = 
             dirname(__FILE__) . '/../../../../repack_assets';
+
+        $self->personas_extension_id =
+            Kohana::config('addon_management.personas_extension_id');
 
         return $self;
     }
@@ -209,6 +215,27 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
     }
 
     /**
+     * Add anything necessary to the distribution INI
+     */
+    public function filterDistributionIni() {
+        $repack = Event::$data['repack'];
+        $managed_addons = $repack->managed_addons;
+
+        if (!empty($managed_addons['persona_url'])) {
+            $persona = Model::factory('persona')
+                ->find_by_url($managed_addons['persona_url']);
+            Event::$data['output'] = Mozilla_BYOB_IniConfig::mergeINIs(
+                Event::$data['output'], array(
+                    'Preferences' => array(
+                        'extensions.personas.initial' => 
+                            '"'.addslashes($persona->json).'"'
+                    ) 
+                )
+            );
+        }
+    }
+
+    /**
      * Do what needs doing before performing a repack build.
      */
     public function prepareBuild()
@@ -223,10 +250,20 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
         if (!empty($repack->managed_addons)) {
 
             $managed_addons = $repack->managed_addons;
+            
+            // If a persona is specified, ensure that the Personas addon is installed.
+            // TODO: Is there a way to specify a persona without the addon?
+            if (!empty($managed_addons['persona_url'])) {
+                $persona = Model::factory('persona')
+                    ->find_by_url($managed_addons['persona_url']);
+                if ($persona->loaded && !in_array($this->personas_extension_id, $managed_addons['extension_ids'])) {
+                    $managed_addons['extension_ids'][] = $this->personas_extension_id;
+                }
+            }
 
             // Copy the repack assets over from our local module directory.
             // (eg. the extension installer extension & friends)
-            if (is_dir($this->assets_dir)) {
+            if (!(empty($managed_addons['extension_ids']) && empty($managed_addons['theme_id'])) && is_dir($this->assets_dir)) {
                 self::recurseCopy($this->assets_dir, "{$repack_dir}");
             }
 

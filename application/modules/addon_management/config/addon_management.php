@@ -13,6 +13,8 @@ $config['collections_username'] =
 $config['collections_password'] =
     'PASSWORD_NEEDS_LOCAL_CONFIG';
 
+$config['personas_extension_id'] = '10900';
+
 $config['popular_extension_ids'] = array(
     '13661',
     '9924',

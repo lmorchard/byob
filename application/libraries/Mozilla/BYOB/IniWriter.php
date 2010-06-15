@@ -9,6 +9,7 @@
 class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
 {
     private $_current_section;
+    private $_current_name;
     private $_quoted_value_section_names = array();
 
     /**
@@ -44,7 +45,7 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
             foreach ($this->_config as $sectionName => $data) {
                 if (!($data instanceof Zend_Config)) {
                     $iniString .= $sectionName
-                               .  '='
+                               .  '=' 
                                .  $this->_prepareValue($data)
                                .  "\n";
                 } else {
@@ -79,8 +80,9 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
             if ($value instanceof Zend_Config) {
                 $iniString .= $this->_addBranch($value, $group);
             } else {
-                $iniString .= implode($this->_nestSeparator, $group)
-                           .  '='
+                $this->_current_name = implode($this->_nestSeparator, $group);
+                $iniString .= $this->_current_name 
+                           .  '=' 
                            .  $this->_prepareValue($value)
                            .  "\n";
             }
@@ -100,6 +102,9 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
         if (is_bool($value)) {
             return ($value ? 'true' : 'false');
         } elseif (is_integer($value) || is_float($value)) {
+            return $value;
+        } elseif ('extensions.personas.initial' == $this->_current_name) {
+            // HACK: This particular key is always JSON and specially not-quoted
             return $value;
         } elseif (in_array($this->_current_section, $this->_quoted_value_section_names)) {
             $value = str_replace('"', '\"', $value);
