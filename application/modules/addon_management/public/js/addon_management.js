@@ -109,7 +109,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                         target = target.parent();
                     if (target.hasClass('remove_link')) {
                         var item = target.parent();
-                        $this.removeSelection(item);
+                        return $this.removeSelection(item);
                     }
                 });
 
@@ -161,6 +161,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
             }
 
             $this.updateSelectionsPane();
+            return false;
         },
 
         /**
