@@ -142,17 +142,7 @@ class Profile_Model extends Auth_Profile_Model
             ->pre_filter('trim')
             ->add_rules('first_name', 'required', 'valid::standard_text')
             ->add_rules('last_name', 'required')
-            ->add_rules('phone', 'required')
-            ->add_rules('website', 'url')
-            ->add_rules('address_1', 'required')
-            ->add_rules('city', 'required')
-            ->add_rules('state', 'required')
-            ->add_rules('zip', 'required')
-            ->add_rules('country', 'required')
             ;
-        if ($data['is_personal'] != 1) {
-            $data->add_rules('org_name', 'required');
-        }
         return $this->validate($data, $save);
     }
 
