@@ -9,3 +9,6 @@
 .ctrl_auth_profiles_act_editprofile #content form ul.fields li label {
     width: 24ex;
 }
+.ctrl_auth_profiles_act_editprofile #content form ul.roles li.field input {
+    margin-top: 0.5em;
+}
