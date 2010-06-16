@@ -209,32 +209,35 @@
     display: inline;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas {
+    margin: 1em 0 0 0;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li {
     float: left;
-    width: 140px;
+    width: 215px;
     margin: 0 0 1em 0.25em;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li input {
     float: left;
     display: block;
-    margin: 1em 0.5em 0 0.25em;    
+    margin: 0.5em 0.5em 0 0.25em;    
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label {
     float: left;
     display: block;
-    width: 110px;
-    height: 40px;
+    width: 185px;
+    height: 27px;
+    border: 1px solid #aaa;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label.none {
-    line-height: 36px;
-    height: 36px;
+    line-height: 25px;
+    height: 25px;
     text-align: center;
     border: 1px solid #aaa;
     color: #999;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label img {
-    width: 110px;
+    width: 185px;
+    height: 27px;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label .name {
     visibility: hidden;

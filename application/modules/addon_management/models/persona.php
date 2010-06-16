@@ -159,9 +159,10 @@ class Persona_Model extends Model
                 // persona JSON embedded.
                 $doc = new DOMDocument();
                 $doc->strictErrorChecking = FALSE;
+                libxml_use_internal_errors(true);
                 $doc->loadHTML($html);
                 $xml = simplexml_import_dom($doc);
-                $result = $xml->xpath('//a/@persona|@data-browsertheme');
+                $result = $xml->xpath('//div/@data-browsertheme');
                 while (list(,$node) = each($result)) {
                     $json = (string)$node;
                 }
