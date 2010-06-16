@@ -8,6 +8,9 @@
  */
 class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
 
+    public static $max_extensions = 2;
+    public static $max_search_plugins = 3;
+
     /** {{{ Object properties */
     public $id        = 'addon_management';
     public $title     = 'Addons';
@@ -56,6 +59,13 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
      */
     public function validate(&$data, $repack, $set=true)
     {
+        $unlimited_addons = 
+            $repack->checkPrivilege('addon_management_unlimited');
+        $max_extensions = 
+            Mozilla_BYOB_Editor_AddonManagement::$max_extensions;
+        $max_search_plugins = 
+            Mozilla_BYOB_Editor_AddonManagement::$max_search_plugins;
+
         $popular_extensions = 
             addon_management::get_popular_extensions();
         $popular_personas = 
@@ -85,6 +95,11 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
                     $managed_addons['extension_ids'][] = $id;
                 }
             }
+            if (!$unlimited_addons &&
+                    count($managed_addons['extension_ids']) > $max_extensions) {
+                $data->add_error('extensions', 'too_many');
+                $is_valid = false;
+            } 
         }
 
         // Scan through incoming search plugin filenames for valid choices
@@ -95,6 +110,12 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
                     $managed_addons['search_plugin_filenames'][] = $fn;
                 }
             }
+            $count = count($managed_addons['search_plugin_filenames']);
+            if (!$unlimited_addons &&
+                    $count > $max_search_plugins) {
+                $data->add_error('search_plugins', 'too_many');
+                $is_valid = false;
+            } 
         }
 
         // If an allowed theme was selected, remember it.

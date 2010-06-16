@@ -55,7 +55,6 @@
                     <div class="crumbs">
                         <h1 class="site_title"><a href="http://www.mozilla.com">mozilla</a></h1>
                         <h2 class="title"><a href="<?=url::base()?>">build your own browser</a></h2>
-                        <!-- <?= slot::get('crumbs') ?>&nbsp; -->
                     </div>
                     <div class="sub">
                         <div class="auth">

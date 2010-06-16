@@ -8,6 +8,9 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
         // Indexed map of selections in sidebar to choices in UI.
         _selections_map: [],
 
+        max_extensions: 2,
+        max_search_plugins: 3,
+
         /**
          * Initialization
          */
@@ -31,7 +34,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
 
             $this.wireUpUploads();
             $this.wireUpSelectionsPane();
-            $this.updateSelectionsPane();
+            $this.updateSelectionsPane(true);
             $this.setupPrettyUploads();
 
             // When the "No Persona" choice is selected, clear the persona URL
@@ -168,15 +171,39 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
          * Update the contents of the selection pane from the choices made in
          * the UI.
          */
-        updateSelectionsPane: function () {
+        updateSelectionsPane: function (no_validate) {
 
             var list = $('.selections .addon-selections'),
                 tmpl = list.find('.template');
 
+            var extension_uploads = 
+                    $('#tab-extensions-upload').contents().find('.uploads li'),
+                extensions_checked =
+                    $('.extensions li input:checked'),
+                extension_count =
+                    extension_uploads.length + extensions_checked.length;
+
+            if ( true!==no_validate && (false !== $this.max_extensions) &&
+                    extension_count > $this.max_extensions ) {
+                return false;
+            }
+
+            var searchplugin_uploads =
+                    $('#tab-searchplugins-upload').contents().find('.uploads li'),
+                searchplugins_checked =
+                    $('.searchplugins li input:checked'),
+                searchplugin_count =
+                    searchplugin_uploads.length + searchplugins_checked.length;
+
+            if ( true!==no_validate && (false !== $this.max_searchplugins) &&
+                    searchplugin_count > $this.max_search_plugins ) {
+                return false;
+            }
+
             $this._selections_map = [];
             list.find('li:not(.template)').remove();
 
-            $('#tab-extensions-upload').contents().find('.uploads li')
+            extension_uploads
                 .each(function () {
                     var item = $(this);
                     $this._selections_map.push(item);
@@ -187,7 +214,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            $('.extensions li input:checked')
+            extensions_checked
                 .each(function () {
                     var item = $(this).parent();
                     $this._selections_map.push(item);
@@ -198,7 +225,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            $('#tab-searchplugins-upload').contents().find('.uploads li')
+            searchplugin_uploads
                 .each(function () {
                     var item = $(this);
                     $this._selections_map.push(item);
@@ -209,7 +236,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            $('.searchplugins li input:checked')
+            searchplugins_checked
                 .each(function () {
                     var item = $(this).parent();
                     $this._selections_map.push(item);
@@ -256,6 +283,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 last_cls = curr_cls;
             });
 
+            return true;
         },
 
         EOF: null

@@ -180,6 +180,7 @@
     display: inline;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins {
+    margin: 1em 0 0 0;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li {
     float: left;

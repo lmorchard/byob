@@ -41,5 +41,13 @@ $lang = array(
         'default' =>
             'Invalid URL for persona selection'
     ),
+    'extensions' => array(
+        'too_many' =>
+            'Too many extensions selected (maximum of 2)',
+    ),
+    'search_plugins' => array(
+        'too_many' =>
+            'Too many search engines selected (maximum of 3)',
+    ),
 
 );

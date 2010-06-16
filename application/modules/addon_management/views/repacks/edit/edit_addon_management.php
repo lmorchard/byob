@@ -1,4 +1,6 @@
 <?php
+$unlimited_addons = $repack->checkPrivilege('addon_management_unlimited');
+
 $popular_extensions    = addon_management::get_popular_extensions();
 $popular_personas      = addon_management::get_popular_personas();
 $popular_themes        = addon_management::get_popular_themes();
@@ -31,6 +33,17 @@ $selected_persona_url_hash = md5($selected_persona_url);
     <?=html::script(array(
         'application/modules/addon_management/public/js/addon_management.js',
     ))?>
+    <script type="text/javascript">
+        <?php if ($unlimited_addons): ?>
+            BYOB_Repacks_Edit_AddonManagement.max_extensions = false; 
+            BYOB_Repacks_Edit_AddonManagement.max_search_plugins = false; 
+        <?php else: ?>
+            BYOB_Repacks_Edit_AddonManagement.max_extensions = 
+                <?= Mozilla_BYOB_Editor_AddonManagement::$max_extensions ?>; 
+            BYOB_Repacks_Edit_AddonManagement.max_search_plugins = 
+                <?= Mozilla_BYOB_Editor_AddonManagement::$max_search_plugins ?>; 
+        <?php endif ?>
+    </script>
 <?php slot::end() ?>
 
 <div class="intro">
@@ -45,7 +58,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
             <ul class="addon-selections clearfix">
                 <li class="template" data-selection-index="">
                     <a href="#" class="remove_link">
-                        <span class="name"></span><span class="remove">Remove</a>
+                        <span class="name"></span><span class="remove">Remove</span>
                     </a>
                 </li>
             </ul>
@@ -71,7 +84,8 @@ $selected_persona_url_hash = md5($selected_persona_url);
                     </fieldset>
                 <?php endif ?>
 
-                <fieldset><legend>Choose from these popular add-ons:</legend>
+                <fieldset><legend>Choose from these popular add-ons 
+                    <?= ($unlimited_addons) ? ':' : '(maximum of '.Mozilla_BYOB_Editor_AddonManagement::$max_extensions.'):' ?></legend>
                     <ul class="extensions"><?php foreach ($popular_extensions as $id=>$addon): ?>
                         <?php
                             $e = html::escape_array(array(
@@ -112,7 +126,8 @@ $selected_persona_url_hash = md5($selected_persona_url);
                         scrolling="no"></iframe>
                 </fieldset>
 
-                <fieldset><legend>Choose from these popular search engines:</legend>
+                <fieldset><legend>Choose from these popular search engines
+                    <?= ($unlimited_addons) ? ':' : '(maximum of '.Mozilla_BYOB_Editor_AddonManagement::$max_search_plugins.'):' ?></legend>
                     <ul class="searchplugins"><?php foreach ($popular_searchplugins as $fn=>$plugin): ?>
                         <?php
                             $e = html::escape_array(array(
