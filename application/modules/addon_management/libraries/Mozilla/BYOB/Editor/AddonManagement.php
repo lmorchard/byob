@@ -337,8 +337,8 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
             foreach ($extensions_for_install as $idx=>$extension) {
                 $lines[] = "[Extension{$idx}]";
                 $info = array(
-                    'ExtensionId'   => $extension->guid,
-                    'ExtensionFile' => "{$extension->guid}.xpi",
+                    'id'   => $extension->guid,
+                    'file' => "{$extension->guid}.xpi",
                     'Version'       => $extension->version,
                     // TODO: Support multi-OS extensions!
                     'OS'            => 'ALL'
