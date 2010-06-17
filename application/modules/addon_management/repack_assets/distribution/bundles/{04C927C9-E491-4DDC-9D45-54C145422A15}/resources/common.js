@@ -2,7 +2,7 @@
  * Copyright (c) 2010 Appcoast Ltd. All rights reserved.
  */
 
-var EXPORTED_SYMBOLS = ["AppcAddi"];
+var EXPORTED_SYMBOLS = ["AddonInstaller"];
 
 const Cc = Components.classes;
 const Ci = Components.interfaces;
@@ -11,10 +11,10 @@ const Cu = Components.utils;
 Cu.import("resource://addoninstaller/log4moz.js");
 
 /**
- * AppcAddi namespace.
+ * AddonInstaller namespace.
  */
-if ("undefined" == typeof(AppcAddi)) {
-  AppcAddi = {
+if ("undefined" == typeof(AddonInstaller)) {
+  AddonInstaller = {
     /* The FUEL Application object. */
     _application : null,
     /* Reference to the observer service. */
@@ -164,5 +164,5 @@ if ("undefined" == typeof(AppcAddi)) {
    */
   (function() {
     this._init();
-  }).apply(AppcAddi);
+  }).apply(AddonInstaller);
 }
