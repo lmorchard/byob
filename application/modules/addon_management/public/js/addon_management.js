@@ -195,7 +195,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 searchplugin_count =
                     searchplugin_uploads.length + searchplugins_checked.length;
 
-            if ( true!==no_validate && (false !== $this.max_searchplugins) &&
+            if ( true!==no_validate && (false !== $this.max_search_plugins) &&
                     searchplugin_count > $this.max_search_plugins ) {
                 return false;
             }

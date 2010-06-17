@@ -932,11 +932,13 @@ class Repack_Model extends ManagedORM
         $this->changeState('pending', $comments);
 
         // Auto-approve for rebuilds or trusted profiles granted the privilege
+        /*
         if ($this->is_rebuild || 
                 authprofiles::is_allowed('repacks', 'auto_approve_own', $this->profile)) {
             $this->is_rebuild = false;
             return $this->approveRelease('Auto approved.');
         }
+        */
 
         return $this;
     }
