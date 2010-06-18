@@ -41,7 +41,18 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
             // field for good measure.
             $('.personas li input').click(function () {
                 $('.persona_url').val('');
+                $this.updateSelectionsPane();
             });
+
+            $('#tab-personas .persona_url')
+                .bind('keypress', function (ev) {
+                    if (13 == ev.keyCode) {
+                        $this.updateSelectionsPane();
+                        $('.personas li input').attr('checked', false);
+                        $(this).blur();
+                        return false;
+                    }
+                });
         },
 
         /**
@@ -130,6 +141,10 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 // Click the no-theme selection.
                 $('#theme_id_none').click();
 
+            } else if (item.hasClass('persona_url')) {
+
+                $('#tab-personas .persona_url').val('');
+
             } else if (item.hasClass('persona')) {
 
                 // Click the no-persona selection.
@@ -172,7 +187,6 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
          * the UI.
          */
         updateSelectionsPane: function (no_validate) {
-
             var list = $('.selections .addon-selections'),
                 tmpl = list.find('.template');
 
@@ -247,17 +261,35 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            $('.personas li input:checked')
+            var persona_url_defined = false;
+            $('#tab-personas .persona_url')
                 .each(function () {
-                    var item = $(this).parent();
-                    if (item.hasClass('none')) return;
-                    $this._selections_map.push(item);
-                    tmpl.cloneTemplate({
-                        '@class': 'persona',
-                        '@data-selection-index': $this._selections_map.length - 1,
-                        '.name': item.find('.name').text()
-                    }).appendTo(list);
+                    var item = $(this),
+                        url = item.val();
+                    if (url) {
+                        persona_url_defined = true;
+                        $this._selections_map.push(item);
+                        tmpl.cloneTemplate({
+                            '@class': 'persona',
+                            '@data-selection-index': $this._selections_map.length - 1,
+                            '.name': "Custom Persona URL"
+                        }).appendTo(list);
+                    }
                 });
+
+            if (!persona_url_defined) {
+                $('.personas li input:checked')
+                    .each(function () {
+                        var item = $(this).parent();
+                        if (item.hasClass('none')) return;
+                        $this._selections_map.push(item);
+                        tmpl.cloneTemplate({
+                            '@class': 'persona',
+                            '@data-selection-index': $this._selections_map.length - 1,
+                            '.name': item.find('.name').text()
+                        }).appendTo(list);
+                    });
+            }
 
             $('.themes li input:checked')
                 .each(function () {

@@ -37,6 +37,10 @@ $lang = array(
         'default' =>
             'Invalid URL for addon collection'
     ),
+    'persona' => array(
+        'default' =>
+            'Invalid URL for persona selection'
+    ),
     'persona_url' => array(
         'default' =>
             'Invalid URL for persona selection'
