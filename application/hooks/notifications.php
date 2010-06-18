@@ -9,7 +9,7 @@
 class Mozilla_BYOB_RepackNotifications {
 
     public static $notification_states = array(
-        'requested', 'canceled', 'started', 'failed', 
+        'requested', 'failed', 
         'pending', 'released', 'rejected', 'reverted', 
     );
 
