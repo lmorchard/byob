@@ -364,7 +364,7 @@ class MessageQueue_Model extends Model
         if ($cnt > 0) {
             Kohana::log('info', "Message queue exhaust() processed {$cnt} messages.");
         } else {
-            Kohana::log('debug', "Message queue exhaust() processed {$cnt} messages.");
+            // Kohana::log('debug', "Message queue exhaust() processed {$cnt} messages.");
         }
         return $cnt;
     }
