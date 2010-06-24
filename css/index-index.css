@@ -2,112 +2,217 @@
  * Styles for home page.
  */
 .ctrl_index_act_index #content .page_intro {
-    border: 5px solid #e7f5fa;
-    -moz-border-radius: 5px;
-    -webkit-border-radius: 5px;
-    border-radius: 5px;
+
 }
-.ctrl_index_act_index #content .page_intro_content {
-    background: transparent url(../img/home-page-intro-bg-strip.jpg) repeat top right;
-    height: 345px;
-    position:relative;        
+.ctrl_index_act_index #content .page_intro .blurb {
+    float: left;
+    margin: 20px 0 0 20px;
+    width: 425px;
 }
-.ctrl_index_act_index #content .page_intro_content h3 {
-    padding: 20px 0 0 21px;
+.ctrl_index_act_index #content .page_intro .blurb h3 {
+    color: #395273;
+    font-size: 27px;
 }
-.ctrl_index_act_index #content .page_intro_content h3 span {
+.ctrl_index_act_index #content .page_intro .blurb p {
+    font-size: 1.4em;
+    color: #888;
+}
+.ctrl_index_act_index #content .page_intro .blurb p em {
+    color: #444;
+    font-style: normal;
+}
+.ctrl_index_act_index #content .page_intro .blurb .create_browser {
     display: block;
-    background: transparent url(../img/customize-firefox.gif) no-repeat top left;
-    height: 47px;
-    width: 440px;
-    text-indent:-460px;
-    overflow: hidden;
+    margin: 5px 0 0 0;
+    padding: 1em 0.5em;
+    float: left;
+    width: 250px;
+    text-align: center;
 }
-.ctrl_index_act_index #content .page_intro_content img.screenshot {
-    position: absolute;
-    bottom: 0px; right: 0px;
+.ctrl_index_act_index #content .page_intro .blurb .create_browser .first_line {
+    font-weight: normal;
+    font-size: 1.25em;
 }
-.ctrl_index_act_index #content .page_intro_content h4.get_started {
-    position: absolute;
-    bottom: 25px;
-    right: 455px;
-}
-.ctrl_index_act_index #content .page_intro_content p {
-    margin:0 450px 0 0;
-    padding:12px 12px 0 21px;
-    font-size: 110%;
-    line-height: 1.45em;
-}
-.ctrl_index_act_index #content .page_intro_content ul {
-    padding: 6px 12px 12px 51px;
-}
-.ctrl_index_act_index #content .page_intro_content ul li {
-    font-size: 110%;
-    list-style: disc;
-    line-height: 1.45em;
-}
-.ctrl_index_act_index #content .recent_browsers {
-}
-.ctrl_index_act_index #content .recent_browsers .header {
-    padding: 10px 14px 0px 14px;
-}
-.ctrl_index_act_index #content .recent_browsers .header h3 {
-    font-size: 150%;
-    color: #41576a;
-    height: 20px;
-    margin-bottom: 0.5em;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers {
-    list-style: none;
-    margin: 0; padding: 0;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers .even {
-    background-color: #e9f7f7;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers .odd {
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser {
-    margin: 0 0 0 0; 
-    padding: 10px 14px 10px 14px;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 {
-    margin: 0 0 0 0; 
-    padding: 0 0 0 0;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h4 a {
-    text-decoration: none;
-    font-size: 125%;
+.ctrl_index_act_index #content .page_intro .blurb .create_browser .first_line strong {
     font-weight: bold;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta {
-    margin: 0 0 0 0; 
-    padding: 0 0 0.5em 0;
+.ctrl_index_act_index #content .page_intro .blurb .create_browser .second_line {
+    display: block;
+    font-weight: normal;
+    margin-top: 0.5em;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .byline {
+.ctrl_index_act_index #content .page_intro .blurb .faq {
+    font-size: 1em;
+    padding: 1.25em 1em 1em 290px;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .byline a {
-    text-decoration: none;
+.ctrl_index_act_index #content .page_intro .blurb .faq a {
+    display: block;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .meta .modified {
-    padding-left: 1em;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .description {
-    position: relative;
-    padding: 0 0 0 0;
-}
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser h5.download {
+.ctrl_index_act_index #content .page_intro .video {
     float: right;
-    margin-top: -1em;
+    margin: 10px 10px 0 0;
+    border: 6px solid #666;
+    -moz-border-radius: 6px;
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser div.empty h5.download {
-    margin-top: -2.5em;
+
+.ctrl_index_act_index #content .benefits .your_benefits {
+    float: left;
+    margin: 40px 0 0 20px;
+    width: 580px;
+    border: 1px solid #eee;
+    -moz-border-radius: 6px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
 }
-.ctrl_index_act_index #content .recent_browsers ul.browsers li.browser .description p {
-    margin: 0 110px 0 0; 
-    font-size: 110%;
+.ctrl_index_act_index #content .benefits .your_benefits h3 {
+    -moz-border-radius: 6px 6px 0 0;
+    line-height: 50px;
+    font-size: 18px;
+    margin: 0;
+    padding: 0 15px 0 15px;
+    border-bottom: 1px solid #eee;
+    background: -moz-linear-gradient(-90deg, #ffffff, #e0eef2 100%) no-repeat;
+    color: #555;
 }
-.ctrl_index_act_index #content .recent_browsers .footer {
+.ctrl_index_act_index #content .benefits .your_benefits ul {
+    background: #fff;
+    margin: 0; padding: 0;
 }
-.ctrl_index_act_index #content .recent_browsers .header .inner {
+.ctrl_index_act_index #content .benefits .your_benefits ul li {
+    height: 90px;
+    padding: 0 15px 0 95px;
+    margin: 0 0 0 0;
+    border-bottom: 1px solid #eee;
+    color: #666;
+    background: #fff url(../img/placeholder-thumb.png) no-repeat 20px 20px;
 }
+.ctrl_index_act_index #content .benefits .your_benefits ul li:last-child {
+    border: none;
+}
+.ctrl_index_act_index #content .benefits .your_benefits ul li h4 {
+    font-size: 16px;
+    font-weight: bold;
+    margin: 0 0 0 0;
+    padding: 1em 0 0 0;
+    color: #444;
+}
+.ctrl_index_act_index #content .benefits .your_benefits ul li p {
+    line-height: 1.5em;
+}
+.ctrl_index_act_index #content .benefits .who_benefits {
+    float: right;
+    margin: 40px 10px 0 0px;
+    width: 285px;
+    border: 1px solid #eee;
+    -moz-border-radius: 6px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+    background: #fff;
+}
+.ctrl_index_act_index #content .benefits .who_benefits h3 {
+    color: #555;
+    line-height: 30px;
+    padding: 10px 10px 0 15px;
+    margin: 0 0 0 0;
+}
+.ctrl_index_act_index #content .benefits .who_benefits ul {
+    padding: 10px 15px 0 15px;
+}
+.ctrl_index_act_index #content .benefits .who_benefits ul li {
+    color: #666;
+    padding: 0 0 15px 0;
+    margin: 0 0 0 0;
+    font-size: 0.95em;
+}
+.ctrl_index_act_index #content .benefits .who_benefits ul li h4 {
+    display: inline;
+    font-weight: bold;
+    color: #444;
+}
+.ctrl_index_act_index #content .benefits .who_benefits ul li p {
+    display: inline;
+}
+
+.ctrl_index_act_index #content .benefits .your_benefits {
+}
+.ctrl_index_act_index #content .benefits .your_benefits h3 {
+}
+.ctrl_index_act_index #content .showcase {
+}
+.ctrl_index_act_index #content .showcase .recent_browsers {
+    float: left;
+    margin: 40px 0 0 20px;
+    padding: 0 0 0 0;
+    width: 580px;
+    border: 1px solid #eee;
+    -moz-border-radius: 6px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+}
+.ctrl_index_act_index #content .showcase .recent_browsers h3 {
+    -moz-border-radius: 6px 6px 0 0;
+    line-height: 50px;
+    font-size: 18px;
+    margin: 0;
+    padding: 0 15px 0 15px;
+    border-bottom: 1px solid #eee;
+    background: -moz-linear-gradient(-90deg, #ffffff, #e0eef2 100%) no-repeat;
+    color: #555;
+}
+.ctrl_index_act_index #content .showcase .recent_browsers ul {
+    padding: 0 0 0 0;
+    margin: 0 0 0 0;
+}
+.ctrl_index_act_index #content .showcase .recent_browsers ul li {
+    float: left;
+    width: 289px;
+    height: 60px;
+    font-size: 0.85em;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+    border-right: 1px solid #eee;
+}
+.ctrl_index_act_index #content .showcase .recent_browsers ul li h4 {
+    margin: 10px 10px 0px 50px;
+    padding: 0 0 0 0;
+    font-weight: bold;
+    font-size: 1.15em;
+}
+.ctrl_index_act_index #content .showcase .recent_browsers ul li p.meta {
+    margin: 0px 10px 10px 50px;
+    padding: 0;
+}
+
+.ctrl_index_act_index #content .action_call_footer {
+    background: #f0f6fb;
+    margin: 40px 0 50px 20px;
+    width: 580px;
+    border: 1px solid #eee;
+    -moz-border-radius: 6px;
+    -moz-box-shadow: 0 1px 2px rgba(0,0,0,.25);
+    text-align: center;
+}
+.ctrl_index_act_index #content .action_call_footer h3 {
+    padding: 1em 0 0.25em 0;
+    color: #666;
+    font-weight: normal;
+}
+.ctrl_index_act_index #content .action_call_footer .create_browser {
+    display: block;
+    margin: 5px auto 1em auto;
+    padding: 1em 0.5em;
+    width: 250px;
+    text-align: center;
+}
+.ctrl_index_act_index #content .action_call_footer .create_browser .first_line {
+    font-weight: normal;
+    font-size: 1.25em;
+}
+.ctrl_index_act_index #content .action_call_footer .create_browser .first_line strong {
+    font-weight: bold;
+}
+.ctrl_index_act_index #content .action_call_footer .create_browser .second_line {
+    display: block;
+    font-weight: normal;
+    margin-top: 0.5em;
+}
+
+
 

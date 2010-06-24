@@ -4,7 +4,7 @@ html {
 	font: 13px Helvetica, Arial, sans-serif;
 	line-height: 1;
     background: #ebf8fc;
-    background: -moz-linear-gradient(-90deg, #cbedf6, #ffffff 50%) no-repeat;
+    background: -moz-linear-gradient(-90deg, #cbedf6, #ffffff 100%) no-repeat;
     background: -webkit-gradient(linear,left top, left bottom, from(#cbedf6), to(#ffffff)) no-repeat;
 	min-height: 100%;
 }
