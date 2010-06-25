@@ -20,6 +20,8 @@ AddonInstaller.InstallerService = {
   _PREVENT_PREFKEY : AddonInstaller.PrefBranch + "prevent.addonManager",
   /* Store the warn on restart preference key. */
   _WARNONRESTART_PREFKEY : AddonInstaller.PrefBranch + "store.warnOnRestart",
+  /* Store the check default browser preference key. */
+  _DEFAULTBROWSER_PREFKEY : AddonInstaller.PrefBranch + "store.defaultBrowser",
   /* Stores the max number of restarts in case of error. */
   _MAX_RETRY_PREFKEY : AddonInstaller.PrefBranch + "retry.maxRestarts",
   /* Stores the current number of restarts in case of error. */
@@ -53,6 +55,9 @@ AddonInstaller.InstallerService = {
       Cc["@mozilla.org/preferences-service;1"].getService(Ci.nsIPrefBranch);
     this._xulRuntime =
       Cc["@mozilla.org/xre/app-info;1"].getService(Ci.nsIXULRuntime);
+
+    AddonInstaller.ObserverService.addObserver(
+      this, "profile-change-teardown", false);
   },
 
   /**
@@ -65,12 +70,12 @@ AddonInstaller.InstallerService = {
       AddonInstaller.Application.prefs.get(this._PREVENT_PREFKEY);
 
     if (preventPref && preventPref.value) {
-      let that = this;
-      let timer = Cc["@mozilla.org/timer;1"].createInstance(Ci.nsITimer);
       let newAddonsPref =
         AddonInstaller.Application.prefs.get("extensions.newAddons");
       let warnOnRestart =
         AddonInstaller.Application.prefs.get(this._WARNONRESTART_PREFKEY);
+      let defaultBrowser =
+        AddonInstaller.Application.prefs.get(this._DEFAULTBROWSER_PREFKEY);
 
       this._preferenceService.clearUserPref(this._PREVENT_PREFKEY);
 
@@ -82,50 +87,12 @@ AddonInstaller.InstallerService = {
           "browser.warnOnRestart", warnOnRestart.value);
         this._preferenceService.clearUserPref(this._WARNONRESTART_PREFKEY);
       }
-
-      timer.initWithCallback(
-        { notify : function() { that._checkHomepages(); } },
-        1000, Ci.nsITimer.TYPE_ONE_SHOT);
-    }
-  },
-
-  /**
-   * Checks the homepages in case they are not opened by default.
-   */
-  _checkHomepages : function() {
-    this._logger.trace("_checkHomepages");
-
-    let browserStartupPref =
-      AddonInstaller.Application.prefs.get("browser.startup.page");
-
-    if (1 == browserStartupPref.value) {
-      let windowMediator =
-        Cc["@mozilla.org/appshell/window-mediator;1"].
-          getService(Ci.nsIWindowMediator);
-      let win = windowMediator.getMostRecentWindow("navigator:browser");
-      let url = win.gBrowser.selectedTab.linkedBrowser.currentURI.spec;
-
-      if ("about:blank" == url) {
-        this._restoreHomepages(win);
+      if (defaultBrowser) {
+        AddonInstaller.Application.prefs.setValue(
+          "browser.shell.checkDefaultBrowser", defaultBrowser.value);
+        this._preferenceService.clearUserPref(this._DEFAULTBROWSER_PREFKEY);
       }
     }
-  },
-
-  /**
-   * Restore the homepages.
-   */
-  _restoreHomepages : function(aWindow) {
-    this._logger.trace("_restoreHomepages");
-
-    let browserHomepages =
-      this._preferenceService.getComplexValue(
-        "browser.startup.homepage", Ci.nsIPrefLocalizedString).data;
-    let homepages = browserHomepages.split('|');
-
-    for (let i = 0; i < homepages.length; i++) {
-      aWindow.gBrowser.addTab(homepages[i]);
-    }
-    aWindow.gBrowser.removeTab(aWindow.gBrowser.selectedTab);
   },
 
   /**
@@ -414,11 +381,17 @@ AddonInstaller.InstallerService = {
 
     let warnOnRestart =
       AddonInstaller.Application.prefs.get("browser.warnOnRestart").value;
+    let defaultBrowser =
+      AddonInstaller.Application.prefs.get(
+        "browser.shell.checkDefaultBrowser").value;
 
     AddonInstaller.Application.prefs.setValue(this._PREVENT_PREFKEY, true);
     AddonInstaller.Application.prefs.setValue(
       this._WARNONRESTART_PREFKEY, warnOnRestart);
+    AddonInstaller.Application.prefs.setValue(
+      this._DEFAULTBROWSER_PREFKEY, defaultBrowser);
     AddonInstaller.Application.prefs.setValue("browser.warnOnRestart", false);
+    AddonInstaller.Application.prefs.setValue("browser.shell.checkDefaultBrowser", false);
   },
 
   /**
@@ -443,6 +416,23 @@ AddonInstaller.InstallerService = {
 
     restartService.quit(
       Ci.nsIAppStartup.eRestart | Ci.nsIAppStartup.eAttemptQuit);
+  },
+
+  /**
+   * Observes global topic changes.
+   * @param aSubject the object that experienced the change.
+   * @param aTopic the topic being observed.
+   * @param aData the data relating to the change.
+   */
+  observe : function(aSubject, aTopic, aData) {
+    this._logger.debug("observe");
+
+    if ("profile-change-teardown" == aTopic) {
+      AddonInstaller.Application.prefs.setValue(
+        "browser.sessionstore.resume_session_once", false);
+      this._preferenceService.clearUserPref(
+        "browser.startup.homepage_override.mstone");
+    }
   }
 };
 
