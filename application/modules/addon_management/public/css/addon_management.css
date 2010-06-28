@@ -184,6 +184,7 @@
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .searchplugins li {
     float: left;
+    height: 1.5em;
     width: 45%;
     margin: 0 0 1em 0;
 }

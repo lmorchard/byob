@@ -1,0 +1,12 @@
+<SearchPlugin xmlns="http://www.mozilla.org/2006/browser/search/" xmlns:os="http://a9.com/-/spec/opensearch/1.1/">
+<os:ShortName>Merriam-Webster Dictionary</os:ShortName>
+<os:Description>Merriam-Webster Dictionary Plugin for Mozilla Firefox</os:Description>
+<os:InputEncoding>ISO-8859-1</os:InputEncoding>
+<os:Image width="16" height="16">data:image/x-icon;base64,R0lGODlhEAAQAKIEAP////8AAAAA/7+/v////wAAAAAAAAAAACH5BAEAAAQALAAAAAAQABAAAANCSLrRsZCFQUeLaoLNbQxcyD3ZIJ4kCJjn9oCCMMQyTTcbPeuxpbYiXM3W670AxWEMkGIBmYwnFKIReTCNig9DdWASADs=</os:Image>
+<UpdateInterval>30</UpdateInterval>
+<UpdateUrl>http://www.merriam-webster.com/firefox/mw-dictionary.src</UpdateUrl>
+<IconUpdateUrl>http://www.merriam-webster.com/firefox/mw-dictionary.gif</IconUpdateUrl>
+<SearchForm>http://www.merriam-webster.com</SearchForm>
+<os:Url type="text/html" method="GET" template="http://www.merriam-webster.com/dictionary/{searchTerms}">
+</os:Url>
+</SearchPlugin>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<OpenSearchDescription xmlns="http://a9.com/-/spec/opensearch/1.1/"
+                       xmlns:moz="http://www.mozilla.org/2006/browser/search/">
+  <ShortName>Facebook</ShortName>
+  <Description>Search Facebook</Description>
+  <InputEncoding>UTF-8</InputEncoding>
+  <Image height="16" width="16" type="image/x-icon">data:image/x-icon;base64,AAABAAEAEBAQAAEABAAoAQAAFgAAACgAAAAQAAAAIAAAAAEABAAAAAAAgAAAABILAAASCwAAEAAAABAAAACYWTsAnmJFAKt4YACseWEAtIRtAPTu6wD///8AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAd3d3d3d3d3dzAAAAAAAAN3FERERGZEQXcUREREZkRBdwAAAABmAAB3AAAAAGYAAHcAAAAAZgAAdwAAAFVmVQB3AAAAZmZmAHcAAAAAZgAAdwAAAABmAAB3AAAAAFZmAHcAAAAAJWYAdwAAAAAAAAB3MAAAAAAAA3d3d3d3d3d3f//wAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAIABAACAAQAAgAEAAIABAAD//wAA</Image>
+  <Url type="text/html" method="get" template="http://www.facebook.com/search/?src=os&amp;q={searchTerms}"/>
+  <Url type="application/x-suggestions+xml" template="http://www.facebook.com/search/opensearch_typeahead.php?format=xml&amp;q={searchTerms}"/>
+
+  <Url type="application/opensearchdescription+xml" rel="self" template="http://www.facebook.com/opensearch_desc.xml"/>
+  <moz:SearchForm>http://www.facebook.com/search/</moz:SearchForm>
+</OpenSearchDescription>
