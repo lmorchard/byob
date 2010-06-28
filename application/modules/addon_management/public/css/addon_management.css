@@ -215,7 +215,7 @@
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li {
     float: left;
-    width: 215px;
+    width: 200px;
     margin: 0 0 1em 0.25em;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li input {
@@ -226,8 +226,8 @@
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label {
     float: left;
     display: block;
-    width: 185px;
-    height: 27px;
+    width: 170px;
+    height: 25px;
     border: 1px solid #aaa;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label.none {
@@ -238,8 +238,7 @@
     color: #999;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label img {
-    width: 185px;
-    height: 27px;
+    width: 170px;
 }
 #ctrl_repacks_act_edit .editor .pane-addon-management .choices .personas li label .name {
     visibility: hidden;

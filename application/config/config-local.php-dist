@@ -60,12 +60,18 @@ $config['addon_management.popular_extension_ids'] = array(
 
 // See: https://addons.mozilla.org/en-US/firefox/personas/
 $config['addon_management.popular_personas_urls'] = array(
+    'https://addons.mozilla.org/en-US/firefox/persona/18781',
     'https://addons.mozilla.org/en-US/firefox/persona/29974',
-    'https://addons.mozilla.org/en-US/firefox/persona/15114',
-    'https://addons.mozilla.org/en-US/firefox/persona/15131',
-    'https://addons.mozilla.org/en-US/firefox/persona/61916',
-    'https://addons.mozilla.org/en-US/firefox/persona/17848',
-    'https://addons.mozilla.org/en-US/firefox/persona/94252',
+    'https://addons.mozilla.org/en-US/firefox/persona/111435',
+    'https://addons.mozilla.org/en-US/firefox/persona/31997',
+    'https://addons.mozilla.org/en-US/firefox/persona/36483',
+    'https://addons.mozilla.org/en-US/firefox/persona/46852',
+    'https://addons.mozilla.org/en-US/firefox/persona/22518',
+    'https://addons.mozilla.org/en-US/firefox/persona/172009',
+    'https://addons.mozilla.org/en-US/firefox/persona/166354',
+    'https://addons.mozilla.org/en-US/firefox/persona/140992',
+    'https://addons.mozilla.org/en-US/firefox/persona/171341',
+    'https://addons.mozilla.org/en-US/firefox/persona/172810',
 );
 
 $config['addon_management.popular_theme_ids'] = array(
