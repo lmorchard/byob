@@ -30,7 +30,33 @@
     </div>
 
     <div class="video">
-        <img src="img/page-intro-video.png" />
+        <video id="video" width="430" height="242" controls="controls">
+
+            <source src="http://videos-cdn.mozilla.net/firefox/3.6/whatsnewin36.ogv" type="video/ogg; codecs=&quot;theora, vorbis&quot;" />
+
+            <source src="http://videos-cdn.mozilla.net/firefox/3.6/whatsnewin36.mp4" type="video/mp4" />
+
+            <object type="application/x-shockwave-flash"
+                style="width: 430px; height: 242;"
+                data="/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video">
+
+                <param name="movie" value="/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video" />
+                <param name="wmode" value="transparent" />
+
+                <div class="video-player-no-flash">
+                This video requires a browser with support for open video:
+                <ul>
+                <li><a href="http://www.mozilla.com/firefox/">Firefox</a> 3.5 or greater</li>
+
+                <li><a href="http://www.apple.com/safari/">Safari</a> 3.1 or greater</li>
+                </ul>
+                or the <a href="http://www.adobe.com/go/getflashplayer">Adobe Flash Player</a>.
+                Alternatively, you may use the video download links to the right.
+                </div>
+
+            </object>
+
+        </video>
     </div>
 
 </div>

@@ -52,6 +52,7 @@
     float: right;
     margin: 10px 10px 0 0;
     border: 6px solid #666;
+    background: #fff;
     -moz-border-radius: 6px;
     -webkit-border-radius: 6px;
 }
