@@ -51,6 +51,74 @@ BYOB_Main = function() {
                 top.jQuery('#simplemodal-overlay').click();
             });
 
+            // TODO: Extract this as a general jQuery plugin
+            $('.strip').each(function (i) {
+
+                var strip_el = $(this),
+                    viewport_el = strip_el.find('.viewport'),
+                    pagination_el = strip_el.find('.pagination'),
+                    page_els = pagination_el.find('.page'),
+                    prev_el = pagination_el.find('.prev'),
+                    next_el = pagination_el.find('.next');
+
+                // Utility function to select a new page.
+                var select_page_el = function (ev, page_el) {
+
+                    var page_el = page_el ? $(page_el) : $(this),
+                        page_id = page_el.attr('href').substr(1)
+
+                    // Cross-fade the old and new pages.
+                    viewport_el.children('.selected')
+                        .fadeOut('fast', function () {
+                            $(this).removeClass('selected');
+                            viewport_el.find('#'+page_id)
+                                .fadeIn('fast', function () {
+                                    $(this).addClass('selected');
+                                });
+                        });
+
+                    // Mark the appropriate page indicator as selected.
+                    page_els
+                        .removeClass('selected');
+                    pagination_el.find('.page[href=#'+page_id+']')
+                        .addClass('selected');
+
+                    // Blur focus on clicked page indicator.
+                    page_el.blur();
+                    return false;
+                };
+
+                // Utility function generator to move to next/prev page
+                var move_page_cb = function(kind) {
+
+                    return function (ev) {
+                        // Find the current page and a pending page relative to
+                        // the given direction.
+                        var click_el = $(this),
+                            curr_page = pagination_el.find('.selected'),
+                            pend_page = (curr_page.parent())[kind]()
+                                .children('.page');
+
+                        // If no pending page found, wrap around.
+                        if (!pend_page.length) {
+                            pend_page = page_els[ 
+                                ('next'==kind) ? 0 : page_els.length-1
+                            ];
+                        }
+
+                        // Select the pending page
+                        click_el.blur();
+                        return select_page_el(ev, pend_page);
+                    };
+                };
+
+                // Wire up the page indicators and next/prev arrows.
+                page_els.click(select_page_el);
+                next_el.click(move_page_cb('next'));
+                prev_el.click(move_page_cb('prev'));
+                
+            });
+
             return this;
         },
 

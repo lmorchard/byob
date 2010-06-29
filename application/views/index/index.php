@@ -61,18 +61,24 @@
     <div class="who_benefits">
         <h3>Who can this help?</h3>
         <ul>
-            <li><h4>Organizations.</h4>
+            <li>
+                <img src="<?=url::base()?>img/who-globe.png" />
+                <h4>Organizations.</h4>
                 <p>Highlighting a product, service or information about your 
                     offerings? Use BYOB to create a browser that connects your users 
                     to you out of the box.</p>
             </li>
-            <li><h4>Social Groups.</h4>
+            <li>
+                <img src="<?=url::base()?>img/who-building.png" />
+                <h4>Social Groups.</h4>
                 <p>Want people to know what useful sources and sites are 
                     available for your running group, gaming clan, club, or other 
                     like-minded people? Share them with a version of Firefox that's
                     customized for your common interests.</p>
             </li>
-            <li><h4>Friends and Family.</h4>
+            <li>
+                <img src="<?=url::base()?>img/who-people.png" />
+                <h4>Friends and Family.</h4>
                 <p>Want to easily share the best of the web with the people you care 
                     about? Give them a browser that puts everything a clich away, without
                     them having to hunt for it.</p>
@@ -118,7 +124,61 @@
 
     </div>
 
-    <div class="whos_using">
+    <div class="whos_using strip">
+        <h3>Who's using BYOB?</h3>
+        <ul class="whos_who viewport">
+            <li id="who_1" class="selected">
+                <img src="<?=url::base()?>img/who-using-icon.png" />
+                <p>The <a href="#">Featured Browser #1</a>
+                lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Proin et massa nisi. Aliquam nec ornare nisl. Morbi sit amet
+                enim nulla, quis ultricies nisi. Nullam ut lacus
+                in erat nec ornare nisl ipsum morbi elit.</p>
+            </li>
+            <li id="who_2">
+                <img src="<?=url::base()?>img/who-using-icon.png" />
+                <p>The <a href="#">Featured Browser #2</a>
+                lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Proin et massa nisi. Aliquam nec ornare nisl. Morbi sit amet
+                enim nulla, quis ultricies nisi. Nullam ut lacus
+                in erat nec ornare nisl ipsum morbi elit.</p>
+            </li>
+            <li id="who_3">
+                <img src="<?=url::base()?>img/who-using-icon.png" />
+                <p>The <a href="#">Featured Browser #3</a>
+                lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Proin et massa nisi. Aliquam nec ornare nisl. Morbi sit amet
+                enim nulla, quis ultricies nisi. Nullam ut lacus
+                in erat nec ornare nisl ipsum morbi elit.</p>
+            </li>
+            <li id="who_4">
+                <img src="<?=url::base()?>img/who-using-icon.png" />
+                <p>The <a href="#">Featured Browser #4</a>
+                lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Proin et massa nisi. Aliquam nec ornare nisl. Morbi sit amet
+                enim nulla, quis ultricies nisi. Nullam ut lacus
+                in erat nec ornare nisl ipsum morbi elit.</p>
+            </li>
+            <li id="who_5">
+                <img src="<?=url::base()?>img/who-using-icon.png" />
+                <p>The <a href="#">Featured Browser #5</a>
+                lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                Proin et massa nisi. Aliquam nec ornare nisl. Morbi sit amet
+                enim nulla, quis ultricies nisi. Nullam ut lacus
+                in erat nec ornare nisl ipsum morbi elit.</p>
+            </li>
+        </ul>
+        <div class="pagination">
+            <ul>
+                <li><a href="#" class="prev">&#9664;</a></li> 
+                <li><a href="#who_1" class="page selected">&#9679;</a></li> 
+                <li><a href="#who_2" class="page">&#9679;</a></li> 
+                <li><a href="#who_3" class="page">&#9679;</a></li> 
+                <li><a href="#who_4" class="page">&#9679;</a></li> 
+                <li><a href="#who_5" class="page">&#9679;</a></li> 
+                <li><a href="#" class="next">&#9654;</a></li> 
+            </ul>
+        </div>
     </div>
 
 </div>

@@ -30,7 +30,7 @@ class Index_Controller extends Local_Controller
             ->whereReleased()
             ->where('is_public', '1')
             ->orderby('modified', 'desc')
-            ->find_all(10)
+            ->find_all(8)
             ;
     }
 
