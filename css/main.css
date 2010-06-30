@@ -141,10 +141,15 @@ div.section {
 }
 #header .site_title {
     position: absolute;
-    left: 20px;
-    bottom: 10px;
+    width: 145px;
+    height: 56px;
+    text-indent: 145px;
+    overflow: hidden;
+    left: 0px;
+    bottom: 0px;
     font-size: 250%;
     font-weight: bold;
+    background: transparent url(../img/mozilla-logo.png) no-repeat 0 0;
 }
 #header .site_title a {
     color: #fff;
