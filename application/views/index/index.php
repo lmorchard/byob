@@ -106,7 +106,7 @@
                 <img src="<?=url::base()?>img/who-people.png" />
                 <h4>Friends and Family.</h4>
                 <p>Want to easily share the best of the web with the people you care 
-                    about? Give them a browser that puts everything a clich away, without
+                    about? Give them a browser that puts everything a click away, without
                     them having to hunt for it.</p>
             </li>
         </ul>
