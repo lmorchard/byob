@@ -74,7 +74,7 @@
                 <p>Add your identity to Firefox with a Persona, bookmarks, and add-ons.</p>
             </li>
             <li><h4>It supports multiple languages and operating systems.</h4>
-                <p>Your version of Firefox is available in over 70 languages on Linux,
+                <p>Your version of Firefox is available in over 60 languages on Linux,
                     Mac, and Windows. No one's left behind.</p>
             </li>
             <li><h4>It's free to use and distribute.</h4>
