@@ -15,6 +15,9 @@ class Mozilla_BYOB {
     {
         // HACK: Attempt to ensure log file is always group-writable
         @chmod(Kohana::log_directory().date('Y-m-d').'.log'.EXT, 0664);
+        
+        // Ensure caching varies by cookie (eg. login), browser, and gzip/non-gzip 
+        header('Vary: Cookie,User-Agent,Accept-Encoding', true);
     }
 
 }
