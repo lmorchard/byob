@@ -118,7 +118,10 @@ class Auth_Profiles_Controller extends Local_Controller
             // interpreted as relatve to root of site.
             return url::redirect($form_data['jump']);
         } else {
-            return url::redirect('/home');
+            return url::redirect(sprintf(
+                Kohana::config('auth_profiles.home_url'),
+                $profile->screen_name
+            ));
         }
     }
 

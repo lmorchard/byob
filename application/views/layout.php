@@ -66,7 +66,7 @@
                                     <li class="first"><a href="<?= url::base() . 'register' ?>">Sign up</a></li>
                                     <li><a class="login" href="<?= url::base() . 'login' ?>">Log in</a></li>
                                 <?php else: ?>
-                                    <li class="first"><a href="<?= url::base() . 'home' ?>">My profile</a></li>
+                                    <li class="first"><a href="<?= url::base() . 'profiles/' . $u_screen_name ?>">My profile</a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
                                         <li><a href="<?= url::base() . 'search/approvalqueue' ?>">Queue (<?=$approval_queue_count?>)</a></li>
                                     <?php endif ?>
