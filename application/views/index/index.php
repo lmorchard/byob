@@ -150,6 +150,7 @@
 
     </div>
 
+    <?php /*
     <div class="whos_using strip">
         <h3>Who's using BYOB?</h3>
         <ul class="whos_who viewport">
@@ -206,6 +207,8 @@
             </ul>
         </div>
     </div>
+    */ ?>
+
 
 </div>
 
