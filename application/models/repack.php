@@ -687,9 +687,10 @@ class Repack_Model extends ManagedORM
     public function url($action=null)
     {
         $profile = ORM::factory('profile', $this->profile_id);
-        $url = url::base() . 
+        $url = url::site( 
             "profiles/{$profile->screen_name}".
-            "/browsers/{$this->short_name}";
+            "/browsers/{$this->short_name}"
+        );
         if ($this->state != self::$states['released'])
             $url .= '/unreleased';
         if ($action)

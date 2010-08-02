@@ -14,7 +14,7 @@
         <h4><?=html::specialchars($bookmark['title'])?></h4>
         <ul>
             <?php if (empty($bookmark['items'])): ?>
-                <li class="empty">None</li>
+                <li class="empty"><?=_('None')?></li>
             <?php else: ?>
                 <?php foreach ($bookmark['items'] as $idx=>$bookmark): ?>
                 <?php 

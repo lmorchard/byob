@@ -1,1 +1,1 @@
-Sorry, this action is not allowed.
+<?=_('Sorry, this action is not allowed.')?>

@@ -6,9 +6,9 @@
 <table class="changes">
     <thead>
         <tr>
-            <th>Name</th>
-            <th>From</th>
-            <th>To</th>
+            <th><?=_('Name')?></th>
+            <th><?=_('From')?></th>
+            <th><?=_('To')?></th>
         </tr>
     </thead>
     <tbody>

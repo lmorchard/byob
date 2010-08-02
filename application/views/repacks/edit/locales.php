@@ -1,17 +1,10 @@
 <div class="intro">
-    <p>
-        Mozilla Firefox has been localized 
-        <a target="_new" href="http://mozilla.com/firefox/all.html" 
-            title="All versions of Firefox">for many languages</a>, 
-        and it is our intent for BYOB to eventually support all of 
-        them. For this version of BYOB, you can specify up to ten (10) 
-        locales.
-    </p>
+    <p><?=_('Mozilla Firefox has been localized <a target="_new" href="http://mozilla.com/firefox/all.html" title="All versions of Firefox">for many languages</a>, and it is our intent for BYOB to eventually support all of them. For this version of BYOB, you can specify up to ten (10) locales.')?></p>
 </div>
 <div class="pane">
 
     <div>
-        <fieldset><legend>Locales</legend>
+        <fieldset><legend><?=_('Locales')?></legend>
 
             <?php
                 $locales = form::value('locales');

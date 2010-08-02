@@ -19,9 +19,9 @@ $files = (!$repack->checkPrivilege('download')) ?
             list($os_path, $locale, $fn) = $parts;
 
             $os_names = array(
-                'win32' => 'Windows',
-                'mac'   => 'Mac OS X',
-                'linux' => 'Linux',
+                'win32' => _('Windows'),
+                'mac'   => _('Mac OS X'),
+                'linux' => _('Linux'),
             );
             $os_name = 'Generic';
             foreach ($os_names as $os_name=>$os_label) {
@@ -44,8 +44,8 @@ $files = (!$repack->checkPrivilege('download')) ?
     ?>
     <thead>
         <tr>
-            <th class="empty">Language</th>
-            <th class="empty">Version</th>
+            <th class="empty"><?=_('Language')?></th>
+            <th class="empty"><?=_('Version')?></th>
             <?php foreach ($oses as $os_name): ?>
                 <?php $os_label = $os_names[$os_name]; ?>
                 <th class="<?=$os_label?>"><?=$os_label?></th>
@@ -77,7 +77,7 @@ $files = (!$repack->checkPrivilege('download')) ?
                         <?php if (empty($h['url'])): ?>
                             &nbsp;
                         <?php else: ?>
-                            <a href="<?=$h['url']?>">Download</a>
+                            <a href="<?=$h['url']?>"><?=_('Download')?></a>
                         <?php endif ?>
                     </td>
                 <?php endforeach ?>

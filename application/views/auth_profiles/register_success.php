@@ -25,6 +25,6 @@
 </p>
 <?php endif ?>
 
-<form action="<?=url::base().'reverifyemail/'.urlencode($login_name)?>" method="POST">
+<form action="<?=url::site('reverifyemail/'.urlencode($login_name))?>" method="POST">
     <input type="submit" value="Re-send Account Activation Information" />
 </form>

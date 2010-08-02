@@ -14,8 +14,7 @@
     <p>
         <br />
         <?php
-            $profile_url = url::base() .
-                "profiles/".authprofiles::get_profile('screen_name');
+            $profile_url = url::site("profiles/".authprofiles::get_profile('screen_name'));
         ?>
         <a href="<?=$profile_url?>" class="button yellow large">Get Started Building Your Browser Now!</a>
     </p>

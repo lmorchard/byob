@@ -8,7 +8,7 @@
 
 <?php if (isset($_GET['gohome'])): ?>
     <script type="text/javascript">
-        window.top.location.href="<?=url::base()?>home";
+        window.top.location.href="<?=url::site('home')?>";
     </script>
 <?php else: ?>
 
@@ -25,7 +25,7 @@
 
 <?php if (!empty($no_verified_email)): ?>
     <script type="text/javascript">
-        window.top.location.href="<?=url::base()?>login?show_reverify=<?=urlencode($_POST['login_name'])?>";
+        window.top.location.href="<?=url::site('login')?>?show_reverify=<?=urlencode($_POST['login_name'])?>";
     </script>
 <?php endif ?>
 <?php if (!empty($_GET['show_reverify'])): ?>
@@ -39,7 +39,7 @@
             "Re-send Account Activation Information" button below. If
             you still do not receive the activation information, please contact us.
         </p>
-        <form action="<?=url::base().'reverifyemail/'.urlencode($_GET['show_reverify'])?>" method="POST">
+        <form action="<?=url::site('reverifyemail/'.urlencode($_GET['show_reverify']))?>" method="POST">
             <button class="button blue large" type="submit">Re-send Account Activation Information</button>
         </form>
     </div>
@@ -55,8 +55,8 @@ form::$errors = array();
 <li class="required submit">
     <label class="hidden" for="login"/>
     <ul class="other">
-        <li><a target="_top" href="<?=url::base()?>forgotpassword">Forgot your password?</a></li>
-        <li><a target="_top" href="<?=url::base()?>register">Need an account?</a></li>
+        <li><a target="_top" href="<?=url::site('forgotpassword')?>">Forgot your password?</a></li>
+        <li><a target="_top" href="<?=url::site('register')?>">Need an account?</a></li>
     </ul>
     <button id="login" class="submit required button large yellow">Login</button>
     <?php if ($is_popup): ?>
@@ -66,7 +66,7 @@ form::$errors = array();
 <?php slot::end() ?>
 
 <?= 
-form::build(url::base() . url::current(true), array('class'=>'login'), array(
+form::build(url::site('login'), array('class'=>'login'), array(
     form::field('hidden', 'jump', ''),
     form::fieldset(null, array('class'=>'login'), array(
         form::field('input',    'login_name', 'Username', array(

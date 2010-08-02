@@ -3,7 +3,8 @@
         $repack->as_array(),
         array(
             'url'         => $repack->url(),
-            'modified'    => date('m/d/Y', strtotime($repack->modified)),
+            /*i18n: Date format for modification timestamp */
+            'modified'    => date(_('m/d/Y'), strtotime($repack->modified)),
             'screen_name' => $repack->profile->screen_name,
         )
     ));
@@ -14,9 +15,8 @@
         ->set('repack', $repack)->render()?> 
     <h2><?=$h['title']?></h2>
     <div class="byline">
-        Created by 
-        <a href="<?=url::base()?>profiles/<?=$h['screen_name']?>"><?=$h['screen_name']?></a>
-        on <?=$h['modified']?>
+        <?=sprintf(_('Created by <a href="%1$s">%2$s</a> on %3$s'),
+            url::site('profiles/'.$h['screen_name']), $h['screen_name'], $h['modified']) ?>
     </div>
     <p class="description"><?=$h['description']?></p>
     <?php if (!isset($hide_actions) || (!$hide_actions)): ?>

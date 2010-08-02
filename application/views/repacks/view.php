@@ -1,6 +1,8 @@
-<?php slot::set('head_title', 'view :: ' . html::specialchars($repack->title)); ?>
+<?php slot::set('head_title', 
+    sprintf(_('view :: %1$s'), html::specialchars($repack->title))) ?>
 <?php slot::start('crumbs') ?>
-    <a href="<?=$repack->url() ?>"><?= html::specialchars($repack->title) ?></a> :: view details
+    <?=sprintf(_('<a href="%1$s">%2$s</a> :: view details'),
+        $repack->url(), html::specialchars($repack->title))?>
 <?php slot::end() ?>
 
 <?=View::factory('repacks/elements/details')
@@ -8,7 +10,7 @@
 
 <?php if (!empty($changes)): ?>
 <div id="changes">
-    <h3>Changes</h3>
+    <h3><?=_('Changes')?></h3>
     <?=View::factory('repacks/elements/changes')
         ->set('changes', $changes)->render()?> 
 </div>
@@ -19,7 +21,7 @@
 
 <?php if (!empty($logevents)): ?>
 <div id="history">
-    <h3>History</h3>
+    <h3><?=_('History')?></h3>
     <?= View::factory('repacks/elements/history')->set(array(
         'logevents' => $logevents,
         'repack'    => $repack

@@ -9,15 +9,15 @@ $privs = $repack->checkPrivileges(array(
 $state_titles = array(
     'new'        => null,
     'edited'     => null,
-    'requested'  => 'Review requested',
-    'pending'    => 'Under review',
-    'approved'   => 'Download',
-    'rejected'   => 'Changes requested',
+    'requested'  => _('Review requested'),
+    'pending'    => _('Under review'),
+    'approved'   => _('Download'),
+    'rejected'   => _('Changes requested'),
     'reverted'   => null,
-    'started'    => 'Build started',
-    'failed'     => 'Build failed',
-    'released'   => 'Download',
-    'deleted'    => 'Deleted',
+    'started'    => _('Build started'),
+    'failed'     => _('Build failed'),
+    'released'   => _('Download'),
+    'deleted'    => _('Deleted'),
     'cancelled'  => null,
 );
 
@@ -35,7 +35,7 @@ $h = html::escape_array(array(
     'state'    => $state_name,
     'modified' => $repack->modified,
     'kind'     => ($repack->isRelease()) ?
-        'Current release' : 'In-progress changes',
+        _('Current release') : _('In-progress changes'),
 ));
 
 ?>
@@ -43,6 +43,6 @@ $h = html::escape_array(array(
     <?php if (null !== $title): ?>
         <?php $class = ('released' == $h['state']) ? 'button yellow' : ''; ?>
         <span><a class="<?=$class?>" href="<?=$h['url']?><?=('released'==$state_name)?'#download':''?>"><?=$h['title']?></a></span>
-        <h4>Current status</h4>
+        <h4><?=_('Current status')?></h4>
     <?php endif ?>
 </div>

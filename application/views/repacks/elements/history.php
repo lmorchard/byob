@@ -11,28 +11,28 @@ $privs = $repack->checkPrivileges(array(
         ?>
         <?php
             $action_titles = array(
-                'new'        => 'Created',
-                'edited'     => 'Modified',
-                'requested'  => 'Release requested',
-                'pending'    => 'Build completed',
-                'rejected'   => 'Release rejected',
-                'reverted'   => 'Release reverted',
-                'started'    => 'Build started',
-                'failed'     => 'Build failed',
-                'released'   => 'Release approved',
-                'deleted'    => 'Release deleted',
-                'cancelled'  => 'Release cancelled',
+                'new'        => _('Created'),
+                'edited'     => _('Modified'),
+                'requested'  => _('Release requested'),
+                'pending'    => _('Build completed'),
+                'rejected'   => _('Release rejected'),
+                'reverted'   => _('Release reverted'),
+                'started'    => _('Build started'),
+                'failed'     => _('Build failed'),
+                'released'   => _('Release approved'),
+                'deleted'    => _('Release deleted'),
+                'cancelled'  => _('Release cancelled'),
                 
-                'created'         => 'Created',
-                'modified'        => 'Modified',
-                'requestRelease'  => 'Release requested',
-                'cancelRelease'   => 'Release request cancelled',
-                'rejectRelease'   => 'Release rejected',
-                'approveRelease'  => 'Release approved',
-                'beginRelease'    => 'Build started',
-                'failRelease'     => 'Build failed',
-                'finishRelease'   => 'Build completed',
-                'revertRelease'   => 'Release reverted',
+                'created'         => _('Created'),
+                'modified'        => _('Modified'),
+                'requestRelease'  => _('Release requested'),
+                'cancelRelease'   => _('Release request cancelled'),
+                'rejectRelease'   => _('Release rejected'),
+                'approveRelease'  => _('Release approved'),
+                'beginRelease'    => _('Build started'),
+                'failRelease'     => _('Build failed'),
+                'finishRelease'   => _('Build completed'),
+                'revertRelease'   => _('Release reverted'),
                  
             );
             $h = html::escape_array(array(
@@ -54,7 +54,7 @@ $privs = $repack->checkPrivileges(array(
             <p class="summary">
                 <?=$h['what']?> 
                 <?php if ($h['who']): ?>
-                    by <a href="<?=url::base().'profiles/'.$u['who']?>"><?=$h['who']?></a>
+                    <?=sprintf(_('by <a href="%1$s">%2$s</a>'), url::site('profiles/'.$u['who']), $h['who'])?>
                 <?php endif ?>
             </p>
             <?php if ($h['why']): ?> 

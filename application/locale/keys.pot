@@ -1,0 +1,862 @@
+#: views/repacks/edit/review.php:79
+msgid   "&laquo;&nbsp; Cancel"
+msgstr  ""
+
+#: views/repacks/edit/firstrun.php:19
+msgid   "(eg: https://addons.mozilla.org/en-US/firefox/collection/social)"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:45
+msgid   "+ New Bookmark"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:44
+msgid   "+ New Folder"
+msgstr  ""
+
+#: views/repacks/view.php:4
+#, php-format
+msgid   "<a href=\"%1$s\">%2$s</a> :: view details"
+msgstr  ""
+
+#: views/index/index.php:48
+msgid   "<a href=\"http://www.apple.com/safari/\">Safari</a> 3.1 or greater"
+msgstr  ""
+
+#: views/index/index.php:47
+msgid   "<a href=\"http://www.mozilla.com/firefox/\">Firefox</a> 3.5 or "
+        "greater"
+msgstr  ""
+
+#: views/index/index.php:17
+msgid   "<em>Build Your Own Browser (BYOB)</em> is a simple way that your "
+        "organization can create and distribute a customized version of "
+        "Firefox"
+msgstr  ""
+
+#: views/index/index.php:20
+msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
+        "(Free!)</span>\n"
+        "                    <span class=\"second_line\">It only takes a "
+        "minute.</span>"
+msgstr  ""
+
+#: views/index/index.php:204
+msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
+        "(Free!)</span>\n"
+        "                <span class=\"second_line\">It only takes a minute.</"
+        "span>"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:63
+msgid   "A folder may contain up to 10 items."
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:62
+msgid   "A folder must contain at least 1 item."
+msgstr  ""
+
+#: views/repacks/elements/actions.php:51
+msgid   "Abandon changes"
+msgstr  ""
+
+#: views/repacks/delete.php:12
+msgid   "Abandon changes to this browser?"
+msgstr  ""
+
+#: views/repacks/delete.php:3
+msgid   "Abandoning changes will delete the current set of modifications, and "
+        "cannot be undone. If these changes are to an existing release, that "
+        "release will still be available. If the changes are for an "
+        "unreleased browser, the browser will be deleted. If you wish to "
+        "cancel this request, click on the \"No\" button below. If you wish "
+        "to continue, enter a short reason for abandoning the changes to the "
+        "release and click on the \"Yes\" button."
+msgstr  ""
+
+#: views/repacks/index.php:24
+msgid   "Account settings"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:14
+msgid   "Add and organize default bookmarks."
+msgstr  ""
+
+#: views/index/index.php:69
+msgid   "Add your identity to Firefox with a Persona, bookmarks, and add-ons."
+msgstr  ""
+
+#: views/repacks/edit/collections.php:5
+msgid   "Add-ons Collection URL:"
+msgstr  ""
+
+#: views/index/index.php:51
+msgid   "Alternatively, you may use the video download links to the right."
+msgstr  ""
+
+#: views/repacks/release.php:10
+msgid   "Any installer distributed must be signed with a digital certificate "
+        "issued by Mozilla"
+msgstr  ""
+
+#: views/search/approvalqueue.php:6
+msgid   "Approval queue"
+msgstr  ""
+
+#: views/repacks/approve.php:5
+msgid   "Approve a new release for this browser"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:36
+msgid   "Approve release"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:77
+msgid   "Bookmark"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:28
+msgid   "Bookmark Menu"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:22
+msgid   "Bookmark Toolbar"
+msgstr  ""
+
+#: views/repacks/edit/review.php:43
+msgid   "Bookmarks"
+msgstr  ""
+
+#: views/repacks/edit/general.php:8
+msgid   "Browser details"
+msgstr  ""
+
+#. i18n: %1$s = profile screen name
+#: views/repacks/index.php:40
+#, php-format
+msgid   "Browsers by %1$s"
+msgstr  ""
+
+#: views/repacks/elements/history.php:17 views/repacks/elements/history.php:34
+msgid   "Build completed"
+msgstr  ""
+
+#: views/repacks/elements/history.php:21 views/repacks/elements/history.php:33
+#: views/repacks/elements/status.php:18
+msgid   "Build failed"
+msgstr  ""
+
+#: views/repacks/elements/history.php:20 views/repacks/elements/history.php:32
+#: views/repacks/elements/status.php:17
+msgid   "Build started"
+msgstr  ""
+
+#: views/repacks/edit/review.php:81
+msgid   "Build this browser"
+msgstr  ""
+
+#: views/index/index.php:65
+msgid   "By connecting your affinity group to you."
+msgstr  ""
+
+#: views/index/index.php:68
+msgid   "By letting you show your stripes."
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:106
+msgid   "Cancel"
+msgstr  ""
+
+#: views/repacks/cancel.php:5
+msgid   "Cancel a new release for this browser?"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:34
+msgid   "Cancel release"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:21
+msgid   "Change details"
+msgstr  ""
+
+#: views/repacks/index.php:27
+msgid   "Change login email"
+msgstr  ""
+
+#: views/repacks/index.php:26
+msgid   "Change login password"
+msgstr  ""
+
+#: views/repacks/view.php:13
+msgid   "Changes"
+msgstr  ""
+
+#: views/repacks/elements/status.php:15
+msgid   "Changes requested"
+msgstr  ""
+
+#: views/index/index.php:25
+msgid   "Check out our FAQ"
+msgstr  ""
+
+#: views/repacks/edit/review.php:68
+msgid   "Collection URL:"
+msgstr  ""
+
+#: views/repacks/edit/review.php:67
+msgid   "Collections"
+msgstr  ""
+
+#: views/repacks/elements/confirm.php:22
+msgid   "Comments:"
+msgstr  ""
+
+#: views/index/index.php:66
+msgid   "Complement your online presence with a customized version of "
+        "Firefox, connecting the people you serve with the information they "
+        "need."
+msgstr  ""
+
+#: views/repacks/elements/actions.php:49
+msgid   "Continue editing"
+msgstr  ""
+
+#: views/repacks/index.php:16
+msgid   "Create a New Browser"
+msgstr  ""
+
+#: views/repacks/elements/history.php:14 views/repacks/elements/history.php:26
+msgid   "Created"
+msgstr  ""
+
+#. i18n: %1$s = Profile URL; %2$s = Profile display name
+#: views/index/index.php:128
+#, php-format
+msgid   "Created by <a href=\"%1$s\">%2$s</a>"
+msgstr  ""
+
+#: views/repacks/elements/details.php:18
+#, php-format
+msgid   "Created by <a href=\"%1$s\">%2$s</a> on %3$s"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:61
+msgid   "Creation of sub-folders within folders is not supported."
+msgstr  ""
+
+#: views/repacks/elements/actions.php:89 views/repacks/elements/status.php:38
+#: views/repacks/index.php:71
+msgid   "Current release"
+msgstr  ""
+
+#: views/repacks/elements/status.php:46
+msgid   "Current status"
+msgstr  ""
+
+#: views/repacks/delete.php:11
+msgid   "Delete this browser?"
+msgstr  ""
+
+#: views/repacks/elements/status.php:20
+msgid   "Deleted"
+msgstr  ""
+
+#: views/repacks/edit/general.php:14
+msgid   "Describe this customized browser further (optional, max length 1000 "
+        "characters):"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:89
+msgid   "Description"
+msgstr  ""
+
+#: views/repacks/release.php:3
+msgid   "Distribution and generation restrictions"
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:80
+#: views/repacks/elements/status.php:14 views/repacks/elements/status.php:19
+msgid   "Download"
+msgstr  ""
+
+#: views/repacks/index.php:28
+msgid   "Edit profile details"
+msgstr  ""
+
+#: views/repacks/edit/general.php:10
+msgid   "Enter a one or two word identifier for this version of Firefox.  "
+        "(required, max length 255 characters):"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:93
+msgid   "Feed URL"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:60
+msgid   "Folders may be placed in either the Bookmark Toolbar or Menu."
+msgstr  ""
+
+#: views/repacks/elements/actions.php:66
+msgid   "Force build failure state"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:68
+msgid   "Force build finish state"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:57
+msgid   "Force build start state"
+msgstr  ""
+
+#: views/index/index.php:95
+msgid   "Friends and Family."
+msgstr  ""
+
+#: views/repacks/elements/changes.php:10
+msgid   "From"
+msgstr  ""
+
+#: views/index/index.php:24
+msgid   "Got Questions?"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:27
+msgid   "Hide from public lists"
+msgstr  ""
+
+#: views/repacks/makeprivate.php:5
+msgid   "Hide this browser from public lists?"
+msgstr  ""
+
+#: views/index/index.php:86
+msgid   "Highlighting a product, service or information about your offerings? "
+        "Use BYOB to create a browser that connects your users to you out of "
+        "the box."
+msgstr  ""
+
+#: views/repacks/view.php:24
+msgid   "History"
+msgstr  ""
+
+#: views/index/index.php:63
+msgid   "How can BYOB benefit your organization?"
+msgstr  ""
+
+#: views/repacks/release.php:17
+#, php-format
+msgid   "If you have any questions regarding these conditions, or need "
+        "clarification on any of the items mentioned here, please <a href=\"%1"
+        "$s\">contact us</a>."
+msgstr  ""
+
+#: views/repacks/edit/platforms.php:3
+msgid   "If, however, you only want to distribute a version for a certain "
+        "platform(s), you can deselect the platforms you don"
+msgstr  ""
+
+#: views/repacks/elements/status.php:38 views/repacks/index.php:71
+msgid   "In-progress changes"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:91
+msgid   "In-progress changes to current release"
+msgstr  ""
+
+#: views/index/index.php:71
+msgid   "It supports multiple languages and operating systems."
+msgstr  ""
+
+#: views/index/index.php:74
+msgid   "It's free to use and distribute."
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:47
+msgid   "Language"
+msgstr  ""
+
+#. i18n: %1$s = last modified
+#: views/repacks/index.php:84
+#, php-format
+msgid   "Last modified <em>%1$s</em>"
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:24
+msgid   "Linux"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:78
+msgid   "Livemark"
+msgstr  ""
+
+#: views/repacks/edit/locales.php:7
+msgid   "Locales"
+msgstr  ""
+
+#: views/layout.php:67
+msgid   "Log in"
+msgstr  ""
+
+#. i18n: Date format for last modified
+#: views/repacks/index.php:74
+msgid   "M d Y"
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:23
+msgid   "Mac OS X"
+msgstr  ""
+
+#: views/index/index.php:15
+msgid   "Make Firefox Yours"
+msgstr  ""
+
+#: views/repacks/elements/history.php:15 views/repacks/elements/history.php:27
+msgid   "Modified"
+msgstr  ""
+
+#: views/repacks/edit/general.php:2
+#, php-format
+msgid   "Most of the meta data about your customized version of Firefox will "
+        "be automatically generated using your profile information. The "
+        "information in this section is for your use, is publicly viewable, "
+        "and should describe who this browser is tailored for. When referring "
+        "to the this browser (e.g. on a website, blog post, communique, "
+        "etc.), you should use the name \"<em>%1$s</em>\"."
+msgstr  ""
+
+#: views/repacks/edit/locales.php:2
+msgid   "Mozilla Firefox has been localized <a target=\"_new\" href=\"http://"
+        "mozilla.com/firefox/all.html\" title=\"All versions of Firefox\">for "
+        "many languages</a>, and it is our intent for BYOB to eventually "
+        "support all of them. For this version of BYOB, you can specify up to "
+        "ten (10) locales."
+msgstr  ""
+
+#: views/repacks/edit/platforms.php:2
+msgid   "Mozilla Firefox is available for the <a href=\"http://www.mozilla."
+        "com/firefox/system-requirements.html\" target=\"_new\" title="
+        "\"Firefox System Requirements\">Linux, Apple OSX, and Windows</a> "
+        "family of operating systems. BYOB will generate your customized "
+        "version of Firefox for all three platforms by default, and we "
+        "encourage making all platforms available to your target audience."
+msgstr  ""
+
+#: views/repacks/release.php:4
+msgid   "Mozilla's Build Your Own Browser (BYOB) application generates "
+        "installer files for a lightly customized version of Firefox that can "
+        "be publicly distributed. These customized versions of Firefox are "
+        "licensed under the <a target=\"_new\" href=\"http://www.mozilla.org/"
+        "MPL/\">Mozilla Public License</a> (MPL), and the installer files and "
+        "their contents are subject to the restrictions outlined in the <a "
+        "target=\"_new\" href=\"http://www.mozilla.org/foundation/trademarks/"
+        "policy.html\" alt=\"Mozilla Trademark Policy\">Mozilla Trademark "
+        "Policy</a>. By using BYOB and/or distributing the installers "
+        "generated by BYOB, you understand and agree to this."
+msgstr  ""
+
+#: views/layout.php:69
+msgid   "My profile"
+msgstr  ""
+
+#: views/repacks/elements/changes.php:9
+msgid   "Name"
+msgstr  ""
+
+#: views/repacks/edit/general.php:21
+msgid   "No"
+msgstr  ""
+
+#: views/search/approvalqueue.php:9 views/search/index.php:5
+msgid   "No results."
+msgstr  ""
+
+#: views/repacks/elements/confirm.php:27
+msgid   "No, cancel."
+msgstr  ""
+
+#: views/repacks/edit/review_bookmarks.php:17
+msgid   "None"
+msgstr  ""
+
+#: views/repacks/index.php:47
+msgid   "None yet."
+msgstr  ""
+
+#: views/repacks/edit/review.php:61 views/repacks/edit/review.php:70
+msgid   "None."
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:56
+msgid   "Notes:"
+msgstr  ""
+
+#: views/index/index.php:85
+msgid   "Organizations."
+msgstr  ""
+
+#: views/repacks/edit/platforms.php:7 views/repacks/edit/review.php:25
+msgid   "Platforms"
+msgstr  ""
+
+#: views/repacks/edit/review.php:13
+msgid   "Please review your customizations detailed below before submitting "
+        "your browser for build and approval:"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:102
+msgid   "Preview:"
+msgstr  ""
+
+#: modules/addon_management/vendor/RdfComponent.php:108
+#, php-format
+msgid   "RDF Parser error: the file contained a duplicate element: %s"
+msgstr  ""
+
+#: views/index/index.php:202
+msgid   "Ready to start building a browser of your own?"
+msgstr  ""
+
+#: views/repacks/reject.php:5
+msgid   "Reject a new release for this browser"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:38
+msgid   "Reject release"
+msgstr  ""
+
+#: views/repacks/elements/history.php:22 views/repacks/elements/history.php:31
+msgid   "Release approved"
+msgstr  ""
+
+#: views/repacks/elements/history.php:24
+msgid   "Release cancelled"
+msgstr  ""
+
+#: views/repacks/elements/history.php:23
+msgid   "Release deleted"
+msgstr  ""
+
+#: views/repacks/elements/history.php:18 views/repacks/elements/history.php:30
+msgid   "Release rejected"
+msgstr  ""
+
+#: views/repacks/elements/history.php:29
+msgid   "Release request cancelled"
+msgstr  ""
+
+#: views/repacks/elements/history.php:16 views/repacks/elements/history.php:28
+msgid   "Release requested"
+msgstr  ""
+
+#: views/repacks/elements/history.php:19 views/repacks/elements/history.php:35
+msgid   "Release reverted"
+msgstr  ""
+
+#: views/repacks/release.php:25
+msgid   "Request a new release for this browser?"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:53
+msgid   "Request release"
+msgstr  ""
+
+#: views/repacks/revert.php:5
+msgid   "Revert the existing release for this browser?"
+msgstr  ""
+
+#: views/repacks/elements/status.php:12
+msgid   "Review requested"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:107
+msgid   "Save"
+msgstr  ""
+
+#: views/repacks/edit/general.php:18
+msgid   "Should this browser be included in public lists?"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:25
+msgid   "Show in public lists"
+msgstr  ""
+
+#: views/repacks/makepublic.php:5
+msgid   "Show this browser in public lists?"
+msgstr  ""
+
+#: views/layout.php:66
+msgid   "Sign up"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:97
+msgid   "Site URL"
+msgstr  ""
+
+#: views/index/index.php:90
+msgid   "Social Groups."
+msgstr  ""
+
+#: views/forbidden.php:1
+msgid   "Sorry, this action is not allowed."
+msgstr  ""
+
+#: views/repacks/elements/actions.php:23
+msgid   "Take down release"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:59
+msgid   "The Bookmark Menu has a limit of 5 items."
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:58
+msgid   "The Bookmark Toolbar has a limit of 3 items."
+msgstr  ""
+
+#: views/repacks/edit/general.php:3
+msgid   "The Title is a label that is used for identifying customized version "
+        "of Firefox within the BYOB application. If you have multiple "
+        "customizations defined, it's intended to help differentiate between "
+        "those builds.  Similarly, the descriptive text allows you to provide "
+        "a lengthy description of your customizations."
+msgstr  ""
+
+#: views/repacks/release.php:12
+msgid   "The installers must be distributed as-is as a stand-alone file, and "
+        "may not be incorporated with a meta-installer or pre-installed"
+msgstr  ""
+
+#: views/repacks/release.php:11
+msgid   "The installers must be distributed at no cost to the end-user"
+msgstr  ""
+
+#: views/repacks/release.php:9
+msgid   "The program installers generated by BYOB and/or their contents may "
+        "not be modified in any way"
+msgstr  ""
+
+#: views/repacks/release.php:6
+msgid   "There are a few rules regarding distribution of the installers, and "
+        "breaking any of the rules automatically revokes your (or your "
+        "organization's) authorization to distribute them. The rules, which "
+        "are further outlined in the Mozilla Public License and the Mozilla "
+        "Trademark Policy are:"
+msgstr  ""
+
+#: views/index/index.php:45
+msgid   "This video requires a browser with support for open video:"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:81
+msgid   "Title"
+msgstr  ""
+
+#: views/repacks/elements/changes.php:11
+msgid   "To"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:76
+msgid   "Type"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:85
+msgid   "URL"
+msgstr  ""
+
+#: views/repacks/elements/status.php:13
+msgid   "Under review"
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:48
+msgid   "Version"
+msgstr  ""
+
+#: views/index/index.php:91
+msgid   "Want people to know what useful sources and sites are available for "
+        "your running group, gaming clan, club, or other like-minded people? "
+        "Share them with a version of Firefox that's customized for your "
+        "common interests."
+msgstr  ""
+
+#: views/index/index.php:96
+msgid   "Want to easily share the best of the web with the people you care "
+        "about? Give them a browser that puts everything a click away, "
+        "without them having to hunt for it."
+msgstr  ""
+
+#: views/index/index.php:75
+msgid   "We provide the tools for you to create your own browser with no "
+        "development, maintenance, or hosting costs."
+msgstr  ""
+
+#: views/layout.php:62
+#, php-format
+msgid   "Welcome, <span class=\"screen_name\">%1$s</span>"
+msgstr  ""
+
+#: views/index/index.php:105
+msgid   "What browsers are others making?"
+msgstr  ""
+
+#. i18n: %1$s = Browser repack title
+#: views/repacks/release.php:14
+#, php-format
+msgid   "When referring to the product name, the installer must be referred "
+        "to as %1$s to differentiate it from the default release of Firefox."
+msgstr  ""
+
+#: views/index/index.php:81
+msgid   "Who can this help?"
+msgstr  ""
+
+#: views/repacks/elements/downloads.php:22
+msgid   "Windows"
+msgstr  ""
+
+#: views/repacks/edit/general.php:20
+msgid   "Yes"
+msgstr  ""
+
+#: views/repacks/elements/confirm.php:26
+msgid   "Yes, confirm."
+msgstr  ""
+
+#: views/repacks/edit/firstrun.php:14
+msgid   "You can choose a set of addons to suggest for installation in your "
+        "browser by using the collections feature of addons.mozilla.com"
+msgstr  ""
+
+#: views/repacks/edit/collections.php:2
+msgid   "You can choose a set of addons to suggest for installation in your "
+        "browser by using the collections feature of addons.mozilla.com (eg: "
+        "https://addons.mozilla.org/en-US/firefox/collection/social)"
+msgstr  ""
+
+#: views/repacks/edit/firstrun.php:2
+msgid   "You can customize the content displayed when your browser is started "
+        "for the first time."
+msgstr  ""
+
+#: views/repacks/edit/review.php:11
+msgid   "You haven't performed any customizations to this browser beyond the "
+        "default settings.  Please do so before submitting a request to build "
+        "this browser."
+msgstr  ""
+
+#: views/repacks/index.php:37
+msgid   "Your browsers"
+msgstr  ""
+
+#: views/index/index.php:72
+msgid   "Your version of Firefox is available in over 60 languages on Linux, "
+        "Mac, and Windows. No one's left behind."
+msgstr  ""
+
+#: views/repacks/approve.php:3
+msgid   "approve"
+msgstr  ""
+
+#: views/repacks/approve.php:4
+msgid   "approve release"
+msgstr  ""
+
+#: views/layout.php:57
+msgid   "build your own browser"
+msgstr  ""
+
+#: views/layout.php:13
+#, php-format
+msgid   "build your own browser :: %1$s"
+msgstr  ""
+
+#: views/repacks/elements/history.php:57
+#, php-format
+msgid   "by <a href=\"%1$s\">%2$s</a>"
+msgstr  ""
+
+#: views/repacks/cancel.php:3
+msgid   "cancel"
+msgstr  ""
+
+#: views/repacks/cancel.php:4
+msgid   "cancel release"
+msgstr  ""
+
+#: views/repacks/delete.php:8
+msgid   "delete"
+msgstr  ""
+
+#: views/repacks/delete.php:9
+msgid   "delete browser"
+msgstr  ""
+
+#: views/repacks/edit/review.php:19 views/repacks/edit/review.php:25
+#: views/repacks/edit/review.php:43 views/repacks/edit/review.php:67
+msgid   "edit"
+msgstr  ""
+
+#: views/repacks/edit/firstrun.php:7
+msgid   "first run page"
+msgstr  ""
+
+#. i18n: Date format for modification timestamp
+#: views/repacks/elements/details.php:7
+msgid   "m/d/Y"
+msgstr  ""
+
+#: views/repacks/makeprivate.php:3 views/repacks/makeprivate.php:4
+msgid   "make private"
+msgstr  ""
+
+#: views/repacks/makepublic.php:3 views/repacks/makepublic.php:4
+msgid   "make public"
+msgstr  ""
+
+#: views/index/index.php:50
+msgid   "or the <a href=\"http://www.adobe.com/go/getflashplayer\">Adobe "
+        "Flash Player</a>."
+msgstr  ""
+
+#: views/repacks/reject.php:3
+msgid   "reject"
+msgstr  ""
+
+#: views/repacks/reject.php:4
+msgid   "reject release"
+msgstr  ""
+
+#: views/repacks/release.php:23
+msgid   "release"
+msgstr  ""
+
+#: views/repacks/release.php:24
+msgid   "request release"
+msgstr  ""
+
+#: views/repacks/revert.php:3
+msgid   "revert"
+msgstr  ""
+
+#: views/repacks/revert.php:4
+msgid   "revert release"
+msgstr  ""
+
+#: views/search/index.php:1
+#, php-format
+msgid   "search :: %1$s"
+msgstr  ""
+
+#: views/search/approvalqueue.php:1
+msgid   "search :: approval queue"
+msgstr  ""
+
+#: views/search/index.php:2
+msgid   "search results"
+msgstr  ""
+
+#: views/repacks/view.php:2
+#, php-format
+msgid   "view :: %1$s"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:46
+msgid   "x Delete Selected"
+msgstr  ""

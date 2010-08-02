@@ -1,7 +1,7 @@
 <?php slot::set('head_title', 
     html::specialchars($profile->screen_name).' :: profile update'); ?>
 <?php slot::start('crumbs') ?>
-    <a href="<?= url::base() . 'profiles/' . urlencode($profile->screen_name)?>"><?=html::specialchars($profile->screen_name)?></a> ::
+    <a href="<?= url::site('profiles/' . urlencode($profile->screen_name))?>"><?=html::specialchars($profile->screen_name)?></a> ::
     profile update
 <?php slot::end() ?>
 

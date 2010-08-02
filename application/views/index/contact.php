@@ -6,7 +6,7 @@
     <p>Your contact request has been sent.</p>
 <?php else: ?>
     <?= 
-    form::build(url::base().url::current(), array('class'=>'contact'), array(
+    form::build(url::current(), array('class'=>'contact'), array(
         form::hidden('referer', @$_SERVER['HTTP_REFERER']),
         form::fieldset('Contact us', array(), array(
             '<p>All fields are required.</p>',

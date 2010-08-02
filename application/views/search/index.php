@@ -1,10 +1,8 @@
-<?php slot::set('head_title', 'search :: ' . html::specialchars(implode(' ', $terms))) ?>
-<?php slot::start('crumbs') ?>
-    search results
-<?php slot::end() ?>
+<?php slot::set('head_title', sprintf(_('search :: %1$s'), html::specialchars(implode(' ', $terms)))) ?>
+<?php slot::set('crumbs', _('search results')) ?>
 
 <?php if (empty($results)): ?>
-    <h3>No results.</h3>
+    <h3><?=_('No results.')?></h3>
 <?php else: ?>
     <?php foreach ($results as $model_name=>$data): ?>
         <?= View::factory('search/elements/results')->set($data)->render() ?>

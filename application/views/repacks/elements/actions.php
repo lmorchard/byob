@@ -18,24 +18,24 @@ $previews = array();
 if ($repack->isRelease()) { 
 
     if ($privs['edit'])
-        $actions[';edit'] = "Change details";
+        $actions[';edit'] = _("Change details");
     if ($privs['revert'])
-        $actions[';revert'] = "Take down release";
+        $actions[';revert'] = _("Take down release");
     if ($privs['makepublic'] && !$repack->is_public)
-        $actions[';makepublic'] = "Show in public lists";
+        $actions[';makepublic'] = _("Show in public lists");
     if ($privs['makeprivate'] && $repack->is_public)
-        $actions[';makeprivate'] = "Hide from public lists";
+        $actions[';makeprivate'] = _("Hide from public lists");
 
 } else { 
 
     if ($repack->isPendingApproval()) { 
 
         if ($privs['cancel'])
-            $actions[';cancel'] = "Cancel release";
+            $actions[';cancel'] = _("Cancel release");
         if ($privs['approve'])
-            $actions[';approve'] = "Approve release";
+            $actions[';approve'] = _("Approve release");
         if ($privs['reject'])
-            $actions[';reject'] = "Reject release";
+            $actions[';reject'] = _("Reject release");
 
     } else { 
 
@@ -46,15 +46,15 @@ if ($repack->isRelease()) {
 
         if (!$locked_for_changes) { 
             if ($privs['edit'])
-                $actions[';edit'] = "Continue editing";
+                $actions[';edit'] = _("Continue editing");
             if ($privs['delete'])
-                $actions[';delete'] = "Abandon changes";
+                $actions[';delete'] = _("Abandon changes");
             if ($privs['release'] && $repack->isCustomized()) { 
-                $actions[';release'] = "Request release";
+                $actions[';release'] = _("Request release");
             } else { 
                 if ($repack->state == Repack_Model::$states['requested']) { 
                     if ($privs['begin'])
-                        $actions[';begin'] = "Force build start state";
+                        $actions[';begin'] = _("Force build start state");
                 } 
 
             } 
@@ -63,15 +63,15 @@ if ($repack->isRelease()) {
         if ($repack->state == Repack_Model::$states['requested'] 
             || $repack->state == Repack_Model::$states['started']) { 
             if ($privs['fail']) 
-                $actions[';fail'] = "Force build failure state";
+                $actions[';fail'] = _("Force build failure state");
             if ($privs['finish'])
-                $actions[';finish'] = "Force build finish state";
+                $actions[';finish'] = _("Force build finish state");
         } 
 
     } 
 }
 
-$previews['/firstrun'] = "First-run page";
+$previews['/firstrun'] = _("First-run page");
 
 if ($privs['distributionini']) 
     $previews['/distribution.ini'] = "distribution.ini";
@@ -86,9 +86,9 @@ if ($privs['repackjson'])
 <?php if (!empty($actions)): ?>
 <div class="main_actions">
     <?php if ($repack->isRelease()): ?>
-        <h3>Current release</h3>
+        <h3><?=_('Current release')?></h3>
     <?php else: ?>
-        <h3>In-progress changes to current release</h3>
+        <h3><?=_('In-progress changes to current release')?></h3>
     <?php endif ?>
     <ul class="actions clearfix">
         <?php foreach ($actions as $url=>$title): ?>
@@ -99,7 +99,7 @@ if ($privs['repackjson'])
 <?php endif ?>
 <?php if (!empty($previews)): ?>
 <div class="main_previews clearfix">
-    <h4>Preview:</h4>
+    <h4><?=_('Preview:')?></h4>
     <ul class="previews">
         <?php $first = true; ?>
         <?php foreach ($previews as $url=>$title): ?>

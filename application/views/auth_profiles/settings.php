@@ -22,7 +22,7 @@ usort($sections, create_function(
             <h3><?= html::specialchars($section['title']) ?></h3>
             <dl>
                 <?php foreach ($section['items'] as $item): ?>
-                    <dt><a href="<?= url::base() . html::specialchars($item['url']) ?>"><?= html::specialchars($item['title']) ?></a></dt>
+                    <dt><a href="<?= url::current() . html::specialchars($item['url']) ?>"><?= html::specialchars($item['title']) ?></a></dt>
                     <dd><?= $item['description'] ?></dd>
                 <?php endforeach ?>
             </dl>

@@ -8,28 +8,21 @@ $edit_base = $repack->url() . ';edit?section=';
     </div>
     <div class="content">
         <?php if (!$repack->isCustomized()): ?>
-            <p class="warning">
-                You haven't performed any customizations to this browser
-                beyond the default settings.  Please do so before submitting
-                a request to build this browser.
-            </p>
+            <p class="warning"><?=_('You haven\'t performed any customizations to this browser beyond the default settings.  Please do so before submitting a request to build this browser.')?></p>
         <?php else: ?>
-            <p>
-                Please review your customizations detailed below before 
-                submitting your browser for build and approval:
-            </p>
+            <p><?=_('Please review your customizations detailed below before submitting your browser for build and approval:')?></p>
         <?php endif ?>
 
         <ul class="sections">
 
             <li class="section general">
-                <h3>General <a target="_top" href="<?=$edit_base?>general">edit</a></h3>
+                <h3>General <a target="_top" href="<?=$edit_base?>general"><?=_('edit')?></a></h3>
                 <h4><?=html::specialchars($repack->title)?></h4>
                 <p><?=html::specialchars($repack->description)?></p>
             </li>
 
             <li class="section platforms">
-                <h3>Platforms <a target="_top" href="<?=$edit_base?>platforms">edit</a></h3>
+                <h3><?=_('Platforms')?> <a target="_top" href="<?=$edit_base?>platforms"><?=_('edit')?></a></h3>
                 <ul>
                     <?php foreach ($repack->os as $name): ?>
                         <li><?=Repack_Model::$os_choices[$name]?></li>
@@ -47,7 +40,7 @@ $edit_base = $repack->url() . ';edit?section=';
             ?>
 
             <li class="section bookmarks clearfix">
-                <h3>Bookmarks <a target="_top" href="<?=$edit_base?>bookmarks">edit</a></h3>
+                <h3><?=_('Bookmarks')?> <a target="_top" href="<?=$edit_base?>bookmarks"><?=_('edit')?></a></h3>
                 <ul>
                     <?php 
                         $bookmarks = $repack->bookmarks; 
@@ -65,16 +58,16 @@ $edit_base = $repack->url() . ';edit?section=';
                         <?php endif ?>
                     <?php endforeach ?>
                     <?php if ($none): ?>
-                        <li class="empty">None.</li>
+                        <li class="empty"><?=_('None.')?></li>
                     <?php endif ?>
                 </ul>
             </li>
 
             <li class="section collections">
-                <h3>Collections <a target="_top" href="<?=$edit_base?>collections">edit</a></h3>
-                <p>Collection URL:
+                <h3><?=_('Collections')?> <a target="_top" href="<?=$edit_base?>collections"><?=_('edit')?></a></h3>
+                <p<?=_('Collection URL:')?>>
                     <?php if (empty($repack->addons_collection_url)): ?>
-                        None
+                    <?=_('None.')?>
                     <?php else: ?>
                         <a href="<?=html::specialchars($repack->addons_collection_url)?>" target="_new"><?=html::specialchars($repack->addons_collection_url)?></a></p>
                     <?php endif ?>
@@ -83,9 +76,9 @@ $edit_base = $repack->url() . ';edit?section=';
         <ul>
     </div>
     <div class="nav">
-        <div class="prev button blue"><a class="popup_cancel" href="#">&laquo;&nbsp; Cancel</a></div>
+        <div class="prev button blue"><a class="popup_cancel" href="#"><?=_('&laquo;&nbsp; Cancel')?></a></div>
         <?php if ($repack->isCustomized()): ?>
-            <div class="build button yellow"><a target="_top" href="<?=$repack->url()?>;release">Build this browser</a></div>
+        <div class="build button yellow"><a target="_top" href="<?=$repack->url()?>;release"><?=_('Build this browser')?></a></div>
         <?php endif ?>
     </div>
 </div>

@@ -10,22 +10,22 @@
     <?php if (authprofiles::is_logged_in() && 
         authprofiles::get_profile('screen_name') == $profile->screen_name): ?>
         <?php
-            $create_url = url::base() . "profiles/{$profile->screen_name}/browsers/create";
+            $create_url = url::site("profiles/{$profile->screen_name}/browsers/create");
         ?>
         <form action="<?=$create_url?>" method="POST">
-            <button id="confirm" class="submit required button large yellow">Create a New Browser</button>
+        <button id="confirm" class="submit required button large yellow"><?=_('Create a New Browser')?></button>
         </form>
     <?php endif ?>
 </div>
 
 <?php if ($profile->checkPrivilege('edit')): ?>
 <div class="white_box_sidebar">
-    <?php $settings_url = url::base() . "profiles/{$profile->screen_name}/settings/basics/"; ?>
-    <h3><a href="<?=$settings_url?>">Account settings</a></h3>
+    <?php $settings_url = url::site("profiles/{$profile->screen_name}/settings/basics/"); ?>
+    <h3><a href="<?=$settings_url?>"><?=_('Account settings')?></a></h3>
     <ul class="profile_actions">
-        <li><a href="<?=$settings_url . 'changepassword'?>">Change login password</a></li>
-        <li><a href="<?=$settings_url . 'changeemail'?>">Change login email</a></li>
-        <li><a href="<?=$settings_url . 'details'?>">Edit profile details</a></li>
+        <li><a href="<?=$settings_url . 'changepassword'?>"><?=_('Change login password')?></a></li>
+        <li><a href="<?=$settings_url . 'changeemail'?>"><?=_('Change login email')?></a></li>
+        <li><a href="<?=$settings_url . 'details'?>"><?=_('Edit profile details')?></a></li>
     </ul>
 </div>
 <?php endif ?>
@@ -34,16 +34,17 @@
 
     <div class="header">
         <?php if (authprofiles::get_profile('screen_name') == $profile->screen_name): ?>
-            <h3>Your browsers</h3>
+            <h3><?=_('Your browsers')?></h3>
         <?php else: ?>
-            <h3>Browsers by <?= html::specialchars($profile->screen_name) ?></h3>
+            <?php/*i18n: %1$s = profile screen name */?>
+            <h3><?=sprintf(_('Browsers by %1$s'), $profile->screen_name)?></h3>
         <?php endif ?>
     </div>
 
     <ul class="browsers">
 
         <?php if (empty($indexed_repacks)): ?>
-            <li class="browser browser-none">None yet.</li>
+            <li class="browser browser-none"><?=_('None yet.')?></li>
         <?php endif ?>
 
         <?php foreach ($indexed_repacks as $uuid=>$repacks): ?>
@@ -67,9 +68,10 @@
                                 $repack->as_array(),
                                 array(
                                     'kind' => ($repack->isRelease()) ?
-                                        'Current release' : 'In-progress changes',
+                                        _('Current release') : _('In-progress changes'),
                                     'modified' => 
-                                        date('M d Y', strtotime($repack->modified)),
+                                        /*i18n: Date format for last modified */            
+                                        date(_('M d Y'), strtotime($repack->modified)),
                                 )
                             ));
                         ?>
@@ -78,7 +80,8 @@
                                 ->set('repack', $repack)->render()?> 
                             <div class="meta">
                                 <a href="<?=$repack->url()?>" class="kind"><?=$h['kind']?></a>
-                                <span class="modified">Last modified <em><?=$h['modified']?></em></span>
+                                <?php /*i18n: %1$s = last modified */ ?>
+                                <span class="modified"><?=sprintf(_('Last modified <em>%1$s</em>'), $h['modified'])?></span>
                             </div>
                             <?=View::factory('repacks/elements/actions')
                                 ->set('repack', $repack)->render() ?>

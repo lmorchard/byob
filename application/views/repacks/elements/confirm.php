@@ -19,12 +19,12 @@
                 </div>
             <?php endif ?>
             <?php if (!isset($comments) || !!$comments): ?>
-                <p>Comments:</p>
+                <p><?=_('Comments:')?></p>
                 <textarea name="comments" id="comments" cols="50" rows="7"></textarea>
             <?php endif ?>
             <p>
-                <button class="button yellow large" name="confirm" id="confirm" value="yes">Yes, confirm.</button>  
-                <button class="button blue large" name="cancel" id="cancel" value="no">No, cancel.</button> 
+                <button class="button yellow large" name="confirm" id="confirm" value="yes"><?=_('Yes, confirm.')?></button>  
+                <button class="button blue large" name="cancel" id="cancel" value="no"><?=_('No, cancel.')?></button> 
             </p>
         </fieldset>
     </form>

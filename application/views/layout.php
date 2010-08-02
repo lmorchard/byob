@@ -10,7 +10,7 @@
     <head>  
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
-        <title>build your own browser :: <?= slot::get('head_title') ?></title>
+        <title><?=sprintf(_('build your own browser :: %1$s'), slot::get('head_title')) ?></title>
         <link rel="shortcut icon" href="<?=url::base()?>favicon.ico" type="image/x-icon" />
 
         <?php
@@ -42,7 +42,7 @@
     </head> 
 
     <body id="<?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?>" 
-    class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?> <?=slot::get('body_class')?>">
+        class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?> <?=slot::get('body_class')?>">
 
         <div id="wrap" class="<?= (slot::exists('sidebar') != '') ? 'with_sidebar' : '' ?>">
             <?php if (slot::get('is_popup')): ?>
@@ -54,29 +54,29 @@
                 <div id="header">
                     <div class="crumbs">
                         <h1 class="site_title"><a href="http://www.mozilla.com">mozilla</a></h1>
-                        <h2 class="title"><a href="<?=url::base()?>">build your own browser</a></h2>
+                        <h2 class="title"><a href="<?=url::site()?>"><?=_('build your own browser')?></a></h2>
                     </div>
                     <div class="sub">
                         <div class="auth">
                             <div class="welcome">
-                                Welcome, <span class="screen_name"><?= $e_screen_name ?></span>.
+                                <?=sprintf(_('Welcome, <span class="screen_name">%1$s</span>'), $e_screen_name)?>. 
                             </div>
                             <ul class="nav">
                                 <?php if (!authprofiles::is_logged_in()): ?>
-                                    <li class="first"><a href="<?= url::base() . 'register' ?>">Sign up</a></li>
-                                    <li><a class="login" href="<?= url::base() . 'login' ?>">Log in</a></li>
+                                    <li class="first"><a href="<?= url::site('register') ?>"><?=_('Sign up')?></a></li>
+                                    <li><a class="login" href="<?= url::site('login') ?>"><?=_('Log in')?></a></li>
                                 <?php else: ?>
-                                    <li class="first"><a href="<?= url::base() . 'profiles/' . $u_screen_name ?>">My profile</a></li>
+                                <li class="first"><a href="<?= url::site('profiles/' . $u_screen_name) ?>"><?=_('My profile')?></a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
-                                        <li><a href="<?= url::base() . 'search/approvalqueue' ?>">Queue (<?=$approval_queue_count?>)</a></li>
+                                        <li><a href="<?= url::site('search/approvalqueue') ?>"><?=_(sprintf('Queue (%1$s)', $approval_queue_count))?></a></li>
                                     <?php endif ?>
                                     <!--
-                                        <li><a href="<?= url::base() . 'profiles/' . $u_screen_name . '/settings' ?>">edit profile</a></li>
+                                        <li><a href="<?= url::site('profiles/' . $u_screen_name . '/settings') ?>">edit profile</a></li>
                                     -->
                                     <?php if (authprofiles::is_allowed('admin', 'index')): ?>
-                                        <li><a href="<?= url::base() . 'admin/' ?>">Manage</a></li>
+                                        <li><a href="<?= url::site('admin/') ?>">Manage</a></li>
                                     <?php endif ?>
-                                    <li><a href="<?= url::base() . 'logout' ?>">Log out</a></li>
+                                    <li><a href="<?= url::site('logout') ?>">Log out</a></li>
                                 <?php endif; ?>
                             </ul>
                         </div>
@@ -125,7 +125,7 @@
                 <ul class="nav">
                     <li class="first"><a href="http://www.mozilla.com/en-US/privacy-policy.html">Privacy Policy</a></li>
                     <li><a href="http://www.mozilla.com/en-US/about/legal.html">Legal Notices</a></li>
-                    <li><a href="<?=url::base()?>contact">Contact us</a></li>
+                    <li><a href="<?=url::site('contact')?>">Contact us</a></li>
                 </ul>
             </div>
         </div>
@@ -136,7 +136,7 @@
             BYOB.Config = {
                 global: {
                     debug: true,
-                    base_url: <?= json_encode(url::base()) ?>
+                    base_url: <?= json_encode(url::site()) ?>
                 },
                 EOF: null
             };
