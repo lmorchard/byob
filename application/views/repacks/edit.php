@@ -20,9 +20,9 @@
         $editor->view_name : 'repacks/edit/' . $section;
     $section_editor = View::factory($section_editor_name)->render();
 ?>
-<?php slot::set('head_title', 'customize :: ' . html::specialchars($repack->display_title)); ?>
+<?php slot::set('head_title', sprintf(_('customize :: %s'), html::specialchars($repack->display_title))); ?>
 <?php slot::start('crumbs') ?>
-    <a href="<?= $repack->url() ?>"><?= html::specialchars($repack->display_title) ?></a> :: customize your browser
+    <a href="<?= $repack->url() ?>"><?=sprintf(_('%1$s :: customize your browser'), html::specialchars($repack->display_title)) ?></a>
 <?php slot::end() ?>
 
 <?= form::open(url::current() . '?section=' . $section , array('class'=>join(' ', $classes), 'id'=>'wizard'), array()); ?>
@@ -81,10 +81,10 @@
                         $base_url = url::base() . url::current() . '?section=';
                     ?>
                     <?php if (null !== $prev_name && false !== $sections[$prev_name]): ?>
-                        <div class="prev_section float-left button blue"><a href="<?=$base_url.$prev_name?>">&laquo;&nbsp; Previous Step</a></div>
+                        <div class="prev_section float-left button blue"><a href="<?=$base_url.$prev_name?>"><?=_('&laquo;&nbsp; Previous Step')?></a></div>
                     <?php endif ?>
                     <?php if (null !== $next_name && false !== $sections[$next_name]): ?>
-                        <div class="next_section float-right button blue"><a href="<?=$base_url.$next_name?>">Next Step &nbsp;&raquo;</a></div>
+                        <div class="next_section float-right button blue"><a href="<?=$base_url.$next_name?>"><?=_('Next Step &nbsp;&raquo;')?></a></div>
                     <?php endif ?>
 				</div>
 			</div>
@@ -94,7 +94,7 @@
 	<div class="editor-changes">
         
         <?php if (!empty(form::$errors)): ?>
-            <h3>Problems:</h3>
+            <h3><?=_('Problems:')?></h3>
             <ul class="errors highlight">
                 <?php foreach (form::$errors as $field=>$error): ?>
                     <li class="error_<?= html::specialchars($field) ?>"><?= html::specialchars($error) ?></li>
@@ -102,7 +102,7 @@
             </ul>
         <?php endif ?>
 
-		<h3>Changes made this session:</h3>
+        <h3><?=_('Changes this session:')?></h3>
 
 		<ul>
             <?php if (!empty($repack->changed_sections)):?>
@@ -111,14 +111,14 @@
                     <li><?=$sections[$changed]?></li>
                 <?php endforeach ?>
             <?php else: ?>
-                <li class="none"><h5>None yet.</h5></li>
+            <li class="none"><h5><?=_('None yet.')?></h5></li>
             <?php endif ?>
 		</ul>
 	</div>
 
 	<div class="editor-commit">
-		<button id="save-and-review" class="button yellow large"  href="<?=url::base() . url::current()?>?section=review">Review and Build</button>
-		<button id="save-and-close" class="button blue large">Save and Close</button>
+        <button id="save-and-review" class="button yellow large"  href="<?=url::base() . url::current()?>?section=review"><?=_('Review and Build')?></button>
+        <button id="save-and-close" class="button blue large"><?=_('Save and Close')?></button>
 	</div>
 
 </div>

@@ -20,6 +20,14 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     public $repack = null;
 
     /**
+     * Locale should be worked out by this time, so localize the tab title.
+     */
+    public function l10n_ready()
+    {
+        $this->title = _('Locales');
+    }
+
+    /**
      * Determine whether the current user has permission to access this 
      * editor.
      */
@@ -34,7 +42,7 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     public function validate(&$data, $repack)
     {
         $this->repack = $repack;
-
+        
         $data = Validation::factory($data)
             ->pre_filter('trim');
 
@@ -101,11 +109,15 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     /**
      * TODO: Get rid of this when PHP 5.3+ can be a requirement
      */
-    public static function getInstance() { return parent::getInstance(get_class()); }
+    public static function getInstance() { 
+        return parent::getInstance(get_class()); 
+    }
 
     /**
      * TODO: Get rid of this when PHP 5.3+ can be a requirement
      */
-    public static function register() { return parent::register(get_class()); }
+    public static function register() { 
+        return parent::register(get_class()); 
+    }
 
 }

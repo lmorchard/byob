@@ -32,12 +32,12 @@
 <div class="searchplugin_upload upload_form">
 
     <form method="POST" enctype="multipart/form-data">
-        <fieldset class="upload"><legend>Upload a search engine plug-in:</legend>
+    <fieldset class="upload"><legend><?=_('Upload a search engine plug-in:')?></legend>
             <div>
                 <div class="pretty_upload">
                     <input type="file" class="upload" id="sp_upload" name="sp_upload" />
                 </div>
-                <button name="submit" class="button blue">Upload</button>
+                <button name="submit" class="button blue"><?=_('Upload')?></button>
             </div>
         </fieldset>
     </form>
@@ -73,7 +73,7 @@
                             <input type="hidden" name="method" value="delete" />
                             <input type="hidden" name="searchplugin_fn" 
                                 value="<?= $e['filename'] ?>" />
-                            <button name="submit" class="remove">Remove</button>
+                                <button name="submit" class="remove"><?=_('Remove')?></button>
                         </form>
                     </label>
                 </a></li>

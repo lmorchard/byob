@@ -7,125 +7,125 @@
 $lang = array(
     'login_name' => array(
         'default'
-            => 'Valid login name is required.',
+            => _('Valid login name is required.'),
         'required'             
-            => 'Login name is required.',
+            => _('Login name is required.'),
         'length'               
-            => 'Login name must be between 3 and 64 characters in length',
+            => _('Login name must be between 3 and 12 characters in length'),
         'alpha_dash'           
-            => 'Login name must contain only alphanumeric characters',
+            => _('Login name must contain only alphanumeric characters'),
         'isLoginNameAvailable' 
-            => 'Login name is not available.'
+            => _('Login name is not available.')
     ),
     'email' => array(
         'default'
-            => 'Valid email is required.',
+            => _('Valid email is required.'),
         'required' 
-            => 'Email is required.',
+            => _('Email is required.'),
         'email'
-            => 'Valid email is required.',
+            => _('Valid email is required.'),
         'is_email_available' 
-            => 'A login has already been registered using this email address',
+            => _('A login has already been registered using this email address'),
     ),
     'email_confirm' => array(
         'default'
-            => 'Valid email confirmation is required.',
+            => _('Valid email confirmation is required.'),
         'required' 
-            => 'Email confirmation is required.',
+            => _('Email confirmation is required.'),
         'email'
-            => 'Valid email confirmation is required.',
+            => _('Valid email confirmation is required.'),
         'matches'
-            => 'Email confirmation does not match email.'
+            => _('Email confirmation does not match email.')
     ),
     'password' => array(
         'default'
-            => 'Password is invalid.',
+            => _('Password is invalid.'),
         'length'
-            => 'Password must be at least 6 characters long.',
+            => _('Password must be at least 6 characters long.'),
         'required' 
-            => 'Password is required.'
+            => _('Password is required.')
     ),
     'password_confirm' => array(
         'required' 
-            => 'Password confirmation is required.',
+            => _('Password confirmation is required.'),
         'matches'  
-            => 'Password and confirmation must match.'
+            => _('Password and confirmation must match.')
     ),
     'screen_name' => array(
         'default'
-            => 'Screen name is not available.',
+            => _('Screen name is not available.'),
         'required'              
-            => 'Screen name is required.',
+            => _('Screen name is required.'),
         'length'                
-            => 'Screen name must be between 3 and 64 characters in length',
+            => _('Screen name must be between 3 and 64 characters in length'),
         'alpha_dash'            
-            => 'Screen name must contain only alphanumeric characters',
+            => _('Screen name must contain only alphanumeric characters'),
         'isScreenNameAvailable' 
-            => 'Screen name is not available.',
+            => _('Screen name is not available.'),
     ),
     'first_name' => array(
         'required'      
-            => 'First name is required',
+            => _('First name is required'),
         'standard_text' 
-            => 'First name must contain only alphanumeric characters'
+            => _('First name must contain only alphanumeric characters')
     ),
     'last_name' => array(
         'required'      
-            => 'Last name is required',
+            => _('Last name is required'),
         'standard_text' 
-            => 'Last name must contain only alphanumeric characters'
+            => _('Last name must contain only alphanumeric characters')
     ),
     'org_name' => array(
         'required'      
-            => 'Organization name is required',
+            => _('Organization name is required'),
     ),
     'recaptcha' => array(
         'default' 
-            => 'Valid captcha response is required.'
+            => _('Valid captcha response is required.')
     ),
     'old_password' => array(
         'default'
-            => 'Old password is invalid.',
+            => _('Old password is invalid.'),
         'required'
-            => 'Old password is required',
+            => _('Old password is required'),
     ),
     'new_password' => array(
         'required'
-            => 'New passwords is required',
+            => _('New passwords is required'),
     ),
     'new_password_confirm' => array(
         'required'
-            => 'New password confirmation required',
+            => _('New password confirmation required'),
         'matches'  
-            => 'Password and confirmation must match.'
+            => _('Password and confirmation must match.')
     ),
     'new_email' => array(
-        'default' =>
-            'A valid new email is required',
-        'is_email_available' =>
-            'That email address is used by another login.',
+        'default' 
+            => _('A valid new email is required'),
+        'is_email_available' 
+            => _('That email address is used by another login.'),
     ),
     'new_email_confirm' => array(
-        'default' =>
-            'A valid new email confirmation is required'
+        'default' 
+            => _('A valid new email confirmation is required')
     ),
 
     'phone' => array( 
-        'default' => 'Phone number is required.' 
+        'default' => _('Phone number is required.') 
     ),
     'address_1' => array( 
-        'default' => 'Street address is required.' 
+        'default' => _('Street address is required.') 
     ),
     'city' => array( 
-        'default' => 'City is required.' 
+        'default' => _('City is required.') 
     ),
     'state' => array( 
-        'default' => 'State is required.' 
+        'default' => _('State is required.') 
     ),
     'zip' => array( 
-        'default' => 'Zip is required.' 
+        'default' => _('Zip is required.') 
     ),
     'country' => array( 
-        'default' => 'Country is required.' 
+        'default' => _('Country is required.') 
     ),
 );

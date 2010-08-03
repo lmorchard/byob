@@ -47,18 +47,16 @@ $selected_persona_url_hash = md5($selected_persona_url);
 <?php slot::end() ?>
 
 <div class="intro">
-    <p>
-        With BYOB, you can bundle many popular add-ons with your browser.
-    </p>
+    <p><?=_('With BYOB, you can bundle many popular add-ons with your browser.')?></p>
 </div>
 <div class="pane pane-addon-management">
 
     <div class="selections">
-        <fieldset><legend>Selected add-ons:</legend>
+        <fieldset><legend><?=_('Selected add-ons:')?></legend>
             <ul class="addon-selections clearfix">
                 <li class="template" data-selection-index="">
                     <a href="#" class="remove_link">
-                        <span class="name"></span><span class="remove">Remove</span>
+                        <span class="name"></span><span class="remove"><?=_('Remove')?></span>
                     </a>
                 </li>
             </ul>
@@ -68,10 +66,10 @@ $selected_persona_url_hash = md5($selected_persona_url);
     <div class="choices">
         <div class="sub-tab-set">
             <ul class="sub-tabs">
-                <li class="selected"><a href="#tab-extensions">Extensions</a></li>
-                <li><a href="#tab-searchengines">Search Engines</a></li>
-                <li><a href="#tab-personas">Personas</a></li>
-                <li><a href="#tab-themes">Themes</a></li>
+                <li class="selected"><a href="#tab-extensions"><?=_('Extensions')?></a></li>
+                <li><a href="#tab-searchengines"><?=_('Search Engines')?></a></li>
+                <li><a href="#tab-personas"><?=_('Personas')?></a></li>
+                <li><a href="#tab-themes"><?=_('Themes')?></a></li>
             </ul>
 
             <div class="sub-tab-content selected" id="tab-extensions">
@@ -84,8 +82,8 @@ $selected_persona_url_hash = md5($selected_persona_url);
                     </fieldset>
                 <?php endif ?>
 
-                <fieldset><legend>Choose from these popular add-ons 
-                    <?= ($unlimited_addons) ? ':' : '(maximum of '.Mozilla_BYOB_Editor_AddonManagement::$max_extensions.'):' ?></legend>
+                <fieldset><legend><?=_('Choose from these popular add-ons')?>
+                    <?= ($unlimited_addons) ? ':' : sprintf(_('(maximum of %1$s)'), Mozilla_BYOB_Editor_AddonManagement::$max_extensions) ?></legend>
                     <ul class="extensions"><?php foreach ($popular_extensions as $id=>$addon): ?>
                         <?php
                             $e = html::escape_array(array(
@@ -111,7 +109,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                                 <span class="name"><?=$e['name']?></span>
                                 <span class="version"><?=$e['version']?></span>
                                 <p class="summary"><?=$e['summary']?></p>
-                                <a target="new" href="<?=$e['learnmore']?>" class="learn">Learn more...</a>
+                                <a target="new" href="<?=$e['learnmore']?>" class="learn"><?=_('Learn more...')?></a>
                             </div>
                         </li>
                     <?php endforeach ?></ul>
@@ -126,8 +124,8 @@ $selected_persona_url_hash = md5($selected_persona_url);
                         scrolling="no"></iframe>
                 </fieldset>
 
-                <fieldset><legend>Choose from these popular search engines
-                    <?= ($unlimited_addons) ? ':' : '(maximum of '.Mozilla_BYOB_Editor_AddonManagement::$max_search_plugins.'):' ?></legend>
+                <fieldset><legend><?=_('Choose from these popular search engines')?>
+                    <?= ($unlimited_addons) ? ':' : sprintf(_('(maximum of %1$s)'), Mozilla_BYOB_Editor_AddonManagement::$max_search_plugins) ?></legend>
                     <ul class="searchplugins"><?php foreach ($popular_searchplugins as $fn=>$plugin): ?>
                         <?php
                             $e = html::escape_array(array(
@@ -156,18 +154,18 @@ $selected_persona_url_hash = md5($selected_persona_url);
 
             <div class="sub-tab-content" id="tab-personas">
 
-                <fieldset class="divider"><legend>Enter the URL of a Persona to include:</legend>
+                <fieldset class="divider"><legend><?=_('Enter the URL of a Persona to include:')?></legend>
                     <input type="text" name="persona_url" class="persona_url text"
                         value="<?=(empty($popular_personas[md5($selected_persona_url)])) ? $selected_persona_url : '' ?>" />
                 </fieldset>
 
-                <fieldset><legend>Choose from these popular Personas:</legend>
+                <fieldset><legend><?=_('Choose from these popular Personas:')?></legend>
                     <ul class="personas">
                         <li class="none">
                             <input type="radio" name="persona_url_hash" value="" 
                                 id="persona_id_none" 
                                 <?=empty($selected_persona_url)?'checked="checked"':''?> />
-                            <label for="persona_id_none" class="none">No Persona</label>
+                            <label for="persona_id_none" class="none"><?=_('No Persona')?></label>
                         </li>
                         <?php foreach ($popular_personas as $url_hash=>$persona): ?>
                             <?php
@@ -199,7 +197,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                         <li class="none">
                             <input type="radio" name="theme_id" id="theme_id_none" value="" 
                                 <?= empty($selected_theme_id) ? 'checked="checked"' : '' ?> />
-                            <label for="theme_id_none" class="none">Use the default theme</label>
+                            <label for="theme_id_none" class="none"><?=_('Use the default theme')?></label>
                         </li>
                         <?php foreach ($popular_themes as $idx => $addon): ?>
                             <?php
@@ -223,7 +221,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                                 </label>
                                 <label class="icon" for="theme_id_<?=$idx?>">
                                     <img src="<?=$e['thumbnail']?>" alt="<?=$e['name']?>" />
-                                    <a target="new" href="<?=$e['learnmore']?>">More info</a>
+                                    <a target="new" href="<?=$e['learnmore']?>"><?=_('More info')?></a>
                                 </label>
                             </li>
                         <?php endforeach ?></ul>

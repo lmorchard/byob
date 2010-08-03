@@ -4,6 +4,28 @@
 BYOB_Main = function() {
     var $this = {
 
+        // Translation table for gettext()
+        _translations: {},
+
+        /**
+         * Intended as a callback for a JSON request, populates the package
+         * translation table.
+         */
+        loadTranslations: function (data) {
+            $this._translations = data;
+        },
+
+        /**
+         * Quick & dirty gettext translation function.
+         */
+        gettext: function (str) {
+            if ('undefined' !== typeof $this._translations[str]) {
+                return $this._translations[str];
+            } else {
+                return str;
+            }
+        },
+
         /**
          * Initialize the page.
          */

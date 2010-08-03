@@ -1,9 +1,24 @@
+#: views/repacks/edit.php:25
+#, php-format
+msgid   "%1$s :: customize your browser"
+msgstr  ""
+
 #: views/repacks/edit/review.php:79
 msgid   "&laquo;&nbsp; Cancel"
 msgstr  ""
 
+#: views/repacks/edit.php:84
+msgid   "&laquo;&nbsp; Previous Step"
+msgstr  ""
+
 #: views/repacks/edit/firstrun.php:19
 msgid   "(eg: https://addons.mozilla.org/en-US/firefox/collection/social)"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:86
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:128
+#, php-format
+msgid   "(maximum of %1$s)"
 msgstr  ""
 
 #: views/repacks/edit/bookmarks.php:45
@@ -56,6 +71,26 @@ msgstr  ""
 msgid   "A folder must contain at least 1 item."
 msgstr  ""
 
+#: i18n/en_US/form_errors_auth.php:28
+msgid   "A login has already been registered using this email address"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:10
+msgid   "A short name consisting of letters and numbers is required"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:14
+msgid   "A title is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:110
+msgid   "A valid new email confirmation is required"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:104
+msgid   "A valid new email is required"
+msgstr  ""
+
 #: views/repacks/elements/actions.php:51
 msgid   "Abandon changes"
 msgstr  ""
@@ -78,6 +113,10 @@ msgstr  ""
 msgid   "Account settings"
 msgstr  ""
 
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:76
+msgid   "Add"
+msgstr  ""
+
 #: views/repacks/edit/bookmarks.php:14
 msgid   "Add and organize default bookmarks."
 msgstr  ""
@@ -88,6 +127,19 @@ msgstr  ""
 
 #: views/repacks/edit/collections.php:5
 msgid   "Add-ons Collection URL:"
+msgstr  ""
+
+#: modules/addon_management/libraries/Mozilla/BYOB/Editor/AddonManagement.php:31
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:5
+msgid   "Addons"
+msgstr  ""
+
+#: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php:11
+msgid   "Adhoc distribution.ini overlay"
+msgstr  ""
+
+#: views/layout.php:123
+msgid   "All rights reserved"
 msgstr  ""
 
 #: views/index/index.php:51
@@ -111,6 +163,20 @@ msgstr  ""
 msgid   "Approve release"
 msgstr  ""
 
+#: i18n/en_US/form_repacks_edit.php:26
+msgid   "At least one OS platform is required"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:22
+msgid   "At least one locale is required"
+msgstr  ""
+
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:31
+#, php-format
+msgid   "BYOB is currently available in %1$s locales. You can choose "
+        "<strong>up to ten locales</strong> for your browser."
+msgstr  ""
+
 #: views/repacks/edit/bookmarks.php:77
 msgid   "Bookmark"
 msgstr  ""
@@ -123,8 +189,12 @@ msgstr  ""
 msgid   "Bookmark Toolbar"
 msgstr  ""
 
-#: views/repacks/edit/review.php:43
+#: models/repack.php:126 views/repacks/edit/review.php:43
 msgid   "Bookmarks"
+msgstr  ""
+
+#: modules/addon_management/public/js/addon_management.js:84
+msgid   "Browse"
 msgstr  ""
 
 #: views/repacks/edit/general.php:8
@@ -175,6 +245,10 @@ msgstr  ""
 msgid   "Cancel release"
 msgstr  ""
 
+#: i18n/en_US/form_errors_contact.php:10
+msgid   "Category is required."
+msgstr  ""
+
 #: views/repacks/elements/actions.php:21
 msgid   "Change details"
 msgstr  ""
@@ -195,16 +269,44 @@ msgstr  ""
 msgid   "Changes requested"
 msgstr  ""
 
+#: views/repacks/edit.php:105
+msgid   "Changes this session:"
+msgstr  ""
+
 #: views/index/index.php:25
 msgid   "Check out our FAQ"
+msgstr  ""
+
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:60
+msgid   "Choose from these common locales:"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:162
+msgid   "Choose from these popular Personas:"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:85
+msgid   "Choose from these popular add-ons"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:127
+msgid   "Choose from these popular search engines"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:120
+msgid   "City is required."
 msgstr  ""
 
 #: views/repacks/edit/review.php:68
 msgid   "Collection URL:"
 msgstr  ""
 
-#: views/repacks/edit/review.php:67
+#: models/repack.php:127 views/repacks/edit/review.php:67
 msgid   "Collections"
+msgstr  ""
+
+#: i18n/en_US/form_errors_contact.php:11
+msgid   "Comments are required."
 msgstr  ""
 
 #: views/repacks/elements/confirm.php:22
@@ -217,8 +319,20 @@ msgid   "Complement your online presence with a customized version of "
         "need."
 msgstr  ""
 
+#: views/layout.php:128
+msgid   "Contact us"
+msgstr  ""
+
 #: views/repacks/elements/actions.php:49
 msgid   "Continue editing"
+msgstr  ""
+
+#: views/layout.php:122
+msgid   "Copyright &copy; 2005 - 2010 Mozilla"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:129
+msgid   "Country is required."
 msgstr  ""
 
 #: views/repacks/index.php:16
@@ -270,6 +384,10 @@ msgstr  ""
 msgid   "Description"
 msgstr  ""
 
+#: i18n/en_US/form_repacks_edit.php:18
+msgid   "Description must be no longer than 1000 characters"
+msgstr  ""
+
 #: views/repacks/release.php:3
 msgid   "Distribution and generation restrictions"
 msgstr  ""
@@ -283,13 +401,50 @@ msgstr  ""
 msgid   "Edit profile details"
 msgstr  ""
 
+#: i18n/en_US/form_errors_auth.php:38
+msgid   "Email confirmation does not match email."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:34
+msgid   "Email confirmation is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:24
+msgid   "Email is required."
+msgstr  ""
+
 #: views/repacks/edit/general.php:10
 msgid   "Enter a one or two word identifier for this version of Firefox.  "
         "(required, max length 255 characters):"
 msgstr  ""
 
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:75
+msgid   "Enter all or part of a locale's name"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:157
+msgid   "Enter the URL of a Persona to include:"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:69
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:10
+msgid   "Extensions"
+msgstr  ""
+
 #: views/repacks/edit/bookmarks.php:93
 msgid   "Feed URL"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:68
+msgid   "First name is required"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:70
+msgid   "First name must contain only alphanumeric characters"
+msgstr  ""
+
+#: views/repacks/elements/actions.php:74
+msgid   "First-run page"
 msgstr  ""
 
 #: views/repacks/edit/bookmarks.php:60
@@ -314,6 +469,10 @@ msgstr  ""
 
 #: views/repacks/elements/changes.php:10
 msgid   "From"
+msgstr  ""
+
+#: libraries/Mozilla/BYOB/EditorRegistry.php:49 models/repack.php:124
+msgid   "General"
 msgstr  ""
 
 #: views/index/index.php:24
@@ -351,7 +510,9 @@ msgstr  ""
 
 #: views/repacks/edit/platforms.php:3
 msgid   "If, however, you only want to distribute a version for a certain "
-        "platform(s), you can deselect the platforms you don"
+        "platform(s), you can deselect the platforms you don't need below, "
+        "and they won't be generated when you submit your distribution for "
+        "approval."
 msgstr  ""
 
 #: views/repacks/elements/status.php:38 views/repacks/index.php:71
@@ -360,6 +521,14 @@ msgstr  ""
 
 #: views/repacks/elements/actions.php:91
 msgid   "In-progress changes to current release"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:38
+msgid   "Invalid URL for addon collection"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:42 i18n/en_US/form_repacks_edit.php:46
+msgid   "Invalid URL for persona selection"
 msgstr  ""
 
 #: views/index/index.php:71
@@ -380,6 +549,22 @@ msgstr  ""
 msgid   "Last modified <em>%1$s</em>"
 msgstr  ""
 
+#: i18n/en_US/form_errors_auth.php:74
+msgid   "Last name is required"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:76
+msgid   "Last name must contain only alphanumeric characters"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:112
+msgid   "Learn more..."
+msgstr  ""
+
+#: views/layout.php:127
+msgid   "Legal Notices"
+msgstr  ""
+
 #: views/repacks/elements/downloads.php:24
 msgid   "Linux"
 msgstr  ""
@@ -388,12 +573,38 @@ msgstr  ""
 msgid   "Livemark"
 msgstr  ""
 
+#: modules/locale_selection/libraries/Mozilla/BYOB/Editor/LocaleSelection.php:27
+#: modules/locale_selection/views/repacks/edit/review_locale_selection.php:2
 #: views/repacks/edit/locales.php:7
 msgid   "Locales"
 msgstr  ""
 
 #: views/layout.php:67
 msgid   "Log in"
+msgstr  ""
+
+#: views/layout.php:79
+msgid   "Log out"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:18
+msgid   "Login name is not available."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:12
+msgid   "Login name is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:14
+msgid   "Login name must be between 3 and 12 characters in length"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:16
+msgid   "Login name must contain only alphanumeric characters"
+msgstr  ""
+
+#: controllers/repacks.php:24
+msgid   "Login required to manipulate repacks."
 msgstr  ""
 
 #. i18n: Date format for last modified
@@ -409,8 +620,16 @@ msgstr  ""
 msgid   "Make Firefox Yours"
 msgstr  ""
 
+#: views/layout.php:77
+msgid   "Manage"
+msgstr  ""
+
 #: views/repacks/elements/history.php:15 views/repacks/elements/history.php:27
 msgid   "Modified"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:224
+msgid   "More info"
 msgstr  ""
 
 #: views/repacks/edit/general.php:2
@@ -421,6 +640,17 @@ msgid   "Most of the meta data about your customized version of Firefox will "
         "and should describe who this browser is tailored for. When referring "
         "to the this browser (e.g. on a website, blog post, communique, "
         "etc.), you should use the name \"<em>%1$s</em>\"."
+msgstr  ""
+
+#: models/repack.php:1158 models/repack.php:1160 models/repack.php:1163
+#, php-format
+msgid   "Mozilla Firefox for %1$s"
+msgstr  ""
+
+#. i18n: %1$s = organization name; %2$s = browser's short title
+#: models/repack.php:1167
+#, php-format
+msgid   "Mozilla Firefox for %1$s (%2$s)"
 msgstr  ""
 
 #: views/repacks/edit/locales.php:2
@@ -461,8 +691,36 @@ msgstr  ""
 msgid   "Name"
 msgstr  ""
 
+#: i18n/en_US/form_errors_contact.php:8
+msgid   "Name is required."
+msgstr  ""
+
+#: repacks/edit/bookmarks-ui.js:586
+msgid   "New Folder"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:98
+msgid   "New password confirmation required"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:94
+msgid   "New passwords is required"
+msgstr  ""
+
+#: views/repacks/edit.php:87
+msgid   "Next Step &nbsp;&raquo;"
+msgstr  ""
+
 #: views/repacks/edit/general.php:21
 msgid   "No"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:168
+msgid   "No Persona"
+msgstr  ""
+
+#: modules/addon_management/controllers/addonmanagement.php:51
+msgid   "No XPI upload available"
 msgstr  ""
 
 #: views/search/approvalqueue.php:9 views/search/index.php:5
@@ -477,7 +735,7 @@ msgstr  ""
 msgid   "None"
 msgstr  ""
 
-#: views/repacks/index.php:47
+#: views/repacks/edit.php:114 views/repacks/index.php:47
 msgid   "None yet."
 msgstr  ""
 
@@ -485,15 +743,80 @@ msgstr  ""
 msgid   "None."
 msgstr  ""
 
+#: modules/addon_management/models/searchplugin.php:89
+msgid   "Not an OpenSearchDescription document"
+msgstr  ""
+
 #: views/repacks/edit/bookmarks.php:56
 msgid   "Notes:"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:88
+msgid   "Old password is invalid."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:90
+msgid   "Old password is required"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:32
+msgid   "Only up to 3 items allowed in Bookmarks Toolbar"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:34
+msgid   "Only up to 5 items allowed in Bookmarks Menu"
+msgstr  ""
+
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:72
+msgid   "Or search for a locale by name:"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:80
+msgid   "Organization name is required"
 msgstr  ""
 
 #: views/index/index.php:85
 msgid   "Organizations."
 msgstr  ""
 
-#: views/repacks/edit/platforms.php:7 views/repacks/edit/review.php:25
+#: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php:14
+msgid   "Overlay source:"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:52 i18n/en_US/form_errors_auth.php:100
+msgid   "Password and confirmation must match."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:50
+msgid   "Password confirmation is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:42
+msgid   "Password is invalid."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:46
+msgid   "Password is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:44
+msgid   "Password must be at least 6 characters long."
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:45
+msgid   "Persona"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:71
+msgid   "Personas"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:114
+msgid   "Phone number is required."
+msgstr  ""
+
+#: models/repack.php:125 views/repacks/edit/platforms.php:7
+#: views/repacks/edit/review.php:25
 msgid   "Platforms"
 msgstr  ""
 
@@ -504,6 +827,23 @@ msgstr  ""
 
 #: views/repacks/elements/actions.php:102
 msgid   "Preview:"
+msgstr  ""
+
+#: views/layout.php:126
+msgid   "Privacy Policy"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:30
+msgid   "Problems in bookmark items."
+msgstr  ""
+
+#: views/repacks/edit.php:97
+msgid   "Problems:"
+msgstr  ""
+
+#: views/layout.php:71
+#, php-format
+msgid   "Queue (%1$s)"
 msgstr  ""
 
 #: modules/addon_management/vendor/RdfComponent.php:108
@@ -551,6 +891,14 @@ msgstr  ""
 msgid   "Release reverted"
 msgstr  ""
 
+#: modules/addon_management/views/addonmanagement/upload_extension.php:63
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:76
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:59
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:46
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:52
+msgid   "Remove"
+msgstr  ""
+
 #: views/repacks/release.php:25
 msgid   "Request a new release for this browser?"
 msgstr  ""
@@ -559,8 +907,17 @@ msgstr  ""
 msgid   "Request release"
 msgstr  ""
 
+#: modules/addon_management/models/searchplugin.php:102
+#, php-format
+msgid   "Required element %1$s empty."
+msgstr  ""
+
 #: views/repacks/revert.php:5
 msgid   "Revert the existing release for this browser?"
+msgstr  ""
+
+#: views/repacks/edit.php:120
+msgid   "Review and Build"
 msgstr  ""
 
 #: views/repacks/elements/status.php:12
@@ -569,6 +926,54 @@ msgstr  ""
 
 #: views/repacks/edit/bookmarks.php:107
 msgid   "Save"
+msgstr  ""
+
+#: views/repacks/edit.php:121
+msgid   "Save and Close"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:56 i18n/en_US/form_errors_auth.php:64
+msgid   "Screen name is not available."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:58
+msgid   "Screen name is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:60
+msgid   "Screen name must be between 3 and 64 characters in length"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:62
+msgid   "Screen name must contain only alphanumeric characters"
+msgstr  ""
+
+#: views/layout.php:92
+msgid   "Search Browsers"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:70
+msgid   "Search Engines"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:29
+msgid   "Search Plugins"
+msgstr  ""
+
+#: modules/addon_management/controllers/addonmanagement.php:138
+msgid   "Search plugin upload could not be parsed"
+msgstr  ""
+
+#: modules/addon_management/controllers/addonmanagement.php:130
+msgid   "Search plugin upload must be of type text/xml"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:55
+msgid   "Selected add-ons:"
+msgstr  ""
+
+#: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:36
+msgid   "Selected locales:"
 msgstr  ""
 
 #: views/repacks/edit/general.php:18
@@ -599,8 +1004,20 @@ msgstr  ""
 msgid   "Sorry, this action is not allowed."
 msgstr  ""
 
+#: i18n/en_US/form_errors_auth.php:123
+msgid   "State is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:117
+msgid   "Street address is required."
+msgstr  ""
+
 #: views/repacks/elements/actions.php:23
 msgid   "Take down release"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:106
+msgid   "That email address is used by another login."
 msgstr  ""
 
 #: views/repacks/edit/bookmarks.php:59
@@ -633,6 +1050,14 @@ msgid   "The program installers generated by BYOB and/or their contents may "
         "not be modified in any way"
 msgstr  ""
 
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:61
+msgid   "Theme"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:72
+msgid   "Themes"
+msgstr  ""
+
 #: views/repacks/release.php:6
 msgid   "There are a few rules regarding distribution of the installers, and "
         "breaking any of the rules automatically revokes your (or your "
@@ -653,6 +1078,14 @@ msgstr  ""
 msgid   "To"
 msgstr  ""
 
+#: i18n/en_US/form_repacks_edit.php:50
+msgid   "Too many extensions selected (maximum of 2)"
+msgstr  ""
+
+#: i18n/en_US/form_repacks_edit.php:54
+msgid   "Too many search engines selected (maximum of 3)"
+msgstr  ""
+
 #: views/repacks/edit/bookmarks.php:76
 msgid   "Type"
 msgstr  ""
@@ -661,8 +1094,53 @@ msgstr  ""
 msgid   "URL"
 msgstr  ""
 
+#: modules/addon_management/controllers/addonmanagement.php:59
+msgid   "Unable to read XPI install.rdf"
+msgstr  ""
+
 #: views/repacks/elements/status.php:13
 msgid   "Under review"
+msgstr  ""
+
+#: modules/addon_management/views/addonmanagement/upload_extension.php:40
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:40
+msgid   "Upload"
+msgstr  ""
+
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:35
+msgid   "Upload a search engine plug-in:"
+msgstr  ""
+
+#: modules/addon_management/views/addonmanagement/upload_extension.php:35
+msgid   "Upload an extension XPI file:"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:200
+msgid   "Use the default theme"
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:84
+msgid   "Valid captcha response is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_contact.php:9
+msgid   "Valid email address is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:32 i18n/en_US/form_errors_auth.php:36
+msgid   "Valid email confirmation is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:22 i18n/en_US/form_errors_auth.php:26
+msgid   "Valid email is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:10
+msgid   "Valid login name is required."
+msgstr  ""
+
+#: i18n/en_US/form_errors_contact.php:12
+msgid   "Valid recaptcha response required."
 msgstr  ""
 
 #: views/repacks/elements/downloads.php:48
@@ -711,6 +1189,10 @@ msgstr  ""
 msgid   "Windows"
 msgstr  ""
 
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:50
+msgid   "With BYOB, you can bundle many popular add-ons with your browser."
+msgstr  ""
+
 #: views/repacks/edit/general.php:20
 msgid   "Yes"
 msgstr  ""
@@ -728,6 +1210,11 @@ msgstr  ""
 msgid   "You can choose a set of addons to suggest for installation in your "
         "browser by using the collections feature of addons.mozilla.com (eg: "
         "https://addons.mozilla.org/en-US/firefox/collection/social)"
+msgstr  ""
+
+#: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php:6
+msgid   "You can create an INI overlay to be merged on top of the "
+        "distribution.ini generated for your repack."
 msgstr  ""
 
 #: views/repacks/edit/firstrun.php:2
@@ -748,6 +1235,10 @@ msgstr  ""
 #: views/index/index.php:72
 msgid   "Your version of Firefox is available in over 60 languages on Linux, "
         "Mac, and Windows. No one's left behind."
+msgstr  ""
+
+#: i18n/en_US/form_errors_auth.php:126
+msgid   "Zip is required."
 msgstr  ""
 
 #: views/repacks/approve.php:3
@@ -780,6 +1271,11 @@ msgstr  ""
 msgid   "cancel release"
 msgstr  ""
 
+#: views/repacks/edit.php:23
+#, php-format
+msgid   "customize :: %s"
+msgstr  ""
+
 #: views/repacks/delete.php:8
 msgid   "delete"
 msgstr  ""
@@ -788,6 +1284,12 @@ msgstr  ""
 msgid   "delete browser"
 msgstr  ""
 
+#: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php:21
+msgid   "distribution.ini result:"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:5
+#: modules/locale_selection/views/repacks/edit/review_locale_selection.php:2
 #: views/repacks/edit/review.php:19 views/repacks/edit/review.php:25
 #: views/repacks/edit/review.php:43 views/repacks/edit/review.php:67
 msgid   "edit"
@@ -837,6 +1339,10 @@ msgstr  ""
 
 #: views/repacks/revert.php:4
 msgid   "revert release"
+msgstr  ""
+
+#: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php:18
+msgid   "save and update result"
 msgstr  ""
 
 #: views/search/index.php:1

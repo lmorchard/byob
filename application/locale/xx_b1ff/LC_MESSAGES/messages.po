@@ -1,14 +1,29 @@
+# File: views/repacks/edit.php, line: 25
+#, php-format
+msgid   "%1$s :: customize your browser"
+msgstr  "%1$S :: CU5TOM1Z3 YOU'RE BROWSER"
+#
 # File: views/repacks/edit/review.php, line: 79
 msgid   "&laquo;&nbsp; Cancel"
-msgstr  "&LAQUO;&NBSP; CANCEL"
+msgstr  "&LAQUO;&NB5P; CANCEL"
+#
+# File: views/repacks/edit.php, line: 84
+msgid   "&laquo;&nbsp; Previous Step"
+msgstr  "&LAQUO;&NBSP; PREVIOUS 5TEP"
 #
 # File: views/repacks/edit/firstrun.php, line: 19
 msgid   "(eg: https://addons.mozilla.org/en-US/firefox/collection/social)"
-msgstr  "(EG: HTTPS://ADDON5.MO2ILLLA.ORG/EN-U5/FIREFOX/COLECSHUN/SOCIAL)"
+msgstr  "(EG: HTTP5://ADDON5.MO21LA.ORG/EN-US/FIREFOX/COLLECSHUN/SOC1AL)"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 86
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 128
+#, php-format
+msgid   "(maximum of %1$s)"
+msgstr  "(MAX1MUM OF %1$S)"
 #
 # File: views/repacks/edit/bookmarks.php, line: 45
 msgid   "+ New Bookmark"
-msgstr  "+ NEW BUUKMARK"
+msgstr  "+ NEW B00KMARK"
 #
 # File: views/repacks/edit/bookmarks.php, line: 44
 msgid   "+ New Folder"
@@ -17,24 +32,24 @@ msgstr  "+ NEW FOLDER"
 # File: views/repacks/view.php, line: 4
 #, php-format
 msgid   "<a href=\"%1$s\">%2$s</a> :: view details"
-msgstr  "<a href=\"%1$s\">%2$S</a> :: VIEW DETA1LS"
+msgstr  "<a href=\"%1$s\">%2$5</a> :: VIEW DETA1LS"
 #
 # File: views/index/index.php, line: 48
 msgid   "<a href=\"http://www.apple.com/safari/\">Safari</a> 3.1 or greater"
-msgstr  "<a href=\"http://www.apple.com/safari/\">SAFAR1</a> 3!!1 OR GREETER"
+msgstr  "<a href=\"http://www.apple.com/safari/\">SAFARI</a> 3!!1 OR GREETER"
 #
 # File: views/index/index.php, line: 47
 msgid   "<a href=\"http://www.mozilla.com/firefox/\">Firefox</a> 3.5 or "
         "greater"
-msgstr  "<a href=\"http://www.mozilla.com/firefox/\">F1REFOX</a> 3!!5 OR "
+msgstr  "<a href=\"http://www.mozilla.com/firefox/\">FIREFOX</a> 3!!5 OR "
         "GREETER"
 #
 # File: views/index/index.php, line: 17
 msgid   "<em>Build Your Own Browser (BYOB)</em> is a simple way that your "
         "organization can create and distribute a customized version of "
         "Firefox"
-msgstr  "<em>BU1LD YOUR OWN BROW5ER (BYOB)</em> IS A SIMPEL WAY THAT YOU'RE "
-        "ORGANIZASHUN CAN CREETE & DISTR1BUTE A CUSTOM12ED VER5ION OF F1REFOX"
+msgstr  "<em>BU1LD YOUR OWN BROW5ER (BYOB)</em> 15 A 51MPEL WAY THAT YOU'RE "
+        "ORGAN1ZASHUN CAN CREETE & D1STRIBUTE A CU5TOM1ZED VER51ON OF FIREFOX"
 #
 # File: views/index/index.php, line: 20
 msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
@@ -42,27 +57,47 @@ msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
         "                    <span class=\"second_line\">It only takes a "
         "minute.</span>"
 msgstr  "<span class=\"first_line\"><strong>CREETE YOUR BROW5ER</strong> "
-        "(FRE3!1!)</span>\n"
-        "                    <span class=\"second_line\">IT ONLY TAKE5 A "
-        "M1NUTE.</span>"
+        "(FREE!1!)</span>\n"
+        "                    <span class=\"second_line\">1T ONLY TAKES A "
+        "MINUTE.</span>"
 #
 # File: views/index/index.php, line: 204
 msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
         "(Free!)</span>\n"
         "                <span class=\"second_line\">It only takes a minute.</"
         "span>"
-msgstr  "<span class=\"first_line\"><strong>CREETE YOUR BROW5ER</strong> "
-        "(FREE!1!)</span>\n"
-        "                <span class=\"second_line\">1T ONLY TAKES A MINUTE!!"
+msgstr  "<span class=\"first_line\"><strong>CREET3 YOUR BROW5ER</strong> "
+        "(FRE3!1!)</span>\n"
+        "                <span class=\"second_line\">IT ONLY TAKES A M1NUT3!!"
         "</span>"
 #
 # File: views/repacks/edit/bookmarks.php, line: 63
 msgid   "A folder may contain up to 10 items."
-msgstr  "A FOLDER MAY CONTANE UP 2 10 1TEM5."
+msgstr  "A FOLDER MAY CONTANE UP 2 10 ITEM5."
 #
 # File: views/repacks/edit/bookmarks.php, line: 62
 msgid   "A folder must contain at least 1 item."
-msgstr  "A FOLDER MUST CONTANE AT LEE5T 1 1TEM."
+msgstr  "A FOLDER MUST CONTANE AT LEEST 1 ITEM."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 28
+msgid   "A login has already been registered using this email address"
+msgstr  "A LOGIN HA5 ALREEDY BEEN REG1STERED USING TH1S EMAIL ADDRE55"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 10
+msgid   "A short name consisting of letters and numbers is required"
+msgstr  "A SHORT NAM3 CONS1STING OF LETTERS & NUMBERS IS REQUIRED"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 14
+msgid   "A title is required."
+msgstr  "A TITEL 1S REQUIRED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 110
+msgid   "A valid new email confirmation is required"
+msgstr  "A VAL1D NEW EMAIL CONF1RMASHUN I5 REQU1RED"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 104
+msgid   "A valid new email is required"
+msgstr  "A VALID NEW EMAIL IS REQU1RED"
 #
 # File: views/repacks/elements/actions.php, line: 51
 msgid   "Abandon changes"
@@ -70,7 +105,7 @@ msgstr  "AB&ON CHANGES"
 #
 # File: views/repacks/delete.php, line: 12
 msgid   "Abandon changes to this browser?"
-msgstr  "AB&ON CHANGES 2 THIS BROWSER?"
+msgstr  "AB&ON CHANGE5 2 THI5 BROW5ER?"
 #
 # File: views/repacks/delete.php, line: 3
 msgid   "Abandoning changes will delete the current set of modifications, and "
@@ -80,39 +115,56 @@ msgid   "Abandoning changes will delete the current set of modifications, and "
         "cancel this request, click on the \"No\" button below. If you wish "
         "to continue, enter a short reason for abandoning the changes to the "
         "release and click on the \"Yes\" button."
-msgstr  "AB&ON1NG CHANGE5 W1LLL DELET3 THE CURRENT 5ET OF MODIF1CASHUN5, & "
-        "CANNNOT BE UND1. 1F THESE CHANGES R 2 AN EXI5T1NG RELEESE, THAT "
-        "RELEESE W1LL 5TIL B3 AVAILABEL!! 1F THE CHANGE5 R 4 AN UNRELEE5ED "
-        "BROW5ER, THE BROWSER WILL BE DELETED. IF U WI5H 2 CANCEL THI5 "
-        "REQUEST, CLICK ON THE \"NO\" BUTTON BELOW!! IF U W1SH 2 CONTINUE, "
-        "ENTER A 5HORT REESON 4 AB&ONING THE CHANGE5 2 THE RELEESE & CL1CK ON "
-        "THE \"YE5\" BUTTON."
+msgstr  "AB&ON1NG CHANGES WILL DELETE THE CURRENT SET OF MODIFICASHUN5, & "
+        "CANOT B3 UND1. IF THESE CHANGE5 R 2 AN EXI5TING RELEES3, THAT "
+        "RELEESE WILL 5T1L BE AVAILABEL!! 1F THE CHANGES R 4 AN UNRELEESED "
+        "BROWSER, THE BROW5ER W1L BE DELETED!! 1F U W15H 2 CANCEL TH1S "
+        "REQUEST, CL1CK ON TH3 \"NO\" BUTTON BELOW!! IF U W1SH 2 CONT1NUE, "
+        "ENTER A 5HERT REESON 4 AB&ONING THE CHANGE5 2 TH3 RELEESE & CL1CK ON "
+        "THE \"YES\" BUTTON."
 #
 # File: views/repacks/index.php, line: 24
 msgid   "Account settings"
-msgstr  "ACCOUNT SETTING5"
+msgstr  "ACCOUNT 5ETTINGS"
+#
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 76
+msgid   "Add"
+msgstr  "ADD"
 #
 # File: views/repacks/edit/bookmarks.php, line: 14
 msgid   "Add and organize default bookmarks."
-msgstr  "ADD & ORGAN12E DEFAULT B00KMARKS."
+msgstr  "ADD & ORGANIZE DEFAULT B00KMARKS."
 #
 # File: views/index/index.php, line: 69
 msgid   "Add your identity to Firefox with a Persona, bookmarks, and add-ons."
-msgstr  "ADD YOU'RE 1DENTITY 2 FIREFOX W1TH A PER5ONA, B00KMARKS, & ADD-ON5."
+msgstr  "ADD YOU'RE 1DENTITY 2 F1REFOX WITH A PER5ONA, BUUKMARKS, & ADD-ONS."
 #
 # File: views/repacks/edit/collections.php, line: 5
 msgid   "Add-ons Collection URL:"
-msgstr  "ADD-ONS COLLECSHUN URL:"
+msgstr  "ADD-ON5 COLLECSHUN URL:"
+#
+# File: modules/addon_management/libraries/Mozilla/BYOB/Editor/AddonManagement.php, line: 31
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 5
+msgid   "Addons"
+msgstr  "ADDONS"
+#
+# File: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php, line: 11
+msgid   "Adhoc distribution.ini overlay"
+msgstr  "ADHOC DI5TRIBUSHUN.INI UV RLAY"
+#
+# File: views/layout.php, line: 123
+msgid   "All rights reserved"
+msgstr  "ALLL RIGHT5 RESERVED"
 #
 # File: views/index/index.php, line: 51
 msgid   "Alternatively, you may use the video download links to the right."
-msgstr  "ALTERNAT1VELY, U MAY U5E THE V1DEO DOWNLOAD L1NK5 2 THE RIGHT."
+msgstr  "ALTERNATIVELY, U MAY U53 THE V1DEO DOWNLOAD L1NK5 2 THE RIGHT."
 #
 # File: views/repacks/release.php, line: 10
 msgid   "Any installer distributed must be signed with a digital certificate "
         "issued by Mozilla"
-msgstr  "ANY 1N5TALER D15TR1BUTED MUST BE 5IGNED WITH A D1G1TAL CERT1FICATE "
-        "ISSUED BUY MOZ1LLA"
+msgstr  "ANY 1N5TALLLER D1STR1BUTED MU5T B3 51GNED WITH A DIGITAL CERTIFICATE "
+        "15SUED BUY MOZ1LLA"
 #
 # File: views/search/approvalqueue.php, line: 6
 msgid   "Approval queue"
@@ -120,15 +172,30 @@ msgstr  "APPROVAL QUEUE"
 #
 # File: views/repacks/approve.php, line: 5
 msgid   "Approve a new release for this browser"
-msgstr  "APPRUV  A NEW RELEESE 4 TH1S BROWSER"
+msgstr  "APPRUV  A NEW RELEESE 4 TH15 BROW5ER"
 #
 # File: views/repacks/elements/actions.php, line: 36
 msgid   "Approve release"
-msgstr  "APPRUV  RELEESE"
+msgstr  "APPRUV  RELEE5E"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 26
+msgid   "At least one OS platform is required"
+msgstr  "AT LEEST 1 OS PLATFORM 1S REQUIRED"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 22
+msgid   "At least one locale is required"
+msgstr  "AT LEE5T 1 LOCAEL I5 REQUIRED"
+#
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 31
+#, php-format
+msgid   "BYOB is currently available in %1$s locales. You can choose "
+        "<strong>up to ten locales</strong> for your browser."
+msgstr  "BYOB 1S CURRENTLY AVAILABEL IN %1$S LOCALE5!! YOU CAN CH00SE "
+        "<strong>UP 2 TEN LOCALE5</strong> 4 YOU'RE BROW5ER."
 #
 # File: views/repacks/edit/bookmarks.php, line: 77
 msgid   "Bookmark"
-msgstr  "BUUKMARK"
+msgstr  "B00KMARK"
 #
 # File: views/repacks/edit/bookmarks.php, line: 28
 msgid   "Bookmark Menu"
@@ -136,21 +203,26 @@ msgstr  "BUUKMARK MENU"
 #
 # File: views/repacks/edit/bookmarks.php, line: 22
 msgid   "Bookmark Toolbar"
-msgstr  "BUUKMARK T00LBAR"
+msgstr  "B00KMARK TUULBAR"
 #
+# File: models/repack.php, line: 126
 # File: views/repacks/edit/review.php, line: 43
 msgid   "Bookmarks"
 msgstr  "BUUKMARK5"
 #
+# File: modules/addon_management/public/js/addon_management.js, line: 84
+msgid   "Browse"
+msgstr  "BROW5E"
+#
 # File: views/repacks/edit/general.php, line: 8
 msgid   "Browser details"
-msgstr  "BROWSER DETAILS"
+msgstr  "BROWSER DETA1L5"
 #
 #. i18n: %1$s = profile screen name
 # File: views/repacks/index.php, line: 40
 #, php-format
 msgid   "Browsers by %1$s"
-msgstr  "BROWSER5 BUY %1$S"
+msgstr  "BROW5ER5 BUY %1$5"
 #
 # File: views/repacks/elements/history.php, line: 17
 # File: views/repacks/elements/history.php, line: 34
@@ -161,7 +233,7 @@ msgstr  "BU1LD COMPLETED"
 # File: views/repacks/elements/history.php, line: 33
 # File: views/repacks/elements/status.php, line: 18
 msgid   "Build failed"
-msgstr  "BU1LD FAILED"
+msgstr  "BUILD FAILED"
 #
 # File: views/repacks/elements/history.php, line: 20
 # File: views/repacks/elements/history.php, line: 32
@@ -171,15 +243,15 @@ msgstr  "BU1LD 5TARTED"
 #
 # File: views/repacks/edit/review.php, line: 81
 msgid   "Build this browser"
-msgstr  "BU1LD THI5 BROWSER"
+msgstr  "BUILD TH1S BROW5ER"
 #
 # File: views/index/index.php, line: 65
 msgid   "By connecting your affinity group to you."
-msgstr  "BY CONECTING YOU'RE AFF1NITY GROUP 2 U."
+msgstr  "BY CONECT1NG YOU'RE AFFINITY GROUP 2 U."
 #
 # File: views/index/index.php, line: 68
 msgid   "By letting you show your stripes."
-msgstr  "BY LETT1NG U 5HOW YOU'RE STRIPES."
+msgstr  "BY LETTING U 5HOW YOU'RE 5TR1PES."
 #
 # File: views/repacks/edit/bookmarks.php, line: 106
 msgid   "Cancel"
@@ -187,58 +259,104 @@ msgstr  "CANCEL"
 #
 # File: views/repacks/cancel.php, line: 5
 msgid   "Cancel a new release for this browser?"
-msgstr  "CANCEL A NEW RELEESE 4 TH1S BROWSER?"
+msgstr  "CANCEL A NEW RELEE5E 4 THI5 BROW5ER?"
 #
 # File: views/repacks/elements/actions.php, line: 34
 msgid   "Cancel release"
 msgstr  "CANCEL RELEESE"
 #
+# File: i18n/en_US/form_errors_contact.php, line: 10
+msgid   "Category is required."
+msgstr  "CATEGORY IS REQU1RED."
+#
 # File: views/repacks/elements/actions.php, line: 21
 msgid   "Change details"
-msgstr  "CHANGE DETAIL5"
+msgstr  "CHANG3 DETAILS"
 #
 # File: views/repacks/index.php, line: 27
 msgid   "Change login email"
-msgstr  "CHANGE LOGIN EMAIL"
+msgstr  "CHANGE LOGIN EMA1L"
 #
 # File: views/repacks/index.php, line: 26
 msgid   "Change login password"
-msgstr  "CHANGE LOGIN PAS5WORD"
+msgstr  "CHANG3 LOG1N PA55WERD"
 #
 # File: views/repacks/view.php, line: 13
 msgid   "Changes"
-msgstr  "CHANGES"
+msgstr  "CHANGE5"
 #
 # File: views/repacks/elements/status.php, line: 15
 msgid   "Changes requested"
-msgstr  "CHANGES REQUE5TED"
+msgstr  "CHANGES REQUESTED"
+#
+# File: views/repacks/edit.php, line: 105
+msgid   "Changes this session:"
+msgstr  "CHANGE5 THI5 SE55ION:"
 #
 # File: views/index/index.php, line: 25
 msgid   "Check out our FAQ"
 msgstr  "CHECK OUT OUR FAQ"
 #
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 60
+msgid   "Choose from these common locales:"
+msgstr  "CH005E FROM THE5E COMMON LOCALE5:"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 162
+msgid   "Choose from these popular Personas:"
+msgstr  "CHUUSE FROM THES3 POPULRE PER5ONAS:"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 85
+msgid   "Choose from these popular add-ons"
+msgstr  "CH0053 FROM THE5E POPULRE ADD-ON5"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 127
+msgid   "Choose from these popular search engines"
+msgstr  "CHUUSE FROM THE5E POPULRE SEERCH ENG1NES"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 120
+msgid   "City is required."
+msgstr  "CITY IS REQUIRED."
+#
 # File: views/repacks/edit/review.php, line: 68
 msgid   "Collection URL:"
 msgstr  "COLLLECSHUN URL:"
 #
+# File: models/repack.php, line: 127
 # File: views/repacks/edit/review.php, line: 67
 msgid   "Collections"
-msgstr  "COLLLECSHUNS"
+msgstr  "COLLECSHUN5"
+#
+# File: i18n/en_US/form_errors_contact.php, line: 11
+msgid   "Comments are required."
+msgstr  "COMMENTS R REQU1RED."
 #
 # File: views/repacks/elements/confirm.php, line: 22
 msgid   "Comments:"
-msgstr  "COMMENTS:"
+msgstr  "COMMENT5:"
 #
 # File: views/index/index.php, line: 66
 msgid   "Complement your online presence with a customized version of "
         "Firefox, connecting the people you serve with the information they "
         "need."
-msgstr  "COMPLEMENT YOU'RE ONL1NE PRE5ENC3 WITH A CU5TOM1ZED VER5ION OF "
-        "F1REFOX, CONECT1NG THE PEOPEL U 5ERVE W1TH THE INFERMASHUN THEY NEED."
+msgstr  "COMPLEMENT YOU'RE ONL1NE PRESENC3 WITH A CUSTOMIZED VER5ION OF "
+        "F1REFOX, CONNECTING THE PEOPEL U SERV3 WITH THE 1NFORMASHUN THEY "
+        "NEED."
+#
+# File: views/layout.php, line: 128
+msgid   "Contact us"
+msgstr  "CONTACT U5"
 #
 # File: views/repacks/elements/actions.php, line: 49
 msgid   "Continue editing"
-msgstr  "CONT1NUE EDITING"
+msgstr  "CONT1NU3 EDITING"
+#
+# File: views/layout.php, line: 122
+msgid   "Copyright &copy; 2005 - 2010 Mozilla"
+msgstr  "COPYRIGHT &COPY; 2005 - 2010 MO21LLA"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 129
+msgid   "Country is required."
+msgstr  "COUNTRY 1S REQU1RED."
 #
 # File: views/repacks/index.php, line: 16
 msgid   "Create a New Browser"
@@ -253,7 +371,7 @@ msgstr  "CREETED"
 # File: views/index/index.php, line: 128
 #, php-format
 msgid   "Created by <a href=\"%1$s\">%2$s</a>"
-msgstr  "CREETED BUY <a href=\"%1$s\">%2$S</a>"
+msgstr  "CREETED BUY <a href=\"%1$s\">%2$5</a>"
 #
 # File: views/repacks/elements/details.php, line: 18
 #, php-format
@@ -262,7 +380,7 @@ msgstr  "CREETED BUY <a href=\"%1$s\">%2$S</a> ON %3$S"
 #
 # File: views/repacks/edit/bookmarks.php, line: 61
 msgid   "Creation of sub-folders within folders is not supported."
-msgstr  "CREESHUN OF SUB-FOLDERS W1THIN FOLDER5 I5 NOT SUPPORTED."
+msgstr  "CREESHUN OF 5UB-FOLDER5 W1TH1N FOLDER5 15 NOT 5UPPORTED."
 #
 # File: views/repacks/elements/actions.php, line: 89
 # File: views/repacks/elements/status.php, line: 38
@@ -272,11 +390,11 @@ msgstr  "CURRENT RELEESE"
 #
 # File: views/repacks/elements/status.php, line: 46
 msgid   "Current status"
-msgstr  "CURRENT STATU5"
+msgstr  "CURRENT 5TATU5"
 #
 # File: views/repacks/delete.php, line: 11
 msgid   "Delete this browser?"
-msgstr  "DELETE THI5 BROWSER?"
+msgstr  "DELET3 TH1S BROW5ER?"
 #
 # File: views/repacks/elements/status.php, line: 20
 msgid   "Deleted"
@@ -285,16 +403,20 @@ msgstr  "DELETED"
 # File: views/repacks/edit/general.php, line: 14
 msgid   "Describe this customized browser further (optional, max length 1000 "
         "characters):"
-msgstr  "DESCRIB3 THIS CU5TOMI2ED BROW5ER FURTHER (OPSHUNAL, MAX LENGTH 1000 "
+msgstr  "DESCR1BE TH1S CU5TOMIZED BROW5ER FURTHER (OPSHUNAL, MAX LENGTH 1000 "
         "CHARACTER5):"
 #
 # File: views/repacks/edit/bookmarks.php, line: 89
 msgid   "Description"
-msgstr  "DESCRIPSHUN"
+msgstr  "DE5CRIPSHUN"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 18
+msgid   "Description must be no longer than 1000 characters"
+msgstr  "DESCR1PSHUN MU5T B3 NO LONGER THAN 1000 CHARACTERS"
 #
 # File: views/repacks/release.php, line: 3
 msgid   "Distribution and generation restrictions"
-msgstr  "D1STR1BUSHUN & GENERASHUN RE5TRICSHUN5"
+msgstr  "DI5TR1BUSHUN & GENERASHUN RESTRICSHUNS"
 #
 # File: views/repacks/elements/downloads.php, line: 80
 # File: views/repacks/elements/status.php, line: 14
@@ -304,21 +426,58 @@ msgstr  "DOWNLOAD"
 #
 # File: views/repacks/index.php, line: 28
 msgid   "Edit profile details"
-msgstr  "ED1T PROFIEL DETAILS"
+msgstr  "EDIT PROFIEL DETA1L5"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 38
+msgid   "Email confirmation does not match email."
+msgstr  "EMA1L CONF1RMASHUN DUZ NOT MATCH EMA1L."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 34
+msgid   "Email confirmation is required."
+msgstr  "EMAIL CONFIRMASHUN IS REQUIRED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 24
+msgid   "Email is required."
+msgstr  "EMA1L 15 REQU1RED."
 #
 # File: views/repacks/edit/general.php, line: 10
 msgid   "Enter a one or two word identifier for this version of Firefox.  "
         "(required, max length 255 characters):"
-msgstr  "ENTER A 1 OR TO  WERD IDENTIF1ER 4 TH15 VER51ON OF F1REFOX.  "
-        "(REQUIRED, MAX LENGTH 255 CHARACTERS):"
+msgstr  "ENTER A 1 OR TO  WORD IDENTIFIER 4 TH15 VER5ION OF FIREFOX.  "
+        "(REQU1RED, MAX LENGTH 255 CHARACTERS):"
+#
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 75
+msgid   "Enter all or part of a locale's name"
+msgstr  "ENTER ALLL OR PART OF A LOCALE\"5 NAME"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 157
+msgid   "Enter the URL of a Persona to include:"
+msgstr  "ENTER THE URL OF A PER5ONA 2 1NCLUDE:"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 69
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 10
+msgid   "Extensions"
+msgstr  "EXTENS1ONS"
 #
 # File: views/repacks/edit/bookmarks.php, line: 93
 msgid   "Feed URL"
 msgstr  "FEED URL"
 #
+# File: i18n/en_US/form_errors_auth.php, line: 68
+msgid   "First name is required"
+msgstr  "F1RST NAM3 I5 REQUIRED"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 70
+msgid   "First name must contain only alphanumeric characters"
+msgstr  "FIR5T NAME MUST CONTANE ONLY ALFANUMERIK CHARACTER5"
+#
+# File: views/repacks/elements/actions.php, line: 74
+msgid   "First-run page"
+msgstr  "F1RST-RUN PAGE"
+#
 # File: views/repacks/edit/bookmarks.php, line: 60
 msgid   "Folders may be placed in either the Bookmark Toolbar or Menu."
-msgstr  "FOLDERS MAY BE PLACED IN EITHER TH3 B00KMARK T00LBRE OR MENU."
+msgstr  "FOLDER5 MAY BE PLACED IN EITHER THE B00KMARK T00LBRE OR MENU."
 #
 # File: views/repacks/elements/actions.php, line: 66
 msgid   "Force build failure state"
@@ -326,79 +485,96 @@ msgstr  "FERCE BU1LD FA1LURE STATE"
 #
 # File: views/repacks/elements/actions.php, line: 68
 msgid   "Force build finish state"
-msgstr  "FERCE BU1LD F1NISH 5TATE"
+msgstr  "FORCE BU1LD F1NISH 5TATE"
 #
 # File: views/repacks/elements/actions.php, line: 57
 msgid   "Force build start state"
-msgstr  "FERC3 BUILD 5TART 5TATE"
+msgstr  "FERC3 BUILD 5TART STATE"
 #
 # File: views/index/index.php, line: 95
 msgid   "Friends and Family."
-msgstr  "FR1ENDS & FAM1LY."
+msgstr  "FRIEND5 & FAM1LY."
 #
 # File: views/repacks/elements/changes.php, line: 10
 msgid   "From"
 msgstr  "FROM"
 #
+# File: libraries/Mozilla/BYOB/EditorRegistry.php, line: 49
+# File: models/repack.php, line: 124
+msgid   "General"
+msgstr  "GENERAL"
+#
 # File: views/index/index.php, line: 24
 msgid   "Got Questions?"
-msgstr  "GOT QUESSHUN5?"
+msgstr  "GOT QUESSHUNS?"
 #
 # File: views/repacks/elements/actions.php, line: 27
 msgid   "Hide from public lists"
-msgstr  "H1DE FROM PUBLIK LI5TS"
+msgstr  "HIDE FROM PUBLIK LI5TS"
 #
 # File: views/repacks/makeprivate.php, line: 5
 msgid   "Hide this browser from public lists?"
-msgstr  "H1DE THI5 BROWSER FROM PUBLIK L15T5?"
+msgstr  "H1DE TH1S BROWSER FROM PUBLIK LIST5?"
 #
 # File: views/index/index.php, line: 86
 msgid   "Highlighting a product, service or information about your offerings? "
         "Use BYOB to create a browser that connects your users to you out of "
         "the box."
-msgstr  "H1GHLIGHT1NG A PRODUCT, SERVICE OR INFORMASHUN ABOUT YOU'RE "
-        "OFFERING5??!! USE BYOB 2 CREETE A BROWSER THAT CONNNECT5 YOU'RE "
-        "USERS 2 U OUT OF TH3 BOX."
+msgstr  "HIGHLIGHT1NG A PRODUCT, SERVICE OR INFORMASHUN ABOUT YOU'RE "
+        "OFFER1NGS??!! U5E BYOB 2 CREETE A BROWSER THAT CONNECT5 YOU'RE U5ERS "
+        "2 U OUT OF THE BOX."
 #
 # File: views/repacks/view.php, line: 24
 msgid   "History"
-msgstr  "H15TERY"
+msgstr  "H1STERY"
 #
 # File: views/index/index.php, line: 63
 msgid   "How can BYOB benefit your organization?"
-msgstr  "HOW CAN BYOB BENEF1T YOU'RE ORGANIZASHUN?"
+msgstr  "HOW CAN BYOB BENEFIT YOU'RE ORGANIZASHUN?"
 #
 # File: views/repacks/release.php, line: 17
 #, php-format
 msgid   "If you have any questions regarding these conditions, or need "
         "clarification on any of the items mentioned here, please <a href=\"%1"
         "$s\">contact us</a>."
-msgstr  "1F U HAVE ANY QUESSHUNS REGARD1NG THES3 CONDISHUN5, OR NEED "
-        "CLARIF1CASHUN ON ANY OF THE 1TEMS MENSHUNED HERE, PLEEZ! <a href=\"%1"
-        "$s\">CONTACT U5</a>."
+msgstr  "1F U HAV3 ANY QUESSHUN5 REGARDING THE5E COND1SHUN5, OR NEED "
+        "CLARIFICASHUN ON ANY OF THE ITEM5 MENSHUNED HERE, PLEEZ! <a href=\"%1"
+        "$s\">CONTACT US</a>."
 #
 # File: views/repacks/edit/platforms.php, line: 3
 msgid   "If, however, you only want to distribute a version for a certain "
-        "platform(s), you can deselect the platforms you don"
-msgstr  "1F, HOWEVER, U ONLY WANT 2 DI5TRIBUT3 A VERS1ON 4 A CERTANE PLATFERM"
-        "(5), U CAN DESELECT THE PLATFERMS U DON"
+        "platform(s), you can deselect the platforms you don't need below, "
+        "and they won't be generated when you submit your distribution for "
+        "approval."
+msgstr  "IF, HOWEVER, U ONLY WANT 2 DI5TR1BUTE A VER5ION 4 A CERTANE PLATFERM"
+        "(5), U CAN DE5ELECT THE PLATFORMS U DON\"T NEED BELOW, & THEY WON\"T "
+        "BE GENERATED WHEN U SUBMIT YOU'RE D15TR1BUSHUN 4 APPROVAL."
 #
 # File: views/repacks/elements/status.php, line: 38
 # File: views/repacks/index.php, line: 71
 msgid   "In-progress changes"
-msgstr  "1N-PROGRE55 CHANGE5"
+msgstr  "1N-PROGRES5 CHANGES"
 #
 # File: views/repacks/elements/actions.php, line: 91
 msgid   "In-progress changes to current release"
-msgstr  "1N-PROGRE55 CHANGES 2 CURRENT RELEE5E"
+msgstr  "IN-PROGRE55 CHANGE5 2 CURRENT RELEESE"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 38
+msgid   "Invalid URL for addon collection"
+msgstr  "1NVAL1D URL 4 ADDON COLLECSHUN"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 42
+# File: i18n/en_US/form_repacks_edit.php, line: 46
+msgid   "Invalid URL for persona selection"
+msgstr  "INVALID URL 4 PER5ONA SELECSHUN"
 #
 # File: views/index/index.php, line: 71
 msgid   "It supports multiple languages and operating systems."
-msgstr  "1T 5UPPORTS MULTIPEL LANGUAGE5 & OPERAT1NG 5Y5TEM5."
+msgstr  "1T SUPPERTS MULT1PEL LANGUAGES & OPERAT1NG 5YSTEM5."
 #
 # File: views/index/index.php, line: 74
 msgid   "It's free to use and distribute."
-msgstr  "1T\"5 FREE 2 USE & D1STRIBUTE."
+msgstr  "IT\"5 FRE3 2 USE & D1STRIBUTE."
 #
 # File: views/repacks/elements/downloads.php, line: 47
 msgid   "Language"
@@ -408,7 +584,23 @@ msgstr  "LANGUAGE"
 # File: views/repacks/index.php, line: 84
 #, php-format
 msgid   "Last modified <em>%1$s</em>"
-msgstr  "LAST MODIF1ED <em>%1$S</em>"
+msgstr  "LA5T MOD1F1ED <em>%1$5</em>"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 74
+msgid   "Last name is required"
+msgstr  "LAST NAME IS REQU1RED"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 76
+msgid   "Last name must contain only alphanumeric characters"
+msgstr  "LA5T NAME MUST CONTANE ONLY ALFANUMERIK CHARACTERS"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 112
+msgid   "Learn more..."
+msgstr  "LEERN MERE...C00L HUH!?! "
+#
+# File: views/layout.php, line: 127
+msgid   "Legal Notices"
+msgstr  "LEBAB3 NOTICE5"
 #
 # File: views/repacks/elements/downloads.php, line: 24
 msgid   "Linux"
@@ -416,15 +608,41 @@ msgstr  "L1NUX"
 #
 # File: views/repacks/edit/bookmarks.php, line: 78
 msgid   "Livemark"
-msgstr  "L1VEMARK"
+msgstr  "LIVEMARK"
 #
+# File: modules/locale_selection/libraries/Mozilla/BYOB/Editor/LocaleSelection.php, line: 27
+# File: modules/locale_selection/views/repacks/edit/review_locale_selection.php, line: 2
 # File: views/repacks/edit/locales.php, line: 7
 msgid   "Locales"
 msgstr  "LOCALES"
 #
 # File: views/layout.php, line: 67
 msgid   "Log in"
-msgstr  "LOG 1N"
+msgstr  "LOG IN"
+#
+# File: views/layout.php, line: 79
+msgid   "Log out"
+msgstr  "LOG OUT"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 18
+msgid   "Login name is not available."
+msgstr  "LOGIN NAME 1S NOT AVAILABEL."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 12
+msgid   "Login name is required."
+msgstr  "LOG1N NAME I5 REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 14
+msgid   "Login name must be between 3 and 12 characters in length"
+msgstr  "LOGIN NAME MU5T BE BETWEEN 3 & 12 CHARACTERS 1N LENGTH"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 16
+msgid   "Login name must contain only alphanumeric characters"
+msgstr  "LOG1N NAM3 MUST CONTANE ONLY ALFANUMERIK CHARACTERS"
+#
+# File: controllers/repacks.php, line: 24
+msgid   "Login required to manipulate repacks."
+msgstr  "LOGIN REQUIRED 2 MAN1PULAT3 REPACK5."
 #
 #. i18n: Date format for last modified
 # File: views/repacks/index.php, line: 74
@@ -433,16 +651,24 @@ msgstr  "M D Y"
 #
 # File: views/repacks/elements/downloads.php, line: 23
 msgid   "Mac OS X"
-msgstr  "MAC OS X"
+msgstr  "MAC O5 X"
 #
 # File: views/index/index.php, line: 15
 msgid   "Make Firefox Yours"
-msgstr  "MAKE F1REFOX YOUR5"
+msgstr  "MAKE FIREFOX YOURS"
+#
+# File: views/layout.php, line: 77
+msgid   "Manage"
+msgstr  "D00DAGE"
 #
 # File: views/repacks/elements/history.php, line: 15
 # File: views/repacks/elements/history.php, line: 27
 msgid   "Modified"
-msgstr  "MOD1FIED"
+msgstr  "MOD1F1ED"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 224
+msgid   "More info"
+msgstr  "MORE INFO"
 #
 # File: views/repacks/edit/general.php, line: 2
 #, php-format
@@ -452,12 +678,25 @@ msgid   "Most of the meta data about your customized version of Firefox will "
         "and should describe who this browser is tailored for. When referring "
         "to the this browser (e.g. on a website, blog post, communique, "
         "etc.), you should use the name \"<em>%1$s</em>\"."
-msgstr  "MOST OF THE META DATA ABOUT YOU'RE CUSTOM1ZED VERS1ON OF F1REFOX "
-        "WILL BE AUTOMAT1CALLY GENERATED US1NG YOU'RE PROF1EL INFORMASHUN!! "
-        "THE 1NFORMASHUN IN TH1S 5ECSHUN 15 4 YOU'RE USE, I5 PUBL1CLY "
-        "VIEWABEL, & SHUD  DESCRIB3 WHO THI5 BROW5ER I5 TA1LORED 4. WHEN "
-        "REFERR1NG 2 THE THI5 BROW5ER (E.G. ON A WEB51TE, BLOG POST, "
-        "COMMUNIQUE, ETC!!), U SHUD  U5E THE NAME \"<em>%1$S</em>\"."
+msgstr  "MOST OF TH3 META DATA ABOUT YOU'RE CUSTOM1ZED VERSION OF F1REFOX "
+        "WILL BE AUTOMATICALLLY GENERATED US1NG YOU'RE PROFIEL INFERMASHUN!! "
+        "TH3 INFERMASHUN IN THI5 SECSHUN 15 4 YOU'RE U53, I5 PUBLICLY "
+        "VIEWABEL, & 5HUD  DESCRIB3 WHO THIS BROWSER IS TAILORED 4. WHEN "
+        "REFERR1NG 2 TH3 THIS BROW5ER (E.G!! ON A WEBSITE, BLOG POST, "
+        "COMMUNIQUE, ETC.), U SHUD  U5E THE NAM3 \"<em>%1$5</em>\"."
+#
+# File: models/repack.php, line: 1158
+# File: models/repack.php, line: 1160
+# File: models/repack.php, line: 1163
+#, php-format
+msgid   "Mozilla Firefox for %1$s"
+msgstr  "MO2ILLLA F1REFOX 4 %1$5"
+#
+#. i18n: %1$s = organization name; %2$s = browser's short title
+# File: models/repack.php, line: 1167
+#, php-format
+msgid   "Mozilla Firefox for %1$s (%2$s)"
+msgstr  "MOZ1LA FIREFOX 4 %1$5 (%2$S)"
 #
 # File: views/repacks/edit/locales.php, line: 2
 msgid   "Mozilla Firefox has been localized <a target=\"_new\" href=\"http://"
@@ -465,11 +704,11 @@ msgid   "Mozilla Firefox has been localized <a target=\"_new\" href=\"http://"
         "many languages</a>, and it is our intent for BYOB to eventually "
         "support all of them. For this version of BYOB, you can specify up to "
         "ten (10) locales."
-msgstr  "MOZILLA FIREFOX HAS BEEN LOCAL1ZED <a target=\"_new\" href=\"http://"
+msgstr  "MO21LA FIREFOX HA5 BEEN LOCAL12ED <a target=\"_new\" href=\"http://"
         "mozilla.com/firefox/all.html\" title=\"All versions of Firefox\">4 "
-        "MANY LANGUAGES</a>, & 1T IS OUR INTENT 4 BYOB 2 EVENTUALLLY SUPPORT "
-        "AL OF THEM. FER TH15 VER5ION OF BYOB, U CAN SPECIFY UP 2 TEN (10) "
-        "LOCALE5."
+        "MANY LANGUAGE5</a>, & IT 1S OUR INTENT 4 BYOB 2 EVENTUALLY 5UPPORT "
+        "ALL OF THEM. FOR TH15 VER5ION OF BYOB, U CAN SPECIFY UP 2 TEN (10) "
+        "LOCALES."
 #
 # File: views/repacks/edit/platforms.php, line: 2
 msgid   "Mozilla Firefox is available for the <a href=\"http://www.mozilla."
@@ -478,12 +717,12 @@ msgid   "Mozilla Firefox is available for the <a href=\"http://www.mozilla."
         "family of operating systems. BYOB will generate your customized "
         "version of Firefox for all three platforms by default, and we "
         "encourage making all platforms available to your target audience."
-msgstr  "MOZILLA FIREFOX 1S AVA1LABEL 4 TH3 <a href=\"http://www.mozilla.com/"
+msgstr  "MOZILLA F1REFOX 15 AVA1LABEL 4 THE <a href=\"http://www.mozilla.com/"
         "firefox/system-requirements.html\" target=\"_new\" title=\"Firefox "
-        "System Requirements\">LINUX, APPEL OSX, & WINDOWS</a> FAM1LY OF "
-        "OPERAT1NG 5YSTEM5. BYOB W1L GENERATE YOU'RE CU5TOM12ED VER5ION OF "
-        "F1REFOX 4 ALL THREE PLATFERMS BUY DEFAULT, & WE ENCOURAGE MAK1NG "
-        "ALLL PLATFORM5 AVAILABEL 2 YOU'RE TARGET AUDIENC3."
+        "System Requirements\">LINUX, APPEL OSX, & W1NDOWS</a> FAMILY OF "
+        "OPERAT1NG SY5TEMS. BYOB W1LLL GENERATE YOU'RE CUSTOM1ZED VER51ON OF "
+        "FIREFOX 4 AL THRE3 PLATFERM5 BUY DEFAULT, & W3 ENCOURAGE MAK1NG ALL "
+        "PLATFORMS AVAILABEL 2 YOU'RE TARGET AUD1ENC3."
 #
 # File: views/repacks/release.php, line: 4
 msgid   "Mozilla's Build Your Own Browser (BYOB) application generates "
@@ -496,16 +735,16 @@ msgid   "Mozilla's Build Your Own Browser (BYOB) application generates "
         "policy.html\" alt=\"Mozilla Trademark Policy\">Mozilla Trademark "
         "Policy</a>. By using BYOB and/or distributing the installers "
         "generated by BYOB, you understand and agree to this."
-msgstr  "MOZILLA\"S BUILD YOUR OWN BROW5ER (BYOB) APPL1CASHUN GENERATE5 "
-        "IN5TALLLER F1LES 4 A L1GHTLY CUSTOM12ED VERS1ON OF FIREFOX THAT CAN "
-        "BE PUBL1CLY DISTR1BUTED!! THESE CUSTOMIZED VERS1ONS OF FIREFOX R "
-        "LICENSED UNDER TH3 <a target=\"_new\" href=\"http://www.mozilla.org/"
-        "MPL/\">MOZILLLA PUBLIK L1CENSE</a> (MPL), & THE INSTALLER F1LES & "
-        "THEIR CONTENT5 R SUBJECT 2 TH3 RESTRICSHUN5 OUTL1NED 1N THE <a "
+msgstr  "MO21LLA\"S BU1LD YOUR OWN BROW5ER (BYOB) APPL1CASHUN GENERATES "
+        "1N5TALLER FILE5 4 A LIGHTLY CU5TOM1ZED VER5ION OF F1REFOX THAT CAN "
+        "BE PUBL1CLY D1STRIBUTED. THE5E CU5TOM12ED VER51ON5 OF F1REFOX R "
+        "LICEN5ED UNDER THE <a target=\"_new\" href=\"http://www.mozilla.org/"
+        "MPL/\">MOZILLA PUBLIK L1CEN5E</a> (MPL), & THE IN5TALLER F1LES & "
+        "THE1R CONTENT5 R 5UBJECT 2 TH3 RESTR1CSHUN5 OUTLINED 1N THE <a "
         "target=\"_new\" href=\"http://www.mozilla.org/foundation/trademarks/"
-        "policy.html\" alt=\"Mozilla Trademark Policy\">MO21LLA TRADEMARK "
-        "POL1CY</a>. BY U51NG BYOB &/OR DI5TR1BUT1NG THE 1NSTALER5 GENERATED "
-        "BUY BYOB, U UNDERST& & AGRE3 2 THIS."
+        "policy.html\" alt=\"Mozilla Trademark Policy\">MOZ1LA TRADEMARK "
+        "POL1CY</a>. BY U51NG BYOB &/OR D1STRIBUT1NG THE 1NSTALER5 GENERATED "
+        "BUY BYOB, U UNDERST& & AGREE 2 TH15."
 #
 # File: views/layout.php, line: 69
 msgid   "My profile"
@@ -515,14 +754,42 @@ msgstr  "MY PROF1LE"
 msgid   "Name"
 msgstr  "NAME"
 #
+# File: i18n/en_US/form_errors_contact.php, line: 8
+msgid   "Name is required."
+msgstr  "NAM3 1S REQU1RED."
+#
+# File: repacks/edit/bookmarks-ui.js, line: 586
+msgid   "New Folder"
+msgstr  "NEW FOLDER"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 98
+msgid   "New password confirmation required"
+msgstr  "NEW PASSWERD CONFIRMASHUN REQUIRED"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 94
+msgid   "New passwords is required"
+msgstr  "NEW PA5SWERD5 I5 REQU1RED"
+#
+# File: views/repacks/edit.php, line: 87
+msgid   "Next Step &nbsp;&raquo;"
+msgstr  "NEXT STEP &NB5P;&RAQUO;"
+#
 # File: views/repacks/edit/general.php, line: 21
 msgid   "No"
 msgstr  "NO"
 #
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 168
+msgid   "No Persona"
+msgstr  "NO PERSONA"
+#
+# File: modules/addon_management/controllers/addonmanagement.php, line: 51
+msgid   "No XPI upload available"
+msgstr  "NO XPI UPLOAD AVAILABLE"
+#
 # File: views/search/approvalqueue.php, line: 9
 # File: views/search/index.php, line: 5
 msgid   "No results."
-msgstr  "NO RESULT5."
+msgstr  "NO RESULTS."
 #
 # File: views/repacks/elements/confirm.php, line: 27
 msgid   "No, cancel."
@@ -532,6 +799,7 @@ msgstr  "NO, CANCEL."
 msgid   "None"
 msgstr  "NONE"
 #
+# File: views/repacks/edit.php, line: 114
 # File: views/repacks/index.php, line: 47
 msgid   "None yet."
 msgstr  "N1 YET."
@@ -541,45 +809,128 @@ msgstr  "N1 YET."
 msgid   "None."
 msgstr  "N1."
 #
+# File: modules/addon_management/models/searchplugin.php, line: 89
+msgid   "Not an OpenSearchDescription document"
+msgstr  "NOT AN OPEN5EERCHDESCRIPSHUN DOCUMENT"
+#
 # File: views/repacks/edit/bookmarks.php, line: 56
 msgid   "Notes:"
 msgstr  "NOTES:"
 #
+# File: i18n/en_US/form_errors_auth.php, line: 88
+msgid   "Old password is invalid."
+msgstr  "OLD PA55WORD 15 1NVAL1D."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 90
+msgid   "Old password is required"
+msgstr  "OLD PASSWERD 1S REQU1RED"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 32
+msgid   "Only up to 3 items allowed in Bookmarks Toolbar"
+msgstr  "ONLY UP 2 3 ITEM5 ALLLOWED 1N B00KMARKS TUULBAR"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 34
+msgid   "Only up to 5 items allowed in Bookmarks Menu"
+msgstr  "ONLY UP 2 5 1TEMS ALOWED IN B00KMARKS MENU"
+#
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 72
+msgid   "Or search for a locale by name:"
+msgstr  "OR 5EERCH 4 A LOCAEL BUY NAM3:"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 80
+msgid   "Organization name is required"
+msgstr  "ORGAN12ASHUN NAME 1S REQUIRED"
+#
 # File: views/index/index.php, line: 85
 msgid   "Organizations."
-msgstr  "ORGAN12ASHUNS."
+msgstr  "ORGANIZASHUN5."
 #
+# File: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php, line: 14
+msgid   "Overlay source:"
+msgstr  "OVERLAY SOURCE:"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 52
+# File: i18n/en_US/form_errors_auth.php, line: 100
+msgid   "Password and confirmation must match."
+msgstr  "PA55WORD & CONF1RMASHUN MU5T MATCH."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 50
+msgid   "Password confirmation is required."
+msgstr  "PASSWERD CONF1RMASHUN 1S REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 42
+msgid   "Password is invalid."
+msgstr  "PA55WERD 1S INVAL1D."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 46
+msgid   "Password is required."
+msgstr  "PASSWERD I5 REQUIRED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 44
+msgid   "Password must be at least 6 characters long."
+msgstr  "PA5SWERD MU5T BE AT LEE5T 6 CHARACTERS LONG."
+#
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 45
+msgid   "Persona"
+msgstr  "PERSONA"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 71
+msgid   "Personas"
+msgstr  "PER5ONAS"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 114
+msgid   "Phone number is required."
+msgstr  "F1 NUMBER 1S REQUIRED."
+#
+# File: models/repack.php, line: 125
 # File: views/repacks/edit/platforms.php, line: 7
 # File: views/repacks/edit/review.php, line: 25
 msgid   "Platforms"
-msgstr  "PLATFERM5"
+msgstr  "PLATFORMS"
 #
 # File: views/repacks/edit/review.php, line: 13
 msgid   "Please review your customizations detailed below before submitting "
         "your browser for build and approval:"
-msgstr  "PLEEZ REV1EW YOU'RE CU5TOM1ZASHUNS DETAILED BELOW B4 5UBMITT1NG "
-        "YOU'RE BROW5ER 4 BU1LD & APPROVAL:"
+msgstr  "PLEEZ REV1EW YOU'RE CU5TOMI2ASHUNS DETA1LED BELOW B4 5UBMITTING "
+        "YOU'RE BROW5ER 4 BUILD & APPROVAL:"
 #
 # File: views/repacks/elements/actions.php, line: 102
 msgid   "Preview:"
-msgstr  "PREV1EW:"
+msgstr  "PREVIEW:"
+#
+# File: views/layout.php, line: 126
+msgid   "Privacy Policy"
+msgstr  "PR1VACY POLICY"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 30
+msgid   "Problems in bookmark items."
+msgstr  "PROBLEM5 1N BUUKMARK ITEM5."
+#
+# File: views/repacks/edit.php, line: 97
+msgid   "Problems:"
+msgstr  "PROBLEMS:"
+#
+# File: views/layout.php, line: 71
+#, php-format
+msgid   "Queue (%1$s)"
+msgstr  "QUEUE (%1$S)"
 #
 # File: modules/addon_management/vendor/RdfComponent.php, line: 108
 #, php-format
 msgid   "RDF Parser error: the file contained a duplicate element: %s"
-msgstr  "RDF PARSER ERROR: THE FIEL CONTAINED A DUPLICATE ELEMENT: %5"
+msgstr  "RDF PARSER ERRER: THE F1EL CONTAINED A DUPL1CATE ELEMENT: %5"
 #
 # File: views/index/index.php, line: 202
 msgid   "Ready to start building a browser of your own?"
-msgstr  "REEDY 2 START BUILD1NG A BROW5ER OF YOU'RE OWN?"
+msgstr  "REEDY 2 5TART BU1LDING A BROW5ER OF YOU'RE OWN?"
 #
 # File: views/repacks/reject.php, line: 5
 msgid   "Reject a new release for this browser"
-msgstr  "REJECT A NEW RELEESE 4 TH1S BROWSER"
+msgstr  "REJECT A NEW RELEESE 4 THI5 BROWSER"
 #
 # File: views/repacks/elements/actions.php, line: 38
 msgid   "Reject release"
-msgstr  "REJECT RELEESE"
+msgstr  "REJECT RELEE5E"
 #
 # File: views/repacks/elements/history.php, line: 22
 # File: views/repacks/elements/history.php, line: 31
@@ -588,7 +939,7 @@ msgstr  "RELEESE APPRUV D"
 #
 # File: views/repacks/elements/history.php, line: 24
 msgid   "Release cancelled"
-msgstr  "RELEESE CANCELLED"
+msgstr  "RELEE53 CANCELLED"
 #
 # File: views/repacks/elements/history.php, line: 23
 msgid   "Release deleted"
@@ -597,7 +948,7 @@ msgstr  "RELEESE DELETED"
 # File: views/repacks/elements/history.php, line: 18
 # File: views/repacks/elements/history.php, line: 30
 msgid   "Release rejected"
-msgstr  "RELEESE REJECTED"
+msgstr  "RELEE53 REJECTED"
 #
 # File: views/repacks/elements/history.php, line: 29
 msgid   "Release request cancelled"
@@ -606,72 +957,150 @@ msgstr  "RELEESE REQUEST CANCELLED"
 # File: views/repacks/elements/history.php, line: 16
 # File: views/repacks/elements/history.php, line: 28
 msgid   "Release requested"
-msgstr  "RELEESE REQUESTED"
+msgstr  "RELEE5E REQUE5TED"
 #
 # File: views/repacks/elements/history.php, line: 19
 # File: views/repacks/elements/history.php, line: 35
 msgid   "Release reverted"
 msgstr  "RELEESE REVERTED"
 #
+# File: modules/addon_management/views/addonmanagement/upload_extension.php, line: 63
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 76
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 59
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 46
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 52
+msgid   "Remove"
+msgstr  "REMOOV"
+#
 # File: views/repacks/release.php, line: 25
 msgid   "Request a new release for this browser?"
-msgstr  "REQUEST A NEW RELEESE 4 TH1S BROWSER?"
+msgstr  "REQUEST A NEW RELEE53 4 THI5 BROW5ER?"
 #
 # File: views/repacks/elements/actions.php, line: 53
 msgid   "Request release"
-msgstr  "REQUEST RELEESE"
+msgstr  "REQUE5T RELEESE"
+#
+# File: modules/addon_management/models/searchplugin.php, line: 102
+#, php-format
+msgid   "Required element %1$s empty."
+msgstr  "REQU1RED ELEMENT %1$5 EMPTY."
 #
 # File: views/repacks/revert.php, line: 5
 msgid   "Revert the existing release for this browser?"
-msgstr  "REVERT TH3 EXI5TING RELEESE 4 THIS BROWSER?"
+msgstr  "REVERT THE EX1ST1NG RELEESE 4 THIS BROWSER?"
+#
+# File: views/repacks/edit.php, line: 120
+msgid   "Review and Build"
+msgstr  "REV1EW & BU1LD"
 #
 # File: views/repacks/elements/status.php, line: 12
 msgid   "Review requested"
-msgstr  "REV1EW REQUE5TED"
+msgstr  "REVIEW REQUESTED"
 #
 # File: views/repacks/edit/bookmarks.php, line: 107
 msgid   "Save"
 msgstr  "SAVE"
 #
+# File: views/repacks/edit.php, line: 121
+msgid   "Save and Close"
+msgstr  "5AVE & CLOSE"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 56
+# File: i18n/en_US/form_errors_auth.php, line: 64
+msgid   "Screen name is not available."
+msgstr  "SCREEN NAME 1S NOT AVAILABEL."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 58
+msgid   "Screen name is required."
+msgstr  "5CREEN NAM3 I5 REQUIRED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 60
+msgid   "Screen name must be between 3 and 64 characters in length"
+msgstr  "SCREEN NAME MUST BE BETWEEN 3 & 64 CHARACTERS IN LENGTH"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 62
+msgid   "Screen name must contain only alphanumeric characters"
+msgstr  "5CREEN NAM3 MUST CONTANE ONLY ALFANUMERIK CHARACTERS"
+#
+# File: views/layout.php, line: 92
+msgid   "Search Browsers"
+msgstr  "SEERCH BROWSER5"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 70
+msgid   "Search Engines"
+msgstr  "5EERCH ENG1NE5"
+#
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 29
+msgid   "Search Plugins"
+msgstr  "SEERCH PLUGIN5"
+#
+# File: modules/addon_management/controllers/addonmanagement.php, line: 138
+msgid   "Search plugin upload could not be parsed"
+msgstr  "5EERCH PLUG1N UPLOAD CUD  NOT BE PARSED"
+#
+# File: modules/addon_management/controllers/addonmanagement.php, line: 130
+msgid   "Search plugin upload must be of type text/xml"
+msgstr  "SEERCH PLUGIN UPLOAD MUST BE OF TYPE TEXT/XML"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 55
+msgid   "Selected add-ons:"
+msgstr  "5ELECTED ADD-ONS:"
+#
+# File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 36
+msgid   "Selected locales:"
+msgstr  "SELECTED LOCALE5:"
+#
 # File: views/repacks/edit/general.php, line: 18
 msgid   "Should this browser be included in public lists?"
-msgstr  "SHUD  THIS BROW5ER BE INCLUDED IN PUBLIK LI5T5?"
+msgstr  "5HUD  TH1S BROWSER BE INCLUDED 1N PUBLIK L15T5?"
 #
 # File: views/repacks/elements/actions.php, line: 25
 msgid   "Show in public lists"
-msgstr  "SHOW IN PUBLIK L15T5"
+msgstr  "SHOW 1N PUBLIK LIST5"
 #
 # File: views/repacks/makepublic.php, line: 5
 msgid   "Show this browser in public lists?"
-msgstr  "SHOW TH15 BROWSER 1N PUBLIK L15TS?"
+msgstr  "5HOW TH15 BROW5ER IN PUBLIK L15TS?"
 #
 # File: views/layout.php, line: 66
 msgid   "Sign up"
-msgstr  "S1GN UP"
+msgstr  "SIGN UP"
 #
 # File: views/repacks/edit/bookmarks.php, line: 97
 msgid   "Site URL"
-msgstr  "S1TE URL"
+msgstr  "51TE URL"
 #
 # File: views/index/index.php, line: 90
 msgid   "Social Groups."
-msgstr  "SOC1AL GROUP5."
+msgstr  "SOCIAL GROUPS."
 #
 # File: views/forbidden.php, line: 1
 msgid   "Sorry, this action is not allowed."
-msgstr  "SORRY, TH1S ACSHUN 15 NOT ALLOWED."
+msgstr  "5ERRY, TH15 ACSHUN I5 NOT ALLOWED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 123
+msgid   "State is required."
+msgstr  "STATE 15 REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 117
+msgid   "Street address is required."
+msgstr  "5TREET ADDRESS 1S REQUIRED."
 #
 # File: views/repacks/elements/actions.php, line: 23
 msgid   "Take down release"
-msgstr  "TAKE DOWN RELEESE"
+msgstr  "TAK3 DOWN RELEE5E"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 106
+msgid   "That email address is used by another login."
+msgstr  "THAT EMAIL ADDRES5 I5 USED BUY ANOTHER LOGIN."
 #
 # File: views/repacks/edit/bookmarks.php, line: 59
 msgid   "The Bookmark Menu has a limit of 5 items."
-msgstr  "THE BUUKMARK MENU HA5 A LIMIT OF 5 ITEM5."
+msgstr  "THE B00KMARK MENU HA5 A L1M1T OF 5 ITEM5."
 #
 # File: views/repacks/edit/bookmarks.php, line: 58
 msgid   "The Bookmark Toolbar has a limit of 3 items."
-msgstr  "THE BUUKMARK T00LBRE HA5 A LIMIT OF 3 ITEM5."
+msgstr  "THE BUUKMARK T00LBRE HAS A L1MIT OF 3 ITEM5."
 #
 # File: views/repacks/edit/general.php, line: 3
 msgid   "The Title is a label that is used for identifying customized version "
@@ -679,27 +1108,35 @@ msgid   "The Title is a label that is used for identifying customized version "
         "customizations defined, it's intended to help differentiate between "
         "those builds.  Similarly, the descriptive text allows you to provide "
         "a lengthy description of your customizations."
-msgstr  "TH3 TITEL 1S A LABEL THAT 15 USED 4 IDENTIFYING CUSTOM12ED VER5ION "
-        "OF F1REFOX W1TH1N THE BYOB APPLICASHUN!! 1F U HAVE MULTIPEL "
-        "CUSTOMI2ASHUNS DEF1NED, IT\"5 INTENDED 2 HELP DIFFERENTIAT3 BETWEEN "
-        "THO5E BU1LD5.  S1MILARLY, TH3 DESCRIPT1VE TEXT ALLOW5 U 2 PROVIDE A "
-        "LENGTHY DE5CR1PSHUN OF YOU'RE CU5TOMIZASHUN5."
+msgstr  "THE T1TEL 15 A LABEL THAT I5 USED 4 IDENTIFY1NG CUSTOM1ZED VERSION "
+        "OF F1REFOX WITHIN TH3 BYOB APPLICASHUN. IF U HAVE MULT1PEL "
+        "CU5TOM1ZASHUNS DEF1NED, IT\"S INTENDED 2 HELP DIFFERENT1ATE BETWEEN "
+        "THO5E BUILD5.  51M1LARLY, THE DESCR1PT1VE TEXT ALLLOWS U 2 PROV1D3 A "
+        "LENGTHY DESCRIPSHUN OF YOU'RE CUSTOMIZASHUNS."
 #
 # File: views/repacks/release.php, line: 12
 msgid   "The installers must be distributed as-is as a stand-alone file, and "
         "may not be incorporated with a meta-installer or pre-installed"
-msgstr  "TH3 INSTALLLER5 MUST BE DI5TR1BUTED AS-I5 A5 A ST&-AL1 F1EL, & MAY "
-        "NOT B3 INCORPERATED W1TH A META-IN5TALER OR PRE-1NSTALLED"
+msgstr  "THE 1NSTALLER5 MU5T BE DISTRIBUTED AS-IS AS A 5T&-AL1 FIEL, & MAY "
+        "NOT B3 INCERPORATED WITH A META-IN5TALLLER OR PRE-INSTALLLED"
 #
 # File: views/repacks/release.php, line: 11
 msgid   "The installers must be distributed at no cost to the end-user"
-msgstr  "TH3 IN5TALLERS MU5T BE D1STR1BUTED AT NO CO5T 2 THE END-U5ER"
+msgstr  "THE 1N5TALER5 MU5T BE DI5TRIBUTED AT NO COST 2 TH3 END-USER"
 #
 # File: views/repacks/release.php, line: 9
 msgid   "The program installers generated by BYOB and/or their contents may "
         "not be modified in any way"
-msgstr  "TH3 WAREZ!1!! IN5TALLERS GENERATED BUY BYOB &/OR THEIR CONTENT5 MAY "
-        "NOT B3 MOD1FIED IN ANY WAY"
+msgstr  "THE WAREZ!1!! 1NSTALLLER5 GENERATED BUY BYOB &/OR THEIR CONTENTS MAY "
+        "NOT BE MODIF1ED 1N ANY WAY"
+#
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 61
+msgid   "Theme"
+msgstr  "THEME"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 72
+msgid   "Themes"
+msgstr  "THEME5"
 #
 # File: views/repacks/release.php, line: 6
 msgid   "There are a few rules regarding distribution of the installers, and "
@@ -707,15 +1144,15 @@ msgid   "There are a few rules regarding distribution of the installers, and "
         "organization's) authorization to distribute them. The rules, which "
         "are further outlined in the Mozilla Public License and the Mozilla "
         "Trademark Policy are:"
-msgstr  "THERE R A FEW RULE5 REGARDING DISTR1BUSHUN OF THE 1N5TALLLER5, & "
-        "BREEK1NG ANY OF THE RULES AUTOMATICALY REVOKES YOU'RE (OR YOU'RE "
-        "ORGANIZASHUN\"5) AUTHERIZASHUN 2 DISTR1BUTE THEM. THE RULES, WH1CH R "
-        "FURTHER OUTL1NED IN THE MO2ILA PUBLIK L1CEN5E & THE MO2ILLA "
+msgstr  "THERE R A FEW RULE5 REGARDING D1STRIBUSHUN OF THE IN5TALLER5, & "
+        "BREEK1NG ANY OF TH3 RULES AUTOMATICALLY REVOKES YOU'RE (OR YOU'RE "
+        "ORGAN12ASHUN\"S) AUTHER12ASHUN 2 DI5TRIBUT3 THEM!! THE RULE5, WH1CH "
+        "R FURTHER OUTL1NED 1N TH3 MOZ1LLA PUBLIK L1CENSE & TH3 MOZ1LLA "
         "TRADEMARK POL1CY R:"
 #
 # File: views/index/index.php, line: 45
 msgid   "This video requires a browser with support for open video:"
-msgstr  "TH15 VIDEO REQUIRE5 A BROWSER W1TH 5UPPERT 4 OPEN VIDEO:"
+msgstr  "THIS VIDEO REQU1RES A BROW5ER WITH 5UPPORT 4 OPEN VIDEO:"
 #
 # File: views/repacks/edit/bookmarks.php, line: 81
 msgid   "Title"
@@ -725,6 +1162,14 @@ msgstr  "T1TLE"
 msgid   "To"
 msgstr  "TO"
 #
+# File: i18n/en_US/form_repacks_edit.php, line: 50
+msgid   "Too many extensions selected (maximum of 2)"
+msgstr  "TUU MANY EXTEN51ON5 SELECTED (MAXIMUM OF 2)"
+#
+# File: i18n/en_US/form_repacks_edit.php, line: 54
+msgid   "Too many search engines selected (maximum of 3)"
+msgstr  "T00 MANY SEERCH ENG1NES SELECTED (MAXIMUM OF 3)"
+#
 # File: views/repacks/edit/bookmarks.php, line: 76
 msgid   "Type"
 msgstr  "TYPE"
@@ -733,9 +1178,56 @@ msgstr  "TYPE"
 msgid   "URL"
 msgstr  "URL"
 #
+# File: modules/addon_management/controllers/addonmanagement.php, line: 59
+msgid   "Unable to read XPI install.rdf"
+msgstr  "UNABEL 2 REED XP1 INSTALL.RDF"
+#
 # File: views/repacks/elements/status.php, line: 13
 msgid   "Under review"
-msgstr  "UNDER REV1EW"
+msgstr  "UNDER REVIEW"
+#
+# File: modules/addon_management/views/addonmanagement/upload_extension.php, line: 40
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 40
+msgid   "Upload"
+msgstr  "UPLOAD"
+#
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 35
+msgid   "Upload a search engine plug-in:"
+msgstr  "UPLOAD A 5EERCH ENGINE PLUG-IN:"
+#
+# File: modules/addon_management/views/addonmanagement/upload_extension.php, line: 35
+msgid   "Upload an extension XPI file:"
+msgstr  "UPLOAD AN EXTENS1ON XPI FIEL:"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 200
+msgid   "Use the default theme"
+msgstr  "U5E TH3 DEFAULT THEME"
+#
+# File: i18n/en_US/form_errors_auth.php, line: 84
+msgid   "Valid captcha response is required."
+msgstr  "VAL1D CAPTCHA RE5PONS3 1S REQUIRED."
+#
+# File: i18n/en_US/form_errors_contact.php, line: 9
+msgid   "Valid email address is required."
+msgstr  "VALID EMA1L ADDRES5 IS REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 32
+# File: i18n/en_US/form_errors_auth.php, line: 36
+msgid   "Valid email confirmation is required."
+msgstr  "VAL1D EMAIL CONF1RMASHUN I5 REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 22
+# File: i18n/en_US/form_errors_auth.php, line: 26
+msgid   "Valid email is required."
+msgstr  "VALID EMAIL IS REQU1RED."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 10
+msgid   "Valid login name is required."
+msgstr  "VAL1D LOG1N NAME 1S REQUIRED."
+#
+# File: i18n/en_US/form_errors_contact.php, line: 12
+msgid   "Valid recaptcha response required."
+msgstr  "VALID RECAPTCHA RE5PON5E REQUIRED."
 #
 # File: views/repacks/elements/downloads.php, line: 48
 msgid   "Version"
@@ -746,49 +1238,53 @@ msgid   "Want people to know what useful sources and sites are available for "
         "your running group, gaming clan, club, or other like-minded people? "
         "Share them with a version of Firefox that's customized for your "
         "common interests."
-msgstr  "WANT PEOPEL 2 KNOW WHAT USEFUL 5OURCE5 & 5ITES R AVA1LABEL 4 YOU'RE "
-        "RUNN1NG GROUP, GAMING CLAN, CLUB, OR OTHER L1KE-M1NDED PEOPEL??!! "
-        "5HR THEM W1TH A VER51ON OF FIREFOX THAT\"S CU5TOM12ED 4 YOU'RE "
-        "COMMON 1NTERE5TS."
+msgstr  "WANT PEOPEL 2 KNOW WHAT U5EFUL 5OURCES & S1TE5 R AVA1LABEL 4 YOU'RE "
+        "RUNING GROUP, GAMING CLAN, CLUB, OR OTHER LIKE-MINDED PEOPEL??!! 5HR "
+        "THEM W1TH A VERS1ON OF F1REFOX THAT\"5 CUSTOM12ED 4 YOU'RE COMMON "
+        "INTERE5TS."
 #
 # File: views/index/index.php, line: 96
 msgid   "Want to easily share the best of the web with the people you care "
         "about? Give them a browser that puts everything a click away, "
         "without them having to hunt for it."
-msgstr  "WANT 2 EESILY 5HR THE BE5T OF TH3 WEB WITH THE PEOPEL U CR ABOUT??!! "
-        "G1VE THEM A BROWSER THAT PUT5 EVERYTH1NG A CLICK AWAY, W1THOUT THEM "
-        "HAVING 2 HUNT 4 1T."
+msgstr  "WANT 2 EESILY SHR TH3 BEST OF THE WEB W1TH THE PEOPEL U CR ABOUT??!! "
+        "G1VE THEM A BROW5ER THAT PUT5 EVERYTHING A CLICK AWAY, WITHOUT THEM "
+        "HAV1NG 2 HUNT 4 IT."
 #
 # File: views/index/index.php, line: 75
 msgid   "We provide the tools for you to create your own browser with no "
         "development, maintenance, or hosting costs."
-msgstr  "W3 PROV1DE TH3 TUULS 4 U 2 CREETE YOU'RE OWN BROW5ER WITH NO "
-        "DEVELOPMENT, MAINTENANCE, OR HOSTING CO5TS."
+msgstr  "WE PROV1DE THE TUULS 4 U 2 CREETE YOU'RE OWN BROWSER WITH NO "
+        "DEVELOPMENT, MA1NTENANCE, OR HOSTING COSTS."
 #
 # File: views/layout.php, line: 62
 #, php-format
 msgid   "Welcome, <span class=\"screen_name\">%1$s</span>"
-msgstr  "WELCOM3, <span class=\"screen_name\">%1$S</span>"
+msgstr  "WELCOME, <span class=\"screen_name\">%1$S</span>"
 #
 # File: views/index/index.php, line: 105
 msgid   "What browsers are others making?"
-msgstr  "WHAT BROWSERS R OTHERS MAK1NG?"
+msgstr  "WHAT BROW5ER5 R OTHER5 MAK1NG?"
 #
 #. i18n: %1$s = Browser repack title
 # File: views/repacks/release.php, line: 14
 #, php-format
 msgid   "When referring to the product name, the installer must be referred "
         "to as %1$s to differentiate it from the default release of Firefox."
-msgstr  "WHEN REFERR1NG 2 TH3 PRODUCT NAME, THE 1NSTALER MU5T B3 REFERRED 2 "
-        "AS %1$5 2 D1FFERENT1ATE 1T FROM THE DEFAULT RELEE53 OF F1REFOX."
+msgstr  "WHEN REFERR1NG 2 THE PRODUCT NAM3, THE 1NSTALLLER MUST B3 REFERRED 2 "
+        "A5 %1$5 2 DIFFERENTIATE IT FROM THE DEFAULT RELEESE OF F1REFOX."
 #
 # File: views/index/index.php, line: 81
 msgid   "Who can this help?"
-msgstr  "WHO CAN TH1S HELP?"
+msgstr  "WHO CAN THI5 HELP?"
 #
 # File: views/repacks/elements/downloads.php, line: 22
 msgid   "Windows"
 msgstr  "W1NDOWS"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 50
+msgid   "With BYOB, you can bundle many popular add-ons with your browser."
+msgstr  "WITH BYOB, U CAN BUNDEL MANY POPULRE ADD-ON5 W1TH YOU'RE BROWSER."
 #
 # File: views/repacks/edit/general.php, line: 20
 msgid   "Yes"
@@ -796,45 +1292,55 @@ msgstr  "YES"
 #
 # File: views/repacks/elements/confirm.php, line: 26
 msgid   "Yes, confirm."
-msgstr  "YES, CONFIRM."
+msgstr  "YE5, CONF1RM."
 #
 # File: views/repacks/edit/firstrun.php, line: 14
 msgid   "You can choose a set of addons to suggest for installation in your "
         "browser by using the collections feature of addons.mozilla.com"
-msgstr  "YOU CAN CHUUSE A SET OF ADDONS 2 SUGGEST 4 IN5TALLASHUN IN YOU'RE "
-        "BROW5ER BUY USING THE COLLLECSHUNS FEETUR3 OF ADDON5.MOZ1LA.COM"
+msgstr  "YOU CAN CHUU5E A 5ET OF ADDONS 2 SUGGEST 4 INSTALASHUN 1N YOU'RE "
+        "BROW5ER BUY U51NG THE COLECSHUN5 FEETURE OF ADDON5.MO21LLA.COM"
 #
 # File: views/repacks/edit/collections.php, line: 2
 msgid   "You can choose a set of addons to suggest for installation in your "
         "browser by using the collections feature of addons.mozilla.com (eg: "
         "https://addons.mozilla.org/en-US/firefox/collection/social)"
-msgstr  "YOU CAN CHUUSE A SET OF ADDONS 2 SUGGEST 4 IN5TALLASHUN IN YOU'RE "
-        "BROW5ER BUY USING THE COLLLECSHUNS FEETUR3 OF ADDON5.MOZ1LA.COM (EG: "
-        "HTTP5://ADDON5.MO2ILLA.ORG/EN-US/FIREFOX/COLECSHUN/5OCIAL)"
+msgstr  "YOU CAN CH005E A SET OF ADDONS 2 5UGGEST 4 IN5TALLLASHUN IN YOU'RE "
+        "BROW5ER BUY U51NG TH3 COLECSHUN5 FEETURE OF ADDONS.MO2ILLLA.COM (EG: "
+        "HTTPS://ADDONS.MOZILA.ORG/EN-U5/FIREFOX/COLLLECSHUN/SOC1AL)"
+#
+# File: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php, line: 6
+msgid   "You can create an INI overlay to be merged on top of the "
+        "distribution.ini generated for your repack."
+msgstr  "YOU CAN CREET3 AN IN1 UV RLAY 2 BE MERGED ON TOP OF TH3 "
+        "D1STR1BUSHUN.1N1 GENERATED 4 YOU'RE REPACK."
 #
 # File: views/repacks/edit/firstrun.php, line: 2
 msgid   "You can customize the content displayed when your browser is started "
         "for the first time."
-msgstr  "YOU CAN CUSTOM1ZE THE CONTENT D1SPLAYED WHEN YOU'RE BROWSER I5 "
-        "STARTED 4 TH3 FIRST T1ME."
+msgstr  "YOU CAN CU5TOMI2E THE CONTENT DISPLAYED WHEN YOU'RE BROWSER 15 "
+        "5TARTED 4 THE FIRST TIME."
 #
 # File: views/repacks/edit/review.php, line: 11
 msgid   "You haven't performed any customizations to this browser beyond the "
         "default settings.  Please do so before submitting a request to build "
         "this browser."
-msgstr  "YOU HAVEN\"T PERFERMED ANY CUSTOM1ZASHUN5 2 THIS BROWSER BEYOND THE "
-        "DEFAULT 5ETT1NGS!!  PLEEZ DO 5O B4 SUBM1TT1NG A REQUE5T 2 BU1LD TH15 "
+msgstr  "YOU HAVEN\"T PERFERMED ANY CUSTOMI2ASHUNS 2 THIS BROW5ER BEYOND THE "
+        "DEFAULT 5ETTINGS.  PLEEZ DO SO B4 SUBMITTING A REQUEST 2 BUILD THI5 "
         "BROW5ER."
 #
 # File: views/repacks/index.php, line: 37
 msgid   "Your browsers"
-msgstr  "YOUR BROWSERS"
+msgstr  "YOUR BROW5ER5"
 #
 # File: views/index/index.php, line: 72
 msgid   "Your version of Firefox is available in over 60 languages on Linux, "
         "Mac, and Windows. No one's left behind."
-msgstr  "YOUR VERS1ON OF FIREFOX IS AVAILABEL 1N UV R 60 LANGUAGE5 ON L1NUX, "
-        "MAC, & W1NDOWS. NO ONE\"S LEFT BEHIND."
+msgstr  "YOUR VERSION OF F1REFOX 1S AVA1LABEL 1N UV R 60 LANGUAGE5 ON L1NUX, "
+        "MAC, & W1NDOW5!! NO ONE\"5 LEFT BEHIND."
+#
+# File: i18n/en_US/form_errors_auth.php, line: 126
+msgid   "Zip is required."
+msgstr  "ZIP 1S REQUIRED."
 #
 # File: views/repacks/approve.php, line: 3
 msgid   "approve"
@@ -842,7 +1348,7 @@ msgstr  "APPRUV "
 #
 # File: views/repacks/approve.php, line: 4
 msgid   "approve release"
-msgstr  "APPRUV  RELEESE"
+msgstr  "APPRUV  RELEE5E"
 #
 # File: views/layout.php, line: 57
 msgid   "build your own browser"
@@ -851,7 +1357,7 @@ msgstr  "BU1LD YOU'RE OWN BROWSER"
 # File: views/layout.php, line: 13
 #, php-format
 msgid   "build your own browser :: %1$s"
-msgstr  "BU1LD YOU'RE OWN BROWSER :: %1$S"
+msgstr  "BUILD YOU'RE OWN BROW5ER :: %1$5"
 #
 # File: views/repacks/elements/history.php, line: 57
 #, php-format
@@ -866,24 +1372,35 @@ msgstr  "CANCEL"
 msgid   "cancel release"
 msgstr  "CANCEL RELEESE"
 #
+# File: views/repacks/edit.php, line: 23
+#, php-format
+msgid   "customize :: %s"
+msgstr  "CU5TOM1ZE :: %5"
+#
 # File: views/repacks/delete.php, line: 8
 msgid   "delete"
 msgstr  "DELETE"
 #
 # File: views/repacks/delete.php, line: 9
 msgid   "delete browser"
-msgstr  "DELETE BROWSER"
+msgstr  "DELETE BROW5ER"
 #
+# File: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php, line: 21
+msgid   "distribution.ini result:"
+msgstr  "D1STRIBUSHUN.1N1 RE5ULT:"
+#
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 5
+# File: modules/locale_selection/views/repacks/edit/review_locale_selection.php, line: 2
 # File: views/repacks/edit/review.php, line: 19
 # File: views/repacks/edit/review.php, line: 25
 # File: views/repacks/edit/review.php, line: 43
 # File: views/repacks/edit/review.php, line: 67
 msgid   "edit"
-msgstr  "ED1T"
+msgstr  "EDIT"
 #
 # File: views/repacks/edit/firstrun.php, line: 7
 msgid   "first run page"
-msgstr  "F1R5T RUN PAGE"
+msgstr  "F1RST RUN PAGE"
 #
 #. i18n: Date format for modification timestamp
 # File: views/repacks/elements/details.php, line: 7
@@ -893,17 +1410,17 @@ msgstr  "M/D/Y"
 # File: views/repacks/makeprivate.php, line: 3
 # File: views/repacks/makeprivate.php, line: 4
 msgid   "make private"
-msgstr  "MAK3 PRIVATE"
+msgstr  "MAKE PR1VATE"
 #
 # File: views/repacks/makepublic.php, line: 3
 # File: views/repacks/makepublic.php, line: 4
 msgid   "make public"
-msgstr  "MAK3 PUBLIC"
+msgstr  "MAKE PUBL1C"
 #
 # File: views/index/index.php, line: 50
 msgid   "or the <a href=\"http://www.adobe.com/go/getflashplayer\">Adobe "
         "Flash Player</a>."
-msgstr  "OR TH3 <a href=\"http://www.adobe.com/go/getflashplayer\">ADOBE "
+msgstr  "OR THE <a href=\"http://www.adobe.com/go/getflashplayer\">ADOBE "
         "FLA5H PLAYER</a>."
 #
 # File: views/repacks/reject.php, line: 3
@@ -916,11 +1433,11 @@ msgstr  "REJECT RELEESE"
 #
 # File: views/repacks/release.php, line: 23
 msgid   "release"
-msgstr  "RELEESE"
+msgstr  "RELEE5E"
 #
 # File: views/repacks/release.php, line: 24
 msgid   "request release"
-msgstr  "REQUEST RELEE5E"
+msgstr  "REQUEST RELEESE"
 #
 # File: views/repacks/revert.php, line: 3
 msgid   "revert"
@@ -930,14 +1447,18 @@ msgstr  "REVERT"
 msgid   "revert release"
 msgstr  "REVERT RELEESE"
 #
+# File: modules/adhoc_distribution_ini/views/repacks/edit/adhoc_distribution_ini.php, line: 18
+msgid   "save and update result"
+msgstr  "5AV3 & UPDATE RE5ULT"
+#
 # File: views/search/index.php, line: 1
 #, php-format
 msgid   "search :: %1$s"
-msgstr  "SEERCH :: %1$S"
+msgstr  "SEERCH :: %1$5"
 #
 # File: views/search/approvalqueue.php, line: 1
 msgid   "search :: approval queue"
-msgstr  "SEERCH :: APPROVAL QUEUE"
+msgstr  "5EERCH :: APPROVAL QUEUE"
 #
 # File: views/search/index.php, line: 2
 msgid   "search results"
@@ -946,8 +1467,8 @@ msgstr  "SEERCH RESULT5"
 # File: views/repacks/view.php, line: 2
 #, php-format
 msgid   "view :: %1$s"
-msgstr  "V1EW :: %1$5"
+msgstr  "VIEW :: %1$5"
 #
 # File: views/repacks/edit/bookmarks.php, line: 46
 msgid   "x Delete Selected"
-msgstr  "X DELETE SELECTED"
+msgstr  "X DELET3 5ELECTED"

@@ -32,12 +32,12 @@
 <div class="extension_upload upload_form">
 
     <form method="POST" enctype="multipart/form-data">
-        <fieldset class="upload"><legend>Upload an extension XPI file:</legend>
+        <fieldset class="upload"><legend><?=_('Upload an extension XPI file:')?></legend>
             <div>
                 <div class="pretty_upload">
                     <input type="file" class="upload" id="xpi_upload" name="xpi_upload" />
                 </div>
-                <button name="submit" class="button blue">Upload</button>
+                <button name="submit" class="button blue"><?=_('Upload')?></button>
             </div>
         </fieldset>
     </form>
@@ -60,7 +60,7 @@
                         <input type="hidden" name="method" value="delete" />
                         <input type="hidden" name="xpi_fn" 
                             value="<?= html::specialchars(basename($extension->xpi_fn)) ?>" />
-                        <button name="submit" class="remove">Remove</button>
+                            <button name="submit" class="remove"><?=_('Remove')?></button>
                     </form>
                 </a></li>
             <?php endforeach ?>

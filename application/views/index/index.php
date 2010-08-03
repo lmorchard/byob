@@ -36,9 +36,9 @@
 
             <object type="application/x-shockwave-flash"
                 style="width: 430px; height: 242;"
-                data="/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video">
+                data="http://www.mozilla.com/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video">
 
-                <param name="movie" value="/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video" />
+                <param name="movie" value="http://www.mozilla.com/includes/flash/playerWithControls.swf?flv=firefox/3.6/whatsnewin36.mp4&amp;autoplay=false&amp;msg=Play%20Video" />
                 <param name="wmode" value="transparent" />
 
                 <div class="video-player-no-flash">

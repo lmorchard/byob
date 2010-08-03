@@ -48,7 +48,7 @@ class Addonmanagement_Controller extends Local_Controller
         } else if ('post' == request::method()) {
 
             if (empty($_FILES['xpi_upload']['tmp_name'])) {
-                $errors[] = 'No XPI upload available';
+                $errors[] = _('No XPI upload available');
             }
 
             $xpi_fn = $_FILES['xpi_upload']['tmp_name'];
@@ -56,7 +56,7 @@ class Addonmanagement_Controller extends Local_Controller
 
             $extension = Model::factory('addon')->find_by_xpi_file($xpi_fn);
             if (!$extension->loaded) {
-                $errors[] = 'Unable to read XPI install.rdf';
+                $errors[] = _('Unable to read XPI install.rdf');
             }
 
             if (empty($errors)) {
@@ -127,7 +127,7 @@ class Addonmanagement_Controller extends Local_Controller
         } else if ('post' == request::method()) {
 
             if (empty($_FILES['sp_upload']['tmp_name'])) {
-                $errors[] = 'Search plugin upload must be of type text/xml';
+                $errors[] = _('Search plugin upload must be of type text/xml');
             }
 
             $sp_fn = $_FILES['sp_upload']['tmp_name'];
@@ -135,7 +135,7 @@ class Addonmanagement_Controller extends Local_Controller
             $sp_xml = file_get_contents($sp_fn);
             $plugin = Model::factory('searchplugin')->loadFromXML($sp_xml);
             if (!$plugin->loaded) {
-                $errors[] = 'Search plugin upload could not be parsed';
+                $errors[] = _('Search plugin upload could not be parsed');
             }
 
             if (empty($errors)) {

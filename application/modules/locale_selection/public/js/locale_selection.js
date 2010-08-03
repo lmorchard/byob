@@ -108,7 +108,7 @@ BYOB_Repacks_Edit_LocaleSelection = (function () {
                 $('.locale-selections li:not(.template) input[type=hidden]');
             if (selected.length >= $this.MAX_LOCALES) return false;
 
-            // Don't add a new item for a locale already present.
+            // Do not add a new item for a locale already present.
             var existing = $('.locale-selections input[value='+locale+']');
             if (existing.length > 0) return false;
 

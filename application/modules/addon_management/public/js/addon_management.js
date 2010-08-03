@@ -3,6 +3,8 @@
  */
 BYOB_Repacks_Edit_AddonManagement = (function () {
 
+    var _ = BYOB_Main.gettext;
+
     var $this = {
 
         // Indexed map of selections in sidebar to choices in UI.
@@ -78,7 +80,9 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 input_el.after($(
                     '<span class="fake_upload">' +
                         '<input class="text" type="text" />' +
-                        '<button class="browse button grey">Browse</button>' +
+                        '<button class="browse button grey">' +
+                        _('Browse') +
+                        '</button>' +
                     '</span>'
                 ));
 

@@ -16,6 +16,13 @@ class Mozilla_BYOB_Editor {
     private static $_instances = array();
 
     /**
+     * React to locale readiness
+     */
+    public function l10n_ready()
+    {
+    }
+
+    /**
      * If set, render this module's review view and shove the result into the 
      * appropriate slot.
      */

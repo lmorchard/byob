@@ -86,7 +86,7 @@ class Searchplugin_Model extends Model
         }
         if ('SearchPlugin' != (string)$this->doc->getName() &&
             'OpenSearchDescription' != (string)$this->doc->getName()) {
-            $this->last_error = 'Not an OpenSearchDescription document';
+            $this->last_error = _('Not an OpenSearchDescription document');
             return false;
         }
         foreach (self::$req_fields as $name) {
@@ -99,7 +99,7 @@ class Searchplugin_Model extends Model
                 }
             }
             if (!$found_it) {
-                $this->last_error = "Required element {$name} empty.";
+                $this->last_error = sprintf(_('Required element %1$s empty.'), $name);
                 return false;
             }
         }

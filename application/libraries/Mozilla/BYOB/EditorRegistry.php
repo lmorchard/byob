@@ -19,6 +19,16 @@ class Mozilla_BYOB_EditorRegistry {
     }
 
     /**
+     * Inform all editors that locale is ready
+     */
+    public static function l10n_ready()
+    {
+        foreach (self::$editors as $editor) {
+            $editor->l10n_ready();
+        }
+    }
+
+    /**
      * Return an editor by ID.
      *
      * @param   string $id editor ID
@@ -36,7 +46,7 @@ class Mozilla_BYOB_EditorRegistry {
     public static function getSections($repack)
     {
         $sections = array(
-            'general' => 'General'
+            'general' => _('General')
         );
 
         foreach (self::$editors as $editor_id => $editor) {

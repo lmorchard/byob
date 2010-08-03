@@ -62,37 +62,6 @@ class Repack_Model extends ManagedORM
         'linux' => 'Linux'
     );
 
-    public static $locale_choices = array(
-        'en-US' => 'English (US)',
-        'en-GB' => 'English (UK)',
-        'es-AR' => 'Spanish (Argentinia/Latin America)',
-        'es-ES' => 'Spanish (Spain)',
-        'de' =>    'German',
-        'fr' =>    'French',
-        'ja' =>    'Japanese',
-        'ru' =>    'Russian',
-        'zh-CN' => 'Chinese Mandarin',
-        'zh-TW' => 'Chinese Simplified',
-    );
-
-    public static $bookmark_types = array(
-        'normal' => 'Normal',
-        'live'   => 'Live'
-    );
-
-    public static $type_fields = array(
-        'normal' => array(
-            'title'       => 'Title',
-            'location'    => 'Website URL',
-            'description' => 'Description',
-        ),
-        'live' => array(
-            'title'       => 'Title',
-            'feed'        => 'Feed URL',
-            'location'    => 'Website URL',
-        )
-    );
-
     public static $bookmark_limits = array(
         'bookmarks_toolbar' => 5,
         'bookmarks_menu' => 5
@@ -142,6 +111,24 @@ class Repack_Model extends ManagedORM
     );
 
     // }}}
+
+    /**
+     *
+     */
+    public function __construct()
+    {
+        parent::__construct();
+
+        // HACK: Need to localize here, since _() can't be called in declarations
+        self::$edit_sections = array(
+            'general'     => _('General'),
+            'platforms'   => _('Platforms'),
+            'bookmarks'   => _('Bookmarks'),
+            'collections' => _('Collections'),
+            'review'      => false,
+        );
+
+    }
 
     /**
      * Extract & validate data from a form and optionally update this instance 
@@ -1168,15 +1155,17 @@ class Repack_Model extends ManagedORM
         if (empty($this->attrs)) $this->attrs = array();
         if ('1' == $this->profile->is_personal) {
             $this->title = 
-                "Mozilla Firefox for {$this->user_title}";
+                sprintf(_('Mozilla Firefox for %1$s'), $this->user_title);
             $this->display_title = 
-                "Mozilla Firefox for {$this->user_title}";
+                sprintf(_('Mozilla Firefox for %1$s'), $this->user_title);
         } else {
             $this->title = 
-                "Mozilla Firefox for {$this->profile->org_name}";
+                sprintf(_('Mozilla Firefox for %1$s'), 
+                    $this->profile->org_name);
             $this->display_title = 
-                "Mozilla Firefox for {$this->profile->org_name} ".
-                "({$this->user_title})";
+                // i18n: %1$s = organization name; %2$s = browser's short title
+                sprintf(_('Mozilla Firefox for %1$s (%2$s)'), 
+                    $this->profile->org_name, $this->user_title);
         }
         return $this;
     }

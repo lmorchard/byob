@@ -80,6 +80,8 @@ class Gettext_Main {
         // was available.
         list($lang, $locale) = self::detect_language($langs);
         self::set_locale($locale);
+
+        Event::run('l10n.ready');
     }
 
     /**

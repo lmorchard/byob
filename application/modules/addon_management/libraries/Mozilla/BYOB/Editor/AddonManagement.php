@@ -24,6 +24,14 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
     /** }}} */
 
     /**
+     * Locale should be worked out by this time, so localize the tab title.
+     */
+    public function l10n_ready()
+    {
+        $this->title = _('Addons');
+    }
+
+    /**
      * Register and initialize this app module.
      */
     public static function register() 

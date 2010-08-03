@@ -310,7 +310,7 @@ class Addon_Model extends Model
             fclose($xpi_fout);
 
             if (!$success) {
-                throw new Exception("Failed to download {$url}");
+                throw new Exception(sprintf(_("Failed to download %1$s"), $url));
             }
 
             // Now, unpack the XPI for use in repacks.

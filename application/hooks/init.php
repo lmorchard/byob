@@ -18,7 +18,17 @@ class Mozilla_BYOB {
         
         // Ensure caching varies by cookie (eg. login), browser, and gzip/non-gzip 
         header('Vary: Cookie,User-Agent,Accept-Encoding', true);
+
+    }
+
+    /**
+     * Let all registered editors know that locale is ready.
+     */
+    public static function l10n_ready()
+    {
+        Mozilla_BYOB_EditorRegistry::l10n_ready();
     }
 
 }
 Event::add('system.ready', array('Mozilla_BYOB', 'init'));
+Event::add('l10n.ready', array('Mozilla_BYOB', 'l10n_ready'));

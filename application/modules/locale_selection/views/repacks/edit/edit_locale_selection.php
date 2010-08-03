@@ -28,15 +28,12 @@ if (empty($locales)) $locales = array();
 <?php slot::end() ?>
 
 <div class="intro">
-    <p>
-        BYOB is currently available in <?=locale_selection::count()?> locales.
-        You can choose <strong>up to ten locales</strong> for your browser.
-    </p>
+    <p><?=sprintf(_('BYOB is currently available in %1$s locales. You can choose <strong>up to ten locales</strong> for your browser.'), locale_selection::count())?></p>
 </div>
 <div class="pane">
 
     <div class="selections">
-        <fieldset><legend>Selected locales:</legend>
+        <fieldset><legend><?=_('Selected locales:')?></legend>
             <ol class="locale-selections clearfix">
                 <?php foreach ($locales as $locale): ?>
                     <?php
@@ -46,13 +43,13 @@ if (empty($locales)) $locales = array();
                     <li class="selected-locale">
                         <span class="name"><?= html::specialchars($details['English']) ?></span>
                         <?= form::hidden("locales[]", $locale) ?>
-                        <a href="#" class="remove">Remove</a>
+                        <a href="#" class="remove"><?=_('Remove')?></a>
                     </li>
                 <?php endforeach ?>
                 <li class="template selected-locale">
                     <span class="name"></span>
                     <input type="hidden" value="" name="locales[]" />
-                    <a href="#" class="remove">Remove</a>
+                    <a href="#" class="remove"><?=_('Remove')?></a>
                 </li>
             </ol>
         </fieldset>
@@ -60,7 +57,7 @@ if (empty($locales)) $locales = array();
 
     <div class="choices">
 
-        <fieldset><legend>Choose from these common locales:</legend>
+        <fieldset><legend><?=_('Choose from these common locales:')?></legend>
             <?php $popular_choices = locale_selection::get_popular_locales(); ?>
             <ul class="repack-locale popular-locales clearfix">
                 <?php foreach ($popular_choices as $locale=>$details): ?>
@@ -72,11 +69,11 @@ if (empty($locales)) $locales = array();
             </ul>
         </fieldset>
 
-        <fieldset><legend>Or search for a locale by name:</legend>
+        <fieldset><legend><?=_('Or search for a locale by name:')?></legend>
             <div class="locale-search-field">
                 <input type="text" id="locale_search" name="locale_search" size="40"
-                    title="Enter all or part of a locale's name" />
-                <span class="button blue add">Add</span>
+                title="<?=_('Enter all or part of a locale\'s name')?>" />
+                <span class="button blue add"><?=_('Add')?></span>
             </div>
         </fieldset>
 

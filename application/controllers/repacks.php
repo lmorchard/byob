@@ -21,7 +21,7 @@ class Repacks_Controller extends Local_Controller
         if (!authprofiles::is_logged_in()) {
             if (!in_array(Router::$method, $unauth_methods)) {
                 Session::instance()->set_flash(
-                    'message', 'Login required to manipulate repacks.'
+                    'message', _('Login required to manipulate repacks.')
                 );
                 return authprofiles::redirect_login();
             }

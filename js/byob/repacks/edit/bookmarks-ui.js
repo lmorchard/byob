@@ -16,6 +16,8 @@
 /*jslint laxbreak: true */
 BYOB_Repacks_Edit_Bookmarks_UI = (function () {
 
+    var _ = BYOB_Main.gettext;
+
     var $Model = BYOB_Repacks_Edit_Bookmarks_Model;
 
     var $this = {
@@ -581,7 +583,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
 
             var new_folder = $this.model.add({
                 type: 'folder',
-                title: 'New Folder'
+                title: _('New Folder')
             });
 
             if ($this.selected_item) {

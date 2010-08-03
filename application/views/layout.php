@@ -68,15 +68,15 @@
                                 <?php else: ?>
                                 <li class="first"><a href="<?= url::site('profiles/' . $u_screen_name) ?>"><?=_('My profile')?></a></li>
                                     <?php if (!empty($approval_queue_allowed) && $approval_queue_count > 0): ?>
-                                        <li><a href="<?= url::site('search/approvalqueue') ?>"><?=_(sprintf('Queue (%1$s)', $approval_queue_count))?></a></li>
+                                        <li><a href="<?= url::site('search/approvalqueue') ?>"><?=sprintf(_('Queue (%1$s)'), $approval_queue_count)?></a></li>
                                     <?php endif ?>
                                     <!--
                                         <li><a href="<?= url::site('profiles/' . $u_screen_name . '/settings') ?>">edit profile</a></li>
                                     -->
                                     <?php if (authprofiles::is_allowed('admin', 'index')): ?>
-                                        <li><a href="<?= url::site('admin/') ?>">Manage</a></li>
+                                        <li><a href="<?= url::site('admin/') ?>"><?=_('Manage')?></a></li>
                                     <?php endif ?>
-                                    <li><a href="<?= url::site('logout') ?>">Log out</a></li>
+                                    <li><a href="<?= url::site('logout') ?>"><?=_('Log out')?></a></li>
                                 <?php endif; ?>
                             </ul>
                         </div>
@@ -89,7 +89,7 @@
                                         'name'  => 'q',
                                         'value' => @$_GET['q'],
                                         'size'  => '30', 
-                                        'title' => 'Search Browsers'
+                                        'title' => _('Search Browsers')
                                     ))?>
                                 </form>
                             </div>
@@ -119,13 +119,13 @@
         <div id="footer">
             <div class="content">
                 <div class="copyright">
-                    <p><strong>Copyright &copy; 2005 - 2010 Mozilla</strong></p>
-                    <p>All rights reserved</p>
+                    <p><strong><?=_('Copyright &copy; 2005 - 2010 Mozilla')?></strong></p>
+                    <p><?=_('All rights reserved')?></p>
                 </div>
                 <ul class="nav">
-                    <li class="first"><a href="http://www.mozilla.com/en-US/privacy-policy.html">Privacy Policy</a></li>
-                    <li><a href="http://www.mozilla.com/en-US/about/legal.html">Legal Notices</a></li>
-                    <li><a href="<?=url::site('contact')?>">Contact us</a></li>
+                    <li class="first"><a href="http://www.mozilla.com/en-US/privacy-policy.html"><?=_('Privacy Policy')?></a></li>
+                    <li><a href="http://www.mozilla.com/en-US/about/legal.html"><?=_('Legal Notices')?></a></li>
+                    <li><a href="<?=url::site('contact')?>"><?=_('Contact us')?></a></li>
                 </ul>
             </div>
         </div>
@@ -146,6 +146,7 @@
             'js/json2.js',
             'js/class.js',
             'js/sugar-arrays-min.js',
+            'js/sprintf.js',
             'js/jquery-1.4.2.min.js',
             'js/jquery-ui-1.8.1.custom.min.js',
             'js/jquery.cookies.2.0.1.min.js',
@@ -155,6 +156,8 @@
             'js/byob/main.js',
             //'js/byob/'.Router::$controller.'.js'
         ))?>
+
+        <script type="text/javascript" src="<?=url::site()?>/l10n/translations?callback=BYOB_Main.loadTranslations"></script>
 
         <script type="text/javascript">
             var tb_pathToImage = "<?=url::base()?>img/loadingAnimation.gif";

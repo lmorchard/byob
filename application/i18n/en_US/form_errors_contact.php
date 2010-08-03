@@ -5,9 +5,9 @@
  * @author l.m.orchard@pobox.com
  */
 $lang = array(
-    'name'      => array( 'default' => 'Name is required.' ),
-    'email'     => array( 'default' => 'Valid email address is required.' ),
-    'category'  => array( 'default' => 'Category is required.' ),
-    'comments'  => array( 'default' => 'Comments are required.' ),
-    'recaptcha' => array( 'default' => 'Valid recaptcha response required.' ),
+    'name'      => array( 'default' => _('Name is required.') ),
+    'email'     => array( 'default' => _('Valid email address is required.') ),
+    'category'  => array( 'default' => _('Category is required.') ),
+    'comments'  => array( 'default' => _('Comments are required.') ),
+    'recaptcha' => array( 'default' => _('Valid recaptcha response required.') ),
 );

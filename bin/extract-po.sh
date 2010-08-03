@@ -1,5 +1,5 @@
 #!/bin/bash
-SOURCE_DIRS="application modules js"
+SOURCE_DIRS="application modules js/byob"
 
 cd `dirname $0`/..;
 working_dir=$( pwd );
@@ -26,23 +26,23 @@ for sourcedir in $SOURCE_DIRS; do \
         --sort-output \
         --copyright-holder="Mozilla Corporation" \
         --files-from=- # Pull from standard input (our find command) 
-#     find . -not -path '*/cache/*' -not -path '*/.git_externals/*' -name '*.js' | xgettext \
-#         --output=$working_dir/application/locale/keys.pot \
-#         --language=C \
-#         --indent \
-#         --add-comments=i18n \
-#         --keyword=_ \
-#         --keyword=__ \
-#         --keyword=___ \
-#         --keyword=n___:1,2 \
-#         --keyword="pgettext:1c,2" \
-#         --keyword="npgettext:1c,2,3" \
-#         --force-po \
-#         --omit-header \
-#         --join-existing \
-#         --sort-output \
-#         --copyright-holder="Mozilla Corporation" \
-#         --files-from=- # Pull from standard input (our find command) 
+     find . -not -path '*/cache/*' -not -path '*/.git_externals/*' -not -path '*/repack_assets/*' -name '*.js' | xgettext \
+         --output=$working_dir/application/locale/keys.pot \
+         --language=Python \
+         --indent \
+         --add-comments=i18n \
+         --keyword=_ \
+         --keyword=__ \
+         --keyword=___ \
+         --keyword=n___:1,2 \
+         --keyword="pgettext:1c,2" \
+         --keyword="npgettext:1c,2,3" \
+         --force-po \
+         --omit-header \
+         --join-existing \
+         --sort-output \
+         --copyright-holder="Mozilla Corporation" \
+         --files-from=- # Pull from standard input (our find command) 
 done
 echo "done."
 
