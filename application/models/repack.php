@@ -113,11 +113,12 @@ class Repack_Model extends ManagedORM
     // }}}
 
     /**
-     *
+     * Construct the object, but also localize various fields that couldn't be 
+     * done at the time of class declaration. HACK
      */
-    public function __construct()
+	public function __construct($id = NULL)
     {
-        parent::__construct();
+        parent::__construct($id);
 
         // HACK: Need to localize here, since _() can't be called in declarations
         self::$edit_sections = array(
