@@ -36,7 +36,7 @@
         <?php if (authprofiles::get_profile('screen_name') == $profile->screen_name): ?>
             <h3><?=_('Your browsers')?></h3>
         <?php else: ?>
-            <?php/*i18n: %1$s = profile screen name */?>
+            <?php /* i18n: %1$s = profile screen name */ ?>
             <h3><?=sprintf(_('Browsers by %1$s'), $profile->screen_name)?></h3>
         <?php endif ?>
     </div>

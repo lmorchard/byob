@@ -39,7 +39,7 @@ class authprofiles_Core
         if (null===$url) 
             $url = '/'.url::current(TRUE);
         return url::redirect(
-            url::base() . 'login?jump=' . rawurlencode($url)
+            url::site('login?jump=' . rawurlencode($url))
         );
     }
 

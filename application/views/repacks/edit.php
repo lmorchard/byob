@@ -117,7 +117,7 @@
 	</div>
 
 	<div class="editor-commit">
-        <button id="save-and-review" class="button yellow large"  href="<?=url::base() . url::current()?>?section=review"><?=_('Review and Build')?></button>
+        <button id="save-and-review" class="button yellow large"  href="<?=url::full_current()?>?section=review"><?=_('Review and Build')?></button>
         <button id="save-and-close" class="button blue large"><?=_('Save and Close')?></button>
 	</div>
 

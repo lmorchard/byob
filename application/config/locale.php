@@ -5,4 +5,4 @@
  */
 
 // Paths starting with /api and /pfs are not used for locale selection.
-$config['path_exceptions'] = array( 'util', 'captcha', 'phpunit' );
+$config['path_exceptions'] = array( 'messagequeue', 'util', 'captcha', 'phpunit' );

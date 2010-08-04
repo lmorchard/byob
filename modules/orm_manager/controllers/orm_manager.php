@@ -31,7 +31,7 @@ class ORM_Manager_Controller extends Layout_Controller
         }
 
         $this->view->set_global(array(
-            'url_base'     => url::base() . $this->url_base,
+            'url_base'     => url::site($this->url_base),
             'view_base'    => $this->view_base,
         ));
 
@@ -185,8 +185,8 @@ class ORM_Manager_Controller extends Layout_Controller
                 $errors = $form->errors();
             } else {
                 Session::instance()->set_flash('message', 'Changes saved.');
-                return url::redirect(url::base() . $this->url_base . '/model/' . 
-                    $model->object_name . '/edit/' . $model->id);
+                return url::redirect(url::site( $this->url_base . '/model/' . 
+                    $model->object_name . '/edit/' . $model->id));
             }
 
         }

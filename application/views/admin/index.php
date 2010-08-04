@@ -1,7 +1,7 @@
 <div class="section">
     <h2>Maintenance actions</h2>
     <ul>
-        <li><a href="<?="{$url_base}/rebuild"?>">Rebuild repacks with latest product version</a></li>
+        <li><a href="<?=url::site("admin/rebuild")?>">Rebuild repacks with latest product version</a></li>
     </ul>
 </div>
 
@@ -22,7 +22,7 @@
             ));
         ?>
             <li>
-                <a href="<?="{$url_base}/model/{$u['model_name']}"?>"><?=$h['model_title']?></a>
+                <a href="<?=url::site("admin/model/{$u['model_name']}")?>"><?=$h['model_title']?></a>
             </li>
         <?php endforeach ?>
 

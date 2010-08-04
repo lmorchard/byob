@@ -10,7 +10,7 @@
             <li><?=_('Any installer distributed must be signed with a digital certificate issued by Mozilla')?></li>
             <li><?=_('The installers must be distributed at no cost to the end-user')?></li>
             <li><?=_('The installers must be distributed as-is as a stand-alone file, and may not be incorporated with a meta-installer or pre-installed')?></li>
-            <?php/*i18n: %1$s = Browser repack title */?>
+            <?php /*i18n: %1$s = Browser repack title */ ?>
             <li><?=sprintf(_('When referring to the product name, the installer must be referred to as %1$s to differentiate it from the default release of Firefox.'), $repack->title)?></li>
         </ul>
 

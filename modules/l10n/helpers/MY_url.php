@@ -71,7 +71,7 @@ class url extends url_Core {
      */
     public static function full_current($qs=FALSE, $more=null) 
     {
-        return self::full($_SERVER['REQUEST_URI']);
+        return self::full(self::current());
     }
 
     /**
