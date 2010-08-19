@@ -1,5 +1,8 @@
 <?php
+    // TODO: Make this a setting / configuration
+    $default_locale = 'en-US';
     $bookmarks_json = json_encode(form::value('bookmarks'));
+    $locales_json = json_encode($repack->locales);
 ?>
 <?php slot::start('body_end') ?>
     <?=html::script(array(
@@ -7,7 +10,11 @@
         'js/byob/repacks/edit/bookmarks-ui.js'
     ))?>
     <script type="text/javascript">
-        BYOB_Repacks_Edit_Bookmarks_UI.loadData(<?=$bookmarks_json?>);
+        BYOB_Repacks_Edit_Bookmarks_UI.loadData({
+            "bookmarks": <?=$bookmarks_json?>,
+            "locales": <?=$locales_json?>,
+            "default_locale": "<?=$default_locale?>"
+        });
     </script>
 <?php slot::end() ?>
 <div class="intro">
@@ -16,6 +23,18 @@
 <div class="pane">
 
     <div class="bookmarks-editor" id="editor1">
+        <?php if (!empty($repack->locales)): ?>
+            <div class="locale-selector">
+                <ul class="locales clearfix">
+                    <?php foreach ($repack->locales as $locale): ?>
+                        <?php $selected = ( $locale == $default_locale ) ?>
+                        <li class="<?= $selected ? 'selected' : '' ?>">
+                            <a href="#" data-locale="<?=$locale?>"><?=$locale?></a>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+            </div>
+        <?php endif ?>
         <ul class="folders">
             <li id="editor1-toolbar" class="folder root folder-toolbar">
                 <span class="count-wrapper">(<span class="count">0</span>)</span>
@@ -68,35 +87,41 @@
 
 <?php slot::start('after_form') ?>
     <div id="bookmark_editor">
-        <form class="bookmark">
+        <form class="bookmark" autocomplete="false">
             <input type="hidden" name="id" value="" />
-            <input type="hidden" name="type" value="bookmark" />
             <ul class="editor_fields">
                 <li class="field_type">
-                    <label for="type"><?=_('Type')?></label>
-                    <button class="button type_bookmark" name="type_bookmark"><?=_('Bookmark')?></button>
-                    <button class="button type_livemark" name="type_livemark"><?=_('Livemark')?></button>
+                    <input type="radio" name="type" value="bookmark" id="type-bookmark" /><label for="type-bookmark"><?=_('Bookmark')?></label>
+                    <input type="radio" name="type" value="livemark" id="type-livemark" /><label for="type-livemark"><?=_('Livemark')?></label>
                 </li>
-                <li class="field_title required">
-                    <label for="title"><?=_('Title')?></label>
-                    <input class="text" type="text" name="title" />
+                <?php if (!empty($repack->locales)): ?>
+                <li class="field_locale">
+                    <div class="locale_buttons">
+                    <?php foreach ($repack->locales as $locale): ?>
+                        <?php $selected = ( $locale == $default_locale ) ?>
+                        <button class="locale locale-<?=$locale?> <?= $selected ? 'selected' : '' ?>" 
+                            data-locale="<?=$locale?>"><?=$locale?></button>
+                    <?php endforeach ?>
+                    </div>
                 </li>
-                <li class="field_link required">
-                    <label for="link"><?=_('URL')?></label>
-                    <input class="text" type="text" name="link" />
-                </li>
-                <li class="field_description">
-                    <label for="description"><?=_('Description')?></label>
-                    <input class="text" type="text" name="description" />
-                </li>
-                <li class="field_feedlink required">
-                    <label for="feedLink"><?=_('Feed URL')?></label>
-                    <input class="text" type="text" name="feedLink" />
-                </li>
-                <li class="field_sitelink required">
-                    <label for="siteLink"><?=_('Site URL')?></label>
-                    <input class="text" type="text" name="siteLink" />
-                </li>
+                <?php endif ?>
+                <?php $editor_fields = array( 
+                    'title'       => _("Title"), 
+                    'link'        => _("URL"), 
+                    'description' => _("Description"),
+                    'feedlink'    => _("Feed URL"), 
+                    'sitelink'    => _("Site URL"),
+                );?>
+                <?php foreach ($editor_fields as $field_name=>$field_label): ?>
+                    <li class="field_<?=$field_name?> required">
+                        <label for="<?=$field_name?>"><?=$field_label?></label>
+                        <?php foreach ($repack->locales as $locale): ?>
+                            <?php $selected = ( $locale == $default_locale ) ?>
+                            <input class="text field-<?=$field_name?> locale-<?=$locale?>" type="text" 
+                                name="<?=$field_name?>.<?=$locale?>" data-original="" value="" />
+                        <?php endforeach ?>
+                    </li>
+                <?php endforeach ?>
                 <li>
                     <ul class="errors">
                         <li class="error template">...</li>

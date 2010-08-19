@@ -306,6 +306,52 @@
     border-radius: 10px;
     background: #fff;
 }
+.section-bookmarks .bookmarks-editor .locale-selector {
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales {
+    list-style: none; margin: 0; padding: 0 0 0 10px;
+    border-bottom: 1px solid #333;
+    background-color: #fff;
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-right-radius: 10px;
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li {
+    float: left;
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li:first {
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li a {
+    display: block;
+    padding: 5px 0 5px 0;
+    margin: 2px 2px 0 2px;
+    width: 8ex;
+    font-size: 1em;
+    text-align: center;
+    background: #DFE4EC;
+    color: #333333;
+
+    -webkit-border-top-left-radius: 10px;
+    -moz-border-radius-topleft: 10px;
+    border-top-left-radius: 10px;
+    -webkit-border-top-right-radius: 10px;
+    -moz-border-radius-topright: 10px;
+    border-top-right-radius: 10px;
+
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li a:hover {
+    text-decoration: none;
+    background-color: #666;
+    color: #fff;
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li.selected a {
+    background-color: #7B86A8;
+    color: #FFFFFF;
+    font-weight: bold;
+}
 .section-bookmarks .notes li {
     line-height: 1.75em;
 }
@@ -318,9 +364,6 @@
     list-style-type: none;
     background-color: #dfe4ec;
     border-right: 1px solid #333;
-    -webkit-border-top-left-radius: 10px;
-    -moz-border-radius-topleft: 10px;
-    border-top-left-radius: 10px;
     min-height: 225px;
 }
 .section-bookmarks .bookmarks-editor ul.folders .ui-sortable-placeholder.bookmark {
@@ -475,6 +518,10 @@
 }
 .section-bookmarks #bookmarks_json {
     display: none;
+    /*
+    display: block;
+    width: 90%; height: 40ex;
+    */
 }
 .ctrl_repacks_act_edit #bookmark_editor {
     opacity: 0.9;
@@ -483,7 +530,7 @@
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    width: 425px;
+    width: 475px;
     font-size: 0.85em;
     display: none;
     position: absolute;
@@ -501,22 +548,38 @@
 }
 .ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li label {
     float: left;
+    text-align: right;
     width: 12ex;
-    padding: 0 0 0 0;
+    padding: 5px 7px 0 0;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields input {
+    display: none;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields input.locale-en-US {
+    display: inline;
 }
 .ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.required label {
 }
 .ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.error label {
     color: #f33;
 }
-.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.required label:after {
-    content: " *";
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.required label:before {
+    content: "* ";
     color: #f33;
 }
 .ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li input.text {
-    width: 51ex;
+    width: 65ex;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark {
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields .field_type input {
+    display: inline;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields .field_type label {
+    float: none;
+    margin: 0 0.25em 0 0.25em;
+    font-size: 1.25em;
+    font-weight: bold;
 }
 .ctrl_repacks_act_edit #bookmark_editor button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor button.type_livemark {
@@ -524,12 +587,15 @@
     color: #525252;
     padding: 0.25em 0.5em;
     cursor: pointer;
+    background: #666;
 	background: -moz-linear-gradient(-90deg, #aaa, #666);
     color: #ddd;
+    font-size: 1em;
 }
 .ctrl_repacks_act_edit #bookmark_editor .bookmark button.type_bookmark,
 .ctrl_repacks_act_edit #bookmark_editor .livemark button.type_livemark {
     font-weight: bold;
+    background: #ccc;
 	background: -moz-linear-gradient(-90deg, #fff, #ccc);
     color: #333;
 }
@@ -549,6 +615,40 @@
     float: right;
     padding: 0em 1.5em 1em 0.5em;
 }
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields li.controls button {
+    font-size: 1em;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields .field_locale {
+    margin-top: 5px;
+    padding-top: 5px;
+}
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields .field_locale .locale_buttons {
+    border-bottom: 1px solid #ccc;
+    margin: 0 -0.75em 0.75em -0.75em;
+    padding: 0 0.75em 0 0.75em;
+}
+.ctrl_repacks_act_edit #bookmark_editor .field_locale button.locale {
+    border: 1px solid #ccc;
+    cursor: pointer;
+
+    -webkit-border-top-left-radius: 7px;
+    -moz-border-radius-topleft: 7px;
+    border-top-left-radius: 7px;
+    -webkit-border-top-right-radius: 7px;
+    -moz-border-radius-topright: 7px;
+    border-top-right-radius: 7px;
+
+    padding: 0; 
+    margin: 0 0px -1px 0px;
+    width: 7.25ex;
+    background: #ccc;
+    color: #333;
+}
+.ctrl_repacks_act_edit #bookmark_editor .field_locale button.selected {
+    background: transparent;    
+    color: #fff;
+    border-bottom: 1px solid #525252;
+}
 .ctrl_repacks_act_edit .instructions {
     padding: 1em;
 }
@@ -563,3 +663,5 @@
 .ctrl_repacks_act_edit .instructions ul.notes li {
     list-style: disc;
 }
+
+

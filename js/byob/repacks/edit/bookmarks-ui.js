@@ -1,17 +1,5 @@
 /**
  * BYOB bookmarks editor UI
- *
- * Interactions:
- *      add a new bookmark
- *      add a new livemark
- *      add a new folder
- *      edit a bookmark
- *      edit a bookmark, change to a livemark
- *      drag and drop reorder bookmark pane items
- *      drag and drop reorder folder pane items
- *      drag and drop a bookmark pane bookmark into folder pane folder
- *      drag and drop a bookmark pane folder into folder pane folder
- * 
  */
 /*jslint laxbreak: true */
 BYOB_Repacks_Edit_Bookmarks_UI = (function () {
@@ -28,6 +16,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
         // Is the editor ready yet?
         is_ready: false,
 
+        selected_locale: null,
         selected_item: null,
         selected_folder: null,
 
@@ -49,6 +38,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.editor = $('.bookmarks-editor');
             $this.editor_id = $this.editor.attr('id');
 
+            $this.wireUpLocaleSelector();
             $this.wireUpFolders();
             $this.wireUpBookmarks();
             $this.wireUpBookmarkEditor();
@@ -62,10 +52,16 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
          * Accept bookmark data, presumably as part of page load.
          */
         loadData: function (data) {
+            var bookmarks_data = data.bookmarks;
+
             $this.model = new BYOB_Repacks_Edit_Bookmarks_Model.Root();
 
-            var menu_items = ( data && data.menu && data.menu.items ) ?
-                data.menu.items : [];
+            $this.model.locales = data.locales;
+            $this.model.default_locale = data.default_locale;
+            $this.selected_locale = data.default_locale;
+
+            var menu_items = ( bookmarks_data && bookmarks_data.menu && 
+                bookmarks_data.menu.items ) ?  bookmarks_data.menu.items : [];
             $this.model.add({
                 type:  'menu',
                 id:    'editor1-menu',
@@ -73,8 +69,9 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 items: menu_items
             });
 
-            var toolbar_items = ( data && data.toolbar && data.toolbar.items ) ?
-                data.toolbar.items : [];
+            var toolbar_items = ( bookmarks_data && bookmarks_data.toolbar &&
+                bookmarks_data.toolbar.items ) ? bookmarks_data.toolbar.items : 
+                [];
             $this.model.add({
                 type:  'toolbar',
                 id:    'editor1-toolbar',
@@ -129,7 +126,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                         '@id':    'fl-' + item.id,
                         '@class': 'folder ' +
                             ( (!!item.errors) ? ' has_errors' : '' ),
-                        '.title': item.title,
+                        '.title': item.get('title', $this.selected_locale, true),
                         '.count': ''+item.items.length
                     }).appendTo(par_el);
                 });
@@ -157,8 +154,9 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                     '@id':    item.id,
                     '@class': 'bookmark type-' + item.get('type') + 
                         ( (!!item.errors) ? ' has_errors' : '' ),
-                    '.title': item.title,
-                    '.link':  item.link || item.feedLink
+                    '.title': item.get('title', $this.selected_locale, true),
+                    '.link':  item.get('link', $this.selected_locale, true) || 
+                        item.get('feedLink', $this.selected_locale, true)
                 }).appendTo(bm_root_el);
             });
 
@@ -191,6 +189,30 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.updateFolders();
             $this.selectFolder();
             $this.updateBookmarksJSON();
+        },
+
+        /**
+         * Wire up handler for clicks on the view locale tabs.
+         */
+        wireUpLocaleSelector: function () {
+            $('.locale-selector').click(function (ev) {
+                var el = $(ev.target),
+                    new_locale = el.attr('data-locale');
+                $this.switchViewLocale(new_locale);
+                return false;
+            });
+        },
+
+        /**
+         * Switch the view to anew locale.
+         */
+        switchViewLocale: function (new_locale) {
+            if (-1 == $this.model.locales.indexOf(new_locale)) return;
+            $('.locale-selector li').removeClass('selected')
+            $('.locale-selector li a[data-locale='+new_locale+']')
+                .parent().addClass('selected');
+            $this.selected_locale = new_locale;
+            $this.refresh();
         },
 
         /**
@@ -422,6 +444,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             if (folder_id) {
                 folder_id = folder_id.replace('fl-', '');
                 $this.selected_folder = folder = $this.model.find(folder_id);
+                $this.selected_item = null;
             } else {
                 folder = $this.selected_folder;
             }
@@ -449,21 +472,18 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.editor
                 .find('.new-bookmark').click($this.newBookmark).end()
                 .find('.new-folder').click($this.newFolder).end()
-                .find('.delete-selected').click($this.deleteSelectedItem).end();
+                .find('.delete-selected').click($this.deleteSelectedItem).end()
+                ;
 
             bm_editor
                 .find('form').submit(function () { return false; }).end()
                 .find('.cancel').click(function(ev) { bm_editor.hide(); }).end()
-                .find('.save').click($this.saveBookmark).end();
-
-            $.each(['bookmark','livemark'], function (i, type) {
-                bm_editor.find('button[name=type_'+type+']')
-                    .click(function (ev) {
-                        bm_editor
-                            .find('form').attr('class', type).end()
-                            .find('input[name=type]').val(type).end();
-                    }).end();
-            });
+                .find('.save').click($this.saveBookmark).end()
+                .find('.locale_buttons').click($this.switchBookmarkEditorLocale).end()
+                .find('input[name=type]').change(function (ev) {
+                    bm_editor.find('form').attr('class', $(this).val()).end();
+                });
+                ;
         },
 
         /**
@@ -512,20 +532,60 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 .find('item_id').val('').end()
                 .find('form').attr('class', item_type).end()
                 .find('.error').removeClass('error').end()
-                .find('input[name=type]').val(item_type).end()
+                .find('.field_type input#type-'+item_type).attr('checked',true).end()
                 .find('input[type=hidden]').val('').end()
-                .find('input[type=text]').val('').end()
+                .find('input[type=text]').val('').attr('data-original','').end()
                 .show();
 
             if (item) {
-                $.each(item.extract(), function(name, val) {
-                    bm_editor.find('input[name='+name+']').val(val);
+                
+                // Set the ID, since we have one
+                bm_editor.find('input[name=id]').val(item.get('id'));
+                
+                // Come up with defaults for all fields, consult default locale
+                // if necessary.
+                var defaults = {};
+                $.each(item.field_names, function (idx, name) {
+                    defaults[name] = item.get(name);
                 });
+
+                // Populate the editor form by scanning through all item fields
+                // combined with known locales, filling in defaults where
+                // necessary.
+                var data = item.extract();
+                $.each(item.field_names, function (idx, name) {
+                    $.each($this.model.locales, function (idx, locale) {
+                        var l_name = name+'.'+locale,
+                            value  = item.get(name, locale) || defaults[name];
+                        bm_editor.find('input[name='+l_name+']')
+                            .val(value).attr('data-original', value);
+                    });
+                });
+
             }
 
             setTimeout(function () {
-                bm_editor.find('input[name=title]').focus().end();
+                $this.switchBookmarkEditorLocale(null, $this.selected_locale);
             }, 0.1);
+
+        },
+
+        /**
+         * Make the editing fields for a button's locale visible when pressed.
+         */
+        switchBookmarkEditorLocale: function (ev, locale) {
+            if (!locale) {
+                var button = $(ev.target);
+                if ('BUTTON' != button.attr('tagName')) return;
+                locale = button.attr('data-locale');
+            }
+            if (-1 == $this.model.locales.indexOf(locale)) return;
+                
+            var bm_editor = $('#bookmark_editor');
+            bm_editor.find('.locale_buttons button').removeClass('selected');
+            bm_editor.find('.locale_buttons button.locale-'+locale).addClass('selected');
+            bm_editor.find('.editor_fields input[type=text]').hide();
+            bm_editor.find('.editor_fields input[type=text].locale-'+locale).show();
         },
 
         /**
@@ -536,21 +596,43 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 data = {},
                 errors = {},
                 edited_item = null,
-                has_errors = false,
-                new_item = null;
+                has_errors = false;
 
-            bm_editor.find('input').each(function (i) {
-                var el = $(this),
-                    name = el.attr('name');
-                if ('id' == name) { 
-                    edited_item = $this.model.find(el.val());
-                } else if (name) { 
-                    data[name] = el.val(); 
-                }
+            // Try finding an item to be edited (eg. this isn't new)
+            var edited_id = bm_editor.find('input[name=id]').val(),
+                edited_item = $this.model.find(edited_id);
+
+            var new_item = null;
+            if (edited_item) {
+                // Use the original item's data, but mind that the type could
+                // have changed.
+                var data = edited_item.extract();
+                data.type = bm_editor.find('input[name=type]:checked').val();
+                new_item = $this.model.factory(data);
+            } else {
+                // No original item, so we're clear to create a fresh one.
+                new_item = $this.model.factory({
+                    'type': bm_editor.find('input[name=type]').val()
+                });
+            }
+
+            // Run through all the field names combined with locales, look for
+            // changed editor fields and set those as properties on the new
+            // item.
+            $.each(new_item.field_names, function (idx, field_name) {
+                $.each($this.model.locales, function (idx, locale) {
+                    var l_name   = field_name+'.'+locale,
+                        field_el = bm_editor.find('input[name='+l_name+']'),
+                        orig_val = field_el.attr('data-original'),
+                        curr_val = field_el.val(),
+                        changed  = ( curr_val != orig_val );
+                    if (changed) {
+                        new_item.set(field_name, curr_val, locale);
+                    }
+                });
             });
 
-            new_item = $this.model.add(data);
-            errors   = new_item.validate();
+            errors = {}; // new_item.validate();
 
             bm_editor.removeClass('error');
             $.each(errors, function (field, error) {
@@ -559,13 +641,13 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             });
 
             if (has_errors > 0) { 
-                $this.model.remove(new_item);
                 return; 
             }
 
-            if (edited_item) {
-                edited_item.replaceSelf(new_item);
+            if (edited_id) {
+                $this.model.replace(edited_item, new_item);
             } else {
+                $this.model.add(new_item);
                 $this.selected_folder.add(new_item);
             }
 
@@ -609,7 +691,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 editor     = $('<input type="text" />');
 
             var accept = function () {
-                folder_item.set('title', editor.val());
+                folder_item.set('title', editor.val(), $this.selected_locale);
                 editor.remove();
                 $this.refresh();
             };
@@ -627,7 +709,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                     width:    '60ex',
                     zIndex:   1000
                 })
-                .val(folder_item.get('title'))
+                .val(folder_item.get('title', $this.selected_locale, true))
                 .select()
                 .focus()
                 .blur(accept)

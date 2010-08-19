@@ -42,7 +42,8 @@ if (!empty($r->addons_collection_url)) {
 <?php 
     View::factory('repacks/ini/bookmarks', array(
         'set_id' => ucfirst($kind), 
-        'bookmarks' => $bookmarks[$kind]['items']
+        'bookmarks' => $bookmarks[$kind]['items'],
+        'repack' => $repack,
     ))->render(TRUE); 
 ?>
 <?php endif ?>

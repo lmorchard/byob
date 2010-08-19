@@ -16,6 +16,10 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
      * Overall model for bookmarks, tracks all items.
      */
     $this.Root = Class.extend({
+        
+        // Locales supplied by the page.
+        locales: [ 'en-US' ],
+        default_locale: 'en-US',
 
         // Map of items by ID.
         items: {},
@@ -42,6 +46,8 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             var type = item.type || 'default',
                 Cls =  $this[this.type_map[type]] || $this.Bookmark;
                 obj =  new Cls(item, this);
+            obj.set('id', item.id || this.genId());
+            obj.model = this;
             return obj;
         },
 
@@ -51,8 +57,6 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         add: function (item) {
             if (!(item instanceof $this.Item))
                 item = this.factory(item);
-            if (!item.id) { item.set('id', this.genId()); }
-            item.model = this;
             this.items[item.id] = item;
             return item;
         },
@@ -62,6 +66,17 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
          */
         remove: function (item) {
             delete this.items[item.id];
+        },
+
+        /**
+         * Replace the old item with the new item.
+         */
+        replace: function (old_item, new_item) {
+            if (old_item.parent) {
+                old_item.parent.replace(old_item, new_item);
+            }
+            new_item.id = old_item.id;
+            this.items[new_item.id] = new_item;
         },
 
         /**
@@ -124,17 +139,36 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         /**
          * Mutator, delegates to set_{name} functions if found.
          */
-        set: function (k,v) {
-            return ('function' == typeof this['set_'+k]) ?
-                this['set_'+k](v) : this[k] = v;
+        set: function (k, v, locale) {
+            if ('function' == typeof this['set_'+k]) {
+                return this['set_'+k](v,locale);
+            }
+            if (!locale || locale==this.model.default_locale) {
+                return this[k] = v;
+            } else {
+                // HACK: If the default locale hasn't been given a value yet,
+                // use this one.
+                if (!this[k]) { this[k] = v; }
+                return this[k+'.'+locale] = v;
+            }
         },
 
         /**
          * Accessor, delegates to get_{name} functions if found.
          */
-        get: function (k) {
-            return ('function' == typeof this['get_'+k]) ?
-                this['get_'+k]() : this[k];
+        get: function (k, locale, use_default) {
+            if ('function' == typeof this['get_'+k]) {
+                return this['get_'+k](locale);
+            }
+            if (!locale || locale==this.model.default_locale) {
+                return this[k]; 
+            } else {
+                var value = this[k+'.'+locale];
+                if (use_default && !value) {
+                    value = this[k];
+                }
+                return value;
+            }
         },
 
         /**
@@ -147,7 +181,15 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
                     type: this.get('type') 
                 };
             $.each(self.field_names, function (idx, name) {
-                out[name] = self.get(name);
+                var default_val = self.get(name);
+                out[name] = default_val;
+                $.each(self.model.locales, function (idx, locale) {
+                    var locale_field = name+'.'+locale,
+                        val = self.get(locale_field);
+                    if (val != default_val) {
+                        out[locale_field] = val;
+                    }
+                });
             });
             return out;
         },
@@ -189,13 +231,6 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             if (!this.parent) { return; }
             this.parent.remove(this);
             this.model.remove(this);
-        },
-
-        /**
-         * Replace this object with a new one.
-         */
-        replaceSelf: function (new_self) {
-            this.parent.replace(this, new_self);
         },
 
         /**
