@@ -21,9 +21,9 @@
     <p><?=_('Add and organize default bookmarks.')?></p>
 </div>
 <div class="pane">
-
-    <div class="bookmarks-editor" id="editor1">
-        <?php if (!empty($repack->locales)): ?>
+    <?php $has_locales = (!empty($repack->locales) && count($repack->locales)>1); ?>
+    <div id="editor1" class="bookmarks-editor <?= ($has_locales) ? '' : 'nolocales' ?>">
+        <?php if ($has_locales): ?>
             <div class="locale-selector">
                 <ul class="locales clearfix">
                     <?php foreach ($repack->locales as $locale): ?>
@@ -91,10 +91,10 @@
             <input type="hidden" name="id" value="" />
             <ul class="editor_fields">
                 <li class="field_type">
-                    <input type="radio" name="type" value="bookmark" id="type-bookmark" /><label for="type-bookmark"><?=_('Bookmark')?></label>
-                    <input type="radio" name="type" value="livemark" id="type-livemark" /><label for="type-livemark"><?=_('Livemark')?></label>
+                    <input type="radio" name="type" value="bookmark" id="type-bookmark" /><label class="type-bookmark" for="type-bookmark"><?=_('Bookmark')?></label>
+                    <input type="radio" name="type" value="livemark" id="type-livemark" /><label class="type-livemark" for="type-livemark"><?=_('Livemark')?></label>
                 </li>
-                <?php if (!empty($repack->locales)): ?>
+                <?php if ($has_locales): ?>
                 <li class="field_locale">
                     <div class="locale_buttons">
                     <?php foreach ($repack->locales as $locale): ?>
