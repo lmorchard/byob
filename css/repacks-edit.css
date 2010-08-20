@@ -641,6 +641,10 @@
     margin: 0 -0.75em 0.75em -0.75em;
     padding: 0 0.75em 0 0.75em;
 }
+.ctrl_repacks_act_edit #bookmark_editor ul.editor_fields .field_locale .locale_buttons button.error {
+    color: #ffeeee;
+    background: #FF3333;
+}
 .ctrl_repacks_act_edit #bookmark_editor .field_locale button.locale {
     border: 1px solid #ccc;
     cursor: pointer;

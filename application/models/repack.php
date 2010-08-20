@@ -328,24 +328,40 @@ class Repack_Model extends ManagedORM
     }
 
     /**
-     * Validate a bookmark extracted from form data.
+     * Stupid simple "optional" validator to swap for "required"
+     */
+    public function _optional($val) {
+        return true;
+    }
+
+    /**
+     * Validate a bookmark extracted from form data, running through all the 
+     * defined locales.
+     *
+     * Most fields are required for the default locale, but are optional for 
+     * other locales because the default locale is the fallback.
      */
     public function validateBookmark(&$data)
     {
         $type = isset($data['type']) ? $data['type'] : 'bookmark';
-		$data = Validation::factory($data)
-			//->pre_filter('trim')
-            ->add_rules('title', 'trim', 'required', 'length[3,255]')
-            ;
-        if ('bookmark' == $type) {
-            $data
-                ->add_rules('description', 'trim', 'length[0,1024]')
-                ->add_rules('link', 'trim', 'required', 'valid::url');
-        } else if ('livemark' == $type) {
-            $data
-                ->add_rules('feedLink', 'trim', 'required', 'url')
-                ->add_rules('siteLink', 'trim', 'required', 'url');
-        } else {
+        $data = Validation::factory($data);
+        foreach ($this->locales as $locale) {
+            if ($locale == $this->default_locale) { $locale = ''; }
+            $locale_suffix = $locale ? '.'.$locale : '';
+            $data->add_rules('title'.$locale_suffix, 'trim', 
+                ($locale)?array($this,'_optional'):'required', 'length[3,255]');
+            if ('bookmark' == $type) {
+                $data
+                    ->add_rules('description'.$locale_suffix, 'trim', 'length[0,1024]')
+                    ->add_rules('link'.$locale_suffix, 'trim', 
+                        ($locale)?array($this,'_optional'):'required', 'valid::url');
+            } else if ('livemark' == $type) {
+                $data
+                    ->add_rules('feedLink'.$locale_suffix, 'trim', 
+                        ($locale)?array($this,'_optional'):'required', 'url')
+                    ->add_rules('siteLink'.$locale_suffix, 'trim', 
+                        ($locale)?array($this,'_optional'):'required', 'url');
+            }
         }
         $is_valid = $data->validate();
         return $is_valid;

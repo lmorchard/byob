@@ -1,6 +1,7 @@
 <?php
     // TODO: Make this a setting / configuration
-    $default_locale = 'en-US';
+    $default_locale = empty($repack->default_locale) ? 
+        'en-US' : $repack->default_locale;
     $bookmarks_json = json_encode(form::value('bookmarks'));
     $locales_json = json_encode($repack->locales);
 ?>
@@ -106,14 +107,15 @@
                 </li>
                 <?php endif ?>
                 <?php $editor_fields = array( 
-                    'title'       => _("Title"), 
-                    'link'        => _("URL"), 
-                    'description' => _("Description"),
-                    'feedlink'    => _("Feed URL"), 
-                    'sitelink'    => _("Site URL"),
+                    'title'       => array(_("Title"), true), 
+                    'link'        => array(_("URL"), true), 
+                    'description' => array(_("Description"), false),
+                    'feedlink'    => array(_("Feed URL"), true), 
+                    'sitelink'    => array(_("Site URL"), true),
                 );?>
-                <?php foreach ($editor_fields as $field_name=>$field_label): ?>
-                    <li class="field_<?=$field_name?> required">
+                <?php foreach ($editor_fields as $field_name=>$field_info): ?>
+                    <?php list($field_label, $is_required) = $field_info ?>
+                    <li class="field_<?=$field_name?> <?= $is_required ? 'required' : '' ?>">
                         <label for="<?=$field_name?>"><?=$field_label?></label>
                         <?php foreach ($repack->locales as $locale): ?>
                             <?php $selected = ( $locale == $default_locale ) ?>

@@ -207,8 +207,8 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
          * Switch the view to anew locale.
          */
         switchViewLocale: function (new_locale) {
-            if (-1 == $this.model.locales.indexOf(new_locale)) return;
-            $('.locale-selector li').removeClass('selected')
+            if (-1 == $this.model.locales.indexOf(new_locale)) { return; }
+            $('.locale-selector li').removeClass('selected');
             $('.locale-selector li a[data-locale='+new_locale+']')
                 .parent().addClass('selected');
             $this.selected_locale = new_locale;
@@ -472,8 +472,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.editor
                 .find('.new-bookmark').click($this.newBookmark).end()
                 .find('.new-folder').click($this.newFolder).end()
-                .find('.delete-selected').click($this.deleteSelectedItem).end()
-                ;
+                .find('.delete-selected').click($this.deleteSelectedItem).end();
 
             bm_editor
                 .find('form').submit(function () { return false; }).end()
@@ -483,7 +482,6 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 .find('input[name=type]').change(function (ev) {
                     bm_editor.find('form').attr('class', $(this).val()).end();
                 });
-                ;
         },
 
         /**
@@ -576,10 +574,10 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
         switchBookmarkEditorLocale: function (ev, locale) {
             if (!locale) {
                 var button = $(ev.target);
-                if ('BUTTON' != button.attr('tagName')) return;
+                if ('BUTTON' != button.attr('tagName')) { return; }
                 locale = button.attr('data-locale');
             }
-            if (-1 == $this.model.locales.indexOf(locale)) return;
+            if (-1 == $this.model.locales.indexOf(locale)) { return; }
                 
             var bm_editor = $('#bookmark_editor');
             bm_editor.find('.locale_buttons button').removeClass('selected');
@@ -593,9 +591,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
          */
         saveBookmark: function (ev) {
             var bm_editor = $('#bookmark_editor'),
-                data = {},
-                errors = {},
-                edited_item = null,
+                all_errors = {},
                 has_errors = false;
 
             // Try finding an item to be edited (eg. this isn't new)
@@ -632,17 +628,27 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 });
             });
 
-            errors = {}; // new_item.validate();
+            all_errors = new_item.validate();
 
-            bm_editor.removeClass('error');
-            $.each(errors, function (field, error) {
-                has_errors = true;
-                bm_editor.find('.field_'+field).addClass('error');
+            bm_editor.find('.editor_fields li.error')
+                .removeClass('error')
+            bm_editor.find('.locale_buttons button.error')
+                .removeClass('error');
+
+            $.each(all_errors, function (locale, errors) {
+                var locale_has_errors = false;
+                $.each(errors, function (field, error) {
+                    locale_has_errors = has_errors = true;
+                    bm_editor.find('input[name='+field+'.'+locale+']').parent()
+                        .addClass('error');
+                });
+                if (locale_has_errors) {
+                    bm_editor.find('.locale_buttons button.locale-'+locale)
+                        .addClass('error');
+                }
             });
 
-            if (has_errors > 0) { 
-                return; 
-            }
+            if (has_errors) { return; }
 
             if (edited_id) {
                 $this.model.replace(edited_item, new_item);

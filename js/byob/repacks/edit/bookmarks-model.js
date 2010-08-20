@@ -36,7 +36,7 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             'livemark': 'Livemark',
             'folder':   'Folder',
             'toolbar':  'ToolbarFolder',
-            'menu':     'MenuFolder',
+            'menu':     'MenuFolder'
         },
 
         /**
@@ -55,8 +55,9 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
          * Add an item to the root container, ensuring it has an ID.
          */
         add: function (item) {
-            if (!(item instanceof $this.Item))
+            if (!(item instanceof $this.Item)) {
                 item = this.factory(item);
+            }
             this.items[item.id] = item;
             return item;
         },
@@ -144,12 +145,14 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
                 return this['set_'+k](v,locale);
             }
             if (!locale || locale==this.model.default_locale) {
-                return this[k] = v;
+                this[k] = v;
+                return this[k];
             } else {
                 // HACK: If the default locale hasn't been given a value yet,
                 // use this one.
                 if (!this[k]) { this[k] = v; }
-                return this[k+'.'+locale] = v;
+                this[k+'.'+locale] = v;
+                return v;
             }
         },
 
@@ -198,8 +201,19 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
          * Validate the contents of this item.
          */
         validate: function () {
-            var errors = {}
-            if (!this.get('title')) {
+            var self = this, all_errors = {};
+            for (var i=0,locale; locale = self.model.locales[i]; i++) {
+                all_errors[locale] = self.validate_locale(locale);
+            }
+            return all_errors;
+        },
+
+        /**
+         * Validate fields for a single locale.
+         */
+        validate_locale: function (locale) {
+            var errors = {};
+            if (!this.get('title', locale, true)) {
                 errors.title = 'required';
             }
             return errors;
@@ -378,10 +392,12 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
     $this.Bookmark = $this.Item.extend({
         get_type: function () { return 'bookmark'; },
         field_names: [ 'title', 'link', 'description' ],
-        validate: function () {
-            var errors = this._super();
-            if (!this.get('link')) { errors.link = 'required'; }
-            if (!this.validateURL(this.get('link'))) { 
+        validate_locale: function (locale) {
+            var errors = this._super(locale);
+            if (!this.get('link', locale, true)) { 
+                errors.link = 'required'; 
+            }
+            if (!this.validateURL(this.get('link', locale, true))) { 
                 errors.link = 'invalid'; 
             }
             return errors;
@@ -394,15 +410,19 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
     $this.Livemark = $this.Bookmark.extend({
         get_type: function () { return 'livemark'; },
         field_names: [ 'title', 'feedLink', 'siteLink' ],
-        validate: function () {
-            var errors = this._super();
+        validate_locale: function (locale) {
+            var errors = this._super(locale);
             delete errors.link;
-            if (!this.get('feedLink')) { errors.feedLink = 'required'; }
-            if (!this.validateURL(this.get('feedLink'))) { 
+            if (!this.get('feedLink', locale, true)) { 
+                errors.feedLink = 'required'; 
+            }
+            if (!this.validateURL(this.get('feedLink', locale, true))) { 
                 errors.feedLink = 'invalid'; 
             }
-            if (!this.get('siteLink')) { errors.siteLink = 'required'; }
-            if (!this.validateURL(this.get('siteLink'))) { 
+            if (!this.get('siteLink')) { 
+                errors.siteLink = 'required'; 
+            }
+            if (!this.validateURL(this.get('siteLink', locale, true))) { 
                 errors.siteLink = 'invalid'; 
             }
             return errors;
@@ -448,11 +468,11 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             uri = {},
             i   = 14;
 
-        while (i--) uri[o.key[i]] = m[i] || "";
+        while (i--) { uri[o.key[i]] = m[i] || ""; }
 
         uri[o.q.name] = {};
         uri[o.key[12]].replace(o.q.parser, function ($0, $1, $2) {
-            if ($1) uri[o.q.name][$1] = $2;
+            if ($1) { uri[o.q.name][$1] = $2; }
         });
 
         return uri;

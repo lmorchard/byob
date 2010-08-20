@@ -39,7 +39,7 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
     /**
      * Validate data from incoming editor request.
      */
-    public function validate(&$data, $repack)
+    public function validate(&$data, $repack, $set=true)
     {
         $this->repack = $repack;
         
@@ -53,6 +53,12 @@ class Mozilla_BYOB_Editor_LocaleSelection extends Mozilla_BYOB_Editor {
         if (count($data['locales']) == 0) {
             $is_valid = false;
             $data->add_error('locales', 'required');
+        }
+
+        if ($is_valid && $set) {
+            // TODO: Allow selection of default locale from UI?
+            $repack->default_locale = in_array('en-US', $data['locales']) ?
+                'en-US' : $data['locales'][0];
         }
 
         return $is_valid;
