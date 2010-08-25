@@ -81,13 +81,13 @@ $selected_persona_url_hash = md5($selected_persona_url);
     <div class="choices">
         <div class="sub-tab-set">
             <ul class="sub-tabs">
-                <li><a href="#tab-extensions"><?=_('Extensions')?></a></li>
-                <li class="selected"><a href="#tab-searchengines"><?=_('Search Engines')?></a></li>
+                <li class="selected"><a href="#tab-extensions"><?=_('Extensions')?></a></li>
+                <li><a href="#tab-searchengines"><?=_('Search Engines')?></a></li>
                 <li><a href="#tab-personas"><?=_('Personas')?></a></li>
                 <li><a href="#tab-themes"><?=_('Themes')?></a></li>
             </ul>
 
-            <div class="sub-tab-content" id="tab-extensions">
+            <div class="sub-tab-content selected" id="tab-extensions">
 
                 <?php if ($repack->checkPrivilege('addon_management_xpi_upload')): ?>
                     <fieldset class="upload">
@@ -131,7 +131,7 @@ $selected_persona_url_hash = md5($selected_persona_url);
                 </fieldset>
             </div>
 
-            <div class="sub-tab-content selected" id="tab-searchengines">
+            <div class="sub-tab-content" id="tab-searchengines">
                 <?php if ($has_locales): ?>
                     <div class="locale-selector">
                         <ul class="locales clearfix">
