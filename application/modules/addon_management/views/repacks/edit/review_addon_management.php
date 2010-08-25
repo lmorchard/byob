@@ -27,14 +27,18 @@
             <?php $none = false; ?>
             <li class="subsection">
                 <h4><?=_('Search Plugins')?></h4>
-                <ul><?php foreach ($search_plugins as $idx=>$plugin): ?>
-                    <?php
-                        $e = html::escape_array(array(
-                            'name' => $plugin->ShortName,
-                        ));
-                    ?>
-                    <li>
-                        <span class="name"><?=$e['name']?></span>
+                <ul><?php foreach ($search_plugins as $locale=>$plugins): ?>
+                    <li><span class="locale_name"><?=html::specialchars(locale_selection::$locale_details->getEnglishNameForLocale($locale))?></span>
+                        <ul><?php foreach ($plugins as $fn=>$plugin): ?>
+                            <?php
+                                $e = html::escape_array(array(
+                                    'name' => $plugin->ShortName,
+                                ));
+                            ?>
+                            <li>
+                                <span class="name"><?=$e['name']?></span>
+                            </li>
+                        <?php endforeach ?></ul>
                     </li>
                 <?php endforeach ?></ul>
             </li>

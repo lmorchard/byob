@@ -2,6 +2,7 @@
     // TODO: Make this a setting / configuration
     $default_locale = empty($repack->default_locale) ? 
         'en-US' : $repack->default_locale;
+    $has_locales = (!empty($repack->locales) && count($repack->locales)>1);
     $bookmarks_json = json_encode(form::value('bookmarks'));
     $locales_json = json_encode($repack->locales);
 ?>
@@ -22,7 +23,6 @@
     <p><?=_('Add and organize default bookmarks.')?></p>
 </div>
 <div class="pane">
-    <?php $has_locales = (!empty($repack->locales) && count($repack->locales)>1); ?>
     <div id="editor1" class="bookmarks-editor <?= ($has_locales) ? '' : 'nolocales' ?>">
         <?php if ($has_locales): ?>
             <div class="locale-selector">

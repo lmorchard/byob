@@ -108,23 +108,41 @@ class Addonmanagement_Controller extends Local_Controller
         if (!$rp->checkPrivilege('edit')) 
             return Event::run('system.403');
 
-        $sp_dir = $rp->getAssetsDirectory() . "/distribution/searchplugins/common";
+        $default_locale = (!empty($rp->default_locale)) ?
+            $rp->default_locale : 'en-US';
+
+        $this->view->locale = $default_locale;
+
+        $sp_dir = $rp->getAssetsDirectory() . "/distribution/searchplugins";
         if (!is_dir($sp_dir)) mkdir($sp_dir, 0775, true);
+        if (!is_dir($sp_dir."/common")) mkdir($sp_dir."/common", 0775, true);
+        if (!is_dir($sp_dir."/locale")) mkdir($sp_dir."/locale", 0775, true);
 
         $errors = array();
 
         if ('delete' == $this->input->post('method')) {
 
-            $delete_fn = $this->input->post('searchplugin_fn');
-            $sp_files = glob("{$sp_dir}/*.xml");
+            $delete_fn = $sp_dir.'/'.$this->input->post('searchplugin_fn');
+            $sp_files = array_merge(
+                glob("{$sp_dir}/common/*.xml"),
+                glob("{$sp_dir}/locale/*/*.xml")
+            );
             foreach ($sp_files as $sp_fn) {
-                if (basename($sp_fn) == $delete_fn) {
+                if ($sp_fn == $delete_fn) {
                     unlink($sp_fn);
                     break;
                 }
             }
 
         } else if ('post' == request::method()) {
+
+            $locale = $this->input->post('locale', $rp->locales[0]);
+            if (!in_array($locale, $rp->locales)) { 
+                $locale = $rp->locales[0]; 
+            }
+            $fn_prefix = ($locale == $default_locale) ?
+                'common' : 'locale/'.$locale;
+            $this->view->locale = $locale;
 
             if (empty($_FILES['sp_upload']['tmp_name'])) {
                 $errors[] = _('Search plugin upload must be of type text/xml');
@@ -139,10 +157,13 @@ class Addonmanagement_Controller extends Local_Controller
             }
 
             if (empty($errors)) {
+                if (!is_dir($sp_dir."/".$fn_prefix)) {
+                    mkdir($sp_dir."/".$fn_prefix, 0775, true);
+                }
 
                 move_uploaded_file(
                     $_FILES['sp_upload']['tmp_name'],
-                    "{$sp_dir}/{$sp_name}"
+                    "{$sp_dir}/{$fn_prefix}/{$sp_name}"
                 );
 
                 // Mark the "addons" section as changed if the repack gets saved 
@@ -157,15 +178,22 @@ class Addonmanagement_Controller extends Local_Controller
 
         }
 
-        $popular_searchplugins = 
-            addon_management::get_popular_searchplugins();
-
-        $sp_files = glob("{$sp_dir}/*.xml");
+        $sp_files = array_merge(
+            glob("{$sp_dir}/common/*.xml"),
+            glob("{$sp_dir}/locale/*/*.xml")
+        );
         $search_plugins = array();
         foreach ($sp_files as $fn) {
             $xml = file_get_contents($fn);
             $plugin = Model::factory('searchplugin')->loadFromXML($xml);
             $plugin->filename = basename($fn);
+            $plugin->locale = basename(dirname($fn));
+            if ($plugin->locale == 'common') {
+                $plugin->locale = $default_locale;
+                $plugin->filename = "common/" . basename($fn);
+            } else {
+                $plugin->filename = "locale/{$plugin->locale}/" . basename($fn);
+            }
             $search_plugins[] = $plugin;
         }
 

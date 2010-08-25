@@ -23,21 +23,38 @@ class addon_management_core {
     }
 
     /**
-     * Build list of popular search plugins.
+     * Build list of popular search plugins for all locales.
      */
     public function get_popular_searchplugins()
     {
+        $locales = locale_selection::get_available_locale_codes();
         $search_dir = dirname(dirname(__FILE__)) . '/search_plugins';
 
-        $plugins = array();
-        $files = glob("{$search_dir}/*.xml");
-        foreach ($files as $fn) {
-            $xml = file_get_contents($fn);
-            $plugin = Model::factory('searchplugin')->loadFromXML($xml);
-            $plugins[basename($fn)] = $plugin;
-        };
+        $all_plugins = array();
 
-        return $plugins;
+        $common_files = glob("{$search_dir}/common/*.xml");
+
+        foreach ($locales as $locale) {
+            $plugins = array();
+
+            $prefix = "locale/{$locale}";
+            if (is_dir("{$search_dir}/{$prefix}")) {
+                $files = glob("{$search_dir}/{$prefix}/*.xml");
+            } else {
+                $prefix = "common"; 
+                $files = $common_files;
+            }
+
+            foreach ($files as $fn) {
+                $xml = file_get_contents($fn);
+                $plugin = Model::factory('searchplugin')->loadFromXML($xml);
+                $plugins[$prefix.'/'.basename($fn)] = $plugin;
+            };
+            
+            $all_plugins[$locale] = $plugins;
+        }
+
+        return $all_plugins;
     }
 
     /**

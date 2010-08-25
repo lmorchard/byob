@@ -294,6 +294,61 @@
     white-space: nowrap;
 }
 
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .searchplugins li {
+    display: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .searchplugins li.locale-en-US {
+    display: block;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector {
+    margin: -1em -1em 1em -1.25em;
+    padding: 1em 0.75em 1em 1.25em;
+    background: #fff;
+    border-bottom: 1px solid #C0C0C0;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li {
+   float: left;
+   padding: 0 0.5em 0 0.5em;
+   position: relative;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li a:hover {
+    text-decoration: none;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li.selected {
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li.selected a {
+    font-weight: bold;
+    color: black;    
+    cursor: default;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li.selected:after {
+    content: "";
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -5px;
+    bottom: -14px;
+    width: 0px; height: 0px;
+    background: transparent;
+    border-color: transparent transparent #fff transparent;
+    border-style: solid;
+    border-width: 6px;
+}
+#ctrl_repacks_act_edit .editor .pane-addon-management #tab-searchengines .locale-selector ul.locales li.selected a:after {
+    content: " ";
+    display: block;
+    position: absolute;
+    left: 50%;
+    margin-left: -6px;
+    bottom: -14px;
+    width: 0px; height: 0px;
+    background: transparent;
+    border-color: transparent transparent #999 transparent;
+    border-style: solid;
+    border-width: 7px;
+}
 
 .repack_upload_iframe {
     margin: 0;

@@ -1,3 +1,8 @@
+<?php
+$default_locale = empty($repack->default_locale) ? 
+    'en-US' : $repack->default_locale;
+?>
+
 <?php slot::set('is_popup', true); ?>
 
 <?php slot::start('head_end') ?>
@@ -23,8 +28,10 @@
                 top.jQuery('iframe#tab-searchplugins-upload').height(f_height);
         };
         window.adjustHeight();
-        if (top.BYOB_Repacks_Edit_AddonManagement && top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane)
+        if (top.BYOB_Repacks_Edit_AddonManagement && top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane) {
             top.BYOB_Repacks_Edit_AddonManagement.updateSelectionsPane();
+            top.BYOB_Repacks_Edit_AddonManagement.switchSearchEnginesLocale();
+        }
         //$(document).ready(window.adjustHeight);
     </script>
 <?php slot::end() ?>
@@ -32,7 +39,8 @@
 <div class="searchplugin_upload upload_form">
 
     <form method="POST" enctype="multipart/form-data">
-    <fieldset class="upload"><legend><?=_('Upload a search engine plug-in:')?></legend>
+        <input type="hidden" name="locale" value="<?=$locale?>" />
+        <fieldset class="upload"><legend><?=_('Upload a search engine plug-in:')?></legend>
             <div>
                 <div class="pretty_upload">
                     <input type="file" class="upload" id="sp_upload" name="sp_upload" />
@@ -59,16 +67,17 @@
                         'icon'      => $plugin->getIconUrl(),
                         'name'      => $plugin->ShortName,
                         'summary'   => $plugin->Description,
-                        'filename'  => $plugin->filename
+                        'filename'  => $plugin->filename,
+                        'locale'    => $plugin->locale,
                     ));
                 ?>
-                <li class="searchengine"><a href="#" class="remove_link">
+                    <li class="searchengine by-locale locale-<?=$e['locale']?>"><a href="#" class="remove_link">
                     <label class="icon" for="searchplugin_ids-<?=$idx?>">
                         <img src="<?=$e['icon']?>" alt="<?=$e['name']?>" 
                             width="16" height="16" />
                     </label>
                     <label class="meta" for="searchplugin_ids-<?=$idx?>">
-                        <span class="name"><?=$e['name']?></span>
+                        <span class="name"><?=$e['name']?> (<?=$e['locale']?>)</span>
                         <form  class="delete" method="POST" enctype="multipart/form-data">
                             <input type="hidden" name="method" value="delete" />
                             <input type="hidden" name="searchplugin_fn" 

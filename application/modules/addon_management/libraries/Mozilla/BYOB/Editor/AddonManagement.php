@@ -67,6 +67,8 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
      */
     public function validate(&$data, $repack, $set=true)
     {
+        $default_locale = (!empty($repack->default_locale)) ?
+            $repack->default_locale : 'en-US';
         $unlimited_addons = 
             $repack->checkPrivilege('addon_management_unlimited');
         $max_extensions = 
@@ -112,18 +114,31 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
 
         // Scan through incoming search plugin filenames for valid choices
         if (!empty($data['search_plugin_filenames'])) {
-            $allowed_fns = array_keys($popular_searchplugins);
-            foreach ($data['search_plugin_filenames'] as $fn) {
-                if (in_array($fn, $allowed_fns)) {
-                    $managed_addons['search_plugin_filenames'][] = $fn;
+            foreach ($popular_searchplugins as $locale=>$plugins) {
+
+                $allowed_fns = array();
+                foreach ($plugins as $fn=>$plugin) { 
+                    $allowed_fns[] = "{$locale}:{$fn}";
                 }
+                
+                $accepted_fns = array();
+                foreach ($data['search_plugin_filenames'] as $fn) {
+                    if (in_array($fn, $allowed_fns)) {
+                        $accepted_fns[] = $fn;
+                    }
+                }
+                
+                $count = count($accepted_fns);
+                if (!$unlimited_addons && $count > $max_search_plugins) {
+                    $data->add_error('search_plugins', 'too_many');
+                    $is_valid = false;
+                } else {
+                    $managed_addons['search_plugin_filenames'] = 
+                        array_merge($accepted_fns,
+                            $managed_addons['search_plugin_filenames']);
+                }
+
             }
-            $count = count($managed_addons['search_plugin_filenames']);
-            if (!$unlimited_addons &&
-                    $count > $max_search_plugins) {
-                $data->add_error('search_plugins', 'too_many');
-                $is_valid = false;
-            } 
         }
 
         // If an allowed theme was selected, remember it.
@@ -197,24 +212,60 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
                 if ($extension->loaded) $extensions[] = $extension;
             }
 
-            $sp_dir = $assets_dir . "/distribution/searchplugins/common";
-            if (is_dir($sp_dir)) {
-                $sp_files = glob("{$sp_dir}/*.xml");
-                foreach ($sp_files as $fn) {
-                    $xml = file_get_contents($fn);
-                    $plugin = Model::factory('searchplugin')->loadFromXML($xml);
-                    $plugin->filename = basename($fn);
-                    $search_plugins[] = $plugin;
+            foreach ($repack->locales as $locale) {
+                $locale_plugins = array();
+                $suffix = ($locale == $repack->default_locale) ?
+                    'common' : "locale/{$locale}";
+                $sp_dir = $assets_dir . "/distribution/searchplugins/" . $suffix;
+                if (is_dir($sp_dir)) {
+                    $sp_files = glob("{$sp_dir}/*.xml");
+                    foreach ($sp_files as $fn) {
+                        $xml = file_get_contents($fn);
+                        $plugin = Model::factory('searchplugin')->loadFromXML($xml);
+                        $plugin->filename = basename($fn);
+                        $locale_plugins[] = $plugin;
+                    }
+                }
+                if (!empty($locale_plugins)) {
+                    $search_plugins[$locale] = $locale_plugins;
                 }
             }
 
             if (!empty($managed_addons['search_plugin_filenames'])) {
+
+                $all_selections = array();
+                foreach ($managed_addons['search_plugin_filenames'] as $pair) {
+                    if (strpos($pair, ':') === FALSE) $pair = 'en-US:'.$pair;
+                    list ($locale, $fn) = explode(':', $pair);
+                    if (!isset($all_selections[$locale])) {
+                        $all_selections[$locale] = array($fn);
+                    } else {
+                        $all_selections[$locale][] = $fn;
+                    }
+                }
+
                 $popular_searchplugins = 
                     addon_management::get_popular_searchplugins();
-                foreach ($managed_addons['search_plugin_filenames'] as $fn) {
-                    if (empty($popular_searchplugins[$fn])) continue;
-                    $search_plugins[] = $popular_searchplugins[$fn];
+                foreach ($popular_searchplugins as $locale=>$plugins) {
+                    if (empty($all_selections[$locale])) continue;
+                    $selections = $all_selections[$locale];
+                    $locale_plugins = array();
+                    foreach ($plugins as $fn=>$plugin) {
+                        if (in_array($fn, $selections)) {
+                            $locale_plugins[$fn] = $plugin;
+                        }
+                    }
+                    if (!empty($locale_plugins)) {
+                        if (empty($search_plugins[$locale])) {
+                            $search_plugins[$locale] = $locale_plugins;
+                        } else {
+                            $search_plugins[$locale] = array_merge(
+                                $locale_plugins, $search_plugins[$locale]
+                            );
+                        }
+                    }
                 }
+
             }
 
             if (!empty($managed_addons['persona_url'])) {
@@ -363,21 +414,56 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
             if (!empty($managed_addons['search_plugin_filenames'])) {
 
                 // Create the search plugins directory if necessary
-                $sp_base_dir = "{$repack_dir}/distribution/searchplugins/common";
+                $sp_base_dir = "{$repack_dir}/distribution/searchplugins";
                 if (!is_dir($sp_base_dir)) {
                     mkdir($sp_base_dir, 0775, true);
                 }
 
-                // Run through the selected search plugins and copy them 
-                // into the repack assets from shared popular storage if found.
+                // Convert selections into array of locale => filenames.
+                $all_selections = array();
+                foreach ($managed_addons['search_plugin_filenames'] as $pair) {
+                    if (strpos($pair, ':') === FALSE) $pair = 'en-US:'.$pair;
+                    list ($locale, $fn) = explode(':', $pair);
+                    if (!isset($all_selections[$locale])) {
+                        $all_selections[$locale] = array($fn);
+                    } else {
+                        $all_selections[$locale][] = $fn;
+                    }
+                }
+
+                // Run through all known plugins and copy the selections.
+                // Might seem cumbersome, but it never actually uses 
+                // user-supplied paths unless they appear in the known set.
                 $popular_searchplugins = 
                     addon_management::get_popular_searchplugins();
-                foreach ($managed_addons['search_plugin_filenames'] as $fn) {
-                    if (empty($popular_searchplugins[$fn])) continue;
-                    file_put_contents(
-                        "{$sp_base_dir}/{$fn}", 
-                        $popular_searchplugins[$fn]->asXML()
-                    );
+                foreach ($popular_searchplugins as $locale=>$plugins) {
+
+                    // Get selections for this locale, or skip ahead if none.
+                    if (empty($all_selections[$locale])) continue;
+                    $selections = $all_selections[$locale];
+
+                    // Ensure the destination directory exists and is empty.
+                    $dest_dir = ( $repack->default_locale == $locale ) ?
+                        'common' : "locale/{$locale}";
+                    if (!is_dir("{$sp_base_dir}/{$dest_dir}")) {
+                        // Create the directory if necessary.
+                        mkdir("{$sp_base_dir}/{$dest_dir}", 0775, true);
+                    } else {
+                        // Delete any existing files, so that unchecked 
+                        // selections go away.
+                        $existing = glob("{$sp_base_dir}/{$dest_dir}/*.xml");
+                        foreach ($existing as $fn) unlink($fn);
+                    }
+
+                    // Copy the selected plugins into the destination dir.
+                    foreach ($plugins as $fn=>$plugin) {
+                        if (!in_array($fn, $selections)) continue;
+                        file_put_contents(
+                            "{$sp_base_dir}/{$dest_dir}/".basename($fn), 
+                            $plugin->asXML()
+                        );
+                    }
+
                 }
 
             }

@@ -12,6 +12,9 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
 
         max_extensions: 2,
         max_search_plugins: 3,
+        locales: [ 'en-US' ],
+        default_locale: 'en-US',
+        current_locale: 'en-US',
 
         /**
          * Initialization
@@ -34,6 +37,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
          */
         onready: function () {
 
+            $this.wireUpLocaleSelectors();
             $this.wireUpUploads();
             $this.wireUpSelectionsPane();
             $this.updateSelectionsPane(true);
@@ -55,6 +59,49 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                         return false;
                     }
                 });
+        },
+
+        /**
+         * Wire up clicks in locale selectors to switch locales.
+         */
+        wireUpLocaleSelectors: function () {
+            $('#tab-searchengines').each(function () {
+                var tab = $(this);
+                tab.find('.locale-selector').each(function () {
+                    var selector = $(this);
+                    selector.click(function (ev) {
+                        var el = $(ev.target);
+                        if ('A' != el.attr('tagName')) { return; }
+                        $this.switchSearchEnginesLocale(el.attr('data-locale'));
+                    });
+                });
+            });
+        },
+
+        /**
+         * Switch the search engines locale, including the upload iframe.
+         */
+        switchSearchEnginesLocale: function (locale) {
+            if (locale) { $this.current_locale = locale; }
+            else { locale = $this.current_locale; }
+
+            $('#tab-searchengines .locale-selector')
+                .find('li')
+                    .removeClass('selected').end()
+                .find('li a[data-locale='+locale+']').parent()
+                    .addClass('selected').end();
+
+            $('#tab-searchengines .available-options li').hide();
+            $('#tab-searchengines .available-options li.locale-'+locale).show();
+
+            $('#tab-searchplugins-upload').each(function () {
+                if (!this.contentWindow.$) { return; }
+                var $F = this.contentWindow.$;
+                $F('form input[name=locale]').val(locale);
+                $F('.uploads li.by-locale').hide();
+                $F('.uploads li.locale-'+locale).show();
+                this.contentWindow.adjustHeight();
+            });
         },
 
         /**
@@ -201,22 +248,29 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                 extension_count =
                     extension_uploads.length + extensions_checked.length;
 
-            if ( true!==no_validate && (false !== $this.max_extensions) &&
+            if ( (true!==no_validate) && (false!==$this.max_extensions) &&
                     extension_count > $this.max_extensions ) {
                 return false;
             }
 
-            var searchplugin_uploads =
-                    $('#tab-searchplugins-upload').contents().find('.uploads li'),
-                searchplugins_checked =
-                    $('.searchplugins li input:checked'),
-                searchplugin_count =
-                    searchplugin_uploads.length + searchplugins_checked.length;
-
-            if ( true!==no_validate && (false !== $this.max_search_plugins) &&
-                    searchplugin_count > $this.max_search_plugins ) {
-                return false;
-            }
+            var se_has_problem = false;
+            $.each($this.locales, function (idx, locale) {
+                var searchplugin_uploads = $('#tab-searchplugins-upload').contents()
+                        .find('.uploads li.locale-'+locale),
+                    searchplugins_checked =
+                        $('.searchplugins li.locale-'+locale+' input:checked'),
+                    searchplugin_count =
+                        /*searchplugin_uploads.length +*/ searchplugins_checked.length;
+                if ( true!==no_validate && (false !== $this.max_search_plugins) &&
+                        searchplugin_count > $this.max_search_plugins ) {
+                    se_has_problem = true;
+                    setTimeout(function () {
+                        console.log(searchplugin_uploads);
+                        console.log(searchplugins_checked);
+                    }, 1000);
+                }
+            });
+            if (se_has_problem) return false;
 
             $this._selections_map = [];
             list.find('li:not(.template)').remove();
@@ -243,7 +297,8 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            searchplugin_uploads
+            $('#tab-searchplugins-upload').contents()
+                .find('.uploads li')
                 .each(function () {
                     var item = $(this);
                     $this._selections_map.push(item);
@@ -254,7 +309,7 @@ BYOB_Repacks_Edit_AddonManagement = (function () {
                     }).appendTo(list);
                 });
 
-            searchplugins_checked
+            $('.searchplugins li input:checked')
                 .each(function () {
                     var item = $(this).parent();
                     $this._selections_map.push(item);
