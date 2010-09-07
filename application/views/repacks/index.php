@@ -20,12 +20,12 @@
 
 <?php if ($profile->checkPrivilege('edit')): ?>
 <div class="white_box_sidebar">
-    <?php $settings_url = url::site("profiles/{$profile->screen_name}/settings/basics/"); ?>
+    <?php $settings_url = url::site("profiles/{$profile->screen_name}/settings/basics"); ?>
     <h3><a href="<?=$settings_url?>"><?=_('Account settings')?></a></h3>
     <ul class="profile_actions">
-        <li><a href="<?=$settings_url . 'changepassword'?>"><?=_('Change login password')?></a></li>
-        <li><a href="<?=$settings_url . 'changeemail'?>"><?=_('Change login email')?></a></li>
-        <li><a href="<?=$settings_url . 'details'?>"><?=_('Edit profile details')?></a></li>
+        <li><a href="<?=$settings_url . '/changepassword'?>"><?=_('Change login password')?></a></li>
+        <li><a href="<?=$settings_url . '/changeemail'?>"><?=_('Change login email')?></a></li>
+        <li><a href="<?=$settings_url . '/details'?>"><?=_('Edit profile details')?></a></li>
     </ul>
 </div>
 <?php endif ?>
