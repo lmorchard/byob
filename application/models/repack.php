@@ -1055,7 +1055,7 @@ class Repack_Model extends ManagedORM
         $vals = array(
             'short_name' => array($this->url(), $this->short_name),
             'profile_id' => array(
-                url::base() . 'profiles/' . $this->profile->screen_name,
+                url::site('profiles/' . $this->profile->screen_name),
                 $this->profile->screen_name
             ),
             'title'      => $this->display_title,

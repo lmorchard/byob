@@ -1,5 +1,5 @@
 <?php
-$url = url::base() . 'profiles/' . $row->profile->screen_name;
+$url = url::site('profiles/' . $row->profile->screen_name);
 $h = html::escape_array(array(
     'url'  => $url,
     'name' => $row->profile->screen_name
