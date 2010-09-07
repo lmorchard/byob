@@ -32,7 +32,7 @@ $config['url_suffix'] = '';
  * The internal cache stores file paths and config entries across requests and
  * can give significant speed improvements at the expense of delayed updating.
  */
-$config['internal_cache'] = 120;
+$config['internal_cache'] = FALSE;
 
 /**
  * Internal cache directory.

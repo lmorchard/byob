@@ -3,7 +3,7 @@ $config['core.needs_installation'] = false;
 $config['core.site_domain'] =
     (!empty($_SERVER['HTTP_HOST']) ? $_SERVER['HTTP_HOST'] : '') . '/';
 $config['core.log_threshold'] = 0;
-$config['core.internal_cache'] = 120;
+$config['core.internal_cache'] = FALSE; // FIXME: Current ACL perms break this.
 $config['core.display_errors'] = FALSE;
 
 $config['core.contact_URL'] = 'http://buildyourownbrowser.com/contact/';
