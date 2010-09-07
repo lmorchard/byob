@@ -122,7 +122,7 @@ class Profile_Model extends Auth_Profile_Model
             ->add_rules('screen_name', 
                 'required', 'length[3,64]', 'valid::alpha_dash', 
                 array($this, 'is_screen_name_available'))
-            ->add_rules('first_name', 'required', 'valid::standard_text')
+            ->add_rules('first_name', 'required')
             ->add_rules('last_name', 'required')
             ;
 
