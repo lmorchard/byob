@@ -60,6 +60,10 @@ class form extends form_Core
      */
     public static function build($url, $attrs, $arr)
     {
+        if (null == $url) { 
+            $url = url::current(); 
+        }
+
         $out = array();
 
         $out = array_merge($out, array(
