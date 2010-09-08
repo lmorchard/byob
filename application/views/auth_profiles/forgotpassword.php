@@ -4,7 +4,7 @@
     </p>
 <?php else: ?>
     <?= 
-    form::build(null, array('class'=>'forgotpassword'), array(
+    form::build(url::current(), array('class'=>'forgotpassword'), array(
         form::fieldset('Forgot password', null, array(
             "<p>Supply either of these pieces of information to recover your password:</p>",
             form::field('input', 'login_name', 'login name', array('class'=>'required')),
