@@ -116,8 +116,30 @@ def isLinux(platform):
     return False
 
 #########################################################################
+def isLinux32(platform):
+    if (platform.find('linux32') != -1 or platform.find('linux-i686') != -1):
+        return True
+    return False
+
+#########################################################################
+def isLinux64(platform):
+    if (platform.find('linux64') != -1 or platform.find('linux-x86_64') != -1):
+        return True
+    return False
+
+#########################################################################
 def isMac(platform):
     if (platform.find('mac') != -1):
+        return True
+    return False
+
+#########################################################################
+def isMac32(platform):
+    return isMac(platform)
+
+#########################################################################
+def isMac64(platform):
+    if (platform.find('mac64') != -1):
         return True
     return False
 
@@ -128,8 +150,30 @@ def isWin(platform):
     return False
 
 #########################################################################
+def isWin32(platform):
+    if (platform.find('win32') != -1):
+        return True
+    return False
+
+#########################################################################
+def isWin64(platform):
+    if (platform.find('win64') != -1 or \
+        platform.find('win64-x86_64') != -1):
+        return True
+    return False
+
+#########################################################################
 def isMaemo(platform):
     if (platform.find('maemo') != -1):
+        return True
+    return False
+
+#########################################################################
+def isValidPlatform(platform):
+    if isLinux64(platform) or isLinux32(platform) or \
+       isMac64(platform) or isMac32(platform) or \
+       isWin64(platform) or isWin32(platform) or \
+       isMaemo(platform):
         return True
     return False
 
@@ -140,7 +184,6 @@ def createTagFromVersion(version):
 #########################################################################
 def parseRepackConfig(file, platforms):
     config = {}
-
     config['platforms'] = []
     f= open(file, 'r')
     for line in f:
@@ -153,16 +196,17 @@ def parseRepackConfig(file, platforms):
         if key == 'locales':
             config['locales'] = value.split(' ')
             continue
-        if isLinux(key) or isMac(key) or isWin(key) or isMaemo(key):
-            if key in platforms and value == 'true':
-                config['platforms'].append(key)
-            continue
         if key == 'migrationWizardDisabled':
             if value.lower() == 'true':
                 config['migrationWizardDisabled'] = True
             continue
         if key == 'deb_section':
             config['deb_section'] = re.sub('/', '\/', value)
+        if isValidPlatform(key):
+            platform_formatted = getFormattedPlatform(key)
+            if platform_formatted in platforms and value.lower() == 'true':
+                config['platforms'].append(platform_formatted)
+            continue
     if config['platforms']:
         return config
 
@@ -170,10 +214,16 @@ def parseRepackConfig(file, platforms):
 def getFormattedPlatform(platform):
     '''Returns the platform in the format used in building package names.
     '''
+    if isLinux64(platform):
+        return "linux-x86_64"
     if isLinux(platform):
         return "linux-i686"
+    if isMac64(platform):
+        return "mac64"
     if isMac(platform):
         return "mac"
+    if isWin64(platform):
+        return "win64-x86_64"
     if isWin(platform):
         return "win32"
     if isMaemo(platform):
@@ -252,19 +302,25 @@ def getFileExtension(version, platform):
 #########################################################################
 class RepackBase(object):
     def __init__(self, build, partner_dir, build_dir, working_dir, final_dir,
-                 repack_info):
+                 platform_formatted, repack_info):
         self.base_dir = os.getcwd()
         self.build = build
         self.full_build_path = "%s/%s/%s" % (self.base_dir, build_dir, build)
         self.full_partner_path = "%s/%s" % (self.base_dir, partner_dir)
         self.working_dir = working_dir
         self.final_dir = final_dir
+        self.platform_formatted = platform_formatted
         self.repack_info = repack_info
         mkdir(self.working_dir)
-        self.platform = None
 
     def announceStart(self):
-        print "### Repacking %s build %s" % (self.platform, self.build)
+        print "### Repacking %s build \"%s\"" % (self.platform_formatted, 
+                                                 self.build)
+
+    def announceSuccess(self):
+        print "### Done repacking %s build \"%s\"" % (self.platform_formatted, 
+                                                      self.build)
+        print
 
     def unpackBuild(self):
         copy(self.full_build_path, '.')
@@ -306,17 +362,17 @@ class RepackBase(object):
         self.unpackBuild()
         self.copyFiles()
         self.repackBuild()
+        self.announceSuccess()
         self.cleanup()
         os.chdir(self.base_dir)
 
 #########################################################################
 class RepackLinux(RepackBase):
     def __init__(self, build, partner_dir, build_dir, working_dir, final_dir,
-                 repack_info):
-        super(RepackLinux, self).__init__(build, partner_dir,
-                                          build_dir, working_dir,
-                                          final_dir, repack_info)
-        self.platform = "linux"
+                 platform_formatted, repack_info):
+        super(RepackLinux, self).__init__(build, partner_dir, build_dir, 
+                                          working_dir, final_dir,
+                                          platform_formatted, repack_info)
         self.uncompressed_build = build.replace('.bz2','')
 
     def unpackBuild(self):
@@ -331,7 +387,11 @@ class RepackLinux(RepackBase):
         super(RepackLinux, self).copyFiles('firefox')
 
     def repackBuild(self):
-        tar_cmd = "tar rvf %s firefox" % self.uncompressed_build
+        if options.quiet:
+            tar_flags = "rf"
+        else:
+            tar_flags = "rvf" 
+        tar_cmd = "tar %s %s firefox" % (tar_flags, self.uncompressed_build)
         shellCommand(tar_cmd)
         bzip2_command = "bzip2 %s" % self.uncompressed_build
         shellCommand(bzip2_command)
@@ -339,11 +399,10 @@ class RepackLinux(RepackBase):
 #########################################################################
 class RepackMac(RepackBase):
     def __init__(self, build, partner_dir, build_dir, working_dir, final_dir,
-                 repack_info):
-        super(RepackMac, self).__init__(build, partner_dir,
-                                        build_dir, working_dir,
-                                        final_dir, repack_info)
-        self.platform = "mac"
+                 platform_formatted, repack_info):
+        super(RepackMac, self).__init__(build, partner_dir, build_dir, 
+                                        working_dir, final_dir,
+                                        platform_formatted, repack_info)
         self.mountpoint = "/tmp/FirefoxInstaller"
 
     def unpackBuild(self):
@@ -354,11 +413,15 @@ class RepackMac(RepackBase):
             print "Error: Firefox is already mounted at %s" % self.mountpoint
             sys.exit(1)
 
-        attach_cmd = "hdiutil attach -mountpoint %s -readonly -private -noautoopen \"%s\"" % (self.mountpoint, self.full_build_path)
+        if options.quiet:
+            quiet_flag = "-quiet"
+        else:
+            quiet_flag = "" 
+        attach_cmd = "hdiutil attach -mountpoint %s -readonly -private %s -noautoopen \"%s\"" % (self.mountpoint, quiet_flag, self.full_build_path)
         shellCommand(attach_cmd)
         rsync_cmd  = "rsync -a %s/ stage/" % self.mountpoint
         shellCommand(rsync_cmd)
-        eject_cmd  = "hdiutil eject %s" % self.mountpoint
+        eject_cmd  = "hdiutil eject %s %s" % (quiet_flag, self.mountpoint)
         shellCommand(eject_cmd)
 
         # Disk images contain a link " " to "Applications/" that we need
@@ -374,8 +437,13 @@ class RepackMac(RepackBase):
         self.createOverrideIni('stage/Firefox.app/Contents/MacOS')
 
     def repackBuild(self):
-        pkg_cmd = "%s --source stage/ --target \"%s\" --volname 'Firefox' --icon stage/.VolumeIcon.icns --symlink '/Applications':' '" % (options.pkg_dmg,
-                                                           self.build)
+        if options.quiet:
+            quiet_flag = "--verbosity 0"
+        else:
+            quiet_flag = "" 
+        pkg_cmd = "%s --source stage/ --target \"%s\" --volname 'Firefox' --icon stage/.VolumeIcon.icns --symlink '/Applications':' ' %s" % (options.pkg_dmg,
+                                                              self.build,
+                                                              quiet_flag)
         shellCommand(pkg_cmd)
 
     def cleanup(self):
@@ -384,32 +452,38 @@ class RepackMac(RepackBase):
         rmdirRecursive(self.mountpoint)
 
 #########################################################################
-class RepackWin32(RepackBase):
+class RepackWin(RepackBase):
     def __init__(self, build, partner_dir, build_dir, working_dir, final_dir,
-                 repack_info):
-        super(RepackWin32, self).__init__(build, partner_dir,
-                                          build_dir, working_dir,
-                                          final_dir, repack_info)
-        self.platform = "win32"
+                 platform_formatted, repack_info):
+        super(RepackWin, self).__init__(build, partner_dir, build_dir, 
+                                        working_dir, final_dir,
+                                        platform_formatted, repack_info)
 
     def copyFiles(self):
-        super(RepackWin32, self).copyFiles('nonlocalized')
+        super(RepackWin, self).copyFiles('nonlocalized')
 
     def repackBuild(self):
-        zip_cmd = "%s a \"%s\" nonlocalized" % (SEVENZIP_BIN, self.build)
+        if options.quiet:
+            zip_redirect = ">/dev/null"
+        else:
+            zip_redirect = "" 
+        zip_cmd = "%s a \"%s\" nonlocalized %s" % (SEVENZIP_BIN, 
+                                                   self.build,
+                                                   zip_redirect)
         shellCommand(zip_cmd)
 
 #########################################################################
 class RepackMaemo(RepackBase):
     def __init__(self, build, partner_dir, build_dir, working_dir, final_dir,
-                 repack_info, sbox_path=SBOX_PATH, sbox_home=SBOX_HOME):
-        super(RepackMaemo, self).__init__(build, partner_dir,
-                                          build_dir, working_dir,
-                                          final_dir, repack_info)
+                 platform_formatted, repack_info, sbox_path=SBOX_PATH, 
+                 sbox_home=SBOX_HOME):
+        super(RepackMaemo, self).__init__(build, partner_dir, build_dir, 
+                                          working_dir, final_dir,
+                                          platform_formatted, repack_info)
+
         self.sbox_path = sbox_path
         self.sbox_home = sbox_home
         self.tmpdir = "%s/tmp_deb" % self.base_dir
-        self.platform = platform_formatted
 
     def unpackBuild(self):
         mkdir("%s/DEBIAN" % self.tmpdir)
@@ -460,6 +534,7 @@ class RepackMaemo(RepackBase):
         self.copyFiles()
         self.mungeControl()
         self.repackBuild()
+        self.announceSuccess()
         self.cleanup()
         os.chdir(self.base_dir)
 
@@ -529,12 +604,17 @@ def getSingleFileFromHg(file):
 if __name__ == '__main__':
     error = False
     partner_builds = {}
-    default_platforms = ['linux-i686', 'mac', 'win32']
-    repack_build = {'linux-i686': RepackLinux,
-                    'mac':        RepackMac,
-                    'win32':      RepackWin32,
-                    'maemo4':     RepackMaemo,
-                    'maemo5-gtk': RepackMaemo
+    default_platforms = ['linux-i686', 'linux-x86_64', 
+                         'mac', 'mac64', 
+                         'win32']
+    repack_build = {'linux-i686':    RepackLinux,
+                    'linux-x86_64':  RepackLinux,
+                    'mac':           RepackMac,
+                    'mac64':         RepackMac,
+                    'win32':         RepackWin,
+                    'win64-x86_64':  RepackWin,
+                    'maemo4':        RepackMaemo,
+                    'maemo5-gtk':    RepackMaemo
     }
 
     parser = OptionParser(usage="usage: %prog [options]")
@@ -553,7 +633,7 @@ if __name__ == '__main__':
     parser.add_option("--platform",
                      action="append",
                      dest="platforms",
-                     help="Specify platform (multiples ok)."
+                     help="Specify platform (multiples ok, e.g. --platform win32 --platform mac64)."
                      )
     parser.add_option("--nightly-dir",
                      action="store",
@@ -612,6 +692,12 @@ if __name__ == '__main__':
                       dest="verify_only",
                       default=False,
                       help="Check for existing partner repacks.")
+    parser.add_option("-q",
+                      "--quiet",
+                      action="store_true",
+                      dest="quiet",
+                      default=False,
+                      help="Suppress standard output from the packaging tools.")
     (options, args) = parser.parse_args()
 
     # Pre-flight checks
@@ -657,9 +743,9 @@ if __name__ == '__main__':
     # Remote dir where we can find builds.
     candidates_web_dir = "/pub/mozilla.org/%s/%s-candidates/build%s" % (options.nightly_dir, options.version, options.build_number)
     if options.use_signed:
-        win32_candidates_web_dir = candidates_web_dir
+        win_candidates_web_dir = candidates_web_dir
     else:
-        win32_candidates_web_dir = candidates_web_dir + '/unsigned'
+        win_candidates_web_dir = candidates_web_dir + '/unsigned'
 
 
     # Local directories for builds
@@ -739,12 +825,13 @@ if __name__ == '__main__':
                 # has already been downloaded.
                 if not options.verify_only:
                     if os.path.exists(local_filename):
-                        print "### Found %s on disk, not downloading" % filename
+                        print "### Found %s on disk, not downloading" % local_filename
                     else:
                         # Download original build from stage
+                        print "### Downloading %s" % local_filename
                         os.chdir(local_filepath)
                         if isWin(platform):
-                            candidates_dir = win32_candidates_web_dir
+                            candidates_dir = win_candidates_web_dir
                         else:
                             candidates_dir = candidates_web_dir
                         if options.version.startswith('3.0'):
@@ -775,6 +862,7 @@ if __name__ == '__main__':
                                                                  local_filepath,
                                                                  working_dir,
                                                                  final_dir,
+                                                                 platform_formatted,
                                                                  repack_info)
                     repackObj.doRepack()
                 else:
