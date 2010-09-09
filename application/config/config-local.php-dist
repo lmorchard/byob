@@ -11,6 +11,7 @@ $config['core.contact_URL'] = 'http://buildyourownbrowser.com/contact/';
 $config['model.database'] = 'local';
 
 $config['database.local'] = array(
+    'read_shadow'   => 'shadow',
 	'benchmark'     => FALSE,
 	'persistent'    => FALSE,
 	'connection'    => array
@@ -28,6 +29,25 @@ $config['database.local'] = array(
 	'object'        => TRUE,
 	'cache'         => FALSE,
 	'escape'        => TRUE
+);
+$config['database.shadow'] = array(
+    'benchmark'     => TRUE,
+    'persistent'    => FALSE,
+    'connection'    => array
+    (
+        'type'     => 'mysql',
+        'user'     => 'byob2',
+        'pass'     => 'byob2',
+		'host'     => '127.0.0.1',
+        'port'     => FALSE,
+        'socket'   => FALSE,
+        'database' => 'byob2'
+    ),
+    'character_set' => 'utf8',
+    'table_prefix'  => '',
+    'object'        => TRUE,
+    'cache'         => TRUE,
+    'escape'        => TRUE
 );
 
 $config['email.driver'] = 'smtp';
