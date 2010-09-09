@@ -1,10 +1,6 @@
 <?php
 $r = $repack;
-if ($r->addons_collection_url) {
-    $firstrun_url = str_replace("https://", "http://", $r->releaseUrl()) . '/firstrun';
-} else {
-    $firstrun_url = null;
-}
+$default_locale = empty($r->default_locale) ? 'en-US' : $r->default_locale;
 $dist_id = "byob-{$r->profile->screen_name}-{$r->short_name}";
 $partner_id = 'byob' . $r->profile->screen_name;
 ?>
@@ -19,9 +15,6 @@ about=<?= $r->title . "\n" ?>
 
 [Preferences]
 app.partner.<?= $partner_id ?>=<?= $partner_id . "\n" ?>
-<?php if ($firstrun_url): ?>
-startup.homepage_welcome_url="<?= $firstrun_url ?>"
-<?php endif ?>
 
 <?php
 $bookmarks = $r->bookmarks;
@@ -48,5 +41,18 @@ if (!empty($r->addons_collection_url)) {
 ?>
 <?php endif ?>
 <?php endforeach ?>
+
+[LocalizablePreferences]
+<?php
+if ($r->addons_collection_url) {
+    $firstrun_url = str_replace("https://", "http://", 
+        $r->releaseUrl(null, '%LOCALE%')) . '/firstrun';
+} else {
+    $firstrun_url = null;
+}
+?>
+<?php if ($firstrun_url): ?>
+startup.homepage_welcome_url="<?= $firstrun_url ?>"
+<?php endif ?>
 
 # <? # do not edit this line, or add newlines after it ?>

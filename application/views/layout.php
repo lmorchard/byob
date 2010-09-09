@@ -4,8 +4,10 @@
     $e_screen_name = html::specialchars($screen_name);
     $u_screen_name = rawurlencode($screen_name);
     $page_id = Router::$controller . '_' . Router::$method;
+    $locale = Gettext_Main::$current_language; 
+    $locale_dir = Gettext_Main::$current_dir;
 ?>
-<html> 
+<html lang="<?=$locale?>" dir="<?=$locale_dir?>"> 
 
     <head>  
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -42,7 +44,7 @@
     </head> 
 
     <body id="<?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?>" 
-        class="<?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?> <?=slot::get('body_class')?>">
+        class="locale-<?=$locale?> <?= 'ctrl_' . Router::$controller ?> <?= 'act_' . Router::$method ?> <?= 'ctrl_' . Router::$controller . '_act_' . Router::$method ?> <?=slot::get('body_class')?>">
 
         <div id="wrap" class="<?= (slot::exists('sidebar') != '') ? 'with_sidebar' : '' ?>">
             <?php if (slot::get('is_popup')): ?>
@@ -123,8 +125,8 @@
                     <p><?=_('All rights reserved')?></p>
                 </div>
                 <ul class="nav">
-                    <li class="first"><a href="http://www.mozilla.com/en-US/privacy-policy.html"><?=_('Privacy Policy')?></a></li>
-                    <li><a href="http://www.mozilla.com/en-US/about/legal.html"><?=_('Legal Notices')?></a></li>
+                    <li class="first"><a href="http://www.mozilla.com/<?=$locale?>/privacy-policy.html"><?=_('Privacy Policy')?></a></li>
+                    <li><a href="http://www.mozilla.com/<?=$locale?>/about/legal.html"><?=_('Legal Notices')?></a></li>
                     <li><a href="<?=url::site('contact')?>"><?=_('Contact us')?></a></li>
                 </ul>
             </div>

@@ -707,9 +707,12 @@ class Repack_Model extends ManagedORM
      * this particular instance
      * @TODO Should this be in the controller?
      */
-    public function releaseUrl($action=null)
+    public function releaseUrl($action=null, $locale=null)
     {
-        $url = url::base() . 
+        if (null == $locale) {
+            $locale = Gettext_Main::$current_language;
+        }
+        $url = url::base() . "$locale/" . 
             "profiles/{$this->profile->screen_name}".
             "/browsers/{$this->short_name}";
         if ($action)

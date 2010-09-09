@@ -117,6 +117,21 @@ class Gettext_Main {
     }
 
     /**
+     * Attempt to normalize the language code.
+     * eg. en-us => en-US
+     *
+     * @param  string Language code
+     * @return string Normalized language code
+     */
+    public static function normalize_language($locale)
+    {
+        $parts = explode('-', $locale);
+        if (count($parts) == 1) { return $locale; }
+        $parts[1] = strtoupper($parts[1]);
+        return implode('-', $parts);
+    }
+
+    /**
      * Attempt to detect language from valid candidates.
      *
      * @param  array High priority languages
@@ -147,11 +162,11 @@ class Gettext_Main {
             // Found a valid language/local mapping, so use it.
             self::$current_dir = in_array($u_lang, $rtl_languages) ?
                 'rtl' : 'ltr';
-            self::$current_language = $lang;
+            self::$current_language = self::normalize_language($lang);
             self::$current_locale = Kohana::$locale = $locale =
                 $valid_languages[$u_lang];
 
-            return array( $lang, $locale );
+            return array( self::$current_language, self::$current_locale );
         }
 
         // Failed to find a match, so return the defaults.

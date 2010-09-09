@@ -15,17 +15,17 @@ msgstr  "&leqoou;&nbsp; Prefeeuoos Step"
 msgid   "(eg: https://addons.mozilla.org/en-US/firefox/collection/social)"
 msgstr  "(ig: https://edduns.muzeella.oorg/ee-US/fureffux/cullecshun/suceeel)"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 86
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 128
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 101
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 155
 #, php-format
 msgid   "(maximum of %1$s)"
 msgstr  "(mexeemoom ooff %1$s)"
 #
-# File: views/repacks/edit/bookmarks.php, line: 45
+# File: views/repacks/edit/bookmarks.php, line: 65
 msgid   "+ New Bookmark"
 msgstr  "+ Noo Buukmerk"
 #
-# File: views/repacks/edit/bookmarks.php, line: 44
+# File: views/repacks/edit/bookmarks.php, line: 64
 msgid   "+ New Folder"
 msgstr  "+ Noo Fulder"
 #
@@ -72,11 +72,11 @@ msgstr  "<span class=\"first_line\"><strong>Creete-a Yuoor Brooser</strong> "
         "                <span class=\"second_line\">It oonly tekes a "
         "meenoote-a.</span>"
 #
-# File: views/repacks/edit/bookmarks.php, line: 63
+# File: views/repacks/edit/bookmarks.php, line: 83
 msgid   "A folder may contain up to 10 items."
 msgstr  "A fulder mey cunteeen up tu 10 items."
 #
-# File: views/repacks/edit/bookmarks.php, line: 62
+# File: views/repacks/edit/bookmarks.php, line: 82
 msgid   "A folder must contain at least 1 item."
 msgstr  "A fulder moost cunteeen et leest 1 item."
 #
@@ -129,13 +129,24 @@ msgstr  "Ebunduneeng chunges veell delete-a zee coorrent set ooff "
 msgid   "Account settings"
 msgstr  "Eccuoont setteengs"
 #
+# File: views/repacks/firstrun.php, line: 202
+msgid   "Adapt Firefox to the way you browse with 1,000s of free add-ons."
+msgstr  "Edept Fureffux tu zee vey yuoo broose-a veet 1,000s ooff free-a edd-"
+        "oons."
+#
 # File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 76
 msgid   "Add"
 msgstr  "Edd"
 #
-# File: views/repacks/edit/bookmarks.php, line: 14
+# File: views/repacks/edit/bookmarks.php, line: 23
 msgid   "Add and organize default bookmarks."
 msgstr  "Edd und oorguneeze-a deffoolt buukmerks."
+#
+# File: views/repacks/firstrun.php, line: 128
+# File: views/repacks/firstrun.php, line: 139
+# File: views/repacks/firstrun.php, line: 151
+msgid   "Add to Firefox"
+msgstr  "Edd tu Fureffux"
 #
 # File: views/index/index.php, line: 69
 msgid   "Add your identity to Firefox with a Persona, bookmarks, and add-ons."
@@ -146,6 +157,12 @@ msgstr  "Edd yuoor identeety tu Fureffux veet a Persuna, buukmerks, und edd-"
 msgid   "Add-ons Collection URL:"
 msgstr  "Edd-oons Cullecshun URL:"
 #
+# File: views/repacks/firstrun.php, line: 117
+msgid   "Add-ons are easy-to-install extras that help personalize your "
+        "Firefox. Here are a few of our favorites:"
+msgstr  "Edd-oons ere-a iesy-tu-instell ixtres thet help persuneleeze-a yuoor "
+        "Fureffux. Here-a ere-a a foo ooff oooor fefureetes:"
+#
 # File: modules/addon_management/libraries/Mozilla/BYOB/Editor/AddonManagement.php, line: 31
 # File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 5
 msgid   "Addons"
@@ -155,7 +172,7 @@ msgstr  "Edduns"
 msgid   "Adhoc distribution.ini overlay"
 msgstr  "Edhuc deestribooshun.inee ooferley"
 #
-# File: views/layout.php, line: 123
+# File: views/layout.php, line: 125
 msgid   "All rights reserved"
 msgstr  "Ell reeghts reserfed"
 #
@@ -197,26 +214,34 @@ msgid   "BYOB is currently available in %1$s locales. You can choose "
 msgstr  "BYOB is coorrently efeeeleble-a in %1$s luceles. Yuoo cun chuuse-a "
         "<strong>up tu tee luceles</strong> fur yuoor brooser."
 #
-# File: views/repacks/edit/bookmarks.php, line: 77
+# File: views/repacks/firstrun.php, line: 181
+msgid   "Become a Fan on Facebook"
+msgstr  "Becume-a a Fun oon Fecebuuk"
+#
+# File: views/repacks/edit/bookmarks.php, line: 95
 msgid   "Bookmark"
 msgstr  "Buukmerk"
 #
-# File: views/repacks/edit/bookmarks.php, line: 28
+# File: views/repacks/edit/bookmarks.php, line: 48
 msgid   "Bookmark Menu"
 msgstr  "Buukmerk Menoo"
 #
-# File: views/repacks/edit/bookmarks.php, line: 22
+# File: views/repacks/edit/bookmarks.php, line: 42
 msgid   "Bookmark Toolbar"
 msgstr  "Buukmerk Tuulber"
 #
-# File: models/repack.php, line: 126
+# File: models/repack.php, line: 127
 # File: views/repacks/edit/review.php, line: 43
 msgid   "Bookmarks"
 msgstr  "Buukmerks"
 #
-# File: modules/addon_management/public/js/addon_management.js, line: 84
+# File: modules/addon_management/public/js/addon_management.js, line: 131
 msgid   "Browse"
 msgstr  "Broose"
+#
+# File: views/repacks/firstrun.php, line: 154
+msgid   "Browse More Add-ons"
+msgstr  "Broose-a Mure-a Edd-oons"
 #
 # File: views/repacks/edit/general.php, line: 8
 msgid   "Browser details"
@@ -257,7 +282,8 @@ msgstr  "By cunnecteeng yuoor effffeenity gruoop tu yuoo."
 msgid   "By letting you show your stripes."
 msgstr  "By letteeng yuoo shoo yuoor streepes."
 #
-# File: views/repacks/edit/bookmarks.php, line: 106
+# File: views/auth_profiles/login.php, line: 55
+# File: views/repacks/edit/bookmarks.php, line: 133
 msgid   "Cancel"
 msgstr  "Cuncel"
 #
@@ -276,6 +302,11 @@ msgstr  "Cetegury is reqooured."
 # File: views/repacks/elements/actions.php, line: 21
 msgid   "Change details"
 msgstr  "Chunge-a deteeels"
+#
+# File: views/auth_profiles/changeemail.php, line: 8
+# File: views/auth_profiles/changeemail.php, line: 11
+msgid   "Change email"
+msgstr  "Chunge-a imeeel"
 #
 # File: views/repacks/index.php, line: 27
 msgid   "Change login email"
@@ -297,23 +328,35 @@ msgstr  "Chunges reqooested"
 msgid   "Changes this session:"
 msgstr  "Chunges thees sesseeun:"
 #
+# File: views/repacks/firstrun.php, line: 196
+msgid   "Check out \"Recommended Addons\", bookmarked in your toolbar."
+msgstr  "Check oooot \"Recummended Edduns\", buukmerked in yuoor tuulber."
+#
 # File: views/index/index.php, line: 25
 msgid   "Check out our FAQ"
 msgstr  "Check oooot oooor FEQ"
+#
+# File: views/auth_profiles/changeemail.php, line: 2
+msgid   "Check your inbox for a link to verify this new email address."
+msgstr  "Check yuoor inbux fur a leenk tu fereeffy thees noo imeeel eddress."
+#
+# File: views/repacks/firstrun.php, line: 100
+msgid   "Choose Your Persona"
+msgstr  "Chuuse-a Yuoor Persuna"
 #
 # File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 60
 msgid   "Choose from these common locales:"
 msgstr  "Chuuse-a frum zeese-a cummun luceles:"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 162
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 197
 msgid   "Choose from these popular Personas:"
 msgstr  "Chuuse-a frum zeese-a pupooler Persunes:"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 85
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 100
 msgid   "Choose from these popular add-ons"
 msgstr  "Chuuse-a frum zeese-a pupooler edd-oons"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 127
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 154
 msgid   "Choose from these popular search engines"
 msgstr  "Chuuse-a frum zeese-a pupooler seerch ingeenes"
 #
@@ -325,7 +368,7 @@ msgstr  "Ceety is reqooured."
 msgid   "Collection URL:"
 msgstr  "Cullecshun URL:"
 #
-# File: models/repack.php, line: 127
+# File: models/repack.php, line: 128
 # File: views/repacks/edit/review.php, line: 67
 msgid   "Collections"
 msgstr  "Cullecshuns"
@@ -346,7 +389,7 @@ msgstr  "Cumplement yuoor oonleene-a presence-a veet a coostumeezed ferseeun "
         "ooff Fureffux, cunnecteeng zee peuple-a yuoo serfe-a veet zee "
         "inffurmeshun zeey need."
 #
-# File: views/layout.php, line: 128
+# File: views/layout.php, line: 130
 msgid   "Contact us"
 msgstr  "Cuntect us"
 #
@@ -354,7 +397,7 @@ msgstr  "Cuntect us"
 msgid   "Continue editing"
 msgstr  "Cunteenooe-a ideeting"
 #
-# File: views/layout.php, line: 122
+# File: views/layout.php, line: 124
 msgid   "Copyright &copy; 2005 - 2010 Mozilla"
 msgstr  "Cupyreeght &cupy; 2005 - 2010 Muzeella"
 #
@@ -382,9 +425,13 @@ msgstr  "Creeted by <a href=\"%1$s\">%2$s</a>"
 msgid   "Created by <a href=\"%1$s\">%2$s</a> on %3$s"
 msgstr  "Creeted by <a href=\"%1$s\">%2$s</a> oon %3$s"
 #
-# File: views/repacks/edit/bookmarks.php, line: 61
+# File: views/repacks/edit/bookmarks.php, line: 81
 msgid   "Creation of sub-folders within folders is not supported."
 msgstr  "Creeshun ooff soob-fulders veethin fulders is nut sooppurted."
+#
+# File: views/auth_profiles/changeemail.php, line: 9
+msgid   "Current email address"
+msgstr  "Coorrent imeeel eddress"
 #
 # File: views/repacks/elements/actions.php, line: 89
 # File: views/repacks/elements/status.php, line: 38
@@ -410,13 +457,21 @@ msgid   "Describe this customized browser further (optional, max length 1000 "
 msgstr  "Descreebe-a thees coostumeezed brooser foorzeer (oopshunel, mex "
         "lengt 1000 cherecters):"
 #
-# File: views/repacks/edit/bookmarks.php, line: 89
+# File: views/repacks/edit/bookmarks.php, line: 112
 msgid   "Description"
 msgstr  "Descreepshun"
 #
 # File: i18n/en_US/form_repacks_edit.php, line: 18
 msgid   "Description must be no longer than 1000 characters"
 msgstr  "Descreepshun moost be-a nu lunger thun 1000 cherecters"
+#
+# File: views/repacks/firstrun.php, line: 52
+msgid   "Did you know: Mozilla Firefox can be extended with add-ons."
+msgstr  "Deed yuoo knoo: Muzeella Fureffux cun be-a ixtended veet edd-oons."
+#
+# File: views/repacks/firstrun.php, line: 223
+msgid   "Discover new add-ons to brighten your day."
+msgstr  "Deescufer noo edd-oons tu breeghtee yuoor dey."
 #
 # File: views/repacks/release.php, line: 3
 msgid   "Distribution and generation restrictions"
@@ -427,6 +482,10 @@ msgstr  "Deestribooshun und genereshun restreecshuns"
 # File: views/repacks/elements/status.php, line: 19
 msgid   "Download"
 msgstr  "Doonlued"
+#
+# File: views/repacks/firstrun.php, line: 213
+msgid   "Download Thunderbird"
+msgstr  "Doonlued Thoonderburd"
 #
 # File: views/repacks/index.php, line: 28
 msgid   "Edit profile details"
@@ -454,18 +513,35 @@ msgstr  "Enter a oone-a oor tvu vurd identeeffier fur thees ferseeun ooff "
 msgid   "Enter all or part of a locale's name"
 msgstr  "Enter ell oor pert ooff a lucele's neme"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 157
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 192
 msgid   "Enter the URL of a Persona to include:"
 msgstr  "Enter zee URL ooff a Persuna tu incloode-a:"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 69
+# File: views/repacks/firstrun.php, line: 197
+# File: views/repacks/firstrun.php, line: 203
+msgid   "Explore Add-ons"
+msgstr  "Explure-a Edd-oons"
+#
+# File: views/repacks/firstrun.php, line: 207
+msgid   "Explore the web like never before."
+msgstr  "Explure-a zee veb leeke-a nefer beffure-a."
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 84
 # File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 10
 msgid   "Extensions"
 msgstr  "Extenseeuns"
 #
-# File: views/repacks/edit/bookmarks.php, line: 93
+# File: views/repacks/firstrun.php, line: 212
+msgid   "Fast, flexible, and secure email program"
+msgstr  "Fest, flexeeble-a, und secoore-a imeeel prugrem"
+#
+# File: views/repacks/edit/bookmarks.php, line: 113
 msgid   "Feed URL"
 msgstr  "Feed URL"
+#
+# File: views/repacks/firstrun.php, line: 92
+msgid   "Firefox 3.6"
+msgstr  "Fureffux 3.6"
 #
 # File: i18n/en_US/form_errors_auth.php, line: 68
 msgid   "First name is required"
@@ -479,9 +555,13 @@ msgstr  "Furst neme-a moost cunteeen oonly elphunoomereec cherecters"
 msgid   "First-run page"
 msgstr  "Furst-roon pege"
 #
-# File: views/repacks/edit/bookmarks.php, line: 60
+# File: views/repacks/edit/bookmarks.php, line: 80
 msgid   "Folders may be placed in either the Bookmark Toolbar or Menu."
 msgstr  "Fulders mey be-a pleced in ieezeer zee Buukmerk Tuulber oor Menoo."
+#
+# File: views/repacks/firstrun.php, line: 180
+msgid   "Follow us on Twitter"
+msgstr  "Fulloo us oon Tveetter"
 #
 # File: views/repacks/elements/actions.php, line: 66
 msgid   "Force build failure state"
@@ -495,6 +575,10 @@ msgstr  "Furce-a booeeld feenish stete"
 msgid   "Force build start state"
 msgstr  "Furce-a booeeld stert stete"
 #
+# File: views/auth_profiles/login.php, line: 50
+msgid   "Forgot your password?"
+msgstr  "Furgut yuoor pessvurd?"
+#
 # File: views/index/index.php, line: 95
 msgid   "Friends and Family."
 msgstr  "Freeends und Femeely."
@@ -504,7 +588,7 @@ msgid   "From"
 msgstr  "Frum"
 #
 # File: libraries/Mozilla/BYOB/EditorRegistry.php, line: 49
-# File: models/repack.php, line: 124
+# File: models/repack.php, line: 125
 msgid   "General"
 msgstr  "Generel"
 #
@@ -564,6 +648,14 @@ msgstr  "In-prugress chunges"
 msgid   "In-progress changes to current release"
 msgstr  "In-prugress chunges tu coorrent releese"
 #
+# File: views/repacks/firstrun.php, line: 218
+msgid   "Install ReminderFox Add-on"
+msgstr  "Instell RemeenderFux Edd-oon"
+#
+# File: views/repacks/firstrun.php, line: 208
+msgid   "Install StumbleUpon Add-on"
+msgstr  "Instell StoombleOopun Edd-oon"
+#
 # File: i18n/en_US/form_repacks_edit.php, line: 38
 msgid   "Invalid URL for addon collection"
 msgstr  "Infeleed URL fur eddun cullecshun"
@@ -573,6 +665,14 @@ msgstr  "Infeleed URL fur eddun cullecshun"
 msgid   "Invalid URL for persona selection"
 msgstr  "Infeleed URL fur persuna selecshun"
 #
+# File: views/repacks/firstrun.php, line: 135
+msgid   "InvisibleHand"
+msgstr  "InfeesibleHund"
+#
+# File: views/repacks/firstrun.php, line: 134
+msgid   "InvisibleHand icon"
+msgstr  "InfeesibleHund icun"
+#
 # File: views/index/index.php, line: 71
 msgid   "It supports multiple languages and operating systems."
 msgstr  "It sooppurts moolteeple-a lungooeges und oopereteeng systems."
@@ -580,6 +680,10 @@ msgstr  "It sooppurts moolteeple-a lungooeges und oopereteeng systems."
 # File: views/index/index.php, line: 74
 msgid   "It's free to use and distribute."
 msgstr  "It's free-a tu use-a und deestriboote-a."
+#
+# File: views/repacks/firstrun.php, line: 125
+msgid   "Keeps track of daily routine websites in tabs..."
+msgstr  "Keeps treck ooff deeely ruooteene-a vebseetes in tebs..."
 #
 # File: views/repacks/elements/downloads.php, line: 47
 msgid   "Language"
@@ -599,11 +703,11 @@ msgstr  "Lest neme-a is reqooured"
 msgid   "Last name must contain only alphanumeric characters"
 msgstr  "Lest neme-a moost cunteeen oonly elphunoomereec cherecters"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 112
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 127
 msgid   "Learn more..."
 msgstr  "Leern mure-a..."
 #
-# File: views/layout.php, line: 127
+# File: views/layout.php, line: 129
 msgid   "Legal Notices"
 msgstr  "Legel Nuteeces"
 #
@@ -611,7 +715,7 @@ msgstr  "Legel Nuteeces"
 msgid   "Linux"
 msgstr  "Leenoox"
 #
-# File: views/repacks/edit/bookmarks.php, line: 78
+# File: views/repacks/edit/bookmarks.php, line: 96
 msgid   "Livemark"
 msgstr  "Leefemerk"
 #
@@ -621,13 +725,21 @@ msgstr  "Leefemerk"
 msgid   "Locales"
 msgstr  "Luceles"
 #
-# File: views/layout.php, line: 67
+# File: views/layout.php, line: 69
 msgid   "Log in"
 msgstr  "Lug in"
 #
-# File: views/layout.php, line: 79
+# File: views/auth_profiles/login.php, line: 17
+msgid   "Log into your account"
+msgstr  "Lug intu yuoor eccuoont"
+#
+# File: views/layout.php, line: 81
 msgid   "Log out"
 msgstr  "Lug oooot"
+#
+# File: views/auth_profiles/login.php, line: 53
+msgid   "Login"
+msgstr  "Lugeen"
 #
 # File: i18n/en_US/form_errors_auth.php, line: 18
 msgid   "Login name is not available."
@@ -662,7 +774,7 @@ msgstr  "Mec OoS X"
 msgid   "Make Firefox Yours"
 msgstr  "Meke-a Fureffux Yuoors"
 #
-# File: views/layout.php, line: 77
+# File: views/layout.php, line: 79
 msgid   "Manage"
 msgstr  "Munege"
 #
@@ -671,9 +783,26 @@ msgstr  "Munege"
 msgid   "Modified"
 msgstr  "Mudeeffied"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 224
+# File: views/repacks/firstrun.php, line: 195
+# File: views/repacks/firstrun.php, line: 201
+msgid   "More Ways to Personalize"
+msgstr  "Mure-a Veys tu Persuneleeze"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 259
 msgid   "More info"
 msgstr  "Mure-a inffu"
+#
+# File: views/repacks/firstrun.php, line: 114
+msgid   "More ways to personalize"
+msgstr  "Mure-a veys tu persuneleeze"
+#
+# File: views/repacks/firstrun.php, line: 123
+msgid   "Morning Coffee"
+msgstr  "Murneeng Cuffffee"
+#
+# File: views/repacks/firstrun.php, line: 122
+msgid   "Morning Coffee icon"
+msgstr  "Murneeng Cuffffee-a icun"
 #
 # File: views/repacks/edit/general.php, line: 2
 #, php-format
@@ -691,15 +820,15 @@ msgstr  "Must ooff zee meta deta ebuoot yuoor coostumeezed ferseeun ooff "
         "g. oon a vebseete-a, blug pust, cummooneeqooe-a, itc.), yuoo shuoold "
         "use-a zee neme-a \"<em>%1$s</em>\"."
 #
-# File: models/repack.php, line: 1158
-# File: models/repack.php, line: 1160
-# File: models/repack.php, line: 1163
+# File: models/repack.php, line: 1178
+# File: models/repack.php, line: 1180
+# File: models/repack.php, line: 1183
 #, php-format
 msgid   "Mozilla Firefox for %1$s"
 msgstr  "Muzeella Fureffux fur %1$s"
 #
 #. i18n: %1$s = organization name; %2$s = browser's short title
-# File: models/repack.php, line: 1167
+# File: models/repack.php, line: 1187
 #, php-format
 msgid   "Mozilla Firefox for %1$s (%2$s)"
 msgstr  "Muzeella Fureffux fur %1$s (%2$s)"
@@ -754,7 +883,7 @@ msgstr  "Muzeelle's Booeeld Yuoor Oovn Brooser (BYOB) eppleeceshun generetes "
         "useeng BYOB und/oor deestribooting zee instellers genereted by BYOB, "
         "yuoo understund und egree-a tu thees."
 #
-# File: views/layout.php, line: 69
+# File: views/layout.php, line: 71
 msgid   "My profile"
 msgstr  "My pruffeele"
 #
@@ -766,9 +895,25 @@ msgstr  "Neme"
 msgid   "Name is required."
 msgstr  "Neme-a is reqooured."
 #
-# File: repacks/edit/bookmarks-ui.js, line: 586
+# File: views/auth_profiles/login.php, line: 51
+msgid   "Need an account?"
+msgstr  "Need un eccuoont?"
+#
+# File: views/repacks/firstrun.php, line: 159
+msgid   "Need help?"
+msgstr  "Need help?"
+#
+# File: repacks/edit/bookmarks-ui.js, line: 674
 msgid   "New Folder"
 msgstr  "Noo Fulder"
+#
+# File: views/repacks/firstrun.php, line: 211
+msgid   "New Thunderbird 3"
+msgstr  "Noo Thoonderburd 3"
+#
+# File: views/auth_profiles/changeemail.php, line: 10
+msgid   "New email address"
+msgstr  "Noo imeeel eddress"
 #
 # File: i18n/en_US/form_errors_auth.php, line: 98
 msgid   "New password confirmation required"
@@ -786,7 +931,7 @@ msgstr  "Next Step &nbsp;&reqoou;"
 msgid   "No"
 msgstr  "Nu"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 168
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 203
 msgid   "No Persona"
 msgstr  "Nu Persuna"
 #
@@ -821,7 +966,7 @@ msgstr  "Nune-a."
 msgid   "Not an OpenSearchDescription document"
 msgstr  "Nut un OopenSeerchDescreepshun ducooment"
 #
-# File: views/repacks/edit/bookmarks.php, line: 56
+# File: views/repacks/edit/bookmarks.php, line: 76
 msgid   "Notes:"
 msgstr  "Nutes:"
 #
@@ -857,6 +1002,10 @@ msgstr  "Orguneezeshuns."
 msgid   "Overlay source:"
 msgstr  "Oferley suoorce-a:"
 #
+# File: views/auth_profiles/login.php, line: 67
+msgid   "Password"
+msgstr  "Pessvurd"
+#
 # File: i18n/en_US/form_errors_auth.php, line: 52
 # File: i18n/en_US/form_errors_auth.php, line: 100
 msgid   "Password and confirmation must match."
@@ -878,11 +1027,11 @@ msgstr  "Pessvurd is reqooured."
 msgid   "Password must be at least 6 characters long."
 msgstr  "Pessvurd moost be-a et leest 6 cherecters lung."
 #
-# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 45
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 49
 msgid   "Persona"
 msgstr  "Persuna"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 71
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 86
 msgid   "Personas"
 msgstr  "Persunes"
 #
@@ -890,7 +1039,7 @@ msgstr  "Persunes"
 msgid   "Phone number is required."
 msgstr  "Phune-a noomber is reqooured."
 #
-# File: models/repack.php, line: 125
+# File: models/repack.php, line: 126
 # File: views/repacks/edit/platforms.php, line: 7
 # File: views/repacks/edit/review.php, line: 25
 msgid   "Platforms"
@@ -906,7 +1055,7 @@ msgstr  "Pleese-a refeeoo yuoor coostumeezeshuns deteeeled beloo beffure-a "
 msgid   "Preview:"
 msgstr  "Prefeeoo:"
 #
-# File: views/layout.php, line: 126
+# File: views/layout.php, line: 128
 msgid   "Privacy Policy"
 msgstr  "Preefecy Puleecy"
 #
@@ -918,7 +1067,7 @@ msgstr  "Prublems in buukmerk items."
 msgid   "Problems:"
 msgstr  "Prublems:"
 #
-# File: views/layout.php, line: 71
+# File: views/layout.php, line: 73
 #, php-format
 msgid   "Queue (%1$s)"
 msgstr  "Qooeooe-a (%1$s)"
@@ -927,6 +1076,24 @@ msgstr  "Qooeooe-a (%1$s)"
 #, php-format
 msgid   "RDF Parser error: the file contained a duplicate element: %s"
 msgstr  "RDF Perser irrur: zee feele-a cunteeened a doopleecete-a ilement: %s"
+#
+# File: views/repacks/firstrun.php, line: 137
+# File: views/repacks/firstrun.php, line: 148
+msgid   "Rated 4 out of 5 stars"
+msgstr  "Reted 4 oooot ooff 5 sters"
+#
+# File: views/repacks/firstrun.php, line: 126
+# File: views/repacks/firstrun.php, line: 148
+msgid   "Rated 5 out of 5 stars"
+msgstr  "Reted 5 oooot ooff 5 sters"
+#
+# File: views/auth_profiles/login.php, line: 35
+msgid   "Re-send Account Activation Information"
+msgstr  "Re-a-send Eccuoont Ecteefeshun Inffurmeshun"
+#
+# File: views/repacks/firstrun.php, line: 182
+msgid   "Read our Blog"
+msgstr  "Reed oooor Blug"
 #
 # File: views/index/index.php, line: 202
 msgid   "Ready to start building a browser of your own?"
@@ -972,9 +1139,17 @@ msgstr  "Releese-a reqooested"
 msgid   "Release reverted"
 msgstr  "Releese-a referted"
 #
+# File: views/repacks/firstrun.php, line: 216
+msgid   "ReminderFox Firefox Add-on"
+msgstr  "RemeenderFux Fureffux Edd-oon"
+#
+# File: views/repacks/firstrun.php, line: 217
+msgid   "ReminderFox remembers things so that you don't have to!"
+msgstr  "RemeenderFux remembers theengs su thet yuoo dun't hefe-a tu!"
+#
 # File: modules/addon_management/views/addonmanagement/upload_extension.php, line: 63
-# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 76
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 59
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 85
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 74
 # File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 46
 # File: modules/locale_selection/views/repacks/edit/edit_locale_selection.php, line: 52
 msgid   "Remove"
@@ -1005,7 +1180,15 @@ msgstr  "Refeeoo und Booeeld"
 msgid   "Review requested"
 msgstr  "Refeeoo reqooested"
 #
-# File: views/repacks/edit/bookmarks.php, line: 107
+# File: views/repacks/firstrun.php, line: 222
+msgid   "Rock Your Firefox"
+msgstr  "Ruck Yuoor Fureffux"
+#
+# File: views/repacks/firstrun.php, line: 108
+msgid   "Roll over to try, click to apply"
+msgstr  "Rull oofer tu try, cleeck tu epply"
+#
+# File: views/repacks/edit/bookmarks.php, line: 134
 msgid   "Save"
 msgstr  "Sefe"
 #
@@ -1030,11 +1213,27 @@ msgstr  "Screee neme-a moost be-a betveee 3 und 64 cherecters in length"
 msgid   "Screen name must contain only alphanumeric characters"
 msgstr  "Screee neme-a moost cunteeen oonly elphunoomereec cherecters"
 #
-# File: views/layout.php, line: 92
+# File: views/repacks/firstrun.php, line: 146
+msgid   "Screengrab"
+msgstr  "Screengreb"
+#
+# File: views/repacks/firstrun.php, line: 145
+msgid   "Screengrab icon"
+msgstr  "Screengreb icun"
+#
+# File: views/repacks/firstrun.php, line: 147
+msgid   "Screengrab! saves webpages as images..."
+msgstr  "Screengreb! sefes vebpeges es imeges..."
+#
+# File: views/repacks/firstrun.php, line: 165
+msgid   "Search"
+msgstr  "Seerch"
+#
+# File: views/layout.php, line: 94
 msgid   "Search Browsers"
 msgstr  "Seerch Broosers"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 70
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 85
 msgid   "Search Engines"
 msgstr  "Seerch Ingeenes"
 #
@@ -1042,15 +1241,24 @@ msgstr  "Seerch Ingeenes"
 msgid   "Search Plugins"
 msgstr  "Seerch Ploogeens"
 #
-# File: modules/addon_management/controllers/addonmanagement.php, line: 138
+# File: views/repacks/firstrun.php, line: 161
+msgid   "Search our support pages for answers and advice about using Firefox."
+msgstr  "Seerch oooor sooppurt peges fur unsvers und edfeece-a ebuoot useeng "
+        "Fureffux."
+#
+# File: modules/addon_management/controllers/addonmanagement.php, line: 156
 msgid   "Search plugin upload could not be parsed"
 msgstr  "Seerch ploogeen uplued cuoold nut be-a persed"
 #
-# File: modules/addon_management/controllers/addonmanagement.php, line: 130
+# File: modules/addon_management/controllers/addonmanagement.php, line: 148
 msgid   "Search plugin upload must be of type text/xml"
 msgstr  "Seerch ploogeen uplued moost be-a ooff type-a text/xml"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 55
+# File: views/repacks/firstrun.php, line: 109
+msgid   "See all 60,000+"
+msgstr  "See-a ell 60,000+"
+#
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 70
 msgid   "Selected add-ons:"
 msgstr  "Selected edd-oons:"
 #
@@ -1070,17 +1278,25 @@ msgstr  "Shoo in poobleec leests"
 msgid   "Show this browser in public lists?"
 msgstr  "Shoo thees brooser in poobleec leests?"
 #
-# File: views/layout.php, line: 66
+# File: views/repacks/firstrun.php, line: 136
+msgid   "Shows a notification when a better price is available..."
+msgstr  "Shoos a nuteefficeshun vhee a better preece-a is efeeeleble-a..."
+#
+# File: views/layout.php, line: 68
 msgid   "Sign up"
 msgstr  "Seegn up"
 #
-# File: views/repacks/edit/bookmarks.php, line: 97
+# File: views/repacks/edit/bookmarks.php, line: 114
 msgid   "Site URL"
 msgstr  "Seete-a URL"
 #
 # File: views/index/index.php, line: 90
 msgid   "Social Groups."
 msgstr  "Suceeel Gruoops."
+#
+# File: views/auth_profiles/login.php, line: 23
+msgid   "Sorry, that login has been disabled."
+msgstr  "Surry, thet lugeen hes beee deesebled."
 #
 # File: views/forbidden.php, line: 1
 msgid   "Sorry, this action is not allowed."
@@ -1090,23 +1306,40 @@ msgstr  "Surry, thees ecshun is nut ellooed."
 msgid   "State is required."
 msgstr  "Stete-a is reqooured."
 #
+# File: views/repacks/firstrun.php, line: 177
+msgid   "Stay Connected"
+msgstr  "Stey Cunnected"
+#
 # File: i18n/en_US/form_errors_auth.php, line: 117
 msgid   "Street address is required."
 msgstr  "Street eddress is reqooured."
+#
+# File: views/repacks/firstrun.php, line: 206
+msgid   "StumbleUpon Firefox Add-on"
+msgstr  "StoombleOopun Fureffux Edd-oon"
 #
 # File: views/repacks/elements/actions.php, line: 23
 msgid   "Take down release"
 msgstr  "Teke-a doon releese"
 #
+# File: views/repacks/firstrun.php, line: 94
+#, php-format
+msgid   "Thanks for supporting <a href=\"http://www.mozilla.com/%1$s/about/"
+        "whatismozilla.html\">Mozilla's mission</a> of encouraging openness, "
+        "innovation and opportunity on the Web!"
+msgstr  "Thunks fur sooppurteeng <a href=\"http://www.mozilla.com/%1$s/about/"
+        "whatismozilla.html\">Muzeelle's meessiun</a> ooff incuooregeeng "
+        "oopenness, innufeshun und ooppurtooneety oon zee Veb!"
+#
 # File: i18n/en_US/form_errors_auth.php, line: 106
 msgid   "That email address is used by another login."
 msgstr  "Thet imeeel eddress is used by unuzeer lugeen."
 #
-# File: views/repacks/edit/bookmarks.php, line: 59
+# File: views/repacks/edit/bookmarks.php, line: 79
 msgid   "The Bookmark Menu has a limit of 5 items."
 msgstr  "Zee Buukmerk Menoo hes a leemit ooff 5 items."
 #
-# File: views/repacks/edit/bookmarks.php, line: 58
+# File: views/repacks/edit/bookmarks.php, line: 78
 msgid   "The Bookmark Toolbar has a limit of 3 items."
 msgstr  "Zee Buukmerk Tuulber hes a leemit ooff 3 items."
 #
@@ -1122,6 +1355,25 @@ msgstr  "Zee Teetle-a is a lebel thet is used fur identeeffying coostumeezed "
         "deefffferentiete-a betveee thuse-a booeelds.  Seemilerly, zee "
         "descreeptife-a text elloos yuoo tu prufeede-a a lengthy descreepshun "
         "ooff yuoor coostumeezeshuns."
+#
+# File: views/auth_profiles/login.php, line: 33
+msgid   "The account you are attempting to login with has not been activated. "
+        "In order to use BYOB, you must first activate your account by "
+        "following the instructions that were sent to the email address "
+        "associated with that account. If you did not receive this email, "
+        "please ensure any anti-spam methods will accept mail from byob-"
+        "notify-noreply@mozilla.com and use the \"Re-send Account Activation "
+        "Information\" button below. If you still do not receive the "
+        "activation information, please contact us."
+msgstr  "Zee eccuoont yuoo ere-a ettempteeng tu lugeen veet hes nut beee "
+        "ecteefeted. In oorder tu use-a BYOB, yuoo moost furst ecteefete-a "
+        "yuoor eccuoont by fullooeeng zee instroocshuns thet vere-a sent tu "
+        "zee imeeel eddress essuceeeted veet thet eccuoont. Iff yuoo deed nut "
+        "receeefe-a thees imeeel, pleese-a insoore-a uny untee-spem methuds "
+        "veell eccept meeel frum byub-nuteeffy-nureply@muzeella.cum und use-a "
+        "zee \"Re-a-send Eccuoont Ecteefeshun Inffurmeshun\" boottun beloo. "
+        "Iff yuoo steell du nut receeefe-a zee ecteefeshun inffurmeshun, "
+        "pleese-a cuntect us."
 #
 # File: views/repacks/release.php, line: 12
 msgid   "The installers must be distributed as-is as a stand-alone file, and "
@@ -1140,11 +1392,11 @@ msgid   "The program installers generated by BYOB and/or their contents may "
 msgstr  "Zee prugrem instellers genereted by BYOB und/oor zeeur cuntents mey "
         "nut be-a mudeeffied in uny vey"
 #
-# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 61
+# File: modules/addon_management/views/repacks/edit/review_addon_management.php, line: 65
 msgid   "Theme"
 msgstr  "Zeeme"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 72
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 87
 msgid   "Themes"
 msgstr  "Zeemes"
 #
@@ -1164,7 +1416,7 @@ msgstr  "Zeere-a ere-a a foo rooles regerdeeng deestribooshun ooff zee "
 msgid   "This video requires a browser with support for open video:"
 msgstr  "Thees feedeu reqooures a brooser veet sooppurt fur oopee feedeu:"
 #
-# File: views/repacks/edit/bookmarks.php, line: 81
+# File: views/repacks/edit/bookmarks.php, line: 110
 msgid   "Title"
 msgstr  "Teetle"
 #
@@ -1180,11 +1432,7 @@ msgstr  "Tuu muny ixtenseeuns selected (mexeemoom ooff 2)"
 msgid   "Too many search engines selected (maximum of 3)"
 msgstr  "Tuu muny seerch ingeenes selected (mexeemoom ooff 3)"
 #
-# File: views/repacks/edit/bookmarks.php, line: 76
-msgid   "Type"
-msgstr  "Type"
-#
-# File: views/repacks/edit/bookmarks.php, line: 85
+# File: views/repacks/edit/bookmarks.php, line: 111
 msgid   "URL"
 msgstr  "URL"
 #
@@ -1197,11 +1445,11 @@ msgid   "Under review"
 msgstr  "Under refeeoo"
 #
 # File: modules/addon_management/views/addonmanagement/upload_extension.php, line: 40
-# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 40
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 48
 msgid   "Upload"
 msgstr  "Uplued"
 #
-# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 35
+# File: modules/addon_management/views/addonmanagement/upload_searchplugin.php, line: 43
 msgid   "Upload a search engine plug-in:"
 msgstr  "Uplued a seerch ingeene-a ploog-in:"
 #
@@ -1209,9 +1457,13 @@ msgstr  "Uplued a seerch ingeene-a ploog-in:"
 msgid   "Upload an extension XPI file:"
 msgstr  "Uplued un ixtenseeun XPI feele-a:"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 200
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 235
 msgid   "Use the default theme"
 msgstr  "Use-a zee deffoolt zeeme"
+#
+# File: views/auth_profiles/login.php, line: 64
+msgid   "Username"
+msgstr  "Userneme"
 #
 # File: i18n/en_US/form_errors_auth.php, line: 84
 msgid   "Valid captcha response is required."
@@ -1243,6 +1495,18 @@ msgstr  "Feleed receptcha respunse-a reqooured."
 msgid   "Version"
 msgstr  "Ferseeun"
 #
+# File: views/repacks/firstrun.php, line: 224
+msgid   "View Featured Add-ons"
+msgstr  "Feeoo Feetoored Edd-oons"
+#
+# File: views/repacks/firstrun.php, line: 53
+msgid   "View recommended add-ons..."
+msgstr  "Feeoo recummended edd-oons..."
+#
+# File: views/repacks/firstrun.php, line: 168
+msgid   "Visit our Support website"
+msgstr  "Feesit oooor Sooppurt vebseete"
+#
 # File: views/index/index.php, line: 91
 msgid   "Want people to know what useful sources and sites are available for "
         "your running group, gaming clan, club, or other like-minded people? "
@@ -1267,7 +1531,11 @@ msgid   "We provide the tools for you to create your own browser with no "
 msgstr  "Ve-a prufeede-a zee tuuls fur yuoo tu creete-a yuoor oovn brooser "
         "veet nu defelupment, meeentenunce-a, oor husteeng custs."
 #
-# File: views/layout.php, line: 62
+# File: views/repacks/firstrun.php, line: 9
+msgid   "Welcome to Firefox"
+msgstr  "Velcume-a tu Fureffux"
+#
+# File: views/layout.php, line: 64
 #, php-format
 msgid   "Welcome, <span class=\"screen_name\">%1$s</span>"
 msgstr  "Velcume-a, <span class=\"screen_name\">%1$s</span>"
@@ -1293,7 +1561,7 @@ msgstr  "Vhu cun thees help?"
 msgid   "Windows"
 msgstr  "Veendoos"
 #
-# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 50
+# File: modules/addon_management/views/repacks/edit/edit_addon_management.php, line: 65
 msgid   "With BYOB, you can bundle many popular add-ons with your browser."
 msgstr  "Veet BYOB, yuoo cun boondle-a muny pupooler edd-oons veet yuoor "
         "brooser."
@@ -1364,11 +1632,11 @@ msgstr  "epprufe"
 msgid   "approve release"
 msgstr  "epprufe-a releese"
 #
-# File: views/layout.php, line: 57
+# File: views/layout.php, line: 59
 msgid   "build your own browser"
 msgstr  "booeeld yuoor oovn brooser"
 #
-# File: views/layout.php, line: 13
+# File: views/layout.php, line: 15
 #, php-format
 msgid   "build your own browser :: %1$s"
 msgstr  "booeeld yuoor oovn brooser :: %1$s"
@@ -1483,6 +1751,6 @@ msgstr  "seerch resoolts"
 msgid   "view :: %1$s"
 msgstr  "feeoo :: %1$s"
 #
-# File: views/repacks/edit/bookmarks.php, line: 46
+# File: views/repacks/edit/bookmarks.php, line: 66
 msgid   "x Delete Selected"
 msgstr  "x Delete-a Selected"

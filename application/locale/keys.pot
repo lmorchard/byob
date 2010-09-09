@@ -15,17 +15,17 @@ msgstr  ""
 msgid   "(eg: https://addons.mozilla.org/en-US/firefox/collection/social)"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:86
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:128
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:101
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:155
 #, php-format
 msgid   "(maximum of %1$s)"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:45
+#: views/repacks/edit/bookmarks.php:65
 msgid   "+ New Bookmark"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:44
+#: views/repacks/edit/bookmarks.php:64
 msgid   "+ New Folder"
 msgstr  ""
 
@@ -63,11 +63,11 @@ msgid   "<span class=\"first_line\"><strong>Create Your Browser</strong> "
         "span>"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:63
+#: views/repacks/edit/bookmarks.php:83
 msgid   "A folder may contain up to 10 items."
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:62
+#: views/repacks/edit/bookmarks.php:82
 msgid   "A folder must contain at least 1 item."
 msgstr  ""
 
@@ -113,12 +113,21 @@ msgstr  ""
 msgid   "Account settings"
 msgstr  ""
 
+#: views/repacks/firstrun.php:202
+msgid   "Adapt Firefox to the way you browse with 1,000s of free add-ons."
+msgstr  ""
+
 #: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:76
 msgid   "Add"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:14
+#: views/repacks/edit/bookmarks.php:23
 msgid   "Add and organize default bookmarks."
+msgstr  ""
+
+#: views/repacks/firstrun.php:128 views/repacks/firstrun.php:139
+#: views/repacks/firstrun.php:151
+msgid   "Add to Firefox"
 msgstr  ""
 
 #: views/index/index.php:69
@@ -127,6 +136,11 @@ msgstr  ""
 
 #: views/repacks/edit/collections.php:5
 msgid   "Add-ons Collection URL:"
+msgstr  ""
+
+#: views/repacks/firstrun.php:117
+msgid   "Add-ons are easy-to-install extras that help personalize your "
+        "Firefox. Here are a few of our favorites:"
 msgstr  ""
 
 #: modules/addon_management/libraries/Mozilla/BYOB/Editor/AddonManagement.php:31
@@ -138,7 +152,7 @@ msgstr  ""
 msgid   "Adhoc distribution.ini overlay"
 msgstr  ""
 
-#: views/layout.php:123
+#: views/layout.php:125
 msgid   "All rights reserved"
 msgstr  ""
 
@@ -177,24 +191,32 @@ msgid   "BYOB is currently available in %1$s locales. You can choose "
         "<strong>up to ten locales</strong> for your browser."
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:77
+#: views/repacks/firstrun.php:181
+msgid   "Become a Fan on Facebook"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:95
 msgid   "Bookmark"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:28
+#: views/repacks/edit/bookmarks.php:48
 msgid   "Bookmark Menu"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:22
+#: views/repacks/edit/bookmarks.php:42
 msgid   "Bookmark Toolbar"
 msgstr  ""
 
-#: models/repack.php:126 views/repacks/edit/review.php:43
+#: models/repack.php:127 views/repacks/edit/review.php:43
 msgid   "Bookmarks"
 msgstr  ""
 
-#: modules/addon_management/public/js/addon_management.js:84
+#: modules/addon_management/public/js/addon_management.js:131
 msgid   "Browse"
+msgstr  ""
+
+#: views/repacks/firstrun.php:154
+msgid   "Browse More Add-ons"
 msgstr  ""
 
 #: views/repacks/edit/general.php:8
@@ -233,7 +255,7 @@ msgstr  ""
 msgid   "By letting you show your stripes."
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:106
+#: views/auth_profiles/login.php:55 views/repacks/edit/bookmarks.php:133
 msgid   "Cancel"
 msgstr  ""
 
@@ -251,6 +273,11 @@ msgstr  ""
 
 #: views/repacks/elements/actions.php:21
 msgid   "Change details"
+msgstr  ""
+
+#: views/auth_profiles/changeemail.php:8
+#: views/auth_profiles/changeemail.php:11
+msgid   "Change email"
 msgstr  ""
 
 #: views/repacks/index.php:27
@@ -273,23 +300,35 @@ msgstr  ""
 msgid   "Changes this session:"
 msgstr  ""
 
+#: views/repacks/firstrun.php:196
+msgid   "Check out \"Recommended Addons\", bookmarked in your toolbar."
+msgstr  ""
+
 #: views/index/index.php:25
 msgid   "Check out our FAQ"
+msgstr  ""
+
+#: views/auth_profiles/changeemail.php:2
+msgid   "Check your inbox for a link to verify this new email address."
+msgstr  ""
+
+#: views/repacks/firstrun.php:100
+msgid   "Choose Your Persona"
 msgstr  ""
 
 #: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:60
 msgid   "Choose from these common locales:"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:162
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:197
 msgid   "Choose from these popular Personas:"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:85
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:100
 msgid   "Choose from these popular add-ons"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:127
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:154
 msgid   "Choose from these popular search engines"
 msgstr  ""
 
@@ -301,7 +340,7 @@ msgstr  ""
 msgid   "Collection URL:"
 msgstr  ""
 
-#: models/repack.php:127 views/repacks/edit/review.php:67
+#: models/repack.php:128 views/repacks/edit/review.php:67
 msgid   "Collections"
 msgstr  ""
 
@@ -319,7 +358,7 @@ msgid   "Complement your online presence with a customized version of "
         "need."
 msgstr  ""
 
-#: views/layout.php:128
+#: views/layout.php:130
 msgid   "Contact us"
 msgstr  ""
 
@@ -327,7 +366,7 @@ msgstr  ""
 msgid   "Continue editing"
 msgstr  ""
 
-#: views/layout.php:122
+#: views/layout.php:124
 msgid   "Copyright &copy; 2005 - 2010 Mozilla"
 msgstr  ""
 
@@ -354,8 +393,12 @@ msgstr  ""
 msgid   "Created by <a href=\"%1$s\">%2$s</a> on %3$s"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:61
+#: views/repacks/edit/bookmarks.php:81
 msgid   "Creation of sub-folders within folders is not supported."
+msgstr  ""
+
+#: views/auth_profiles/changeemail.php:9
+msgid   "Current email address"
 msgstr  ""
 
 #: views/repacks/elements/actions.php:89 views/repacks/elements/status.php:38
@@ -380,12 +423,20 @@ msgid   "Describe this customized browser further (optional, max length 1000 "
         "characters):"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:89
+#: views/repacks/edit/bookmarks.php:112
 msgid   "Description"
 msgstr  ""
 
 #: i18n/en_US/form_repacks_edit.php:18
 msgid   "Description must be no longer than 1000 characters"
+msgstr  ""
+
+#: views/repacks/firstrun.php:52
+msgid   "Did you know: Mozilla Firefox can be extended with add-ons."
+msgstr  ""
+
+#: views/repacks/firstrun.php:223
+msgid   "Discover new add-ons to brighten your day."
 msgstr  ""
 
 #: views/repacks/release.php:3
@@ -395,6 +446,10 @@ msgstr  ""
 #: views/repacks/elements/downloads.php:80
 #: views/repacks/elements/status.php:14 views/repacks/elements/status.php:19
 msgid   "Download"
+msgstr  ""
+
+#: views/repacks/firstrun.php:213
+msgid   "Download Thunderbird"
 msgstr  ""
 
 #: views/repacks/index.php:28
@@ -422,17 +477,33 @@ msgstr  ""
 msgid   "Enter all or part of a locale's name"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:157
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:192
 msgid   "Enter the URL of a Persona to include:"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:69
+#: views/repacks/firstrun.php:197 views/repacks/firstrun.php:203
+msgid   "Explore Add-ons"
+msgstr  ""
+
+#: views/repacks/firstrun.php:207
+msgid   "Explore the web like never before."
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:84
 #: modules/addon_management/views/repacks/edit/review_addon_management.php:10
 msgid   "Extensions"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:93
+#: views/repacks/firstrun.php:212
+msgid   "Fast, flexible, and secure email program"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:113
 msgid   "Feed URL"
+msgstr  ""
+
+#: views/repacks/firstrun.php:92
+msgid   "Firefox 3.6"
 msgstr  ""
 
 #: i18n/en_US/form_errors_auth.php:68
@@ -447,8 +518,12 @@ msgstr  ""
 msgid   "First-run page"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:60
+#: views/repacks/edit/bookmarks.php:80
 msgid   "Folders may be placed in either the Bookmark Toolbar or Menu."
+msgstr  ""
+
+#: views/repacks/firstrun.php:180
+msgid   "Follow us on Twitter"
 msgstr  ""
 
 #: views/repacks/elements/actions.php:66
@@ -463,6 +538,10 @@ msgstr  ""
 msgid   "Force build start state"
 msgstr  ""
 
+#: views/auth_profiles/login.php:50
+msgid   "Forgot your password?"
+msgstr  ""
+
 #: views/index/index.php:95
 msgid   "Friends and Family."
 msgstr  ""
@@ -471,7 +550,7 @@ msgstr  ""
 msgid   "From"
 msgstr  ""
 
-#: libraries/Mozilla/BYOB/EditorRegistry.php:49 models/repack.php:124
+#: libraries/Mozilla/BYOB/EditorRegistry.php:49 models/repack.php:125
 msgid   "General"
 msgstr  ""
 
@@ -523,6 +602,14 @@ msgstr  ""
 msgid   "In-progress changes to current release"
 msgstr  ""
 
+#: views/repacks/firstrun.php:218
+msgid   "Install ReminderFox Add-on"
+msgstr  ""
+
+#: views/repacks/firstrun.php:208
+msgid   "Install StumbleUpon Add-on"
+msgstr  ""
+
 #: i18n/en_US/form_repacks_edit.php:38
 msgid   "Invalid URL for addon collection"
 msgstr  ""
@@ -531,12 +618,24 @@ msgstr  ""
 msgid   "Invalid URL for persona selection"
 msgstr  ""
 
+#: views/repacks/firstrun.php:135
+msgid   "InvisibleHand"
+msgstr  ""
+
+#: views/repacks/firstrun.php:134
+msgid   "InvisibleHand icon"
+msgstr  ""
+
 #: views/index/index.php:71
 msgid   "It supports multiple languages and operating systems."
 msgstr  ""
 
 #: views/index/index.php:74
 msgid   "It's free to use and distribute."
+msgstr  ""
+
+#: views/repacks/firstrun.php:125
+msgid   "Keeps track of daily routine websites in tabs..."
 msgstr  ""
 
 #: views/repacks/elements/downloads.php:47
@@ -557,11 +656,11 @@ msgstr  ""
 msgid   "Last name must contain only alphanumeric characters"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:112
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:127
 msgid   "Learn more..."
 msgstr  ""
 
-#: views/layout.php:127
+#: views/layout.php:129
 msgid   "Legal Notices"
 msgstr  ""
 
@@ -569,7 +668,7 @@ msgstr  ""
 msgid   "Linux"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:78
+#: views/repacks/edit/bookmarks.php:96
 msgid   "Livemark"
 msgstr  ""
 
@@ -579,12 +678,20 @@ msgstr  ""
 msgid   "Locales"
 msgstr  ""
 
-#: views/layout.php:67
+#: views/layout.php:69
 msgid   "Log in"
 msgstr  ""
 
-#: views/layout.php:79
+#: views/auth_profiles/login.php:17
+msgid   "Log into your account"
+msgstr  ""
+
+#: views/layout.php:81
 msgid   "Log out"
+msgstr  ""
+
+#: views/auth_profiles/login.php:53
+msgid   "Login"
 msgstr  ""
 
 #: i18n/en_US/form_errors_auth.php:18
@@ -620,7 +727,7 @@ msgstr  ""
 msgid   "Make Firefox Yours"
 msgstr  ""
 
-#: views/layout.php:77
+#: views/layout.php:79
 msgid   "Manage"
 msgstr  ""
 
@@ -628,8 +735,24 @@ msgstr  ""
 msgid   "Modified"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:224
+#: views/repacks/firstrun.php:195 views/repacks/firstrun.php:201
+msgid   "More Ways to Personalize"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:259
 msgid   "More info"
+msgstr  ""
+
+#: views/repacks/firstrun.php:114
+msgid   "More ways to personalize"
+msgstr  ""
+
+#: views/repacks/firstrun.php:123
+msgid   "Morning Coffee"
+msgstr  ""
+
+#: views/repacks/firstrun.php:122
+msgid   "Morning Coffee icon"
 msgstr  ""
 
 #: views/repacks/edit/general.php:2
@@ -642,13 +765,13 @@ msgid   "Most of the meta data about your customized version of Firefox will "
         "etc.), you should use the name \"<em>%1$s</em>\"."
 msgstr  ""
 
-#: models/repack.php:1158 models/repack.php:1160 models/repack.php:1163
+#: models/repack.php:1178 models/repack.php:1180 models/repack.php:1183
 #, php-format
 msgid   "Mozilla Firefox for %1$s"
 msgstr  ""
 
 #. i18n: %1$s = organization name; %2$s = browser's short title
-#: models/repack.php:1167
+#: models/repack.php:1187
 #, php-format
 msgid   "Mozilla Firefox for %1$s (%2$s)"
 msgstr  ""
@@ -683,7 +806,7 @@ msgid   "Mozilla's Build Your Own Browser (BYOB) application generates "
         "generated by BYOB, you understand and agree to this."
 msgstr  ""
 
-#: views/layout.php:69
+#: views/layout.php:71
 msgid   "My profile"
 msgstr  ""
 
@@ -695,8 +818,24 @@ msgstr  ""
 msgid   "Name is required."
 msgstr  ""
 
-#: repacks/edit/bookmarks-ui.js:586
+#: views/auth_profiles/login.php:51
+msgid   "Need an account?"
+msgstr  ""
+
+#: views/repacks/firstrun.php:159
+msgid   "Need help?"
+msgstr  ""
+
+#: repacks/edit/bookmarks-ui.js:674
 msgid   "New Folder"
+msgstr  ""
+
+#: views/repacks/firstrun.php:211
+msgid   "New Thunderbird 3"
+msgstr  ""
+
+#: views/auth_profiles/changeemail.php:10
+msgid   "New email address"
 msgstr  ""
 
 #: i18n/en_US/form_errors_auth.php:98
@@ -715,7 +854,7 @@ msgstr  ""
 msgid   "No"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:168
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:203
 msgid   "No Persona"
 msgstr  ""
 
@@ -747,7 +886,7 @@ msgstr  ""
 msgid   "Not an OpenSearchDescription document"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:56
+#: views/repacks/edit/bookmarks.php:76
 msgid   "Notes:"
 msgstr  ""
 
@@ -783,6 +922,10 @@ msgstr  ""
 msgid   "Overlay source:"
 msgstr  ""
 
+#: views/auth_profiles/login.php:67
+msgid   "Password"
+msgstr  ""
+
 #: i18n/en_US/form_errors_auth.php:52 i18n/en_US/form_errors_auth.php:100
 msgid   "Password and confirmation must match."
 msgstr  ""
@@ -803,11 +946,11 @@ msgstr  ""
 msgid   "Password must be at least 6 characters long."
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/review_addon_management.php:45
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:49
 msgid   "Persona"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:71
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:86
 msgid   "Personas"
 msgstr  ""
 
@@ -815,7 +958,7 @@ msgstr  ""
 msgid   "Phone number is required."
 msgstr  ""
 
-#: models/repack.php:125 views/repacks/edit/platforms.php:7
+#: models/repack.php:126 views/repacks/edit/platforms.php:7
 #: views/repacks/edit/review.php:25
 msgid   "Platforms"
 msgstr  ""
@@ -829,7 +972,7 @@ msgstr  ""
 msgid   "Preview:"
 msgstr  ""
 
-#: views/layout.php:126
+#: views/layout.php:128
 msgid   "Privacy Policy"
 msgstr  ""
 
@@ -841,7 +984,7 @@ msgstr  ""
 msgid   "Problems:"
 msgstr  ""
 
-#: views/layout.php:71
+#: views/layout.php:73
 #, php-format
 msgid   "Queue (%1$s)"
 msgstr  ""
@@ -849,6 +992,22 @@ msgstr  ""
 #: modules/addon_management/vendor/RdfComponent.php:108
 #, php-format
 msgid   "RDF Parser error: the file contained a duplicate element: %s"
+msgstr  ""
+
+#: views/repacks/firstrun.php:137 views/repacks/firstrun.php:148
+msgid   "Rated 4 out of 5 stars"
+msgstr  ""
+
+#: views/repacks/firstrun.php:126 views/repacks/firstrun.php:148
+msgid   "Rated 5 out of 5 stars"
+msgstr  ""
+
+#: views/auth_profiles/login.php:35
+msgid   "Re-send Account Activation Information"
+msgstr  ""
+
+#: views/repacks/firstrun.php:182
+msgid   "Read our Blog"
 msgstr  ""
 
 #: views/index/index.php:202
@@ -891,9 +1050,17 @@ msgstr  ""
 msgid   "Release reverted"
 msgstr  ""
 
+#: views/repacks/firstrun.php:216
+msgid   "ReminderFox Firefox Add-on"
+msgstr  ""
+
+#: views/repacks/firstrun.php:217
+msgid   "ReminderFox remembers things so that you don't have to!"
+msgstr  ""
+
 #: modules/addon_management/views/addonmanagement/upload_extension.php:63
-#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:76
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:59
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:85
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:74
 #: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:46
 #: modules/locale_selection/views/repacks/edit/edit_locale_selection.php:52
 msgid   "Remove"
@@ -924,7 +1091,15 @@ msgstr  ""
 msgid   "Review requested"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:107
+#: views/repacks/firstrun.php:222
+msgid   "Rock Your Firefox"
+msgstr  ""
+
+#: views/repacks/firstrun.php:108
+msgid   "Roll over to try, click to apply"
+msgstr  ""
+
+#: views/repacks/edit/bookmarks.php:134
 msgid   "Save"
 msgstr  ""
 
@@ -948,11 +1123,27 @@ msgstr  ""
 msgid   "Screen name must contain only alphanumeric characters"
 msgstr  ""
 
-#: views/layout.php:92
+#: views/repacks/firstrun.php:146
+msgid   "Screengrab"
+msgstr  ""
+
+#: views/repacks/firstrun.php:145
+msgid   "Screengrab icon"
+msgstr  ""
+
+#: views/repacks/firstrun.php:147
+msgid   "Screengrab! saves webpages as images..."
+msgstr  ""
+
+#: views/repacks/firstrun.php:165
+msgid   "Search"
+msgstr  ""
+
+#: views/layout.php:94
 msgid   "Search Browsers"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:70
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:85
 msgid   "Search Engines"
 msgstr  ""
 
@@ -960,15 +1151,23 @@ msgstr  ""
 msgid   "Search Plugins"
 msgstr  ""
 
-#: modules/addon_management/controllers/addonmanagement.php:138
+#: views/repacks/firstrun.php:161
+msgid   "Search our support pages for answers and advice about using Firefox."
+msgstr  ""
+
+#: modules/addon_management/controllers/addonmanagement.php:156
 msgid   "Search plugin upload could not be parsed"
 msgstr  ""
 
-#: modules/addon_management/controllers/addonmanagement.php:130
+#: modules/addon_management/controllers/addonmanagement.php:148
 msgid   "Search plugin upload must be of type text/xml"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:55
+#: views/repacks/firstrun.php:109
+msgid   "See all 60,000+"
+msgstr  ""
+
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:70
 msgid   "Selected add-ons:"
 msgstr  ""
 
@@ -988,16 +1187,24 @@ msgstr  ""
 msgid   "Show this browser in public lists?"
 msgstr  ""
 
-#: views/layout.php:66
+#: views/repacks/firstrun.php:136
+msgid   "Shows a notification when a better price is available..."
+msgstr  ""
+
+#: views/layout.php:68
 msgid   "Sign up"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:97
+#: views/repacks/edit/bookmarks.php:114
 msgid   "Site URL"
 msgstr  ""
 
 #: views/index/index.php:90
 msgid   "Social Groups."
+msgstr  ""
+
+#: views/auth_profiles/login.php:23
+msgid   "Sorry, that login has been disabled."
 msgstr  ""
 
 #: views/forbidden.php:1
@@ -1008,23 +1215,38 @@ msgstr  ""
 msgid   "State is required."
 msgstr  ""
 
+#: views/repacks/firstrun.php:177
+msgid   "Stay Connected"
+msgstr  ""
+
 #: i18n/en_US/form_errors_auth.php:117
 msgid   "Street address is required."
+msgstr  ""
+
+#: views/repacks/firstrun.php:206
+msgid   "StumbleUpon Firefox Add-on"
 msgstr  ""
 
 #: views/repacks/elements/actions.php:23
 msgid   "Take down release"
 msgstr  ""
 
+#: views/repacks/firstrun.php:94
+#, php-format
+msgid   "Thanks for supporting <a href=\"http://www.mozilla.com/%1$s/about/"
+        "whatismozilla.html\">Mozilla's mission</a> of encouraging openness, "
+        "innovation and opportunity on the Web!"
+msgstr  ""
+
 #: i18n/en_US/form_errors_auth.php:106
 msgid   "That email address is used by another login."
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:59
+#: views/repacks/edit/bookmarks.php:79
 msgid   "The Bookmark Menu has a limit of 5 items."
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:58
+#: views/repacks/edit/bookmarks.php:78
 msgid   "The Bookmark Toolbar has a limit of 3 items."
 msgstr  ""
 
@@ -1034,6 +1256,17 @@ msgid   "The Title is a label that is used for identifying customized version "
         "customizations defined, it's intended to help differentiate between "
         "those builds.  Similarly, the descriptive text allows you to provide "
         "a lengthy description of your customizations."
+msgstr  ""
+
+#: views/auth_profiles/login.php:33
+msgid   "The account you are attempting to login with has not been activated. "
+        "In order to use BYOB, you must first activate your account by "
+        "following the instructions that were sent to the email address "
+        "associated with that account. If you did not receive this email, "
+        "please ensure any anti-spam methods will accept mail from byob-"
+        "notify-noreply@mozilla.com and use the \"Re-send Account Activation "
+        "Information\" button below. If you still do not receive the "
+        "activation information, please contact us."
 msgstr  ""
 
 #: views/repacks/release.php:12
@@ -1050,11 +1283,11 @@ msgid   "The program installers generated by BYOB and/or their contents may "
         "not be modified in any way"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/review_addon_management.php:61
+#: modules/addon_management/views/repacks/edit/review_addon_management.php:65
 msgid   "Theme"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:72
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:87
 msgid   "Themes"
 msgstr  ""
 
@@ -1070,7 +1303,7 @@ msgstr  ""
 msgid   "This video requires a browser with support for open video:"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:81
+#: views/repacks/edit/bookmarks.php:110
 msgid   "Title"
 msgstr  ""
 
@@ -1086,11 +1319,7 @@ msgstr  ""
 msgid   "Too many search engines selected (maximum of 3)"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:76
-msgid   "Type"
-msgstr  ""
-
-#: views/repacks/edit/bookmarks.php:85
+#: views/repacks/edit/bookmarks.php:111
 msgid   "URL"
 msgstr  ""
 
@@ -1103,11 +1332,11 @@ msgid   "Under review"
 msgstr  ""
 
 #: modules/addon_management/views/addonmanagement/upload_extension.php:40
-#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:40
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:48
 msgid   "Upload"
 msgstr  ""
 
-#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:35
+#: modules/addon_management/views/addonmanagement/upload_searchplugin.php:43
 msgid   "Upload a search engine plug-in:"
 msgstr  ""
 
@@ -1115,8 +1344,12 @@ msgstr  ""
 msgid   "Upload an extension XPI file:"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:200
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:235
 msgid   "Use the default theme"
+msgstr  ""
+
+#: views/auth_profiles/login.php:64
+msgid   "Username"
 msgstr  ""
 
 #: i18n/en_US/form_errors_auth.php:84
@@ -1147,6 +1380,18 @@ msgstr  ""
 msgid   "Version"
 msgstr  ""
 
+#: views/repacks/firstrun.php:224
+msgid   "View Featured Add-ons"
+msgstr  ""
+
+#: views/repacks/firstrun.php:53
+msgid   "View recommended add-ons..."
+msgstr  ""
+
+#: views/repacks/firstrun.php:168
+msgid   "Visit our Support website"
+msgstr  ""
+
 #: views/index/index.php:91
 msgid   "Want people to know what useful sources and sites are available for "
         "your running group, gaming clan, club, or other like-minded people? "
@@ -1165,7 +1410,11 @@ msgid   "We provide the tools for you to create your own browser with no "
         "development, maintenance, or hosting costs."
 msgstr  ""
 
-#: views/layout.php:62
+#: views/repacks/firstrun.php:9
+msgid   "Welcome to Firefox"
+msgstr  ""
+
+#: views/layout.php:64
 #, php-format
 msgid   "Welcome, <span class=\"screen_name\">%1$s</span>"
 msgstr  ""
@@ -1189,7 +1438,7 @@ msgstr  ""
 msgid   "Windows"
 msgstr  ""
 
-#: modules/addon_management/views/repacks/edit/edit_addon_management.php:50
+#: modules/addon_management/views/repacks/edit/edit_addon_management.php:65
 msgid   "With BYOB, you can bundle many popular add-ons with your browser."
 msgstr  ""
 
@@ -1249,11 +1498,11 @@ msgstr  ""
 msgid   "approve release"
 msgstr  ""
 
-#: views/layout.php:57
+#: views/layout.php:59
 msgid   "build your own browser"
 msgstr  ""
 
-#: views/layout.php:13
+#: views/layout.php:15
 #, php-format
 msgid   "build your own browser :: %1$s"
 msgstr  ""
@@ -1363,6 +1612,6 @@ msgstr  ""
 msgid   "view :: %1$s"
 msgstr  ""
 
-#: views/repacks/edit/bookmarks.php:46
+#: views/repacks/edit/bookmarks.php:66
 msgid   "x Delete Selected"
 msgstr  ""
