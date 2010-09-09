@@ -46,6 +46,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.updateFolders();
             $this.selectFolder($this.editor_id + '-toolbar');
             $this.updateBookmarksJSON();
+            $this.highlightLocaleTabsWithContent();
         },
 
         /**
@@ -58,26 +59,21 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
 
             $this.model.locales = data.locales;
             $this.model.default_locale = data.default_locale;
-            $this.selected_locale = data.default_locale;
 
-            var menu_items = ( bookmarks_data && bookmarks_data.menu && 
-                bookmarks_data.menu.items ) ?  bookmarks_data.menu.items : [];
-            $this.model.add({
+            $this.model.add($.extend(bookmarks_data.menu || {}, {
                 type:  'menu',
                 id:    'editor1-menu',
-                title: 'Bookmarks Menu',
-                items: menu_items
-            });
+                title: _('Bookmarks Menu')
+            }));
 
-            var toolbar_items = ( bookmarks_data && bookmarks_data.toolbar &&
-                bookmarks_data.toolbar.items ) ? bookmarks_data.toolbar.items : 
-                [];
-            $this.model.add({
+            $this.model.add($.extend(bookmarks_data.toolbar || {}, {
                 type:  'toolbar',
                 id:    'editor1-toolbar',
-                title: 'Bookmarks Toolbar',
-                items: toolbar_items
-            });
+                title: _('Bookmarks Toolbar')
+            }));
+
+            $this.model.selectLocale(data.default_locale);
+            $this.selected_locale = data.default_locale;
 
             if ($this.is_ready) { $this.refresh(); }
         },
@@ -127,7 +123,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                         '@class': 'folder ' +
                             ( (!!item.errors) ? ' has_errors' : '' ),
                         '.title': item.get('title', $this.selected_locale, true),
-                        '.count': ''+item.items.length
+                        '.count': ''+item.get('items').length
                     }).appendTo(par_el);
                 });
 
@@ -144,7 +140,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                 tmpl_el    = $this.editor.find('.bookmark.template');
 
             if (null === items) {
-                items = $this.selected_folder.items;
+                items = $this.selected_folder.get('items');
             }
 
             bm_root_el.find('li:not(.template)').remove();
@@ -189,6 +185,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $this.updateFolders();
             $this.selectFolder();
             $this.updateBookmarksJSON();
+            $this.highlightLocaleTabsWithContent();
         },
 
         /**
@@ -212,7 +209,25 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $('.locale-selector li a[data-locale='+new_locale+']')
                 .parent().addClass('selected');
             $this.selected_locale = new_locale;
+            $this.model.selectLocale(new_locale);
+            $this.selectFolder($this.editor_id + '-toolbar');
             $this.refresh();
+        },
+
+        /**
+         * Run through the model and highlight the locale tabs that have content.
+         */
+        highlightLocaleTabsWithContent: function () {
+            $.each($this.model.locales, function (idx, locale) {
+                var suff = (locale == $this.model.default_locale) ? '' : '.' + locale,
+                    item = $('.bookmarks-editor .locale-selector a[data-locale="'+locale+'"]');
+                var has_content = false;
+                $.each(['toolbar','menu'], function (idx, name) {
+                    var items = $this.model.items['editor1-'+name]['items'+suff];
+                    if (items && items.length > 0) { has_content = true; }
+                });
+                item.parent()[has_content ? 'addClass' : 'removeClass']('has_content');
+            });
         },
 
         /**
@@ -460,7 +475,7 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
             $('#' + (folder.parent ? 'fl-' : '') + folder.id).addClass('selected');
 
             // Update the bookmarks pane from this folder.
-            $this.updateBookmarks(folder.items);
+            $this.updateBookmarks(folder.get('items'));
         },
 
         /**
@@ -522,6 +537,12 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
 
             var item_type = (item) ? item.get('type') : 'bookmark';
 
+            if ($this.model.default_locale == $this.selected_locale) {
+                bm_editor.find('.field_locale').show();
+            } else {
+                bm_editor.find('.field_locale').hide();
+            }
+
             bm_editor
                 .css({ 
                     left: pos.left - 24, 
@@ -556,7 +577,9 @@ BYOB_Repacks_Edit_Bookmarks_UI = (function () {
                         var l_name = name+'.'+locale,
                             value  = item.get(name, locale) || defaults[name];
                         bm_editor.find('input[name='+l_name+']')
-                            .val(value).attr('data-original', value);
+                            .attr('data-original', value);
+                        bm_editor.find('input[name='+l_name+']')
+                            .val(value);
                     });
                 });
 

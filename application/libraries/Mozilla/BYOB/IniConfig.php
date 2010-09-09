@@ -137,4 +137,45 @@ class Mozilla_BYOB_IniConfig extends Zend_Config_Ini
         return $return;
     }
 
+    /**
+     * Assign the key's value to the property list. Handles the
+     * nest separator for sub-properties.
+     *
+     * @param  array  $config
+     * @param  string $key
+     * @param  string $value
+     * @throws Zend_Config_Exception
+     * @return array
+     */
+    protected function _processKey($config, $key, $value)
+    {
+        if (strpos($key, $this->_nestSeparator) !== false) {
+            $pieces = explode($this->_nestSeparator, $key, 2);
+            if (strlen($pieces[0]) && strlen($pieces[1])) {
+                if (!isset($config[$pieces[0]])) {
+                    if ($pieces[0] === '0' && !empty($config)) {
+                        // convert the current values in $config into an array
+                        $config = array($pieces[0] => $config);
+                    } else {
+                        $config[$pieces[0]] = array();
+                    }
+                } elseif (!is_array($config[$pieces[0]])) {
+                    // HACK: Support both value and subkeys for a key.
+                    $orig_val = $config[$pieces[0]];
+                    $config[$pieces[0]] = array( '__value__' => $orig_val );
+                }
+                $config[$pieces[0]] = $this->_processKey($config[$pieces[0]], $pieces[1], $value);
+            } else {
+                /**
+                 * @see Zend_Config_Exception
+                 */
+                require_once 'Zend/Config/Exception.php';
+                throw new Zend_Config_Exception("Invalid key '$key'");
+            }
+        } else {
+            $config[$key] = $value;
+        }
+        return $config;
+    }
+
 }

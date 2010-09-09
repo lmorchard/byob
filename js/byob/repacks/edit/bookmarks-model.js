@@ -20,6 +20,7 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         // Locales supplied by the page.
         locales: [ 'en-US' ],
         default_locale: 'en-US',
+        selected_locale: 'en-US',
 
         // Map of items by ID.
         items: {},
@@ -37,6 +38,22 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             'folder':   'Folder',
             'toolbar':  'ToolbarFolder',
             'menu':     'MenuFolder'
+        },
+
+        /**
+         * Select a current locale.
+         */
+        selectLocale: function (new_locale) {
+            if (this.locales.indexOf(new_locale) == -1) { return; }
+            this.selected_locale = new_locale;
+        },
+
+        /**
+         * Select a current locale.
+         */
+        selectLocale: function (new_locale) {
+            if (this.locales.indexOf(new_locale) == -1) { return; }
+            this.selected_locale = new_locale;
         },
 
         /**
@@ -144,7 +161,7 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             if ('function' == typeof this['set_'+k]) {
                 return this['set_'+k](v,locale);
             }
-            if (!locale || locale==this.model.default_locale) {
+            if (!locale || locale==this.model.selected_locale) {
                 this[k] = v;
                 return this[k];
             } else {
@@ -163,7 +180,7 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             if ('function' == typeof this['get_'+k]) {
                 return this['get_'+k](locale);
             }
-            if (!locale || locale==this.model.default_locale) {
+            if (!locale || locale==this.model.selected_locale) {
                 return this[k]; 
             } else {
                 var value = this[k+'.'+locale];
@@ -325,7 +342,7 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         },
 
         isFull: function () {
-            return this.items.length >= 10;
+            return this.get('items').length >= 10;
         },
 
         set_items: function (items) {
@@ -339,9 +356,10 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         },
 
         remove: function (item) {
-            var idx = this.items.indexOf(item);
+            var items = this.get('items');
+            var idx = items.indexOf(item);
             item.parent = null;
-            return this.items.splice(idx, 1);
+            return items.splice(idx, 1);
         },
 
         add: function (item, idx) {
@@ -350,12 +368,13 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
             var obj = item instanceof $this.Item ?
                 item : this.model.add(item);
             obj.parent = this;
+            var items = this.get('items');
             if (0 === idx) {
-                this.items.unshift(obj);
+                items.unshift(obj);
             } else if (idx > 0) {
-                this.items.splice(idx, 0, obj);
+                items.splice(idx, 0, obj);
             } else {
-                this.items.push(obj);
+                items.push(obj);
             }
             return obj;
         },
@@ -363,20 +382,22 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
         replace: function (old_item, new_item) {
             var old_idx = this.indexOf(old_item);
             if (-1 !== old_idx) {
+                var items = this.get('items');
                 new_item.parent = this;
-                this.items[old_idx] = new_item;
+                items[old_idx] = new_item;
                 this.model.remove(old_item);
             }
         },
 
         indexOf: function (item) {
-            return this.items.indexOf(item);
+            return this.get('items').indexOf(item);
         },
 
         extract: function () {
             var out = this._super(), 
-                items_out = [];
-            for (var i=0, item; item = this.items[i]; i++) {
+                items_out = [],
+                items = this.get('items');
+            for (var i=0, item; item = items[i]; i++) {
                 items_out.push(item.extract());
             }
             out.items = items_out;
@@ -430,15 +451,61 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
     });
 
     /**
+     * Folder type that can contain independent item sets per locale.
+     * (Mainly for the toolbar and menu root folders)
+     */
+    $this.LocalizableFolder = $this.Folder.extend({
+        get_items: function (locale) { 
+            var m = this.model,
+                key = ( m.selected_locale == m.default_locale ) ?
+                    'items' : 'items.' + this.model.selected_locale;
+            if (!this[key]) { this[key] = []; }
+            return this[key];
+        },
+        set: function (k, v, locale) {
+            if (k.indexOf('items.') === 0) {
+                var locale = k.substr('items.'.length),
+                    items = v;
+                this[k] = [];
+                for (var i=0, item; item = items[i]; i++) {
+                    var obj = item instanceof $this.Item ?
+                        item : this.model.add(item);
+                    this[k].push(obj);
+                    obj.parent = this;
+                }
+                return this[k];
+            } else {
+                return this._super(k, v, locale);
+            }
+        },
+        extract: function () {
+            var self = this, 
+                out = self._super();
+            $.each(self.model.locales, function (idx, locale) {
+                var key = ( locale == self.model.default_locale ) ?
+                        'items' : 'items.' + locale,
+                    items_out = [],
+                    items_in = self[key];
+                if (!items_in) { return; }
+                for (var i=0,item; item = items_in[i]; i++) {
+                    items_out.push(item.extract());
+                }
+                out[key] = items_out;
+            });
+            return out;
+        },
+    });
+
+    /**
      * Toolbar bookmarks folder
      */
-    $this.ToolbarFolder = $this.Folder.extend({
+    $this.ToolbarFolder = $this.LocalizableFolder.extend({
         get_type: function () { return 'toolbar'; },
         allowsSubFolders: function () {
             return true;
         },
         isFull: function () {
-            return this.items.length >= 3;
+            return this.get('items').length >= 3;
         },
         EOF:null
     });
@@ -446,13 +513,13 @@ BYOB_Repacks_Edit_Bookmarks_Model = (function () {
     /**
      * Menu bookmarks folder
      */
-    $this.MenuFolder = $this.Folder.extend({
+    $this.MenuFolder = $this.LocalizableFolder.extend({
         get_type: function () { return 'menu'; },
         allowsSubFolders: function () {
             return true;
         },
         isFull: function () {
-            return this.items.length >= 5;
+            return this.get('items').length >= 5;
         },
         EOF:null
     });

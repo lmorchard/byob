@@ -27,8 +27,13 @@
             <?php $none = false; ?>
             <li class="subsection">
                 <h4><?=_('Search Plugins')?></h4>
-                <ul><?php foreach ($search_plugins as $locale=>$plugins): ?>
-                    <li><span class="locale_name"><?=html::specialchars(locale_selection::$locale_details->getEnglishNameForLocale($locale))?></span>
+                <ul>
+                    <?php foreach ($repack->getLocalesWithLabels() as $locale=>$locale_name): ?>
+                    <?php
+                        if (empty($search_plugins[$locale])) continue;
+                        $plugins = $search_plugins[$locale];
+                    ?>
+                    <li><span class="locale_name"><?=$locale_name?></span>
                         <ul><?php foreach ($plugins as $fn=>$plugin): ?>
                             <?php
                                 $e = html::escape_array(array(

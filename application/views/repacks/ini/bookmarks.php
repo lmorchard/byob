@@ -8,6 +8,7 @@
     'idx' => $idx+1, 
     'bookmark' => $bookmark,
     'repack' => $repack,
+    'locale' => $locale,
 ))->render(TRUE); ?>
 <?php
     if ('folder' == $bookmark['type'] && !empty($bookmark['items'])) {
@@ -15,6 +16,7 @@
             'set_id' => "Folder-{$bookmark['id']}",
             'bookmarks' => $bookmark['items'],
             'repack' => $repack,
+            'locale' => $locale,
         ))->render(FALSE);
     }
 ?>

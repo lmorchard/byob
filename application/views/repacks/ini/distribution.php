@@ -33,11 +33,16 @@ if (!empty($r->addons_collection_url)) {
 <?php foreach (array('menu', 'toolbar') as $kind): ?>
 <?php if (!empty($bookmarks[$kind]) && !empty($bookmarks[$kind]['items'])): ?>
 <?php 
-    View::factory('repacks/ini/bookmarks', array(
-        'set_id' => ucfirst($kind), 
-        'bookmarks' => $bookmarks[$kind]['items'],
-        'repack' => $repack,
-    ))->render(TRUE); 
+    foreach ($r->locales as $locale) {
+        $locale_suff = ($locale == $r->default_locale) ? '' : '.'.$locale;
+        if (empty($bookmarks[$kind]['items'.$locale_suff])) { continue; }
+        View::factory('repacks/ini/bookmarks', array(
+            'set_id' => ucfirst($kind), 
+            'bookmarks' => $bookmarks[$kind]['items'.$locale_suff],
+            'repack' => $repack,
+            'locale' => $locale,
+        ))->render(TRUE); 
+    }
 ?>
 <?php endif ?>
 <?php endforeach ?>

@@ -27,11 +27,10 @@
         <?php if ($has_locales): ?>
             <div class="locale-selector">
                 <ul class="locales clearfix">
+                    <li class="selected default"><a href="#" data-locale="<?=$default_locale?>" title="<?=$default_locale?>"><?=_('Default')?></a></li>
                     <?php foreach ($repack->locales as $locale): ?>
-                        <?php $selected = ( $locale == $default_locale ) ?>
-                        <li class="<?= $selected ? 'selected' : '' ?>">
-                            <a href="#" data-locale="<?=$locale?>"><?=$locale?></a>
-                        </li>
+                        <?php if ($default_locale==$locale) { continue; } ?>
+                        <li><a href="#" data-locale="<?=$locale?>"><?=$locale?></a></li>
                     <?php endforeach ?>
                 </ul>
             </div>
@@ -98,9 +97,11 @@
                 <?php if ($has_locales): ?>
                 <li class="field_locale">
                     <div class="locale_buttons">
+                        <button class="locale locale-<?=$default_locale?> locale-default selected" 
+                            data-locale="<?=$default_locale?>"><?=_('Default')?></button>
                     <?php foreach ($repack->locales as $locale): ?>
-                        <?php $selected = ( $locale == $default_locale ) ?>
-                        <button class="locale locale-<?=$locale?> <?= $selected ? 'selected' : '' ?>" 
+                        <?php if ( $locale == $default_locale ) { continue; } ?>
+                        <button class="locale locale-<?=$locale?>" 
                             data-locale="<?=$locale?>"><?=$locale?></button>
                     <?php endforeach ?>
                     </div>

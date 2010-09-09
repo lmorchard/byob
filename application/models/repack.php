@@ -208,6 +208,35 @@ class Repack_Model extends ManagedORM
         return $assets_dir;
     }
 
+    /**
+     * Return the current default locale, which itself defaults to en-US if not 
+     * set.
+     */
+    public function getDefaultLocale()
+    {
+        return empty($this->default_locale) ? 
+            'en-US' : $this->default_locale;
+    }
+
+    /**
+     * Return a list of locales for this repack, each associated with a display 
+     * label.
+     */
+    public function getLocalesWithLabels()
+    {
+        $default_locale = $this->getDefaultLocale();
+        $locales = array(
+            // i18n: %1$s = default locale
+            $default_locale => sprintf(_('Default (%1$s)'), $default_locale),
+        );
+        foreach ($this->locales as $locale) {
+            if ($default_locale == $locale) continue;
+            $locales[$locale] =
+                locale_selection::$locale_details->getEnglishNameForLocale($locale);
+        }
+       return $locales; 
+    }
+
 
     /**
      * Extract bookmarks from form data.
@@ -320,7 +349,12 @@ class Repack_Model extends ManagedORM
                 false : $errors;
 
             // Push the current item into the list.
-            $items_out[] = $item_out;
+            $cleaned_item_out = array();
+            foreach ($item_out as $key=>$val) {
+                if (!$val) continue;
+                $cleaned_item_out[$key] = $val;
+            }
+            $items_out[] = $cleaned_item_out;
         }
         $item['items'] = $items_out;
 

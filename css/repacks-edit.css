@@ -274,20 +274,32 @@
 .ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark {
     list-style: none;
     margin: 0 0 0 0;
-    padding: 4px 0 0.25em 22px;
+    padding: 0px 0 0.5em 22px;
     background: transparent url(../img/bookmark-icons/item.png) no-repeat top left;
 }
 .ctrl_repacks_act_edit .popup #content .sections li.bookmarks h4 {
     font-size: 100%;
     padding: 0 0 0.25em 0;
 }
-.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark a.location,
-.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark a.feed,
-.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark .description {
-    font-size: 90%;
-    color: #666;
+.ctrl_repacks_act_edit .popup #content .sections li span.locale_name {
+    font-weight: bold;
     display: block;
-    font-style: italic;
+    padding-bottom: 0.5em;
+}
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark table tr.field th {
+    font-size: 75%;
+    font-weight: normal;
+    text-align: left;
+    padding-right: 0.5em;
+    padding-top: 0.25em;
+    padding-bottom: 0.25em;
+    color: #999;
+}
+.ctrl_repacks_act_edit .popup #content .sections li.bookmarks .bookmark table tr.field td {
+    font-size: 80%;
+    font-weight: normal;
+    text-align: left;
+    color: #666;
 }
 .ctrl_repacks_act_edit .popup #content .sections li.bookmarks .menu {
 }
@@ -331,8 +343,11 @@
     width: 8ex;
     font-size: 1em;
     text-align: center;
-    background: #DFE4EC;
-    color: #333333;
+    /*background: #DFE4EC;*/
+    color: #aaa;
+    border-top: 1px solid #DFE4EC;
+    border-left: 1px solid #DFE4EC;
+    border-right: 1px solid #DFE4EC;
 
     -webkit-border-top-left-radius: 10px;
     -moz-border-radius-topleft: 10px;
@@ -342,6 +357,14 @@
     border-top-right-radius: 10px;
 
 }
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li.has_content a {
+    background: #DFE4EC;
+    color: #333333;
+}
+.section-bookmarks .bookmarks-editor .locale-selector ul.locales li.default a {
+    width: 10ex;
+    background: #DFE4EC;
+}
 .section-bookmarks .bookmarks-editor .locale-selector ul.locales li a:hover {
     text-decoration: none;
     background-color: #666;
@@ -350,7 +373,6 @@
 .section-bookmarks .bookmarks-editor .locale-selector ul.locales li.selected a {
     background-color: #7B86A8;
     color: #FFFFFF;
-    font-weight: bold;
 }
 .section-bookmarks .notes li {
     line-height: 1.75em;
@@ -535,7 +557,7 @@
     border-radius: 10px;
     -moz-border-radius: 10px;
     -webkit-border-radius: 10px;
-    width: 475px;
+    width: 495px;
     font-size: 0.85em;
     display: none;
     position: absolute;
@@ -662,6 +684,9 @@
     background: #ccc;
     color: #333;
 }
+.ctrl_repacks_act_edit #bookmark_editor .field_locale button.locale-default {
+    width: 9.25ex;
+}
 .ctrl_repacks_act_edit #bookmark_editor .field_locale button.selected {
     background: transparent;    
     color: #fff;
@@ -681,5 +706,3 @@
 .ctrl_repacks_act_edit .instructions ul.notes li {
     list-style: disc;
 }
-
-

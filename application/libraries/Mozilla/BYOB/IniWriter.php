@@ -81,6 +81,11 @@ class Mozilla_BYOB_IniWriter extends Zend_Config_Writer_Ini
                 $iniString .= $this->_addBranch($value, $group);
             } else {
                 $this->_current_name = implode($this->_nestSeparator, $group);
+                if (strpos($this->_current_name, '.__value__')) {
+                    $this->_current_name = str_replace(
+                        '.__value__', '', $this->_current_name
+                    );
+                }
                 $iniString .= $this->_current_name 
                            .  '=' 
                            .  $this->_prepareValue($value)

@@ -1,6 +1,8 @@
 <?php slot::set('is_popup', 'true') ?>
 <?php
 $edit_base = $repack->url() . ';edit?section=';
+$default_locale = empty($repack->default_locale) ? 
+    'en-US' : $repack->default_locale;
 ?>
 <div class="part" id="part1">
     <div class="header">
@@ -41,21 +43,36 @@ $edit_base = $repack->url() . ';edit?section=';
 
             <li class="section bookmarks clearfix">
                 <h3><?=_('Bookmarks')?> <a target="_top" href="<?=$edit_base?>bookmarks"><?=_('edit')?></a></h3>
+                <?php
+                    $bookmarks = $repack->bookmarks; 
+                    $none = true;
+                ?>
                 <ul>
-                    <?php 
-                        $bookmarks = $repack->bookmarks; 
-                        $none = true;
-                    ?>
-                    <?php foreach (array('toolbar', 'menu') as $kind): ?>
-                        <?php if (!empty($bookmarks[$kind])): ?>
-                            <?php 
-                                $none = false;
-                                $bookmarks[$kind]['type'] = 'folder';
-                                View::factory('repacks/edit/review_bookmarks', array(
-                                    'bookmark' => $bookmarks[$kind]
-                                ))->render(TRUE); 
-                            ?>
-                        <?php endif ?>
+                    <?php foreach ($repack->getLocalesWithLabels() as $locale=>$locale_name): ?>
+                        <?php 
+                            $items_name = ($default_locale == $locale) ?
+                                'items' : "items.{$locale}";
+                            if (empty($bookmarks['toolbar'][$items_name]) &&
+                                empty($bookmarks['menu'][$items_name])) continue;
+                            $none = false;
+                        ?>
+                        <li><span class="locale_name"><?=html::specialchars($locale_name)?></span>
+                            <ul>
+                                <?php foreach (array('toolbar', 'menu') as $kind): ?>
+                                    <?php if (!empty($bookmarks[$kind])): ?>
+                                        <?php 
+                                            $bookmarks[$kind]['type'] = 'folder';
+                                            View::factory('repacks/edit/review_bookmarks', array(
+                                                'repack' => $repack,
+                                                'bookmark' => $bookmarks[$kind],
+                                                'locale' => $locale,
+                                                'default_locale' => $default_locale,
+                                            ))->render(TRUE); 
+                                        ?>
+                                    <?php endif ?>
+                                <?php endforeach ?>
+                            </ul>
+                        </li>
                     <?php endforeach ?>
                     <?php if ($none): ?>
                         <li class="empty"><?=_('None.')?></li>
@@ -65,12 +82,14 @@ $edit_base = $repack->url() . ';edit?section=';
 
             <li class="section collections">
                 <h3><?=_('Collections')?> <a target="_top" href="<?=$edit_base?>collections"><?=_('edit')?></a></h3>
-                <p<?=_('Collection URL:')?>>
+                <p><?=_('Collection URL:')?>
                     <?php if (empty($repack->addons_collection_url)): ?>
                     <?=_('None.')?>
                     <?php else: ?>
-                        <a href="<?=html::specialchars($repack->addons_collection_url)?>" target="_new"><?=html::specialchars($repack->addons_collection_url)?></a></p>
+                        <a href="<?=html::specialchars($repack->addons_collection_url)?>" 
+                            target="_new"><?=html::specialchars($repack->addons_collection_url)?></a>
                     <?php endif ?>
+                </p>
             </li>
 
         <ul>
