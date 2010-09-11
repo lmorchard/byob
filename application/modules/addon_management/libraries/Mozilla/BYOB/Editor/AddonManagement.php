@@ -348,7 +348,9 @@ class Mozilla_BYOB_Editor_AddonManagement extends Mozilla_BYOB_Editor {
             }
 
             // Create the directory for this repack's addons
-            mkdir("$repack_dir/distribution/extensions", 0775, true);
+            if (!is_dir("$repack_dir/distribution/extensions")) {
+                mkdir("$repack_dir/distribution/extensions", 0775, true);
+            }
 
             // Assemble the set of extensions from selected extensions and a 
             // theme (if any)

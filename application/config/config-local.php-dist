@@ -60,6 +60,11 @@ $config['email.options'] = array(
     'encryption' => 'tls'
 );
 
+# A comma separated list of job servers in the format host:port. 
+# If no port is specified, it defaults to 4730. 
+$config['gearman_events.servers'] = '127.0.0.1:4730';
+$config['gearman_events.deferred_events'] = TRUE;
+
 $config['recaptcha.domain_name'] = 'localhost';
 $config['recaptcha.public_key']  = 'foo';
 $config['recaptcha.private_key'] = 'foo';

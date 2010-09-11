@@ -100,7 +100,6 @@ class Database extends Database_Core {
         // instance.
         if ($this->is_read_shadow_enabled() && 
                 !preg_match('#\b(?:INSERT|UPDATE|REPLACE|SET|DELETE|TRUNCATE)\b#i', $sql)) {
-            Kohana::log('debug',"DB USING READ SHADOW $sql");
             return $this->get_shadow_db()->query($sql);
         }
 

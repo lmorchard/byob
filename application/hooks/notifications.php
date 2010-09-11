@@ -20,12 +20,12 @@ class Mozilla_BYOB_RepackNotifications {
     public static function init()
     {
         // Respond to repack state changes
-        Event::add(
+        DeferredEvent::add(
             "BYOB.repack.changeState",
             array(get_class(), 'handleStateChange')
         );
 
-        Event::add(
+        DeferredEvent::add(
             'auth_profiles.registered',
             array(get_class(), 'handleRegistration')
         );

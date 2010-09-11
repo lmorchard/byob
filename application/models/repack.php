@@ -88,10 +88,10 @@ class Repack_Model extends ManagedORM
         'edited'     => array('requested', 'deleted',),
         'requested'  => array('cancelled', 'started', 'failed', 'pending'),
         'cancelled'  => array('edited', 'requested', 'deleted',),
-        'started'    => array('failed', 'pending',),
-        'failed'     => array('edited', 'requested', 'deleted',),
+        'started'    => array('failed', 'pending', 'started'),
+        'failed'     => array('edited', 'requested', 'deleted', 'started'),
         'pending'    => array('cancelled', 'released', 'rejected',),
-        'rejected'   => array('edited', 'requested', 'deleted',),
+        'rejected'   => array('edited', 'requested', 'deleted', 'started'),
         'released'   => array('reverted',),
         'reverted'   => array('edited', 'requested', 'deleted',),
         'deleted'    => array(),
@@ -865,10 +865,10 @@ class Repack_Model extends ManagedORM
             'new_state' => $new_state,
             'comments'  => $comments,
         );
-        Event::run("BYOB.repack.changeState", $ev_data);
-
         $this->state = self::$states[$ev_data['new_state']];
         $this->save();
+
+        Event::run("BYOB.repack.changeState", $ev_data);
 
         if ('modified' !== $ev_data['new_state']) {
             Logevent_Model::log(
@@ -910,20 +910,12 @@ class Repack_Model extends ManagedORM
     public function approveRelease($comments=null)
     {
         if ($this->canChangeState('released')) {
-
             // There should only be one previous release, but search for multiples 
             // anyway just in case.
             $previous_releases = ORM::factory('repack')->where(array(
-                'uuid'   => $this->uuid,
+                'uuid'  => $this->uuid,
                 'state' => self::$states['released']
             ))->find_all();
-
-            // Revert each of the previous releases with the model method, so as to 
-            // allow for final clean up if necessary.
-            foreach ($previous_releases as $release) {
-                $release->revertRelease('Previous release made obsolete by new release');
-            }
-
             $this->changed_sections = array();
         }
 

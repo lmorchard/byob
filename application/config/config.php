@@ -121,7 +121,7 @@ $config['modules'] = array
     MODPATH.'l10n',
     
     MODPATH.'auth_profiles',
-    MODPATH.'messagequeue',
+    MODPATH.'gearman_events',
 
     MODPATH.'orm_manager',
     MODPATH.'recaptcha',
