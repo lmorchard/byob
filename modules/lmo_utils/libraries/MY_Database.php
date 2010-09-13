@@ -136,4 +136,18 @@ class Database extends Database_Core {
         return $result;
     }
 
+    /**
+     * Reconnect to the database.
+     */
+    public function reconnect()
+    {
+        $shadow = $this->get_shadow_db();
+        if ($shadow) {
+            $shadow->reconnect();
+            if ($shadow == $this) return;
+        }
+        $this->link = null;
+        $this->connect();
+    }
+
 }

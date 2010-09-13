@@ -22,6 +22,16 @@ class ORM extends ORM_Core {
 	}
 
     /**
+     * Try reconnecting to the database.
+     */
+    public function reconnect()
+    {
+        if (is_object($this->db)) {
+            $this->db->reconnect();
+        }
+    }
+
+    /**
 	 * Sets object values from an array.
 	 *
 	 * @chainable

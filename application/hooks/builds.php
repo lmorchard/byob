@@ -191,6 +191,10 @@ class Mozilla_BYOB_RepackBuilds {
                 // Restore original directory.
                 chdir($origdir);
 
+                // MySQL "goes away" while the repack is executing, so try 
+                // reconnecting.
+                $repack->reconnect();
+
                 if (0 != $state) {
                     Kohana::log('error', "Failure in {$script} with state $state");
                     $repack->failRelease();
