@@ -37,4 +37,14 @@ class Model extends Model_Core {
 		return new $model();
 	}
 
+    /**
+     * Try reconnecting to the database.
+     */
+    public function reconnect()
+    {
+        $this->db = Database::instance(
+            Kohana::config('model.database')
+        );
+    }
+
 }
