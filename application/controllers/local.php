@@ -93,8 +93,14 @@ class Local_Controller extends Layout_Controller
 
         if (null === $rp || !$rp->loaded) {
             if ($redirect_unreleased && 'unreleased' == $params['status']) {
-                $url = str_replace('/unreleased', '', Router::$current_uri);
-                return url::redirect($url);
+                $m = ORM::factory('repack')
+                    ->whereReleased(TRUE)
+                    ->where('short_name', $params['short_name']);
+                if (!empty($profile)) {
+                    $m->where('profile_id', $profile->id);
+                }
+                $rp = $m->find();
+                return url::redirect($rp->url());
             }
             // Bail out if not found.
             Event::run('system.404');

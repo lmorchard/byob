@@ -729,3 +729,24 @@ a:hover.button,
 	.button.link-like:hover {
 		text-decoration: underline;
 	}
+
+.ctrl_admin #content .section .msg {
+    border: 1px solid #999;
+    background: #eeffee;
+    margin: 1em;
+    padding: 1em;
+}
+.ctrl_admin #content .section ul li {
+    list-style-type: disc;
+    margin: 0 0 1em 2em;
+}
+.ctrl_admin #content .section table {
+}
+.ctrl_admin #content .section table tr {
+}
+.ctrl_admin #content .section table tr th {
+    padding: 0.25em 0.75em 0.25em 0;
+}
+.ctrl_admin #content .section table tr td {
+    padding: 0.25em 0.75em 0.25em 0;
+}

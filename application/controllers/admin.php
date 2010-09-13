@@ -128,6 +128,76 @@ class Admin_Controller extends ORM_Manager_Controller
     }
 
     /**
+     * Perform mass approvals, presumably after a manual signing step completed 
+     * on pending repacks.
+     */
+    public function approve()
+    {
+        $this->view_base = 'admin';
+
+        if ('post' == request::method()) {
+
+            // Attempt to dig up repacks from the pasted text.
+            $repacks = array();
+            $not_found = array();
+            $items = preg_split('/[\s,]+/', 
+                $this->input->post('repack_txt', ''));
+            foreach ($items as $item) {
+                if (empty($item)) continue;
+
+                $repack = NULL;
+                $parts = explode('_', $item);
+
+                if (count($parts) == 2) {
+                    // This item has two parts, screen name and short name 
+                    list($screen_name, $short_name) = $parts;
+                    $profile = ORM::factory('profile')->where(array(
+                        'screen_name' => $screen_name
+                    ))->find();
+                    if ($profile->loaded) {
+                        $repack = ORM::factory('repack')->where(array(
+                            'short_name' => $short_name,
+                            'profile_id' => $profile->id,
+                        ))->find();
+                    }
+                } else if (count($parts) == 1) {
+                    // This item has one part, so assume it's just a short name
+                    $repack = ORM::factory('repack')->where(array(
+                        'short_name' => $item,
+                    ))->find();
+                }
+                
+                if ($repack && $repack->loaded) {
+                    if ($repack->canChangeState('released')) {
+                        // Only repacks eligible for release can be approved.
+                        $repacks[] = $repack;
+                    } else {
+                        // Any other state is rejected.
+                        $rejects[] = $repack;
+                    }
+                } else {
+                    // Make a note of any items that didn't result in a repack found.
+                    $not_found[] = $item;
+                }
+
+            }
+
+            // Queue up release approvals for each repack.
+            foreach ($repacks as $repack) {
+                $repack->approveRelease($this->input->post('comment', ''));
+            }
+
+            $this->view->set(array(
+                'repacks' => $repacks,
+                'not_found' => $not_found,
+                'rejects' => $rejects,
+            ));
+
+        }
+
+    }
+
+    /**
      * In reaction to a 403 Forbidden event, throw up a forbidden view.
      */
     public function show_403()

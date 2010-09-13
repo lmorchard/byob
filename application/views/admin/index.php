@@ -2,6 +2,7 @@
     <h2>Maintenance actions</h2>
     <ul>
         <li><a href="<?=url::site("admin/rebuild")?>">Rebuild repacks with latest product version</a></li>
+        <li><a href="<?=url::site("admin/approve")?>">Perform mass approvals</a></li>
     </ul>
 </div>
 
