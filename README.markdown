@@ -53,6 +53,15 @@ than the usual LAMP stack PHP app.
     * Copy `repacks.php-dist` to `repacks.php` and edit to make installation-specific changes.
         * In particular, the locations of the `downloads` and `workspace` directories can be changed.
 
+* Create first admin user:
+    * At the command line, execute this command from the application directory:
+        * ` php index.php util/createlogin admin someaddress@mozilla.com admin` 
+            * Replace `someaddress@mozilla.com` with a real email address
+        * You should see output like the following:
+            * `Profile ID 1 created for 'admin' with role 'admin'`
+            * `Password: mnm518x`
+        * The last line is the temporary password for the admin account - someone should use it and change it immediately.
+
 * Gearman and repack worker
     * Important details:
         * BYOB performs browser customizations asynchronously from the web application by using a gearman job server and a worker process.
