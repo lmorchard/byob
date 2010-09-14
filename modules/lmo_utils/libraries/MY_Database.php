@@ -19,7 +19,7 @@ class Database extends Database_Core {
     public static function & reconnect($name='default', $config=NULL)
     {
         if (isset(Database::$instances[$name])) {
-            unset(Database::$instances[$name];
+            unset(Database::$instances[$name]);
         }
         return Database::instance($name,$config);
     }
