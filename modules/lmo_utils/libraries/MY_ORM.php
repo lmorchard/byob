@@ -26,9 +26,7 @@ class ORM extends ORM_Core {
      */
     public function reconnect()
     {
-        $this->db = Database::instance(
-            Kohana::config('model.database')
-        );
+        $this->db = Database::reconnect(Kohana::config('model.database'));
     }
 
     /**

@@ -14,6 +14,17 @@ class Database extends Database_Core {
     private $shadow_db = null;
 
     /**
+     * Destroy an existing DB instance and rebuild it to reconnect.
+     */
+    public static function & reconnect($name='default', $config=NULL)
+    {
+        if (isset(Database::$instances[$name])) {
+            unset(Database::$instances[$name];
+        }
+        return Database::instance($name,$config);
+    }
+
+    /**
      * Globally disable use of the shadow database for reads
      */
     public static function disable_read_shadow()
