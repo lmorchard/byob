@@ -23,8 +23,8 @@
     <p><?=_('Add and organize default bookmarks.')?></p>
 </div>
 <div class="pane">
-    <div id="editor1" class="bookmarks-editor <?= ($has_locales) ? '' : 'nolocales' ?>">
-        <?php if ($has_locales): ?>
+    <div id="editor1" class="bookmarks-editor <?= (FALSE && $has_locales) ? '' : 'nolocales' ?>">
+        <?php if (FALSE && $has_locales): // Disabled for now, until Firefox distribution.js supports per-locale bookmark sets ?>
             <div class="locale-selector">
                 <ul class="locales clearfix">
                     <li class="selected default"><a href="#" data-locale="<?=$default_locale?>" title="<?=$default_locale?>"><?=_('Default')?></a></li>
