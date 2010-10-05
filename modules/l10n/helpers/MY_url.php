@@ -9,6 +9,8 @@
  * @subpackage helpers
  * @author     l.m.orchard <lorchard@mozilla.com>
  */
+require_once Kohana::find_file('libraries','Gettext/Main');
+
 class url extends url_Core {
 
     /**
