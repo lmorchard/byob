@@ -118,6 +118,7 @@ class Search_Controller extends Local_Controller
         $count = $model->count_last_query();
 
         $pg = new Pagination(array(
+            'base_url'       => url::current(),
             'query_string'   => 'page',
             'items_per_page' => $per_page,
             'total_items'    => $count,
