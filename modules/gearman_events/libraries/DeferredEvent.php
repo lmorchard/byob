@@ -35,15 +35,10 @@ class DeferredEvent
 
         $instance = self::getInstance();
 
-        // Register a proxy to listen for the Kohana Event::run(), in case 
-        // none has yet been registered.
-        $existing = Event::get($name);
-        if (empty($existing)) {
+        if (!isset($instance->proxies[$name])) {
+            // Since no proxies have yet been set up for this event,
+            // set up the list and register the proxy event handler
             Event::add($name, array($instance, 'proxy_' . $name));
-        }
-
-        if (empty($instance->proxies[$name])) {
-            // Set up empty list of proxied callbacks if necessary.
             $instance->proxies[$name] = array();
         }
 
