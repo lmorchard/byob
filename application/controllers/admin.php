@@ -140,17 +140,22 @@ class Admin_Controller extends ORM_Manager_Controller
             // Attempt to dig up repacks from the pasted text.
             $repacks = array();
             $not_found = array();
+            $rejects = array();
+
             $items = preg_split('/[\s,]+/', 
                 $this->input->post('repack_txt', ''));
             foreach ($items as $item) {
                 if (empty($item)) continue;
 
                 $repack = NULL;
-                $parts = explode('_', $item);
+                $u_pos = strrpos($item, '_');
 
-                if (count($parts) == 2) {
+                if (FALSE !== $u_pos) {
                     // This item has two parts, screen name and short name 
-                    list($screen_name, $short_name) = $parts;
+                    list($screen_name, $short_name) = array(
+                        substr($item, 0, $u_pos),
+                        substr($item, $u_pos+1),
+                    );
                     $profile = ORM::factory('profile')->where(array(
                         'screen_name' => $screen_name
                     ))->find();
@@ -160,7 +165,7 @@ class Admin_Controller extends ORM_Manager_Controller
                             'profile_id' => $profile->id,
                         ))->find();
                     }
-                } else if (count($parts) == 1) {
+                } else {
                     // This item has one part, so assume it's just a short name
                     $repack = ORM::factory('repack')->where(array(
                         'short_name' => $item,
