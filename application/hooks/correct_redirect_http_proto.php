@@ -13,7 +13,7 @@ class Mozilla_BYOB_CorrectRedirectHttpProto
     function correct_redirect_proto() {
         $uri = Event::$data;
         if (strpos($uri, '://') === FALSE) {
-            $uri = url::site($uri, Kohana::config('core.site_protocol'));
+            $uri = url::site($uri, FALSE);
         }
         Event::$data = $uri;
     }

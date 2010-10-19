@@ -56,7 +56,7 @@ class Gettext_Main {
             // language and force a redirect to that path.
             list($lang, $locale) = self::detect_language();
             url::redirect(); // Detected language auto-prepended to path.
-            die;
+            exit;
         }
 
         $langs = array();
@@ -70,7 +70,8 @@ class Gettext_Main {
             $langs[] = $lang_seg = array_shift($segs);
             if (empty($supported_languages[strtolower($lang_seg)])) {
                 // bug 580421: Ensure that this is a supported language
-                Event::run('system.404');
+                list($lang, $locale) = self::detect_language();
+                url::redirect(Router::$current_uri);
                 exit;
             }
             Router::$current_uri = self::$modified_url = implode('/', $segs);
