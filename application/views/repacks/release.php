@@ -11,7 +11,7 @@
             <li><?=_('The installers must be distributed at no cost to the end-user')?></li>
             <li><?=_('The installers must be distributed as-is as a stand-alone file, and may not be incorporated with a meta-installer or pre-installed')?></li>
             <?php /*i18n: %1$s = Browser repack title */ ?>
-            <li><?=sprintf(_('When referring to the product name, the installer must be referred to as %1$s to differentiate it from the default release of Firefox.'), $repack->title)?></li>
+            <li><?=sprintf(_('When referring to the product name, the installer must be referred to as %1$s to differentiate it from the default release of Firefox.'), html::specialchars($repack->title))?></li>
         </ul>
 
         <p><?=sprintf(_('If you have any questions regarding these conditions, or need clarification on any of the items mentioned here, please <a href="%1$s">contact us</a>.'), url::site('contact'))?></p>
