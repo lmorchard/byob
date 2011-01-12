@@ -497,7 +497,7 @@ class Repack_Model extends ManagedORM
         if (empty($url)) {
             return true;
         }
-        if (preg_match('/https?:\/\/addons.mozilla.org\/(.*)collection\/(.*)$/', $url)) {
+        if (preg_match('/https?:\/\/addons.mozilla.org\/(.*)collections?\/(.*)$/', $url)) {
             return true;
         }
         return false;
