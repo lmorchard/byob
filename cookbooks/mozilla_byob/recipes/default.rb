@@ -75,5 +75,5 @@ web_app "project" do
     notifies :reload, resources(:service => "apache2"), :delayed
 end
 
-execute "cd /vagrant; php index.php util/createlogin admin lorchard@mozilla.com admin > byob-admin-passwd.txt"
+execute "cd /vagrant; php index.php util/createlogin admin lorchard@mozilla.com admin admin > byob-admin-passwd.txt"
 

@@ -52,8 +52,14 @@ class Util_Controller extends Local_Controller {
     {
         if (!isset($this->args) || 3 != count($this->args)) {
             echo count($this->args);
-            echo "Usage: createlogin {screen name} {email} {role}\n";
+            echo "Usage: createlogin {screen name} {email} {role} [{password}]\n";
             die;
+        }
+
+        if (count($this->args) == 4) {
+            $password = array_pop($this->args);
+        } else {
+            $password = $this->_rand_string(7);
         }
 
         list($login_name, $email, $role) = $this->args;
@@ -65,8 +71,6 @@ class Util_Controller extends Local_Controller {
             echo "Login '{$login_name}' already exists.\n";
             die;
         }
-
-        $password = $this->_rand_string(7);
 
         if (!ORM::factory('profile')->register_with_login(array(
                 'screen_name' => $login_name,
