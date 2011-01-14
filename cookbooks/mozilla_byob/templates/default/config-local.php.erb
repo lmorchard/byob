@@ -1,7 +1,7 @@
 <?php
 $config['core.needs_installation'] = false;
 $config['core.site_protocol'] = 'http';
-$config['core.site_domain'] = 'dev.byob.mozilla.org';
+$config['core.site_domain'] = '192.168.10.10';
 $config['core.log_threshold'] = 4;
 $config['core.internal_cache'] = false;
 $config['core.display_errors'] = True;
@@ -17,12 +17,12 @@ $config['database.local'] = array(
 	'connection'    => array
 	(
 		'type'     => 'mysql',
-		'user'     => 'byob2',
-		'pass'     => 'byob2',
-		'host'     => '127.0.0.1',
+		'user'     => 'byob',
+		'pass'     => 'byob',
+		'host'     => 'localhost',
 		'port'     => FALSE,
 		'socket'   => FALSE,
-		'database' => 'byob2'
+		'database' => 'byob'
 	),
 	'character_set' => 'utf8',
 	'table_prefix'  => '',
@@ -36,12 +36,12 @@ $config['database.shadow'] = array(
     'connection'    => array
     (
         'type'     => 'mysql',
-        'user'     => 'byob2',
-        'pass'     => 'byob2',
-		'host'     => '127.0.0.1',
+        'user'     => 'byob',
+        'pass'     => 'byob',
+        'host'     => 'localhost',
         'port'     => FALSE,
         'socket'   => FALSE,
-        'database' => 'byob2'
+        'database' => 'byob'
     ),
     'character_set' => 'utf8',
     'table_prefix'  => '',
@@ -50,15 +50,7 @@ $config['database.shadow'] = array(
     'escape'        => TRUE
 );
 
-$config['email.driver'] = 'smtp';
-
-$config['email.options'] = array(
-    'hostname'   => 'smtp.gmail.com',
-    'username'   => 'l.m.orchard@gmail.com',
-    'password'   => 'sushimaps',
-    'port'       => '465',
-    'encryption' => 'tls'   
-);
+$config['email.driver'] = 'native';
 
 # A comma separated list of job servers in the format host:port. 
 # If no port is specified, it defaults to 4730. 

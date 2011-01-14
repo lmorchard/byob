@@ -17,6 +17,7 @@ require_recipe "php::module_curl"
 
 case node[:platform]
 when "debian", "ubuntu"
+    package "telnet"
     package "curl"
 
     package "php5-dev"
@@ -51,8 +52,18 @@ else
 end
 
 template "/vagrant/application/config/config-local.php" do
-    source "config-local.ini.erb"
+    source "config-local.php.erb"
+    owner "vagrant"
+    group "vagrant"
+    mode 0644
 end
+
+template "/vagrant/byob-init.sql" do
+    source "byob-init.sql.erb"
+end
+
+execute "/usr/bin/mysql -u root #{node[:mysql][:server_root_password].empty? ? '' : '-p' }#{node[:mysql][:server_root_password]} < /vagrant/byob-init.sql"
+execute "/usr/bin/mysql -u root #{node[:mysql][:server_root_password].empty? ? '' : '-p' }#{node[:mysql][:server_root_password]} byob < /vagrant/application/config/schema-mysql/current.sql "
 
 execute "disable-default-site" do
     command "sudo a2dissite default"
@@ -63,3 +74,6 @@ web_app "project" do
     template "project.conf.erb"
     notifies :reload, resources(:service => "apache2"), :delayed
 end
+
+execute "cd /vagrant; php index.php util/createlogin admin lorchard@mozilla.com admin > byob-admin-passwd.txt"
+
