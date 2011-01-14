@@ -50,8 +50,7 @@ class Util_Controller extends Local_Controller {
      */
     function createlogin()
     {
-        if (!isset($this->args) || 3 != count($this->args)) {
-            echo count($this->args);
+        if (!isset($this->args) || 3 > count($this->args) || 4 < count($this->args)) {
             echo "Usage: createlogin {screen name} {email} {role} [{password}]\n";
             die;
         }
