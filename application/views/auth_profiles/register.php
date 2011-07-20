@@ -50,6 +50,7 @@ $captcha_error =
     !empty($form_errors['recaptcha']);
 
 echo form::build('register', array('class'=>'register'), array(
+    form::field('hidden', 'crumb', '', array('value'=>$crumb)),
     form::fieldset('Sign Up for a New Account', array('class'=>'login'), array(
         '<li>' . slot::get('login_details_intro') . '</li>',
         array(

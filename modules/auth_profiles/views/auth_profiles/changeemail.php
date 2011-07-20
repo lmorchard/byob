@@ -6,6 +6,7 @@
     <?php form::$errors = @$form_errors ?>
     <?= 
     form::build(null, array('class'=>'changeemail'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset('change email', null, array(
             form::field('input', 'new_email', 'new email'),
             form::field('submit', 'change', null, array('value'=>'change email'))
@@ -13,4 +14,3 @@
     )) 
     ?>
 <?php endif ?>
-

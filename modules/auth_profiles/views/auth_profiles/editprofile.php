@@ -1,5 +1,6 @@
 <?php
     echo form::build('details', array('class'=>'details'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset('profile details', array(), array(
             form::field('input',    'screen_name',  'Screen name'),
             form::field('input',    'full_name',    'Full name'),

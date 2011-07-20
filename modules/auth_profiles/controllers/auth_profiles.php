@@ -18,6 +18,7 @@ class Auth_Profiles_Controller extends Local_Controller
     {
         parent::__construct();
 
+        // These are methods that require login to access.
         $protected_methods = array(
             'home', 'changeemail', 'logout'
         );
@@ -27,8 +28,37 @@ class Auth_Profiles_Controller extends Local_Controller
             }
         }
 
+        // Protect some methods by requiring an anti-CSRF crumb on POST.
+        $crumb_methods = array(
+            'login', 'register', 'editprofile', 'changeemail', 
+            'changepassword', 'forgotpassword'
+        );
+        if (in_array(Router::$method, $crumb_methods)) {
+            
+            // Generate a crumb for these methods.
+            $this->view->crumb = csrf_crumbs::generate();
+
+            // Require a valid crumb on POST requests.
+            if ('post' == request::method()) {
+                $crumb = $this->input->post('crumb');
+                if (!csrf_crumbs::validate($crumb)) {
+                    Router::$method = 'invalidcrumb';
+                }
+            }
+
+        }
+
         $this->login_model   = new Login_Model();
         $this->profile_model = new Profile_Model();
+    }
+
+    /**
+     * Diversion method for the case where an invalid anti-CSRF crumb is sent 
+     * with a request.
+     */
+    public function invalidcrumb()
+    {
+        // No-op, just render the template.
     }
 
     /**

@@ -28,6 +28,7 @@
 
 <?php
     echo form::build(url::current(), array('class'=>'details'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset('Account details', array('class'=>'account'), array(
             form::field('input',    'first_name',  'First Name', array('class'=>'required'), array(
                 'Your given name.'

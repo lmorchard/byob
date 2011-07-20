@@ -121,6 +121,8 @@ $config['modules'] = array
     MODPATH.'l10n',
     
     MODPATH.'auth_profiles',
+    MODPATH.'csrf_crumbs',
+    
     MODPATH.'gearman_events',
 
     MODPATH.'orm_manager',

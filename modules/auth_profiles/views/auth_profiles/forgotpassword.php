@@ -5,6 +5,7 @@
 <?php else: ?>
     <?= 
     form::build(null, array('class'=>'forgotpassword'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset('forgot password', null, array(
             "<p>Supply either of these pieces of information to recover your password:</p>",
             form::field('input', 'login_name', 'login name'),

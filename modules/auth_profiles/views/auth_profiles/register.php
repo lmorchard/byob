@@ -1,5 +1,6 @@
 <?php
     echo form::build('register', array('class'=>'register'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset('login details', array('class'=>'login'), array(
             form::field('input',    'login_name',       'Login name'),
             form::field('input',    'email',            'Email'),

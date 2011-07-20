@@ -59,6 +59,7 @@ form::$errors = array();
 
 <?= 
 form::build(url::site('login'), array('class'=>'login'), array(
+    form::field('hidden', 'crumb', '', array('value'=>$crumb)),
     form::field('hidden', 'jump', ''),
     form::fieldset(null, array('class'=>'login'), array(
         form::field('input',    'login_name', _('Username'), array(

@@ -5,6 +5,7 @@
     <?php form::$errors = @$form_errors ?>
     <?= 
     form::build(null, array('class'=>'changeemail'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::fieldset(_('Change email'), null, array(
             form::field('input', 'current_email', _('Current email address'), array('value'=>authprofiles::get_login('email'), 'disabled'=>'true')),
             form::field('input', 'new_email', _('New email address'), array('class'=>'required')),

@@ -11,6 +11,7 @@
 
 <?= 
 form::build('login', array('class'=>'login'), array(
+    form::field('hidden', 'crumb', '', array('value'=>$crumb)),
     form::field('hidden', 'jump', ''),
     form::fieldset('login details', array('class'=>'login'), array(
         form::field('input',    'login_name',       'Login name'),

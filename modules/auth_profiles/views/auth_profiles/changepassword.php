@@ -15,6 +15,7 @@
     <?php endif ?>
     <?= 
     form::build(null, array('class'=>'changepassword'), array(
+        form::field('hidden', 'crumb', '', array('value'=>$crumb)),
         form::field('hidden', 'password_reset_token'),
         form::fieldset('change password', null, array(
             (empty($forgot_password_login_name)) ?

@@ -126,7 +126,7 @@ class form extends form_Core
         if (null == $params) $params = array();
 
         $params_class = (isset($params['class'])) ?  $params['class'] : '';
-        unset($params['class']);
+        $params['class']='';
 
         if ('checkbox' == $type) {
             // For checkboxes, the checked attribute is the significant thing.
