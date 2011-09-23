@@ -101,3 +101,9 @@ $config['addon_management.popular_personas_urls'] = array(
 
 $config['addon_management.popular_theme_ids'] = array(
 );
+
+$config['encryption.default'] = array(
+	'key'    => 'CHANGE ME! BYOB8675309',
+	'mode'   => MCRYPT_MODE_NOFB,
+	'cipher' => MCRYPT_RIJNDAEL_128
+);
