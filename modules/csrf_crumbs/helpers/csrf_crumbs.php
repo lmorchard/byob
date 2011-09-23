@@ -10,8 +10,7 @@ class csrf_crumbs_Core
 {
     /** Session-based token to provide unique per-user data */
     public static $session_token = '';
-    public static $SESSION_TOKEN_COOKIE_NAME = 'csrf_token';
-    public static $SESSION_TOKEN_COOKIE_EXPIRES = 300; // 5 min to CSRF invalid
+    public static $SESSION_TOKEN_NAME = 'csrf_token';
 
     /**
      * Set the session token value when one is available. 
@@ -19,19 +18,18 @@ class csrf_crumbs_Core
      */
     public static function set_session_token($token)
     {
-        cookie::set(
-            self::$SESSION_TOKEN_COOKIE_NAME, 
-            $token, 
-            self::$SESSION_TOKEN_COOKIE_EXPIRES);
+        $session = Session::instance();
+        $session->set(self::$SESSION_TOKEN_NAME, $token);
         return self::$session_token = $token;
     }
 
     /**
-     * Get the session token, generating and storing in cookie if necessary
+     * Get the session token, generating and storing in session if necessary
      */
     public static function get_session_token()
     {
-        $token = cookie::get(self::$SESSION_TOKEN_COOKIE_NAME, False);
+        $session = Session::instance();
+        $token = $session->get(self::$SESSION_TOKEN_NAME);
         if (!$token) {
             $token = text::random('alnum', 16);
             self::set_session_token($token);
